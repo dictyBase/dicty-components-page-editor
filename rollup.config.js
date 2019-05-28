@@ -8,6 +8,8 @@ import svgr from '@svgr/rollup'
 
 import pkg from './package.json'
 
+const extensions = ['.js', '.jsx']
+
 export default {
   input: 'src/index.js',
   output: [
@@ -29,10 +31,7 @@ export default {
     }),
     url(),
     svgr(),
-    babel({
-      exclude: 'node_modules/**',
-      plugins: [ 'external-helpers' ]
-    }),
+    babel({ extensions, include: ['src/**/*'], exclude: 'node_modules/**' }),
     resolve(),
     commonjs()
   ]
