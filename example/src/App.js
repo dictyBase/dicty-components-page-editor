@@ -1,5 +1,5 @@
 import React, { Component } from "react"
-import PageEditor from "dicty-components-page-editor"
+import { PageEditor } from "dicty-components-page-editor"
 import data from "./data.json"
 export default class App extends Component {
   render() {

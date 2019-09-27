@@ -1,3 +1,2 @@
-import PageEditor from "./PageEditor"
-
-export default PageEditor
+export { default as PageEditor } from "./components/PageEditor"
+// export { default as InlineEditor } from "./components/InlineEditor"
