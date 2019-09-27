@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from "react"
 
-import ExampleComponent from 'dicty-components-page-editor'
+import PageEditor from "dicty-components-page-editor"
 
 export default class App extends Component {
-  render () {
+  render() {
     return (
       <div>
-        <ExampleComponent text='Modern React component module' />
+        <PageEditor />
       </div>
     )
   }
