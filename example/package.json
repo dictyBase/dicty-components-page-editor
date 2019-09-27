@@ -5,9 +5,9 @@
   "private": true,
   "dependencies": {
     "dicty-components-page-editor": "file:..",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-scripts": "^3.0.1"
+    "react": "file:../node_modules/react",
+    "react-dom": "file:../node_modules/react-dom",
+    "react-scripts": "file:../node_modules/react-scripts"
   },
   "scripts": {
     "start": "react-scripts start",
