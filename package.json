@@ -109,6 +109,13 @@
     "slate-deep-table": "^0.8.0",
     "slate-html-serializer": "^0.7.39",
     "slate-react": "^0.21.20",
-    "slate-schema-violations": "^0.1.39"
+    "slate-schema-violations": "^0.1.39",
+    "typeface-lato": "0.0.75",
+    "typeface-merriweather": "0.0.72",
+    "typeface-montserrat": "0.0.75",
+    "typeface-roboto": "0.0.75",
+    "typeface-roboto-condensed": "0.0.75",
+    "typeface-roboto-mono": "0.0.75",
+    "typeface-roboto-slab": "0.0.72"
   }
 }
