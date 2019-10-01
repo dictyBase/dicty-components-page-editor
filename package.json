@@ -4,6 +4,7 @@
   "description": "dictyBase page editor built using Slatejs",
   "author": "wildlifehexagon",
   "repository": "dictybase-playground/dicty-components-page-editor",
+  "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
