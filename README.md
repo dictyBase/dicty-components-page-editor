@@ -21,8 +21,8 @@
 ![Merged PRS](https://badgen.net/github/merged-prs/dictybase-playground/dicty-components-page-editor)  
 [![Technical debt](https://badgen.net/codeclimate/tech-debt/dictybase-playground/dicty-components-page-editor)](https://codeclimate.com/github/dictybase-playground/dicty-components-page-editor/trends/technical_debt)
 [![Issues](https://badgen.net/codeclimate/issues/dictybase-playground/dicty-components-page-editor)](https://codeclimate.com/github/dictybase-playground/dicty-components-page-editor/issues)
-[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictybase-playground/dicty-components-page-editor)](https://codeclimate.com/github/dictybase-playground/dicty-components-page-editor)  
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dictyBase/dicty-components-page-editor)](https://dependabot.com)
+[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictybase-playground/dicty-components-page-editor)](https://codeclimate.com/github/dictybase-playground/dicty-components-page-editor)
+[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dictyBase/dicty-components-page-editor)](https://dependabot.com)  
 [![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,dictyBase/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9476993)
 [![Funding](https://badgen.net/badge/NIGMS/Rex%20L%20Chisholm,DSC/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=9438930)
 
