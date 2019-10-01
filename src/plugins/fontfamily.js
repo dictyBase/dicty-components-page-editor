@@ -4,6 +4,13 @@ import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
 import { NodeProps, ButtonProps } from "../flow/types"
+import "typeface-roboto"
+import "typeface-roboto-condensed"
+import "typeface-roboto-mono"
+import "typeface-roboto-slab"
+import "typeface-lato"
+import "typeface-merriweather"
+import "typeface-montserrat"
 
 /**
  * List of fonts available

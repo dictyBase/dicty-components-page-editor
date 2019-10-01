@@ -25,6 +25,15 @@ export default {
       sourcemap: true,
     },
   ],
+  external: [
+    "typeface-roboto",
+    "typeface-roboto-condensed",
+    "typeface-roboto-mono",
+    "typeface-roboto-slab",
+    "typeface-lato",
+    "typeface-merriweather",
+    "typeface-montserrat",
+  ],
   plugins: [
     external(),
     postcss({

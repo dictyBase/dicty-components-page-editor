@@ -3,13 +3,6 @@ import React, { Component } from "react"
 import { Editor, getEventTransfer } from "slate-react"
 import { Value } from "slate"
 import { withStyles } from "@material-ui/core/styles"
-import "typeface-roboto"
-import "typeface-roboto-condensed"
-import "typeface-roboto-mono"
-import "typeface-roboto-slab"
-import "typeface-lato"
-import "typeface-merriweather"
-import "typeface-montserrat"
 import EditorToolbar from "../toolbar/EditorToolbar"
 import PageEditorBottomButtons from "./PageEditorBottomButtons"
 import renderMark from "../renderers/renderMark"
@@ -51,12 +44,10 @@ type Props = {
   pageContent?: string,
   /** Whether the editor is in read-only mode or not */
   readOnly: boolean,
-  /** ID of current logged in user */
-  userId: string,
   /** Material-UI styling */
   classes: Object,
   /** Identifier for when user is trying to create a new page */
-  newPage?: string,
+  newPage?: boolean,
   /** Function called when user clicks save button */
   onSave: Function,
   /** Function called when user clicks cancel button */
@@ -91,6 +82,7 @@ export class PageEditor extends Component<Props, State> {
         readOnly: props.readOnly,
       }
     }
+    // add check for no props?
     this.editor = React.createRef()
   }
 
