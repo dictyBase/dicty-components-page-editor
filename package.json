@@ -18,7 +18,8 @@
     "start": "rollup -c -w",
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
-    "deploy": "gh-pages -d example/build"
+    "deploy": "gh-pages -d example/build",
+    "analyze": "source-map-explorer 'dist/*.js'"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.2.1",
@@ -27,7 +28,7 @@
     "react-dom": ">= 16.8.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0",
+    "@babel/core": "^7.1.0",
     "@babel/plugin-external-helpers": "^7.2.0",
     "@babel/plugin-proposal-class-properties": "^7.0.0",
     "@babel/plugin-proposal-decorators": "^7.0.0",
@@ -54,7 +55,7 @@
     "cross-env": "^5.1.4",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.2",
-    "eslint": "^5.0.1",
+    "eslint": "^6.5.1",
     "eslint-config-standard": "^12.0.0",
     "eslint-config-standard-react": "^7.0.2",
     "eslint-plugin-import": "^2.13.0",
@@ -67,7 +68,7 @@
     "jss": "^9.8.7",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "^3.0.1",
+    "react-scripts": "^3.1.2",
     "react-styleguidist": "^9.1.16",
     "rollup": "^1.4.1",
     "rollup-plugin-babel": "^4.3.2",
@@ -76,7 +77,8 @@
     "rollup-plugin-node-resolve": "^4.0.1",
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^2.0.3",
-    "rollup-plugin-url": "^2.2.0"
+    "rollup-plugin-url": "^2.2.0",
+    "source-map-explorer": "^2.1.0"
   },
   "files": [
     "dist"
@@ -99,6 +101,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.11.2",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "get-video-id": "^3.1.4",
+    "immutable": "^3.8.2",
     "is-url": "^1.2.4",
     "react-color": "^2.17.3",
     "slate": "^0.44.13",
