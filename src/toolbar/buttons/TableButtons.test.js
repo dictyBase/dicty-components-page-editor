@@ -8,9 +8,9 @@ import {
   RemoveTableColumnButton,
   RemoveTableRowButton,
   RemoveTableButton,
-} from "components/editor/plugins/table"
+} from "../../plugins/table"
 
-describe("frontpage/components/editor/toolbar/buttons/TableButtons", () => {
+describe("TableButtons", () => {
   const wrapper = shallow(<TableButtons />)
   describe("initial render", () => {
     it("renders without crashing", () => {

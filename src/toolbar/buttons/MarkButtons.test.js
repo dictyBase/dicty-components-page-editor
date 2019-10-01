@@ -1,14 +1,14 @@
 import React from "react"
 import { shallow } from "enzyme"
 import MarkButtons from "./MarkButtons"
-import { BoldButton } from "components/editor/plugins/bold"
-import { ItalicButton } from "components/editor/plugins/italic"
-import { StrikethroughButton } from "components/editor/plugins/strikethrough"
-import { SubscriptButton } from "components/editor/plugins/subscript"
-import { SuperscriptButton } from "components/editor/plugins/superscript"
-import { UnderlineButton } from "components/editor/plugins/underline"
+import { BoldButton } from "../../plugins/bold"
+import { ItalicButton } from "../../plugins/italic"
+import { StrikethroughButton } from "../../plugins/strikethrough"
+import { SubscriptButton } from "../../plugins/subscript"
+import { SuperscriptButton } from "../../plugins/superscript"
+import { UnderlineButton } from "../../plugins/underline"
 
-describe("frontpage/components/editor/toolbar/buttons/MarkButtons", () => {
+describe("MarkButtons", () => {
   const wrapper = shallow(<MarkButtons />)
   describe("initial render", () => {
     it("renders without crashing", () => {

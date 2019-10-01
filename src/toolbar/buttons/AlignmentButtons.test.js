@@ -8,7 +8,7 @@ import {
   AlignmentJustifyButton,
 } from "../../plugins/alignment"
 
-describe("frontpage/../../toolbar/buttons/AlignmentButtons", () => {
+describe("AlignmentButtons", () => {
   const wrapper = shallow(<AlignmentButtons />)
   describe("initial render", () => {
     it("renders without crashing", () => {

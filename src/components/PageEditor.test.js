@@ -2,7 +2,7 @@ import React from "react"
 import { shallow } from "enzyme"
 import { Editor } from "slate-react"
 import PageEditorBottomButtons from "./PageEditorBottomButtons"
-import EditorToolbar from "./toolbar/EditorToolbar"
+import EditorToolbar from "../toolbar/EditorToolbar"
 import { PageEditor } from "./PageEditor"
 
 describe("frontpage/components/editor/PageEditor", () => {

@@ -1,9 +1,9 @@
 import React from "react"
 import { shallow } from "enzyme"
 import HeadingButtons from "./HeadingButtons"
-import { H1Button, H2Button, H3Button } from "components/editor/plugins/heading"
+import { H1Button, H2Button, H3Button } from "../../plugins/heading"
 
-describe("frontpage/components/editor/toolbar/buttons/HeadingButtons", () => {
+describe("HeadingButtons", () => {
   const wrapper = shallow(<HeadingButtons />)
   describe("initial render", () => {
     it("renders without crashing", () => {

@@ -6,9 +6,9 @@ import {
   UnorderedListButton,
   ListDecreaseIndentButton,
   ListIncreaseIndentButton,
-} from "components/editor/plugins/list"
+} from "../../plugins/list"
 
-describe("frontpage/components/editor/toolbar/buttons/ListButtons", () => {
+describe("ListButtons", () => {
   const wrapper = shallow(<ListButtons />)
   describe("initial render", () => {
     it("renders without crashing", () => {

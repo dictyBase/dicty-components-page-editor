@@ -1,11 +1,11 @@
 import React from "react"
 import { shallow } from "enzyme"
 import FontDropdowns from "./FontDropdowns"
-import { FontFamilyDropdown } from "components/editor/plugins/fontfamily"
-import { FontSizeDropdown } from "components/editor/plugins/fontsize"
-import Separator from "components/editor/toolbar/Separator"
+import { FontFamilyDropdown } from "../../plugins/fontfamily"
+import { FontSizeDropdown } from "../../plugins/fontsize"
+import Separator from "../Separator"
 
-describe("frontpage/components/editor/toolbar/buttons/FontDropdowns", () => {
+describe("FontDropdowns", () => {
   const wrapper = shallow(<FontDropdowns />)
   describe("initial render", () => {
     it("renders without crashing", () => {
