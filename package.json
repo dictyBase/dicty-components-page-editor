@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "dictyBase page editor built using Slatejs",
   "author": "wildlifehexagon",
-  "repository": "dictybase-playground/dicty-components-page-editor",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dictybase-playground/dicty-components-page-editor.git"
+  },
   "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
