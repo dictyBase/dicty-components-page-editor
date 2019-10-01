@@ -23,7 +23,33 @@
     "prepare": "npm run build",
     "predeploy": "cd example && npm install && npm run build",
     "deploy": "gh-pages -d example/build",
-    "analyze": "source-map-explorer 'dist/*.js'"
+    "analyze": "source-map-explorer 'dist/*.js'",
+    "prettier": "prettier --version",
+    "flow": "flow",
+    "styleguide": "styleguidist server",
+    "styleguide:build": "styleguidist build"
+  },
+  "dependencies": {
+    "@convertkit/slate-lists": "^0.2.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.25",
+    "@fortawesome/free-solid-svg-icons": "^5.11.2",
+    "@fortawesome/react-fontawesome": "^0.1.4",
+    "get-video-id": "^3.1.4",
+    "immutable": "^3.8.2",
+    "is-url": "^1.2.4",
+    "react-color": "^2.17.3",
+    "slate": "^0.44.13",
+    "slate-deep-table": "^0.8.0",
+    "slate-html-serializer": "^0.7.39",
+    "slate-react": "^0.21.20",
+    "slate-schema-violations": "^0.1.39",
+    "typeface-lato": "0.0.75",
+    "typeface-merriweather": "0.0.72",
+    "typeface-montserrat": "0.0.75",
+    "typeface-roboto": "0.0.75",
+    "typeface-roboto-condensed": "0.0.75",
+    "typeface-roboto-mono": "0.0.75",
+    "typeface-roboto-slab": "0.0.72"
   },
   "peerDependencies": {
     "@material-ui/core": "^4.2.1",
@@ -69,7 +95,10 @@
     "eslint-plugin-standard": "^4.0.0",
     "flow-bin": "^0.108.0",
     "gh-pages": "^2.0.0",
+    "husky": "^3.0.7",
     "jss": "^9.8.7",
+    "lint-staged": "^9.4.1",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "^3.1.2",
@@ -99,26 +128,15 @@
       "last 1 safari version"
     ]
   },
-  "dependencies": {
-    "@convertkit/slate-lists": "^0.2.4",
-    "@fortawesome/fontawesome-svg-core": "^1.2.25",
-    "@fortawesome/free-solid-svg-icons": "^5.11.2",
-    "@fortawesome/react-fontawesome": "^0.1.4",
-    "get-video-id": "^3.1.4",
-    "immutable": "^3.8.2",
-    "is-url": "^1.2.4",
-    "react-color": "^2.17.3",
-    "slate": "^0.44.13",
-    "slate-deep-table": "^0.8.0",
-    "slate-html-serializer": "^0.7.39",
-    "slate-react": "^0.21.20",
-    "slate-schema-violations": "^0.1.39",
-    "typeface-lato": "0.0.75",
-    "typeface-merriweather": "0.0.72",
-    "typeface-montserrat": "0.0.75",
-    "typeface-roboto": "0.0.75",
-    "typeface-roboto-condensed": "0.0.75",
-    "typeface-roboto-mono": "0.0.75",
-    "typeface-roboto-slab": "0.0.72"
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
+      "git add"
+    ]
   }
 }
