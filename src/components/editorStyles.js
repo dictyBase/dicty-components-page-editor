@@ -49,11 +49,6 @@ const styles = theme => ({
     marginRight: "8px",
     marginTop: "8px",
   },
-  editButton: {
-    padding: "1px",
-    color: "#3f51b5",
-    textTransform: "none",
-  },
   saveButton: {
     width: "100%",
     backgroundColor: "#15317e",
