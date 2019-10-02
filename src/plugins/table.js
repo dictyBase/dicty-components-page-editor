@@ -49,7 +49,7 @@ const InsertInitialTableButton = ({
 const InsertTableButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Insert Table" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.insertTable()
       }}>
@@ -61,7 +61,7 @@ const InsertTableButton = ({ editor, classes }: ButtonProps) => (
 const InsertTableColumnButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Insert Column" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.insertColumn()
       }}>
@@ -73,7 +73,7 @@ const InsertTableColumnButton = ({ editor, classes }: ButtonProps) => (
 const InsertTableRowButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Insert Row" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.insertRow()
       }}>
@@ -85,7 +85,7 @@ const InsertTableRowButton = ({ editor, classes }: ButtonProps) => (
 const RemoveTableColumnButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Remove Column" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.removeColumn()
       }}>
@@ -97,7 +97,7 @@ const RemoveTableColumnButton = ({ editor, classes }: ButtonProps) => (
 const RemoveTableRowButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Remove Row" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.removeRow()
       }}>
@@ -109,7 +109,7 @@ const RemoveTableRowButton = ({ editor, classes }: ButtonProps) => (
 const RemoveTableButton = ({ editor, classes }: ButtonProps) => (
   <Tooltip title="Remove Table" placement="bottom">
     <ToolbarButton
-      className={classes.button}
+      table
       onClick={() => {
         editor.removeTable()
       }}>

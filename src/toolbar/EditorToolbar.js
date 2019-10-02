@@ -6,7 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import Grid from "@material-ui/core/Grid"
 import Button from "@material-ui/core/Button"
 import HelpIcon from "@material-ui/icons/Help"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import ToolbarButton from "../toolbar/ToolbarButton"
 import HelpModal from "../toolbar/HelpModal"
 
@@ -23,11 +23,32 @@ import { FontColorButton, FontColorPicker } from "../plugins/fontcolor"
 import { LineSpacingButton } from "../plugins/linespacing"
 import Separator from "./Separator"
 
-import styles from "./toolbarStyles"
+const useStyles = makeStyles({
+  toolbar: {
+    position: "sticky",
+    top: 0,
+    padding: "10px 0px 10px",
+    borderBottom: "2px solid #d1d5da",
+    backgroundColor: "#ccd9ff",
+    cursor: "default",
+  },
+  colorPicker: {
+    position: "absolute",
+    zIndex: "100",
+    borderRadius: "5px",
+  },
+  largeIcon: {
+    height: "35px",
+    width: "40px",
+  },
+  saveButton: {
+    marginTop: "5px",
+    width: "100%",
+    backgroundColor: "#15317e",
+  },
+})
 
 type Props = {
-  /** Material-UI styling */
-  classes: Object,
   /** Function for saving page content */
   onSave: Function,
 }
@@ -40,83 +61,82 @@ export const EditorToolbar = (props: Props) => {
   const [showColorPicker, setShowColorPicker] = useState(false)
   const [showTableOptions, setShowTableOptions] = useState(false)
   const [showHelpModal, setShowHelpModal] = useState(false)
-  const { classes, onSave } = props
+  const classes = useStyles()
+  const { onSave } = props
 
   return (
-    <>
-      <AppBar className={classes.toolbar} position="static" color="default">
-        <Toolbar>
-          <Grid container>
-            <Grid item xs={12}>
-              <MarkButtons {...props} />
-              <Separator />
-              <AlignmentButtons {...props} />
-              <Separator />
-              <DividerButton {...props} />
-              <Separator />
-              <ListButtons {...props} />
-              <Separator />
-              <HeadingButtons {...props} />
-              <Separator />
-              <LineSpacingButton {...props} />
-              <Separator />
-              <FeatureButtons
-                showTableOptions={showTableOptions}
-                setShowTableOptions={setShowTableOptions}
-                {...props}
-              />
-              <Separator />
-              <FontColorButton
-                showColorPicker={showColorPicker}
-                setShowColorPicker={setShowColorPicker}
-                {...props}
-              />
-              &nbsp;&nbsp;
-              <span className={classes.colorPicker}>
-                {showColorPicker && <FontColorPicker {...props} />}
-              </span>
-            </Grid>
-            <Grid item xs={12}>
-              <Grid container>
-                <Grid item xs={10}>
-                  {showTableOptions && <TableButtons {...props} />}
-                  <FontDropdowns {...props} />
-                  <Separator />
-                  <Tooltip title="Editor Help">
-                    <ToolbarButton
-                      onClick={() => {
-                        setShowHelpModal(true)
-                      }}>
-                      <HelpIcon className={classes.largeIcon} />
-                    </ToolbarButton>
-                  </Tooltip>
-                  {showHelpModal && (
-                    <HelpModal
-                      handleClose={() => {
-                        setShowHelpModal(false)
-                      }}
-                      onClick={() => window.scrollTo(0, 0)}
-                    />
-                  )}
-                </Grid>
-                <Grid item xs={1} />
-                <Grid item xs={1}>
-                  <Button
-                    className={classes.saveButton}
-                    size="small"
-                    variant="contained"
-                    color="primary"
-                    onClick={onSave}>
-                    Save
-                  </Button>
-                </Grid>
+    <AppBar className={classes.toolbar} position="static" color="default">
+      <Toolbar>
+        <Grid container>
+          <Grid item xs={12}>
+            <MarkButtons {...props} />
+            <Separator />
+            <AlignmentButtons {...props} />
+            <Separator />
+            <DividerButton {...props} />
+            <Separator />
+            <ListButtons {...props} />
+            <Separator />
+            <HeadingButtons {...props} />
+            <Separator />
+            <LineSpacingButton {...props} />
+            <Separator />
+            <FeatureButtons
+              showTableOptions={showTableOptions}
+              setShowTableOptions={setShowTableOptions}
+              {...props}
+            />
+            <Separator />
+            <FontColorButton
+              showColorPicker={showColorPicker}
+              setShowColorPicker={setShowColorPicker}
+              {...props}
+            />
+            &nbsp;&nbsp;
+            <span className={classes.colorPicker}>
+              {showColorPicker && <FontColorPicker {...props} />}
+            </span>
+          </Grid>
+          <Grid item xs={12}>
+            <Grid container>
+              <Grid item xs={10}>
+                {showTableOptions && <TableButtons {...props} />}
+                <FontDropdowns {...props} />
+                <Separator />
+                <Tooltip title="Editor Help">
+                  <ToolbarButton
+                    onClick={() => {
+                      setShowHelpModal(true)
+                    }}>
+                    <HelpIcon className={classes.largeIcon} />
+                  </ToolbarButton>
+                </Tooltip>
+                {showHelpModal && (
+                  <HelpModal
+                    handleClose={() => {
+                      setShowHelpModal(false)
+                    }}
+                    onClick={() => window.scrollTo(0, 0)}
+                  />
+                )}
+              </Grid>
+              <Grid item xs={1} />
+              <Grid item xs={1}>
+                <Button
+                  className={classes.saveButton}
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={onSave}>
+                  Save
+                </Button>
               </Grid>
             </Grid>
           </Grid>
-        </Toolbar>
-      </AppBar>
-    </>
+        </Grid>
+      </Toolbar>
+    </AppBar>
   )
 }
 
-export default withStyles(styles)(EditorToolbar)
+export default EditorToolbar

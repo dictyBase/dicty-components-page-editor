@@ -1,7 +1,5 @@
 type ButtonProps = {
   editor: Object,
-  /** Material-UI styling */
-  classes?: Object,
 }
 
 type NodeProps = {

@@ -1,14 +1,19 @@
 // @flow
 import React from "react"
 import Button from "@material-ui/core/Button"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import { isFunction } from "../utils/utils"
 
-const styles = theme => ({
+const useStyles = makeStyles({
   button: {
     color: "rgba(0, 0, 0, 0.87)",
     padding: "7px",
     minWidth: "20px",
+  },
+  tableBtn: {
+    textTransform: "none",
+    paddingLeft: "2px",
+    paddingRight: "6px",
   },
 })
 
@@ -17,23 +22,26 @@ type Props = {
   children: any,
   /** Function to handle button click event */
   onClick: Function,
-  /** Material-UI styling */
-  classes: Object,
+  /** Boolean to indicate whether this is a special table button */
+  table?: boolean,
 }
 
 /**
  * Material-UI button that has a click handler attached to it.
  */
 
-const ToolbarButton = ({ children, onClick, classes, ...props }: Props) => (
-  <Button
-    className={classes.button}
-    onClick={event => {
-      isFunction(onClick) && onClick(event)
-    }}
-    {...props}>
-    {children}
-  </Button>
-)
+const ToolbarButton = ({ children, onClick, table, ...props }: Props) => {
+  const classes = useStyles()
 
-export default withStyles(styles)(ToolbarButton)
+  return (
+    <Button
+      className={table ? classes.tableBtn : classes.button}
+      onClick={event => {
+        isFunction(onClick) && onClick(event)
+      }}>
+      {children}
+    </Button>
+  )
+}
+
+export default ToolbarButton

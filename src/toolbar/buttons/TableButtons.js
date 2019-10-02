@@ -1,6 +1,6 @@
 // @flow
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import {
   InsertTableButton,
   InsertTableColumnButton,
@@ -9,11 +9,21 @@ import {
   RemoveTableRowButton,
   RemoveTableButton,
 } from "../../plugins/table"
-import styles from "../toolbarStyles"
 import { ToolbarProps } from "../../flow/types"
 
+const useStyles = makeStyles({
+  tableButtons: {
+    border: "1px solid #bcbcbc",
+    borderRadius: "2px",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1px",
+  },
+})
+
 const TableButtons = (props: ToolbarProps) => {
-  const { classes } = props
+  const classes = useStyles()
+
   return (
     <div className={classes.tableButtons}>
       <InsertTableButton {...props} />
@@ -28,4 +38,4 @@ const TableButtons = (props: ToolbarProps) => {
   )
 }
 
-export default withStyles(styles)(TableButtons)
+export default TableButtons

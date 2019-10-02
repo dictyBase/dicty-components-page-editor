@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from "react"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import Tooltip from "@material-ui/core/Tooltip"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
@@ -13,7 +13,6 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Checkbox from "@material-ui/core/Checkbox"
 import LinkIcon from "@material-ui/icons/Link"
 import ToolbarButton from "../toolbar/ToolbarButton"
-import styles from "../toolbar/toolbarStyles"
 import { ButtonProps, NodeProps } from "../flow/types"
 
 /**
@@ -85,14 +84,22 @@ const LinkNode = ({ attributes, children, node: { data } }: NodeProps) => (
   </a>
 )
 
+const useStyles = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e",
+  },
+})
+
 /**
  * Button components that use click handlers to connect to the editor.
  */
-const LinkButtonUnconnected = ({ classes, editor }: ButtonProps) => {
+const LinkButton = ({ editor }: ButtonProps) => {
   const [linkModalOpen, setLinkModalOpen] = useState(false)
   const [url, setURL] = useState("")
   const [text, setText] = useState("")
   const [emailChecked, setEmailChecked] = useState(false)
+
+  const classes = useStyles()
 
   const data = {
     url,
@@ -192,8 +199,6 @@ const LinkButtonUnconnected = ({ classes, editor }: ButtonProps) => {
     </>
   )
 }
-
-const LinkButton = withStyles(styles)(LinkButtonUnconnected)
 
 /**
  * Export everything needed for the editor.

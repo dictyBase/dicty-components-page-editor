@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from "react"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import Tooltip from "@material-ui/core/Tooltip"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
@@ -10,7 +10,6 @@ import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import ImageIcon from "@material-ui/icons/Image"
 import ToolbarButton from "../toolbar/ToolbarButton"
-import styles from "../toolbar/toolbarStyles"
 import { ButtonProps, NodeProps } from "../flow/types"
 
 type ImageData = {
@@ -56,15 +55,23 @@ const ImageNode = ({ attributes, isFocused, node: { data } }: NodeProps) => {
   )
 }
 
+const useStyles = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e",
+  },
+})
+
 /**
  * Button component that uses a click handler to connect to the editor.
  */
-const ImageButtonUnconnected = ({ editor, classes }: ButtonProps) => {
+const ImageButton = ({ editor }: ButtonProps) => {
   const [imageModalOpen, setImageModalOpen] = useState(false)
   const [url, setURL] = useState("")
   const [description, setDescription] = useState("")
   const [width, setWidth] = useState("")
   const [height, setHeight] = useState("")
+
+  const classes = useStyles()
 
   const data = {
     src: url,
@@ -143,8 +150,6 @@ const ImageButtonUnconnected = ({ editor, classes }: ButtonProps) => {
     </>
   )
 }
-
-const ImageButton = withStyles(styles)(ImageButtonUnconnected)
 
 /**
  * Export everything needed for the editor.

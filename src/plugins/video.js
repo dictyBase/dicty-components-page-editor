@@ -1,6 +1,6 @@
 // @flow
 import React, { useState } from "react"
-import { withStyles } from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import Tooltip from "@material-ui/core/Tooltip"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
@@ -11,7 +11,6 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import VideoIcon from "@material-ui/icons/Videocam"
 import getVideoId from "get-video-id"
 import ToolbarButton from "../toolbar/ToolbarButton"
-import styles from "../toolbar/toolbarStyles"
 import { ButtonProps, NodeProps } from "../flow/types"
 
 type VideoData = {
@@ -44,15 +43,27 @@ const insertVideo = (editor: Object, data: VideoData) => {
     .insertBlock("\n")
 }
 
+const useStyles = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e",
+  },
+  videoWrapper: {
+    position: "relative",
+    paddingBottom: "50.66%",
+    height: "0",
+  },
+  iframe: {
+    position: "absolute",
+    top: "0px",
+    left: "0px",
+  },
+})
+
 /**
  * Rendering components that provide the actual HTML to use inside the editor.
  */
-const Video = ({
-  children,
-  attributes,
-  node: { data },
-  classes,
-}: NodeProps) => {
+const VideoNode = ({ children, attributes, node: { data } }: NodeProps) => {
+  const classes = useStyles()
   const src = data.get("src")
   let height = data.get("height")
   let width = data.get("width")
@@ -81,16 +92,16 @@ const Video = ({
   )
 }
 
-const VideoNode = withStyles(styles)(Video)
-
 /**
  * Button components that use click handlers to connect to the editor.
  */
-const VideoButtonUnconnected = ({ editor, classes }: ButtonProps) => {
+const VideoButton = ({ editor }: ButtonProps) => {
   const [videoModalOpen, setVideoModalOpen] = useState(false)
   const [url, setURL] = useState("")
   const [width, setWidth] = useState("")
   const [height, setHeight] = useState("")
+
+  const classes = useStyles()
 
   const data = {
     url,
@@ -160,8 +171,6 @@ const VideoButtonUnconnected = ({ editor, classes }: ButtonProps) => {
     </>
   )
 }
-
-const VideoButton = withStyles(styles)(VideoButtonUnconnected)
 
 /**
  * Export everything needed for the editor.

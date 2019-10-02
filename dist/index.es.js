@@ -3,7 +3,7 @@ import tty from 'tty';
 import util from 'util';
 import os$1 from 'os';
 import ReactDOM from 'react-dom';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles, withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -25650,7 +25650,6 @@ var index$1 = {
   useMemoization: useMemoization,
   Value: Value
 };
-//# sourceMappingURL=slate.es.js.map
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -25903,7 +25902,6 @@ var IS_MAC = os === 'macos';
 
 var ANDROID_API_VERSION = getAndroidApiVersion();
 var HAS_INPUT_EVENTS_LEVEL_2 = features.includes('inputeventslevel2') || IS_ANDROID && (ANDROID_API_VERSION === 28 || ANDROID_API_VERSION === null);
-//# sourceMappingURL=slate-dev-environment.es.js.map
 
 var atob = function atob(val) {
   return new Buffer(val, 'base64').toString();
@@ -26003,7 +26001,6 @@ var index$2 = {
   serialize: serialize,
   serializeNode: serializeNode
 };
-//# sourceMappingURL=slate-base64-serializer.es.js.map
 
 var _extends$2 = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -26115,7 +26112,6 @@ var index$3 = {
   deserialize: deserialize$1,
   serialize: serialize$1
 };
-//# sourceMappingURL=slate-plain-serializer.es.js.map
 
 var lib = createCommonjsModule(function (module, exports) {
 
@@ -26448,7 +26444,6 @@ KEYS.forEach(function (key) {
     return false;
   };
 });
-//# sourceMappingURL=slate-hotkeys.es.js.map
 
 var reactIs_production_min = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports,"__esModule",{value:!0});
@@ -26755,6 +26750,9 @@ if (process.env.NODE_ENV === 'production') {
   module.exports = reactIs_development;
 }
 });
+var reactIs_1 = reactIs.isElement;
+var reactIs_2 = reactIs.isValidElementType;
+var reactIs_3 = reactIs.ForwardRef;
 
 /*
 object-assign
@@ -27719,7 +27717,6 @@ var Types = {
    */
 
 };
-//# sourceMappingURL=slate-prop-types.es.js.map
 
 var ANONYMOUS = "<<anonymous>>";
 
@@ -28495,7 +28492,6 @@ function SlateReactPlaceholder() {
 
   return { decorateNode: decorateNode, renderMark: renderMark };
 }
-//# sourceMappingURL=slate-react-placeholder.es.js.map
 
 var simpleIsEqual = function simpleIsEqual(a, b) {
   return a === b;
@@ -34081,7 +34077,6 @@ Editor$1.defaultProps = {
   readOnly: false,
   schema: {},
   spellCheck: true };
-//# sourceMappingURL=slate-react.es.js.map
 
 /**
  * Expose `isUrl`.
@@ -34670,7 +34665,6 @@ var key = 0;
 function addKey(element) {
   return React.cloneElement(element, { key: key++ });
 }
-//# sourceMappingURL=slate-html-serializer.es.js.map
 
 var BLOCK_TAGS = {
   p: "paragraph",
@@ -34776,74 +34770,6 @@ var deserializer = new Html({
   rules: rules
 });
 
-var styles = function styles(theme) {
-  return {
-    toolbar: {
-      position: "sticky",
-      top: 0,
-      padding: "10px 0px 10px",
-      borderBottom: "2px solid #d1d5da",
-      backgroundColor: "#ccd9ff",
-      cursor: "default"
-    },
-    fontSizeDropdown: {
-      margin: theme.spacing.unit,
-      minWidth: 100
-    },
-    fontFamilyDropdown: {
-      margin: theme.spacing.unit,
-      minWidth: 150
-    },
-    colorPicker: {
-      position: "absolute",
-      zIndex: "100",
-      borderRadius: "5px"
-    },
-    largeIcon: {
-      height: "35px",
-      width: "40px"
-    },
-    button: {
-      textTransform: "none",
-      paddingLeft: "2px",
-      paddingRight: "6px"
-    },
-    tableButtons: {
-      border: "1px solid #bcbcbc",
-      borderRadius: "2px",
-      display: "flex",
-      justifyContent: "space-between",
-      padding: "1px"
-    },
-    saveButton: {
-      marginTop: "5px",
-      width: "100%",
-      backgroundColor: "#15317e"
-    },
-    separator: {
-      borderLeftColor: "#c1c1c1",
-      borderLeftStyle: "solid",
-      borderLeftWidth: "1px",
-      display: "inline-block",
-      height: "20px",
-      verticalAlign: "middle"
-    },
-    basicButton: {
-      backgroundColor: "#15317e"
-    },
-    videoWrapper: {
-      position: "relative",
-      paddingBottom: "50.66%",
-      height: "0"
-    },
-    iframe: {
-      position: "absolute",
-      top: "0px",
-      left: "0px"
-    }
-  };
-};
-
 /**
  * Functions to set the image blocks.
  */
@@ -34881,14 +34807,18 @@ var ImageNode = function ImageNode(_ref) {
     }
   }, attributes));
 };
+
+var useStyles = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e"
+  }
+});
 /**
  * Button component that uses a click handler to connect to the editor.
  */
 
-
-var ImageButtonUnconnected = function ImageButtonUnconnected(_ref2) {
-  var editor = _ref2.editor,
-      classes = _ref2.classes;
+var ImageButton = function ImageButton(_ref2) {
+  var editor = _ref2.editor;
 
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -34915,6 +34845,7 @@ var ImageButtonUnconnected = function ImageButtonUnconnected(_ref2) {
       height = _useState10[0],
       setHeight = _useState10[1];
 
+  var classes = useStyles();
   var data = {
     src: url,
     description: description,
@@ -34930,7 +34861,7 @@ var ImageButtonUnconnected = function ImageButtonUnconnected(_ref2) {
   return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
     title: "Image",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setImageModalOpen(true);
     }
@@ -34986,8 +34917,6 @@ var ImageButtonUnconnected = function ImageButtonUnconnected(_ref2) {
     color: "primary"
   }, "Add Image"))));
 };
-
-var ImageButton = withStyles(styles)(ImageButtonUnconnected);
 
 var getSrc = function (input) {
 	if (typeof input !== 'string') {
@@ -35241,16 +35170,31 @@ var insertVideo = function insertVideo(editor, data) {
     }
   }).insertBlock("\n");
 };
+
+var useStyles$1 = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e"
+  },
+  videoWrapper: {
+    position: "relative",
+    paddingBottom: "50.66%",
+    height: "0"
+  },
+  iframe: {
+    position: "absolute",
+    top: "0px",
+    left: "0px"
+  }
+});
 /**
  * Rendering components that provide the actual HTML to use inside the editor.
  */
 
-
-var Video = function Video(_ref) {
+var VideoNode = function VideoNode(_ref) {
   var children = _ref.children,
       attributes = _ref.attributes,
-      data = _ref.node.data,
-      classes = _ref.classes;
+      data = _ref.node.data;
+  var classes = useStyles$1();
   var src = data.get("src");
   var height = data.get("height");
   var width = data.get("width");
@@ -35277,15 +35221,13 @@ var Video = function Video(_ref) {
     className: classes.iframe
   }));
 };
-
-var VideoNode = withStyles(styles)(Video);
 /**
  * Button components that use click handlers to connect to the editor.
  */
 
-var VideoButtonUnconnected = function VideoButtonUnconnected(_ref2) {
-  var editor = _ref2.editor,
-      classes = _ref2.classes;
+
+var VideoButton = function VideoButton(_ref2) {
+  var editor = _ref2.editor;
 
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -35307,6 +35249,7 @@ var VideoButtonUnconnected = function VideoButtonUnconnected(_ref2) {
       height = _useState8[0],
       setHeight = _useState8[1];
 
+  var classes = useStyles$1();
   var data = {
     url: url,
     width: width,
@@ -35321,7 +35264,7 @@ var VideoButtonUnconnected = function VideoButtonUnconnected(_ref2) {
   return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
     title: "Video",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setVideoModalOpen(true);
     }
@@ -35368,8 +35311,6 @@ var VideoButtonUnconnected = function VideoButtonUnconnected(_ref2) {
     color: "primary"
   }, "Add Video"))));
 };
-
-var VideoButton = withStyles(styles)(VideoButtonUnconnected);
 
 /**
  * Functions to set the link blocks.
@@ -35432,14 +35373,18 @@ var LinkNode = function LinkNode(_ref) {
     href: data.get("href")
   }, attributes), children);
 };
+
+var useStyles$2 = makeStyles({
+  basicButton: {
+    backgroundColor: "#15317e"
+  }
+});
 /**
  * Button components that use click handlers to connect to the editor.
  */
 
-
-var LinkButtonUnconnected = function LinkButtonUnconnected(_ref2) {
-  var classes = _ref2.classes,
-      editor = _ref2.editor;
+var LinkButton = function LinkButton(_ref2) {
+  var editor = _ref2.editor;
 
   var _useState = useState(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -35461,6 +35406,7 @@ var LinkButtonUnconnected = function LinkButtonUnconnected(_ref2) {
       emailChecked = _useState8[0],
       setEmailChecked = _useState8[1];
 
+  var classes = useStyles$2();
   var data = {
     url: url,
     text: text,
@@ -35499,7 +35445,7 @@ var LinkButtonUnconnected = function LinkButtonUnconnected(_ref2) {
     return React.createElement(Tooltip, {
       title: "Link",
       placement: "bottom"
-    }, React.createElement(ToolbarButton$1, {
+    }, React.createElement(ToolbarButton, {
       onClick: handleToolbarButtonLink
     }, React.createElement(LinkIcon, null)));
   }
@@ -35507,7 +35453,7 @@ var LinkButtonUnconnected = function LinkButtonUnconnected(_ref2) {
   return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
     title: "Link",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: handleToolbarButtonLink
   }, React.createElement(LinkIcon, null))), React.createElement(Dialog, {
     open: linkModalOpen,
@@ -35556,8 +35502,6 @@ var LinkButtonUnconnected = function LinkButtonUnconnected(_ref2) {
     color: "primary"
   }, "Add Link"))));
 };
-
-var LinkButton = withStyles(styles)(LinkButtonUnconnected);
 
 /**
  * Helper function that checks if a given item is a function.
@@ -35654,15 +35598,18 @@ var onPasteText = function onPasteText(event, editor, next) {
   return editor.command(insertLink, text);
 };
 
-var styles$1 = function styles(theme) {
-  return {
-    button: {
-      color: "rgba(0, 0, 0, 0.87)",
-      padding: "7px",
-      minWidth: "20px"
-    }
-  };
-};
+var useStyles$3 = makeStyles({
+  button: {
+    color: "rgba(0, 0, 0, 0.87)",
+    padding: "7px",
+    minWidth: "20px"
+  },
+  tableBtn: {
+    textTransform: "none",
+    paddingLeft: "2px",
+    paddingRight: "6px"
+  }
+});
 
 /**
  * Material-UI button that has a click handler attached to it.
@@ -35670,18 +35617,17 @@ var styles$1 = function styles(theme) {
 var ToolbarButton = function ToolbarButton(_ref) {
   var children = _ref.children,
       _onClick = _ref.onClick,
-      classes = _ref.classes,
-      props = _objectWithoutProperties(_ref, ["children", "onClick", "classes"]);
+      table = _ref.table,
+      props = _objectWithoutProperties(_ref, ["children", "onClick", "table"]);
 
-  return React.createElement(Button, _extends({
-    className: classes.button,
+  var classes = useStyles$3();
+  return React.createElement(Button, {
+    className: table ? classes.tableBtn : classes.button,
     onClick: function onClick(event) {
       isFunction$1(_onClick) && _onClick(event);
     }
-  }, props), children);
+  }, children);
 };
-
-var ToolbarButton$1 = withStyles(styles$1)(ToolbarButton);
 
 var HelpModalContent = function HelpModalContent(_ref) {
   var classes = _ref.classes;
@@ -35703,7 +35649,7 @@ var HelpModalContent = function HelpModalContent(_ref) {
   }, "dicty-frontpage")), " ", "repo."));
 };
 
-var styles$2 = function styles(theme) {
+var styles = function styles(theme) {
   return {
     closeBtn: {
       width: "50%",
@@ -35746,7 +35692,7 @@ var HelpMuiModal = function HelpMuiModal(props) {
   }, "Close")));
 };
 
-var HelpModal = withStyles(styles$2)(HelpMuiModal);
+var HelpModal = withStyles(styles)(HelpMuiModal);
 
 /**
  * Rendering component that provides the actual HTML to use inside the editor.
@@ -35766,7 +35712,7 @@ var BoldButton = function BoldButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Bold",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("bold");
     }
@@ -35817,7 +35763,7 @@ var ItalicButton = function ItalicButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Italic",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("italic");
     }
@@ -35868,7 +35814,7 @@ var StrikethroughButton = function StrikethroughButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Strikethrough",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("strikethrough");
     }
@@ -36551,14 +36497,14 @@ function defineIcons(prefix, icons) {
   }
 }
 
-var styles$3 = namespace.styles,
+var styles$1 = namespace.styles,
     shims = namespace.shims;
 var _byUnicode = {};
 var _byLigature = {};
 var _byOldName = {};
 var build = function build() {
   var lookup = function lookup(reducer) {
-    return reduce(styles$3, function (o, style, prefix) {
+    return reduce(styles$1, function (o, style, prefix) {
       o[prefix] = reduce(style, reducer, {});
       return o;
     }, {});
@@ -36579,7 +36525,7 @@ var build = function build() {
     });
     return acc;
   });
-  var hasRegular = 'far' in styles$3;
+  var hasRegular = 'far' in styles$1;
   _byOldName = reduce(shims, function (acc, shim) {
     var oldName = shim[0];
     var prefix = shim[1];
@@ -36766,7 +36712,7 @@ var EXCLAMATION = {
   }]
 };
 
-var styles$2$1 = namespace.styles;
+var styles$2 = namespace.styles;
 function asFoundIcon(icon) {
   var width = icon[0];
   var height = icon[1];
@@ -36817,7 +36763,7 @@ function asFoundIcon(icon) {
   };
 }
 
-var styles$3$1 = namespace.styles;
+var styles$3 = namespace.styles;
 
 var baseStyles = "svg:not(:root).svg-inline--fa {\n  overflow: visible;\n}\n\n.svg-inline--fa {\n  display: inline-block;\n  font-size: inherit;\n  height: 1em;\n  overflow: visible;\n  vertical-align: -0.125em;\n}\n.svg-inline--fa.fa-lg {\n  vertical-align: -0.225em;\n}\n.svg-inline--fa.fa-w-1 {\n  width: 0.0625em;\n}\n.svg-inline--fa.fa-w-2 {\n  width: 0.125em;\n}\n.svg-inline--fa.fa-w-3 {\n  width: 0.1875em;\n}\n.svg-inline--fa.fa-w-4 {\n  width: 0.25em;\n}\n.svg-inline--fa.fa-w-5 {\n  width: 0.3125em;\n}\n.svg-inline--fa.fa-w-6 {\n  width: 0.375em;\n}\n.svg-inline--fa.fa-w-7 {\n  width: 0.4375em;\n}\n.svg-inline--fa.fa-w-8 {\n  width: 0.5em;\n}\n.svg-inline--fa.fa-w-9 {\n  width: 0.5625em;\n}\n.svg-inline--fa.fa-w-10 {\n  width: 0.625em;\n}\n.svg-inline--fa.fa-w-11 {\n  width: 0.6875em;\n}\n.svg-inline--fa.fa-w-12 {\n  width: 0.75em;\n}\n.svg-inline--fa.fa-w-13 {\n  width: 0.8125em;\n}\n.svg-inline--fa.fa-w-14 {\n  width: 0.875em;\n}\n.svg-inline--fa.fa-w-15 {\n  width: 0.9375em;\n}\n.svg-inline--fa.fa-w-16 {\n  width: 1em;\n}\n.svg-inline--fa.fa-w-17 {\n  width: 1.0625em;\n}\n.svg-inline--fa.fa-w-18 {\n  width: 1.125em;\n}\n.svg-inline--fa.fa-w-19 {\n  width: 1.1875em;\n}\n.svg-inline--fa.fa-w-20 {\n  width: 1.25em;\n}\n.svg-inline--fa.fa-pull-left {\n  margin-right: 0.3em;\n  width: auto;\n}\n.svg-inline--fa.fa-pull-right {\n  margin-left: 0.3em;\n  width: auto;\n}\n.svg-inline--fa.fa-border {\n  height: 1.5em;\n}\n.svg-inline--fa.fa-li {\n  width: 2em;\n}\n.svg-inline--fa.fa-fw {\n  width: 1.25em;\n}\n\n.fa-layers svg.svg-inline--fa {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n\n.fa-layers {\n  display: inline-block;\n  height: 1em;\n  position: relative;\n  text-align: center;\n  vertical-align: -0.125em;\n  width: 1em;\n}\n.fa-layers svg.svg-inline--fa {\n  -webkit-transform-origin: center center;\n          transform-origin: center center;\n}\n\n.fa-layers-counter, .fa-layers-text {\n  display: inline-block;\n  position: absolute;\n  text-align: center;\n}\n\n.fa-layers-text {\n  left: 50%;\n  top: 50%;\n  -webkit-transform: translate(-50%, -50%);\n          transform: translate(-50%, -50%);\n  -webkit-transform-origin: center center;\n          transform-origin: center center;\n}\n\n.fa-layers-counter {\n  background-color: #ff253a;\n  border-radius: 1em;\n  -webkit-box-sizing: border-box;\n          box-sizing: border-box;\n  color: #fff;\n  height: 1.5em;\n  line-height: 1;\n  max-width: 5em;\n  min-width: 1.5em;\n  overflow: hidden;\n  padding: 0.25em;\n  right: 0;\n  text-overflow: ellipsis;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right;\n}\n\n.fa-layers-bottom-right {\n  bottom: 0;\n  right: 0;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom right;\n          transform-origin: bottom right;\n}\n\n.fa-layers-bottom-left {\n  bottom: 0;\n  left: 0;\n  right: auto;\n  top: auto;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: bottom left;\n          transform-origin: bottom left;\n}\n\n.fa-layers-top-right {\n  right: 0;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top right;\n          transform-origin: top right;\n}\n\n.fa-layers-top-left {\n  left: 0;\n  right: auto;\n  top: 0;\n  -webkit-transform: scale(0.25);\n          transform: scale(0.25);\n  -webkit-transform-origin: top left;\n          transform-origin: top left;\n}\n\n.fa-lg {\n  font-size: 1.3333333333em;\n  line-height: 0.75em;\n  vertical-align: -0.0667em;\n}\n\n.fa-xs {\n  font-size: 0.75em;\n}\n\n.fa-sm {\n  font-size: 0.875em;\n}\n\n.fa-1x {\n  font-size: 1em;\n}\n\n.fa-2x {\n  font-size: 2em;\n}\n\n.fa-3x {\n  font-size: 3em;\n}\n\n.fa-4x {\n  font-size: 4em;\n}\n\n.fa-5x {\n  font-size: 5em;\n}\n\n.fa-6x {\n  font-size: 6em;\n}\n\n.fa-7x {\n  font-size: 7em;\n}\n\n.fa-8x {\n  font-size: 8em;\n}\n\n.fa-9x {\n  font-size: 9em;\n}\n\n.fa-10x {\n  font-size: 10em;\n}\n\n.fa-fw {\n  text-align: center;\n  width: 1.25em;\n}\n\n.fa-ul {\n  list-style-type: none;\n  margin-left: 2.5em;\n  padding-left: 0;\n}\n.fa-ul > li {\n  position: relative;\n}\n\n.fa-li {\n  left: -2em;\n  position: absolute;\n  text-align: center;\n  width: 2em;\n  line-height: inherit;\n}\n\n.fa-border {\n  border: solid 0.08em #eee;\n  border-radius: 0.1em;\n  padding: 0.2em 0.25em 0.15em;\n}\n\n.fa-pull-left {\n  float: left;\n}\n\n.fa-pull-right {\n  float: right;\n}\n\n.fa.fa-pull-left,\n.fas.fa-pull-left,\n.far.fa-pull-left,\n.fal.fa-pull-left,\n.fab.fa-pull-left {\n  margin-right: 0.3em;\n}\n.fa.fa-pull-right,\n.fas.fa-pull-right,\n.far.fa-pull-right,\n.fal.fa-pull-right,\n.fab.fa-pull-right {\n  margin-left: 0.3em;\n}\n\n.fa-spin {\n  -webkit-animation: fa-spin 2s infinite linear;\n          animation: fa-spin 2s infinite linear;\n}\n\n.fa-pulse {\n  -webkit-animation: fa-spin 1s infinite steps(8);\n          animation: fa-spin 1s infinite steps(8);\n}\n\n@-webkit-keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n\n@keyframes fa-spin {\n  0% {\n    -webkit-transform: rotate(0deg);\n            transform: rotate(0deg);\n  }\n  100% {\n    -webkit-transform: rotate(360deg);\n            transform: rotate(360deg);\n  }\n}\n.fa-rotate-90 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=1)\";\n  -webkit-transform: rotate(90deg);\n          transform: rotate(90deg);\n}\n\n.fa-rotate-180 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2)\";\n  -webkit-transform: rotate(180deg);\n          transform: rotate(180deg);\n}\n\n.fa-rotate-270 {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=3)\";\n  -webkit-transform: rotate(270deg);\n          transform: rotate(270deg);\n}\n\n.fa-flip-horizontal {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=0, mirror=1)\";\n  -webkit-transform: scale(-1, 1);\n          transform: scale(-1, 1);\n}\n\n.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(1, -1);\n          transform: scale(1, -1);\n}\n\n.fa-flip-both, .fa-flip-horizontal.fa-flip-vertical {\n  -ms-filter: \"progid:DXImageTransform.Microsoft.BasicImage(rotation=2, mirror=1)\";\n  -webkit-transform: scale(-1, -1);\n          transform: scale(-1, -1);\n}\n\n:root .fa-rotate-90,\n:root .fa-rotate-180,\n:root .fa-rotate-270,\n:root .fa-flip-horizontal,\n:root .fa-flip-vertical,\n:root .fa-flip-both {\n  -webkit-filter: none;\n          filter: none;\n}\n\n.fa-stack {\n  display: inline-block;\n  height: 2em;\n  position: relative;\n  width: 2.5em;\n}\n\n.fa-stack-1x,\n.fa-stack-2x {\n  bottom: 0;\n  left: 0;\n  margin: auto;\n  position: absolute;\n  right: 0;\n  top: 0;\n}\n\n.svg-inline--fa.fa-stack-1x {\n  height: 1em;\n  width: 1.25em;\n}\n.svg-inline--fa.fa-stack-2x {\n  height: 2em;\n  width: 2.5em;\n}\n\n.fa-inverse {\n  color: #fff;\n}\n\n.sr-only {\n  border: 0;\n  clip: rect(0, 0, 0, 0);\n  height: 1px;\n  margin: -1px;\n  overflow: hidden;\n  padding: 0;\n  position: absolute;\n  width: 1px;\n}\n\n.sr-only-focusable:active, .sr-only-focusable:focus {\n  clip: auto;\n  height: auto;\n  margin: 0;\n  overflow: visible;\n  position: static;\n  width: auto;\n}\n\n.svg-inline--fa .fa-primary {\n  fill: var(--fa-primary-color, currentColor);\n  opacity: 1;\n  opacity: var(--fa-primary-opacity, 1);\n}\n\n.svg-inline--fa .fa-secondary {\n  fill: var(--fa-secondary-color, currentColor);\n  opacity: 0.4;\n  opacity: var(--fa-secondary-opacity, 0.4);\n}\n\n.svg-inline--fa.fa-swap-opacity .fa-primary {\n  opacity: 0.4;\n  opacity: var(--fa-secondary-opacity, 0.4);\n}\n\n.svg-inline--fa.fa-swap-opacity .fa-secondary {\n  opacity: 1;\n  opacity: var(--fa-primary-opacity, 1);\n}\n\n.svg-inline--fa mask .fa-primary,\n.svg-inline--fa mask .fa-secondary {\n  fill: black;\n}\n\n.fad.fa-inverse {\n  color: #fff;\n}";
 
@@ -37386,7 +37332,7 @@ var SubscriptButton = function SubscriptButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Subscript",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("subscript");
     }
@@ -37413,7 +37359,7 @@ var SuperscriptButton = function SuperscriptButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Superscript",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("superscript");
     }
@@ -37440,7 +37386,7 @@ var UnderlineButton = function UnderlineButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Underline",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("underline");
     }
@@ -37525,7 +37471,7 @@ var AlignmentLeftButton = function AlignmentLeftButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Align Left",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "left");
     }
@@ -37537,7 +37483,7 @@ var AlignmentCenterButton = function AlignmentCenterButton(_ref3) {
   return React.createElement(Tooltip, {
     title: "Center Text",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "center");
     }
@@ -37549,7 +37495,7 @@ var AlignmentRightButton = function AlignmentRightButton(_ref4) {
   return React.createElement(Tooltip, {
     title: "Align Right",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "right");
     }
@@ -37561,7 +37507,7 @@ var AlignmentJustifyButton = function AlignmentJustifyButton(_ref5) {
   return React.createElement(Tooltip, {
     title: "Justify",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "justify");
     }
@@ -38553,7 +38499,7 @@ var OrderedListButton = function OrderedListButton(_ref4) {
   return React.createElement(Tooltip, {
     title: "Ordered List",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "ordered-list");
     }
@@ -38565,7 +38511,7 @@ var UnorderedListButton = function UnorderedListButton(_ref5) {
   return React.createElement(Tooltip, {
     title: "Unordered List",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "unordered-list");
     }
@@ -38577,7 +38523,7 @@ var ListDecreaseIndentButton = function ListDecreaseIndentButton(_ref6) {
   return React.createElement(Tooltip, {
     title: "Decrease List Indent",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return decreaseIndent(event, editor);
     }
@@ -38589,7 +38535,7 @@ var ListIncreaseIndentButton = function ListIncreaseIndentButton(_ref7) {
   return React.createElement(Tooltip, {
     title: "Increase List Indent",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return increaseIndent(event, editor);
     }
@@ -38665,7 +38611,7 @@ var H1Button = function H1Button(_ref4) {
   return React.createElement(Tooltip, {
     title: "Heading 1",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h1");
     }
@@ -38677,7 +38623,7 @@ var H2Button = function H2Button(_ref5) {
   return React.createElement(Tooltip, {
     title: "Heading 2",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h2");
     }
@@ -38689,7 +38635,7 @@ var H3Button = function H3Button(_ref6) {
   return React.createElement(Tooltip, {
     title: "Heading 3",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h3");
     }
@@ -39838,7 +39784,7 @@ var InsertInitialTableButton = function InsertInitialTableButton(_ref4) {
   return React.createElement(Tooltip, {
     title: "Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowTableOptions(!showTableOptions);
     }
@@ -39851,8 +39797,8 @@ var InsertTableButton = function InsertTableButton(_ref5) {
   return React.createElement(Tooltip, {
     title: "Insert Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.insertTable();
     }
@@ -39865,8 +39811,8 @@ var InsertTableColumnButton = function InsertTableColumnButton(_ref6) {
   return React.createElement(Tooltip, {
     title: "Insert Column",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.insertColumn();
     }
@@ -39879,8 +39825,8 @@ var InsertTableRowButton = function InsertTableRowButton(_ref7) {
   return React.createElement(Tooltip, {
     title: "Insert Row",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.insertRow();
     }
@@ -39893,8 +39839,8 @@ var RemoveTableColumnButton = function RemoveTableColumnButton(_ref8) {
   return React.createElement(Tooltip, {
     title: "Remove Column",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.removeColumn();
     }
@@ -39907,8 +39853,8 @@ var RemoveTableRowButton = function RemoveTableRowButton(_ref9) {
   return React.createElement(Tooltip, {
     title: "Remove Row",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.removeRow();
     }
@@ -39921,8 +39867,8 @@ var RemoveTableButton = function RemoveTableButton(_ref10) {
   return React.createElement(Tooltip, {
     title: "Remove Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
-    className: classes.button,
+  }, React.createElement(ToolbarButton, {
+    table: true,
     onClick: function onClick() {
       editor.removeTable();
     }
@@ -39953,14 +39899,22 @@ var FeatureButtons = function FeatureButtons(props) {
   })), React.createElement(ImageButton, props), React.createElement(VideoButton, props));
 };
 
+var useStyles$4 = makeStyles({
+  tableButtons: {
+    border: "1px solid #bcbcbc",
+    borderRadius: "2px",
+    display: "flex",
+    justifyContent: "space-between",
+    padding: "1px"
+  }
+});
+
 var TableButtons = function TableButtons(props) {
-  var classes = props.classes;
+  var classes = useStyles$4();
   return React.createElement("div", {
     className: classes.tableButtons
   }, React.createElement(InsertTableButton, props), React.createElement(InsertTableColumnButton, props), React.createElement(InsertTableRowButton, props), "\xA0\xA0", React.createElement(RemoveTableRowButton, props), React.createElement(RemoveTableColumnButton, props), React.createElement(RemoveTableButton, props), React.createElement("br", null));
 };
-
-var TableButtons$1 = withStyles(styles)(TableButtons);
 
 /**
  * List of fonts available
@@ -40060,19 +40014,28 @@ var FontFamilyMark = function FontFamilyMark(_ref3) {
     }
   }, children);
 };
+
+var useStyles$5 = makeStyles(function (theme) {
+  return {
+    fontFamilyDropdown: {
+      margin: theme.spacing(1),
+      minWidth: 150
+    }
+  };
+});
 /**
  * Dropdown component that connects to the editor.
  */
 
-
 var FontFamilyDropdown = function FontFamilyDropdown(_ref4) {
-  var editor = _ref4.editor,
-      classes = _ref4.classes;
+  var editor = _ref4.editor;
 
   var _useState = useState(3),
       _useState2 = _slicedToArray(_useState, 2),
       currentFont = _useState2[0],
       setCurrentFont = _useState2[1];
+
+  var classes = useStyles$5();
 
   var handleChange = function handleChange(_ref5) {
     var fontFamilyIndex = _ref5.target.value;
@@ -40189,19 +40152,28 @@ var FontSizeMark = function FontSizeMark(_ref3) {
     }
   }, children);
 };
+
+var useStyles$6 = makeStyles(function (theme) {
+  return {
+    fontSizeDropdown: {
+      margin: theme.spacing(1),
+      minWidth: 100
+    }
+  };
+});
 /**
  * Button components that use click handlers to connect to the editor.
  */
 
-
 var FontSizeDropdown = function FontSizeDropdown(_ref4) {
-  var editor = _ref4.editor,
-      classes = _ref4.classes;
+  var editor = _ref4.editor;
 
   var _useState = useState(2),
       _useState2 = _slicedToArray(_useState, 2),
       currentFontSize = _useState2[0],
       setCurrentFontSize = _useState2[1];
+
+  var classes = useStyles$6();
 
   var handleChange = function handleChange(_ref5) {
     var fontSizeIndex = _ref5.target.value;
@@ -40225,17 +40197,26 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
   })));
 };
 
-var Separator = function Separator(_ref) {
-  var classes = _ref.classes;
+var useStyles$7 = makeStyles({
+  separator: {
+    borderLeftColor: "#c1c1c1",
+    borderLeftStyle: "solid",
+    borderLeftWidth: "1px",
+    display: "inline-block",
+    height: "20px",
+    verticalAlign: "middle"
+  }
+});
+
+var Separator = function Separator() {
+  var classes = useStyles$7();
   return React.createElement("div", {
     className: classes.separator
   });
 };
 
-var Separator$1 = withStyles(styles)(Separator);
-
 var FontDropdowns = function FontDropdowns(props) {
-  return React.createElement(React.Fragment, null, React.createElement(FontFamilyDropdown, props), React.createElement(Separator$1, null), React.createElement(FontSizeDropdown, props));
+  return React.createElement(React.Fragment, null, React.createElement(FontFamilyDropdown, props), React.createElement(Separator, null), React.createElement(FontSizeDropdown, props));
 };
 
 /**
@@ -40256,7 +40237,7 @@ var DividerButton = function DividerButton(_ref2) {
   return React.createElement(Tooltip, {
     title: "Divider",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.setBlocks({
         type: "divider"
@@ -45451,7 +45432,7 @@ var FontColorButton = function FontColorButton(_ref4) {
   return React.createElement(Tooltip, {
     title: "Font Color",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowColorPicker(!showColorPicker);
     }
@@ -45579,12 +45560,37 @@ var LineSpacingButton = function LineSpacingButton(_ref2) {
   return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
     title: "Line Spacing",
     placement: "bottom"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: handleMenuOpen,
     "aria-owns": anchorEl ? "line-spacing-menu" : undefined,
     "aria-haspopup": "true"
   }, React.createElement(LineSpacingIcon, null))), renderMenu);
 };
+
+var useStyles$8 = makeStyles({
+  toolbar: {
+    position: "sticky",
+    top: 0,
+    padding: "10px 0px 10px",
+    borderBottom: "2px solid #d1d5da",
+    backgroundColor: "#ccd9ff",
+    cursor: "default"
+  },
+  colorPicker: {
+    position: "absolute",
+    zIndex: "100",
+    borderRadius: "5px"
+  },
+  largeIcon: {
+    height: "35px",
+    width: "40px"
+  },
+  saveButton: {
+    marginTop: "5px",
+    width: "100%",
+    backgroundColor: "#15317e"
+  }
+});
 
 /**
  * The toolbar for the page editor. It uses Material-UI's AppBar component as the foundation, then displays individual buttons inside of it.
@@ -45605,9 +45611,9 @@ var EditorToolbar = function EditorToolbar(props) {
       showHelpModal = _useState6[0],
       setShowHelpModal = _useState6[1];
 
-  var classes = props.classes,
-      onSave = props.onSave;
-  return React.createElement(React.Fragment, null, React.createElement(AppBar, {
+  var classes = useStyles$8();
+  var onSave = props.onSave;
+  return React.createElement(AppBar, {
     className: classes.toolbar,
     position: "static",
     color: "default"
@@ -45616,10 +45622,10 @@ var EditorToolbar = function EditorToolbar(props) {
   }, React.createElement(Grid, {
     item: true,
     xs: 12
-  }, React.createElement(MarkButtons, props), React.createElement(Separator$1, null), React.createElement(AlignmentButtons, props), React.createElement(Separator$1, null), React.createElement(DividerButton, props), React.createElement(Separator$1, null), React.createElement(ListButtons, props), React.createElement(Separator$1, null), React.createElement(HeadingButtons, props), React.createElement(Separator$1, null), React.createElement(LineSpacingButton, props), React.createElement(Separator$1, null), React.createElement(FeatureButtons, _extends({
+  }, React.createElement(MarkButtons, props), React.createElement(Separator, null), React.createElement(AlignmentButtons, props), React.createElement(Separator, null), React.createElement(DividerButton, props), React.createElement(Separator, null), React.createElement(ListButtons, props), React.createElement(Separator, null), React.createElement(HeadingButtons, props), React.createElement(Separator, null), React.createElement(LineSpacingButton, props), React.createElement(Separator, null), React.createElement(FeatureButtons, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
-  }, props)), React.createElement(Separator$1, null), React.createElement(FontColorButton, _extends({
+  }, props)), React.createElement(Separator, null), React.createElement(FontColorButton, _extends({
     showColorPicker: showColorPicker,
     setShowColorPicker: setShowColorPicker
   }, props)), "\xA0\xA0", React.createElement("span", {
@@ -45632,9 +45638,9 @@ var EditorToolbar = function EditorToolbar(props) {
   }, React.createElement(Grid, {
     item: true,
     xs: 10
-  }, showTableOptions && React.createElement(TableButtons$1, props), React.createElement(FontDropdowns, props), React.createElement(Separator$1, null), React.createElement(Tooltip, {
+  }, showTableOptions && React.createElement(TableButtons, props), React.createElement(FontDropdowns, props), React.createElement(Separator, null), React.createElement(Tooltip, {
     title: "Editor Help"
-  }, React.createElement(ToolbarButton$1, {
+  }, React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowHelpModal(true);
     }
@@ -45659,9 +45665,8 @@ var EditorToolbar = function EditorToolbar(props) {
     variant: "contained",
     color: "primary",
     onClick: onSave
-  }, "Save"))))))));
+  }, "Save")))))));
 };
-var EditorToolbar$1 = withStyles(styles)(EditorToolbar);
 
 var styles$4 = function styles(theme) {
   return {
@@ -45854,7 +45859,6 @@ var renderNode = function renderNode(props, editor, next) {
  * @type {String}
  */
 var LAST_CHILD_TYPE_INVALID = 'last_child_type_invalid';
-//# sourceMappingURL=slate-schema-violations.es.js.map
 
 var schema = {
   document: {
@@ -45985,7 +45989,7 @@ function (_Component) {
         });
       }
 
-      return React.createElement(React.Fragment, null, React.createElement(EditorToolbar$1, {
+      return React.createElement(React.Fragment, null, React.createElement(EditorToolbar, {
         editor: this.editor.current,
         onSave: function onSave() {
           return _onSave(value);

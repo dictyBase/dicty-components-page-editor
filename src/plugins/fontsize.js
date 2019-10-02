@@ -1,5 +1,6 @@
 // @flow
 import React, { useState } from "react"
+import { makeStyles } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
@@ -65,11 +66,19 @@ const FontSizeMark = ({ children, mark: { data } }: NodeProps) => (
   </span>
 )
 
+const useStyles = makeStyles(theme => ({
+  fontSizeDropdown: {
+    margin: theme.spacing(1),
+    minWidth: 100,
+  },
+}))
+
 /**
  * Button components that use click handlers to connect to the editor.
  */
-const FontSizeDropdown = ({ editor, classes }: ButtonProps) => {
+const FontSizeDropdown = ({ editor }: ButtonProps) => {
   const [currentFontSize, setCurrentFontSize] = useState(2)
+  const classes = useStyles()
 
   const handleChange = ({ target: { value: fontSizeIndex } }) => {
     setCurrentFontSize(fontSizeIndex)

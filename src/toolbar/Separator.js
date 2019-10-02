@@ -1,12 +1,22 @@
 // @flow
 import React from "react"
-import { withStyles } from "@material-ui/core/styles"
-import styles from "./toolbarStyles"
+import { makeStyles } from "@material-ui/core/styles"
 
-type Props = {
-  classes: Object,
+const useStyles = makeStyles({
+  separator: {
+    borderLeftColor: "#c1c1c1",
+    borderLeftStyle: "solid",
+    borderLeftWidth: "1px",
+    display: "inline-block",
+    height: "20px",
+    verticalAlign: "middle",
+  },
+})
+
+const Separator = () => {
+  const classes = useStyles()
+
+  return <div className={classes.separator} />
 }
 
-const Separator = ({ classes }: Props) => <div className={classes.separator} />
-
-export default withStyles(styles)(Separator)
+export default Separator

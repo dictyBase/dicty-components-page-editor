@@ -1,5 +1,6 @@
 // @flow
 import React, { useState } from "react"
+import { makeStyles } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
@@ -69,11 +70,19 @@ const FontFamilyMark = ({ children, mark: { data } }: NodeProps) => (
   </span>
 )
 
+const useStyles = makeStyles(theme => ({
+  fontFamilyDropdown: {
+    margin: theme.spacing(1),
+    minWidth: 150,
+  },
+}))
+
 /**
  * Dropdown component that connects to the editor.
  */
-const FontFamilyDropdown = ({ editor, classes }: ButtonProps) => {
+const FontFamilyDropdown = ({ editor }: ButtonProps) => {
   const [currentFont, setCurrentFont] = useState(3)
+  const classes = useStyles()
 
   const handleChange = ({ target: { value: fontFamilyIndex } }) => {
     setCurrentFont(fontFamilyIndex)
