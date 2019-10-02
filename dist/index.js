@@ -25657,6 +25657,7 @@ var index$1 = {
   useMemoization: useMemoization,
   Value: Value
 };
+//# sourceMappingURL=slate.es.js.map
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -25909,6 +25910,7 @@ var IS_MAC = os === 'macos';
 
 var ANDROID_API_VERSION = getAndroidApiVersion();
 var HAS_INPUT_EVENTS_LEVEL_2 = features.includes('inputeventslevel2') || IS_ANDROID && (ANDROID_API_VERSION === 28 || ANDROID_API_VERSION === null);
+//# sourceMappingURL=slate-dev-environment.es.js.map
 
 var atob = function atob(val) {
   return new Buffer(val, 'base64').toString();
@@ -26008,6 +26010,7 @@ var index$2 = {
   serialize: serialize,
   serializeNode: serializeNode
 };
+//# sourceMappingURL=slate-base64-serializer.es.js.map
 
 var _extends$2 = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -26119,6 +26122,7 @@ var index$3 = {
   deserialize: deserialize$1,
   serialize: serialize$1
 };
+//# sourceMappingURL=slate-plain-serializer.es.js.map
 
 var lib = createCommonjsModule(function (module, exports) {
 
@@ -26451,6 +26455,7 @@ KEYS.forEach(function (key) {
     return false;
   };
 });
+//# sourceMappingURL=slate-hotkeys.es.js.map
 
 var reactIs_production_min = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports,"__esModule",{value:!0});
@@ -27724,6 +27729,7 @@ var Types = {
    */
 
 };
+//# sourceMappingURL=slate-prop-types.es.js.map
 
 var ANONYMOUS = "<<anonymous>>";
 
@@ -28499,6 +28505,7 @@ function SlateReactPlaceholder() {
 
   return { decorateNode: decorateNode, renderMark: renderMark };
 }
+//# sourceMappingURL=slate-react-placeholder.es.js.map
 
 var simpleIsEqual = function simpleIsEqual(a, b) {
   return a === b;
@@ -34084,6 +34091,7 @@ Editor$1.defaultProps = {
   readOnly: false,
   schema: {},
   spellCheck: true };
+//# sourceMappingURL=slate-react.es.js.map
 
 /**
  * Expose `isUrl`.
@@ -34672,6 +34680,7 @@ var key = 0;
 function addKey(element) {
   return React__default.cloneElement(element, { key: key++ });
 }
+//# sourceMappingURL=slate-html-serializer.es.js.map
 
 var BLOCK_TAGS = {
   p: "paragraph",
@@ -45678,13 +45687,11 @@ var EditorToolbar = function EditorToolbar(props) {
 var styles$4 = function styles(theme) {
   return {
     editor: {
-      padding: "15px",
       minHeight: "200px",
-      minWidth: "800px",
       lineHeight: 1.6,
       color: "rgba(0, 0, 0, 0.87)",
       "& a": {
-        color: "#428bca",
+        color: "#004080",
         textDecoration: "none"
       },
       "& table": {
@@ -45866,6 +45873,7 @@ var renderNode = function renderNode(props, editor, next) {
  * @type {String}
  */
 var LAST_CHILD_TYPE_INVALID = 'last_child_type_invalid';
+//# sourceMappingURL=slate-schema-violations.es.js.map
 
 var schema = {
   document: {

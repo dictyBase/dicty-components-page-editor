@@ -1,13 +1,11 @@
 const styles = theme => ({
   editor: {
-    padding: "15px",
     minHeight: "200px",
-    minWidth: "800px",
     lineHeight: 1.6,
     color: "rgba(0, 0, 0, 0.87)",
 
     "& a": {
-      color: "#428bca",
+      color: "#004080",
       textDecoration: "none",
     },
 

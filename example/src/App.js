@@ -3,7 +3,7 @@ import { PageEditor } from "dicty-components-page-editor"
 
 const App = () => {
   return (
-    <div>
+    <div style={{ width: "75%", margin: "0 auto" }}>
       <PageEditor
         newPage
         // pageContent={data}
