@@ -2,6 +2,7 @@ const styles = theme => ({
   editor: {
     minHeight: "200px",
     lineHeight: 1.6,
+    padding: "10px",
     color: "rgba(0, 0, 0, 0.87)",
 
     "& a": {
