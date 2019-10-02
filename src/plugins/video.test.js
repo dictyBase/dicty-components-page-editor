@@ -9,7 +9,7 @@ describe("editor/plugins/video", () => {
 
     describe("initial render", () => {
       it("always renders a ToolbarButton", () => {
-        expect(wrapper.dive().find(ToolbarButton).length).toBe(1)
+        expect(wrapper.find(ToolbarButton).length).toBe(1)
       })
     })
   })

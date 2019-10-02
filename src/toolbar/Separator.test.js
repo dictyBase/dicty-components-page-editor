@@ -10,8 +10,7 @@ describe("editor/toolbar/Separator", () => {
       expect(wrapper).toHaveLength(1)
     })
     it("always renders initial div", () => {
-      // have to dive due to component use of withStyles
-      expect(wrapper.dive().find("div")).toHaveLength(1)
+      expect(wrapper.find("div")).toHaveLength(1)
     })
   })
 })

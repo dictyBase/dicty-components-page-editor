@@ -8,7 +8,7 @@ describe("editor/plugins/image", () => {
     const wrapper = shallow(<ImageButton />)
     describe("initial render", () => {
       it("always renders a ToolbarButton", () => {
-        expect(wrapper.dive().find(ToolbarButton)).toHaveLength(1)
+        expect(wrapper.find(ToolbarButton)).toHaveLength(1)
       })
     })
   })
