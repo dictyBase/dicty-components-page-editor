@@ -29,3 +29,9 @@
 > dictyBase page editor built using Slatejs
 
 Documentation coming soon...
+
+This app relies on the these core libraries (hence the large bundle size):
+
+![Slate](https://img.shields.io/bundlephobia/min/slate/0.44.13?label=slate)
+![slate-react](https://img.shields.io/bundlephobia/min/slate-react/0.21.20?label=slate-react)
+![Immutable](https://img.shields.io/bundlephobia/min/immutable/3.8.2?label=immutable)
