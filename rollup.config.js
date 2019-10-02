@@ -59,6 +59,11 @@ export default {
           "Stack",
         ],
         "node_modules/esrever/esrever.js": ["reverse"],
+        "node_modules/react-is/index.js": [
+          "isElement",
+          "isValidElementType",
+          "ForwardRef",
+        ],
       },
     }),
   ],
