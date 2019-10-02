@@ -1,6 +1,6 @@
 {
   "name": "dicty-components-page-editor",
-  "version": "1.0.0",
+  "version": "0.0.0-semantically-released",
   "description": "dictyBase page editor built using Slatejs",
   "author": "wildlifehexagon",
   "repository": {
@@ -27,7 +27,9 @@
     "prettier": "prettier --version",
     "flow": "flow",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "cz": "git-cz",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@convertkit/slate-lists": "^0.2.4",
@@ -81,8 +83,11 @@
     "@babel/preset-react": "^7.0.0",
     "@material-ui/core": "^4.2.1",
     "@material-ui/icons": "^4.2.1",
+    "@semantic-release/git": "^7.0.16",
     "@svgr/rollup": "^4.3.3",
+    "commitizen": "^4.0.3",
     "cross-env": "^6.0.1",
+    "cz-conventional-changelog": "^3.0.2",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "eslint": "^6.5.1",
@@ -112,6 +117,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.0",
     "rollup-plugin-postcss": "^2.0.3",
     "rollup-plugin-url": "^2.2.0",
+    "semantic-release": "^15.13.24",
     "source-map-explorer": "^2.1.0"
   },
   "files": [
@@ -138,6 +144,21 @@
     "src/**/*.{js,jsx,json,css}": [
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
       "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "noCi": true,
+    "tagFormat": "${version}",
+    "verifyConditions": [
+      "@semantic-release/git"
+    ],
+    "publish": [
+      "@semantic-release/github"
     ]
   }
 }
