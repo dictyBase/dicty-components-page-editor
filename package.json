@@ -5,7 +5,7 @@
   "author": "wildlifehexagon",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/dictybase-playground/dicty-components-page-editor.git"
+    "url": "git+https://github.com/dictyBase/dicty-components-page-editor.git"
   },
   "license": "BSD-2-Clause",
   "main": "dist/index.js",
