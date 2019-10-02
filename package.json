@@ -152,7 +152,7 @@
     }
   },
   "release": {
-    "noCi": true,
+    "ci": false,
     "tagFormat": "${version}",
     "verifyConditions": [
       "@semantic-release/git"
