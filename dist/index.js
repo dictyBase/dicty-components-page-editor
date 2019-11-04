@@ -25657,7 +25657,6 @@ var index$1 = {
   useMemoization: useMemoization,
   Value: Value
 };
-//# sourceMappingURL=slate.es.js.map
 
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
@@ -25910,7 +25909,6 @@ var IS_MAC = os === 'macos';
 
 var ANDROID_API_VERSION = getAndroidApiVersion();
 var HAS_INPUT_EVENTS_LEVEL_2 = features.includes('inputeventslevel2') || IS_ANDROID && (ANDROID_API_VERSION === 28 || ANDROID_API_VERSION === null);
-//# sourceMappingURL=slate-dev-environment.es.js.map
 
 var atob = function atob(val) {
   return new Buffer(val, 'base64').toString();
@@ -26010,7 +26008,6 @@ var index$2 = {
   serialize: serialize,
   serializeNode: serializeNode
 };
-//# sourceMappingURL=slate-base64-serializer.es.js.map
 
 var _extends$2 = Object.assign || function (target) {
   for (var i = 1; i < arguments.length; i++) {
@@ -26122,7 +26119,6 @@ var index$3 = {
   deserialize: deserialize$1,
   serialize: serialize$1
 };
-//# sourceMappingURL=slate-plain-serializer.es.js.map
 
 var lib = createCommonjsModule(function (module, exports) {
 
@@ -26455,7 +26451,6 @@ KEYS.forEach(function (key) {
     return false;
   };
 });
-//# sourceMappingURL=slate-hotkeys.es.js.map
 
 var reactIs_production_min = createCommonjsModule(function (module, exports) {
 Object.defineProperty(exports,"__esModule",{value:!0});
@@ -27729,7 +27724,6 @@ var Types = {
    */
 
 };
-//# sourceMappingURL=slate-prop-types.es.js.map
 
 var ANONYMOUS = "<<anonymous>>";
 
@@ -28505,7 +28499,6 @@ function SlateReactPlaceholder() {
 
   return { decorateNode: decorateNode, renderMark: renderMark };
 }
-//# sourceMappingURL=slate-react-placeholder.es.js.map
 
 var simpleIsEqual = function simpleIsEqual(a, b) {
   return a === b;
@@ -30105,8 +30098,6 @@ function AndroidPlugin() {
       case 28:
         var _window2 = getWindow_1(event.target);
         fixSelectionInZeroWidthBlock(_window2);
-        break;
-      default:
         break;
     }
   }
@@ -34091,7 +34082,6 @@ Editor$1.defaultProps = {
   readOnly: false,
   schema: {},
   spellCheck: true };
-//# sourceMappingURL=slate-react.es.js.map
 
 /**
  * Expose `isUrl`.
@@ -34680,7 +34670,6 @@ var key = 0;
 function addKey(element) {
   return React__default.cloneElement(element, { key: key++ });
 }
-//# sourceMappingURL=slate-html-serializer.es.js.map
 
 var BLOCK_TAGS = {
   p: "paragraph",
@@ -37098,7 +37087,7 @@ function classList(props) {
     'fa-li': listItem,
     'fa-flip-horizontal': flip === 'horizontal' || flip === 'both',
     'fa-flip-vertical': flip === 'vertical' || flip === 'both'
-  }, _defineProperty$3(_classes, "fa-".concat(size), typeof size !== 'undefined'), _defineProperty$3(_classes, "fa-rotate-".concat(rotation), typeof rotation !== 'undefined'), _defineProperty$3(_classes, "fa-pull-".concat(pull), typeof pull !== 'undefined'), _defineProperty$3(_classes, 'fa-swap-opacity', props.swapOpacity), _classes); // map over all the keys in the classes object
+  }, _defineProperty$3(_classes, "fa-".concat(size), typeof size !== 'undefined' && size !== null), _defineProperty$3(_classes, "fa-rotate-".concat(rotation), typeof rotation !== 'undefined' && rotation !== null), _defineProperty$3(_classes, "fa-pull-".concat(pull), typeof pull !== 'undefined' && pull !== null), _defineProperty$3(_classes, 'fa-swap-opacity', props.swapOpacity), _classes); // map over all the keys in the classes object
   // return an array of the keys where the value for the key is not null
 
   return Object.keys(classes).map(function (key) {
@@ -38310,10 +38299,11 @@ var createSchema = (function (_ref) {
       normalize: function normalize(editor, error) {
         switch (error.code) {
           case "child_min_invalid":
-            editor.insertNodeByKey(error.node.key, 0, {
-              object: "block",
-              type: blocks.list_item_child
-            });
+            editor.insertNodeByKey(error.node.key, 0, Block.create({
+              type: blocks.list_item_child,
+              nodes: [Text.create()]
+            }));
+            return;
 
           case "child_type_invalid":
             editor.wrapBlockByKey(error.child.key, {
@@ -38322,7 +38312,7 @@ var createSchema = (function (_ref) {
             return;
 
           case "parent_type_invalid":
-            editor.wrapBlock(blocks.unordered_list);
+            editor.wrapBlockByKey(error.node.key, blocks.unordered_list);
             return;
 
           default:
@@ -45874,7 +45864,6 @@ var renderNode = function renderNode(props, editor, next) {
  * @type {String}
  */
 var LAST_CHILD_TYPE_INVALID = 'last_child_type_invalid';
-//# sourceMappingURL=slate-schema-violations.es.js.map
 
 var schema = {
   document: {
@@ -45890,9 +45879,6 @@ var schema = {
             var paragraph = Block.create("paragraph");
             return change.insertNodeByKey(node.key, node.nodes.size, paragraph);
           }
-
-        default:
-          break;
       }
     }
   },
