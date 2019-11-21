@@ -1,5 +1,6 @@
 // @flow
 import React from "react"
+import Typography from "@material-ui/core/Typography"
 import Tooltip from "@material-ui/core/Tooltip"
 import ToolbarButton from "../toolbar/ToolbarButton"
 import { ButtonProps, NodeProps } from "../flow/types"
@@ -19,13 +20,19 @@ const hasBlock = (value, type) => value.blocks.some(node => node.type === type)
  * Rendering components that provide the actual HTML to use inside the editor.
  */
 const H1Node = ({ attributes, children }: NodeProps) => (
-  <h1 {...attributes}>{children}</h1>
+  <Typography variant="h1" {...attributes}>
+    {children}
+  </Typography>
 )
 const H2Node = ({ attributes, children }: NodeProps) => (
-  <h2 {...attributes}>{children}</h2>
+  <Typography variant="h2" {...attributes}>
+    {children}
+  </Typography>
 )
 const H3Node = ({ attributes, children }: NodeProps) => (
-  <h3 {...attributes}>{children}</h3>
+  <Typography variant="h3" {...attributes}>
+    {children}
+  </Typography>
 )
 
 /**
