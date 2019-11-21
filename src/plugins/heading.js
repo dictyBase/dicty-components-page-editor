@@ -19,18 +19,8 @@ const hasBlock = (value, type) => value.blocks.some(node => node.type === type)
 /**
  * Rendering components that provide the actual HTML to use inside the editor.
  */
-const H1Node = ({ attributes, children }: NodeProps) => (
-  <Typography variant="h1" {...attributes}>
-    {children}
-  </Typography>
-)
-const H2Node = ({ attributes, children }: NodeProps) => (
-  <Typography variant="h2" {...attributes}>
-    {children}
-  </Typography>
-)
-const H3Node = ({ attributes, children }: NodeProps) => (
-  <Typography variant="h3" {...attributes}>
+const HeaderNode = ({ attributes, children, variant }: NodeProps) => (
+  <Typography variant={variant} {...attributes}>
     {children}
   </Typography>
 )
@@ -74,4 +64,4 @@ const H3Button = ({ editor }: ButtonProps) => (
 /**
  * Export everything needed for the editor.
  */
-export { H1Node, H2Node, H3Node, H1Button, H2Button, H3Button }
+export { HeaderNode, H1Button, H2Button, H3Button }

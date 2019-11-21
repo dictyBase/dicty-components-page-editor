@@ -2,7 +2,7 @@
 import React from "react"
 import { AlignmentNode } from "../plugins/alignment"
 import { DividerNode } from "../plugins/divider"
-import { H1Node, H2Node, H3Node } from "../plugins/heading"
+import { HeaderNode } from "../plugins/heading"
 import { ImageNode } from "../plugins/image"
 import { LineSpacingNode } from "../plugins/linespacing"
 import { LinkNode } from "../plugins/link"
@@ -29,11 +29,11 @@ const renderNode = (props: nodeProps, editor: Object, next: Function) => {
     case "divider":
       return <DividerNode {...props} />
     case "h1":
-      return <H1Node {...props} />
+      return <HeaderNode variant="h1" {...props} />
     case "h2":
-      return <H2Node {...props} />
+      return <HeaderNode variant="h2" {...props} />
     case "h3":
-      return <H3Node {...props} />
+      return <HeaderNode variant="h3" {...props} />
     case "image":
       return <ImageNode {...props} />
     case "line-spacing":
