@@ -1,4 +1,4 @@
-# dicty-components-page-editor
+# dicty-components-page-editor 📝
 
 [![License](https://img.shields.io/badge/License-BSD%202--Clause-blue.svg)](LICENSE)  
 ![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/dicty-components-page-editor)  
@@ -29,32 +29,71 @@
 
 > dictyBase page editor built using Slatejs
 
-Documentation coming soon...
+## Install
 
-This app relies on the these core libraries (hence the large bundle size):
+```bash
+npm install dictyBase/dicty-components-page-editor
+```
+
+To install a specific version, add a tag to the end:
+
+```bash
+npm install dictyBase/dicty-components-page-editor#1.0.0
+```
+
+## Usage
+
+```jsx
+import { PageEditor } from "dicty-components-page-editor"
+
+const Demo = () => {
+  const onCancel = () => {}
+  const onSave = () => {}
+
+  return (
+    <PageEditor
+      pageContent={data.content}
+      onCancel={onCancel}
+      onSave={onSave}
+      readOnly={false}
+      newPage
+    />
+  )
+}
+```
+
+#### Props
+
+- `pageContent` (string) - fetched page content _(optional)_
+- `readOnly` (boolean) - determines if editor is in read-only mode
+- `newPage` (boolean) - identifier for creating a new page _(optional)_
+- `onSave` (function) - called when user clicks the save button
+- `onCancel` (function) - called when user clicks the cancel button
+
+## Development
+
+- Clone the `develop` branch of this repository
+- Run `npm install`
+- Create a new branch (i.e. `feature/foo-plugin`)
+- Complete any necessary work.
+- If creating a new plugin, there is a [guide](./documentation/bold.md) that
+  walks you through the process using the bold plugin as a guide.
+- Commit all changes and open a pull request. If all checks pass, it is ready
+  to merge to `develop`.
+
+If you are ready to cut a new release, you can then merge into `master`. This
+will trigger a GitHub Action that uses `semantic-release` to create a new tag
+automatically.
+
+## Dependencies
+
+This editor relies on the these core libraries (hence the large bundle size):
 
 ![Slate](https://img.shields.io/bundlephobia/min/slate/0.44.13?label=slate)
 ![slate-react](https://img.shields.io/bundlephobia/min/slate-react/0.21.20?label=slate-react)
 ![Immutable](https://img.shields.io/bundlephobia/min/immutable/3.8.2?label=immutable)
 
-## Semantic Versioning
+## Active Developers
 
-This app has been set up to use [semantic-release](https://github.com/semantic-release/semantic-release)
-and [commitizen](https://github.com/commitizen/cz-cli). After adding a new commit
-(`git add ...`), use `npm run cz` and follow the prompts to categorize and provide
-more details about your commit. Once complete, push your changes to whatever branch
-you are working on.
-
-When you are ready to push to prod, you can use `semantic-release` to automate the
-release process:
-
-- Merge your changes into `master`
-- Run `npx semantic-release`
-
-**Important:** you MUST have an env variable stored for `GH_TOKEN` or `GITHUB_TOKEN`
-that contains a GitHub [personal access token](https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/).
-You can either pass this in manually when you run the script (i.e. `GH_TOKEN=XXX npx semantic-release`)
-or you can [store your env variable locally](https://www.schrodinger.com/kb/1842).
-
-This will look at your most recent commits since the last `git tag` and automatically
-determine the appropriate version number for your release.
+<a href="https://sourcerer.io/cybersiddhu"><img src="https://sourcerer.io/assets/avatar/cybersiddhu" height="80px" alt="Sourcerer"></a>
+<a href="https://sourcerer.io/wildlifehexagon"><img src="https://sourcerer.io/assets/avatar/wildlifehexagon" height="80px" alt="Sourcerer"></a>
