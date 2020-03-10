@@ -34,6 +34,7 @@ import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatIndentDecreaseIcon from '@material-ui/icons/FormatIndentDecrease';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
+import Typography from '@material-ui/core/Typography';
 import TableIcon from '@material-ui/icons/BorderAll';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
@@ -38583,30 +38584,21 @@ var hasBlock = function hasBlock(value, type) {
  */
 
 
-var H1Node = function H1Node(_ref) {
+var HeaderNode = function HeaderNode(_ref) {
   var attributes = _ref.attributes,
-      children = _ref.children;
-  return React.createElement("h1", attributes, children);
-};
-
-var H2Node = function H2Node(_ref2) {
-  var attributes = _ref2.attributes,
-      children = _ref2.children;
-  return React.createElement("h2", attributes, children);
-};
-
-var H3Node = function H3Node(_ref3) {
-  var attributes = _ref3.attributes,
-      children = _ref3.children;
-  return React.createElement("h3", attributes, children);
+      children = _ref.children,
+      variant = _ref.variant;
+  return React.createElement(Typography, _extends({
+    variant: variant
+  }, attributes), children);
 };
 /**
  * Button components that use click handlers to connect the buttons to the editor.
  */
 
 
-var H1Button = function H1Button(_ref4) {
-  var editor = _ref4.editor;
+var H1Button = function H1Button(_ref2) {
+  var editor = _ref2.editor;
   return React.createElement(Tooltip, {
     title: "Heading 1",
     placement: "bottom"
@@ -38617,8 +38609,8 @@ var H1Button = function H1Button(_ref4) {
   }, React.createElement("strong", null, "H1")));
 };
 
-var H2Button = function H2Button(_ref5) {
-  var editor = _ref5.editor;
+var H2Button = function H2Button(_ref3) {
+  var editor = _ref3.editor;
   return React.createElement(Tooltip, {
     title: "Heading 2",
     placement: "bottom"
@@ -38629,8 +38621,8 @@ var H2Button = function H2Button(_ref5) {
   }, React.createElement("strong", null, "H2")));
 };
 
-var H3Button = function H3Button(_ref6) {
-  var editor = _ref6.editor;
+var H3Button = function H3Button(_ref4) {
+  var editor = _ref4.editor;
   return React.createElement(Tooltip, {
     title: "Heading 3",
     placement: "bottom"
@@ -42530,14 +42522,13 @@ var EditableInput = exports.EditableInput = function (_ref) {
   }
 
   _createClass(EditableInput, [{
-    key: 'componentWillReceiveProps',
-    value: function componentWillReceiveProps(nextProps) {
-      var input = this.input;
-      if (nextProps.value !== this.state.value) {
-        if (input === document.activeElement) {
-          this.setState({ blurValue: String(nextProps.value).toUpperCase() });
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (this.props.value !== this.state.value && (prevProps.value !== this.props.value || prevState.value !== this.state.value)) {
+        if (this.input === document.activeElement) {
+          this.setState({ blurValue: String(this.props.value).toUpperCase() });
         } else {
-          this.setState({ value: String(nextProps.value).toUpperCase(), blurValue: !this.state.blurValue && String(nextProps.value).toUpperCase() });
+          this.setState({ value: String(this.props.value).toUpperCase(), blurValue: !this.state.blurValue && String(this.props.value).toUpperCase() });
         }
       }
     }
@@ -42559,7 +42550,7 @@ var EditableInput = exports.EditableInput = function (_ref) {
   }, {
     key: 'setUpdatedValue',
     value: function setUpdatedValue(value, e) {
-      var onChangeValue = this.props.label !== null ? this.getValueObjectWithLabel(value) : value;
+      var onChangeValue = this.props.label ? this.getValueObjectWithLabel(value) : value;
       this.props.onChange && this.props.onChange(onChangeValue, e);
 
       var isPercentage = getIsPercentage(e.target.value);
@@ -42980,14 +42971,16 @@ var calculateChange = exports.calculateChange = function calculateChange(e, hsl,
     left = 0;
   } else if (left > containerWidth) {
     left = containerWidth;
-  } else if (top < 0) {
+  }
+
+  if (top < 0) {
     top = 0;
   } else if (top > containerHeight) {
     top = containerHeight;
   }
 
-  var saturation = left * 100 / containerWidth;
-  var bright = -(top * 100 / containerHeight) + 100;
+  var saturation = left / containerWidth;
+  var bright = 1 - top / containerHeight;
 
   return {
     h: hsl.h,
@@ -44563,11 +44556,6 @@ var ColorWrap = exports.ColorWrap = function ColorWrap(Picker) {
     }
 
     _createClass(ColorPicker, [{
-      key: 'componentWillReceiveProps',
-      value: function componentWillReceiveProps(nextProps) {
-        this.setState(_extends({}, _color2.default.toState(nextProps.color, this.state.oldHue)));
-      }
-    }, {
       key: 'render',
       value: function render() {
         var optionalEvents = {};
@@ -44578,6 +44566,11 @@ var ColorWrap = exports.ColorWrap = function ColorWrap(Picker) {
         return _react2.default.createElement(Picker, _extends({}, this.props, this.state, {
           onChange: this.handleChange
         }, optionalEvents));
+      }
+    }], [{
+      key: 'getDerivedStateFromProps',
+      value: function getDerivedStateFromProps(nextProps, state) {
+        return _extends({}, _color2.default.toState(nextProps.color, state.oldHue));
       }
     }]);
 
@@ -45670,9 +45663,7 @@ var EditorToolbar = function EditorToolbar(props) {
 var styles$4 = function styles(theme) {
   return {
     editor: {
-      minHeight: "200px",
       lineHeight: 1.6,
-      padding: "10px",
       color: "rgba(0, 0, 0, 0.87)",
       "& a": {
         color: "#004080",
@@ -45808,13 +45799,19 @@ var renderNode = function renderNode(props, editor, next) {
       return React.createElement(DividerNode, props);
 
     case "h1":
-      return React.createElement(H1Node, props);
+      return React.createElement(HeaderNode, _extends({
+        variant: "h1"
+      }, props));
 
     case "h2":
-      return React.createElement(H2Node, props);
+      return React.createElement(HeaderNode, _extends({
+        variant: "h2"
+      }, props));
 
     case "h3":
-      return React.createElement(H3Node, props);
+      return React.createElement(HeaderNode, _extends({
+        variant: "h3"
+      }, props));
 
     case "image":
       return React.createElement(ImageNode, props);
