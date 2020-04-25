@@ -118,7 +118,7 @@
     "rollup-plugin-peer-deps-external": "^2.2.2",
     "rollup-plugin-postcss": "^2.5.0",
     "rollup-plugin-url": "^3.0.1",
-    "semantic-release": "^17.0.6",
+    "semantic-release": "^17.0.7",
     "source-map-explorer": "^2.4.2"
   },
   "files": [
