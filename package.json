@@ -41,7 +41,7 @@
     "react-color": "^2.18.1",
     "slate": "^0.44.13",
     "slate-deep-table": "^0.8.0",
-    "slate-html-serializer": "^0.7.39",
+    "slate-html-serializer": "^0.8.13",
     "slate-react": "^0.21.20",
     "slate-schema-violations": "^0.1.39",
     "typeface-lato": "0.0.75",
