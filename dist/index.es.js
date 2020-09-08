@@ -140,6 +140,19 @@ function _setPrototypeOf(o, p) {
   return _setPrototypeOf(o, p);
 }
 
+function _isNativeReflectConstruct() {
+  if (typeof Reflect === "undefined" || !Reflect.construct) return false;
+  if (Reflect.construct.sham) return false;
+  if (typeof Proxy === "function") return true;
+
+  try {
+    Date.prototype.toString.call(Reflect.construct(Date, [], function () {}));
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
 function _objectWithoutPropertiesLoose(source, excluded) {
   if (source == null) return {};
   var target = {};
@@ -192,8 +205,27 @@ function _possibleConstructorReturn(self, call) {
   return _assertThisInitialized(self);
 }
 
+function _createSuper(Derived) {
+  var hasNativeReflectConstruct = _isNativeReflectConstruct();
+
+  return function _createSuperInternal() {
+    var Super = _getPrototypeOf(Derived),
+        result;
+
+    if (hasNativeReflectConstruct) {
+      var NewTarget = _getPrototypeOf(this).constructor;
+
+      result = Reflect.construct(Super, arguments, NewTarget);
+    } else {
+      result = Super.apply(this, arguments);
+    }
+
+    return _possibleConstructorReturn(this, result);
+  };
+}
+
 function _slicedToArray(arr, i) {
-  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest();
+  return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest();
 }
 
 function _arrayWithHoles(arr) {
@@ -201,10 +233,7 @@ function _arrayWithHoles(arr) {
 }
 
 function _iterableToArrayLimit(arr, i) {
-  if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) {
-    return;
-  }
-
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
   var _arr = [];
   var _n = true;
   var _d = false;
@@ -230,8 +259,25 @@ function _iterableToArrayLimit(arr, i) {
   return _arr;
 }
 
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return _arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen);
+}
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) arr2[i] = arr[i];
+
+  return arr2;
+}
+
 function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
 }
 
 /**
@@ -342,7 +388,7 @@ function getWindow(node) {
 
 var isProduction = process.env.NODE_ENV === 'production';
 var prefix = 'Invariant failed';
-function invariant(condition, message) {
+function invariant$1(condition, message) {
     if (condition) {
         return;
     }
@@ -7593,6 +7639,10 @@ function baseSet(object, path, value, customizer) {
     var key = _toKey(path[index]),
         newValue = value;
 
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      return object;
+    }
+
     if (index != lastIndex) {
       var objValue = nested[key];
       newValue = customizer ? customizer(objValue, key, nested) : undefined;
@@ -8838,11 +8888,11 @@ var _baseKeysIn = baseKeysIn;
  * _.keysIn(new Foo);
  * // => ['a', 'b', 'c'] (iteration order is not guaranteed)
  */
-function keysIn$1(object) {
+function keysIn(object) {
   return isArrayLike_1(object) ? _arrayLikeKeys(object, true) : _baseKeysIn(object);
 }
 
-var keysIn_1 = keysIn$1;
+var keysIn_1 = keysIn;
 
 /**
  * The base implementation of `_.assignIn` without support for multiple sources
@@ -9600,7 +9650,7 @@ function baseClone(value, bitmask, customizer, key, object, stack) {
 
   var keysFunc = isFull
     ? (isFlat ? _getAllKeysIn : _getAllKeys)
-    : (isFlat ? keysIn : keys_1);
+    : (isFlat ? keysIn_1 : keys_1);
 
   var props = isArr ? undefined : keysFunc(value);
   _arrayEach(props || value, function(subValue, key) {
@@ -14518,7 +14568,7 @@ var Value = function (_Record) {
   }, {
     key: 'change',
     value: function change() {
-      invariant(false, 'As of Slate 0.42.0, value object are no longer schema-aware, and the `value.change()` method is no longer available. Use the `editor.change()` method on the new `Editor` controller instead.');
+      invariant$1(false, 'As of Slate 0.42.0, value object are no longer schema-aware, and the `value.change()` method is no longer available. Use the `editor.change()` method on the new `Editor` controller instead.');
     }
   }, {
     key: 'startBlock',
@@ -14812,7 +14862,7 @@ var Value = function (_Record) {
   }, {
     key: 'history',
     get: function get$$1() {
-      invariant(false, 'As of Slate 0.42.0, the `value.history` model no longer exists, and the history is stored in `value.data` instead using plugins.');
+      invariant$1(false, 'As of Slate 0.42.0, the `value.history` model no longer exists, and the history is stored in `value.data` instead using plugins.');
     }
   }], [{
     key: 'create',
@@ -21305,7 +21355,7 @@ var Editor = function () {
         return controller;
       }
 
-      invariant(!(type in controller), 'You cannot register a `' + type + '` command because it would overwrite an existing property of the `Editor`.');
+      invariant$1(!(type in controller), 'You cannot register a `' + type + '` command because it would overwrite an existing property of the `Editor`.');
 
       var method = function method() {
         for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
@@ -21338,7 +21388,7 @@ var Editor = function () {
         return controller;
       }
 
-      invariant(!(type in controller), 'You cannot register a `' + type + '` query because it would overwrite an existing property of the `Editor`.');
+      invariant$1(!(type in controller), 'You cannot register a `' + type + '` query because it would overwrite an existing property of the `Editor`.');
 
       var method = function method() {
         for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
@@ -21391,31 +21441,31 @@ var Editor = function () {
 
       Object.defineProperty(next, 'change', {
         get: function get$$1() {
-          invariant(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
+          invariant$1(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
         }
       });
 
       Object.defineProperty(next, 'onChange', {
         get: function get$$1() {
-          invariant(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
+          invariant$1(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
         }
       });
 
       Object.defineProperty(next, 'props', {
         get: function get$$1() {
-          invariant(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
+          invariant$1(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
         }
       });
 
       Object.defineProperty(next, 'schema', {
         get: function get$$1() {
-          invariant(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
+          invariant$1(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
         }
       });
 
       Object.defineProperty(next, 'stack', {
         get: function get$$1() {
-          invariant(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
+          invariant$1(false, 'As of Slate 0.42, the `editor` is no longer passed as the third argument to event handlers. You can access it via `change.editor` instead.');
         }
       });
 
@@ -22770,7 +22820,7 @@ var ElementInterface = function () {
   }, {
     key: 'getClosestVoid',
     value: function getClosestVoid(path, editor) {
-      invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.getClosestVoid` method takes an `editor` instead of a `value`.');
+      invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.getClosestVoid` method takes an `editor` instead of a `value`.');
 
       var ancestors = this.getAncestors(path);
       if (!ancestors) return null;
@@ -22811,7 +22861,7 @@ var ElementInterface = function () {
   }, {
     key: 'getDecorations',
     value: function getDecorations(editor) {
-      invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.getDecorations` method takes an `editor` instead of a `value`.');
+      invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.getDecorations` method takes an `editor` instead of a `value`.');
 
       var array = editor.run('decorateNode', this);
       var decorations = Decoration.createList(array);
@@ -24319,7 +24369,7 @@ var ElementInterface = function () {
   }, {
     key: 'hasVoidParent',
     value: function hasVoidParent(path, editor) {
-      invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.hasVoidParent` method takes an `editor` instead of a `value`.');
+      invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `node.hasVoidParent` method takes an `editor` instead of a `value`.');
 
       var closest = this.getClosestVoid(path, editor);
       return !!closest;
@@ -26444,7 +26494,7 @@ KEYS.forEach(function (key) {
   };
 });
 
-/** @license React v16.13.0
+/** @license React v16.13.1
  * react-is.production.min.js
  *
  * Copyright (c) Facebook, Inc. and its affiliates.
@@ -27669,31 +27719,72 @@ var Types = {
 
 var ANONYMOUS = "<<anonymous>>";
 
-var ImmutablePropTypes = {
-  listOf: createListOfTypeChecker,
-  mapOf: createMapOfTypeChecker,
-  orderedMapOf: createOrderedMapOfTypeChecker,
-  setOf: createSetOfTypeChecker,
-  orderedSetOf: createOrderedSetOfTypeChecker,
-  stackOf: createStackOfTypeChecker,
-  iterableOf: createIterableOfTypeChecker,
-  recordOf: createRecordOfTypeChecker,
-  shape: createShapeChecker,
-  contains: createShapeChecker,
-  mapContains: createMapContainsChecker,
-  // Primitive Types
-  list: createImmutableTypeChecker("List", immutable.List.isList),
-  map: createImmutableTypeChecker("Map", immutable.Map.isMap),
-  orderedMap: createImmutableTypeChecker("OrderedMap", immutable.OrderedMap.isOrderedMap),
-  set: createImmutableTypeChecker("Set", immutable.Set.isSet),
-  orderedSet: createImmutableTypeChecker("OrderedSet", immutable.OrderedSet.isOrderedSet),
-  stack: createImmutableTypeChecker("Stack", immutable.Stack.isStack),
-  seq: createImmutableTypeChecker("Seq", immutable.Seq.isSeq),
-  record: createImmutableTypeChecker("Record", function (isRecord) {
-    return isRecord instanceof immutable.Record;
-  }),
-  iterable: createImmutableTypeChecker("Iterable", immutable.Iterable.isIterable)
-};
+var ImmutablePropTypes;
+
+if (process.env.NODE_ENV !== "production") {
+  ImmutablePropTypes = {
+    listOf: createListOfTypeChecker,
+    mapOf: createMapOfTypeChecker,
+    orderedMapOf: createOrderedMapOfTypeChecker,
+    setOf: createSetOfTypeChecker,
+    orderedSetOf: createOrderedSetOfTypeChecker,
+    stackOf: createStackOfTypeChecker,
+    iterableOf: createIterableOfTypeChecker,
+    recordOf: createRecordOfTypeChecker,
+    shape: createShapeChecker,
+    contains: createShapeChecker,
+    mapContains: createMapContainsChecker,
+    orderedMapContains: createOrderedMapContainsChecker,
+    // Primitive Types
+    list: createImmutableTypeChecker("List", immutable.List.isList),
+    map: createImmutableTypeChecker("Map", immutable.Map.isMap),
+    orderedMap: createImmutableTypeChecker("OrderedMap", immutable.OrderedMap.isOrderedMap),
+    set: createImmutableTypeChecker("Set", immutable.Set.isSet),
+    orderedSet: createImmutableTypeChecker("OrderedSet", immutable.OrderedSet.isOrderedSet),
+    stack: createImmutableTypeChecker("Stack", immutable.Stack.isStack),
+    seq: createImmutableTypeChecker("Seq", immutable.Seq.isSeq),
+    record: createImmutableTypeChecker("Record", function (isRecord) {
+      return isRecord instanceof immutable.Record;
+    }),
+    iterable: createImmutableTypeChecker("Iterable", immutable.Iterable.isIterable)
+  };
+} else {
+  var productionTypeChecker = function productionTypeChecker() {
+    invariant(false, "ImmutablePropTypes type checking code is stripped in production.");
+  };
+  productionTypeChecker.isRequired = productionTypeChecker;
+  var getProductionTypeChecker = function getProductionTypeChecker() {
+    return productionTypeChecker;
+  };
+
+  ImmutablePropTypes = {
+    listOf: getProductionTypeChecker,
+    mapOf: getProductionTypeChecker,
+    orderedMapOf: getProductionTypeChecker,
+    setOf: getProductionTypeChecker,
+    orderedSetOf: getProductionTypeChecker,
+    stackOf: getProductionTypeChecker,
+    iterableOf: getProductionTypeChecker,
+    recordOf: getProductionTypeChecker,
+    shape: getProductionTypeChecker,
+    contains: getProductionTypeChecker,
+    mapContains: getProductionTypeChecker,
+    orderedMapContains: getProductionTypeChecker,
+    // Primitive Types
+    list: productionTypeChecker,
+    map: productionTypeChecker,
+    orderedMap: productionTypeChecker,
+    set: productionTypeChecker,
+    orderedSet: productionTypeChecker,
+    stack: productionTypeChecker,
+    seq: productionTypeChecker,
+    record: productionTypeChecker,
+    iterable: productionTypeChecker
+  };
+}
+
+ImmutablePropTypes.iterable.indexed = createIterableSubclassTypeChecker("Indexed", immutable.Iterable.isIndexed);
+ImmutablePropTypes.iterable.keyed = createIterableSubclassTypeChecker("Keyed", immutable.Iterable.isKeyed);
 
 function getPropType(propValue) {
   var propType = typeof propValue;
@@ -27748,6 +27839,12 @@ function createImmutableTypeChecker(immutableClassName, immutableClassTypeValida
   return createChainableTypeChecker(validate);
 }
 
+function createIterableSubclassTypeChecker(subclassName, validator) {
+  return createImmutableTypeChecker("Iterable." + subclassName, function (propValue) {
+    return immutable.Iterable.isIterable(propValue) && validator(propValue);
+  });
+}
+
 function createIterableTypeChecker(typeChecker, immutableClassName, immutableClassTypeValidator) {
 
   function validate(props, propName, componentName, location, propFullName) {
@@ -27766,7 +27863,7 @@ function createIterableTypeChecker(typeChecker, immutableClassName, immutableCla
       return new Error("Invalid typeChecker supplied to `" + componentName + "` " + ("for propType `" + propFullName + "`, expected a function."));
     }
 
-    var propValues = propValue.toArray();
+    var propValues = propValue.valueSeq().toArray();
     for (var i = 0, len = propValues.length; i < len; i++) {
       var error = typeChecker.apply(undefined, [propValues, i, componentName, location, "" + propFullName + "[" + i + "]"].concat(rest));
       if (error instanceof Error) {
@@ -27904,6 +28001,10 @@ function createShapeChecker(shapeTypes) {
 
 function createMapContainsChecker(shapeTypes) {
   return createShapeTypeChecker(shapeTypes, "Map", immutable.Map.isMap);
+}
+
+function createOrderedMapContainsChecker(shapeTypes) {
+  return createShapeTypeChecker(shapeTypes, "OrderedMap", immutable.OrderedMap.isOrderedMap);
 }
 
 var ImmutablePropTypes_1 = ImmutablePropTypes;
@@ -28755,7 +28856,7 @@ var VOID_SELECTOR = '[data-slate-void]';
  */
 
 function findPoint(nativeNode, nativeOffset, editor) {
-  invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `findPoint` utility takes an `editor` instead of a `value`.');
+  invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `findPoint` utility takes an `editor` instead of a `value`.');
 
   var _normalizeNodeAndOffs = normalizeNodeAndOffset(nativeNode, nativeOffset),
       nearestNode = _normalizeNodeAndOffs.node,
@@ -28908,7 +29009,7 @@ function getEditableChild(parent, index, direction) {
  */
 
 function findRange(native, editor) {
-  invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
+  invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
 
   var el = native.anchorNode || native.startContainer;
   if (!el) return null;
@@ -30143,7 +30244,7 @@ function cloneFragment(event, editor) {
     return undefined;
   };
 
-  invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `cloneFragment` utility takes an `editor` instead of a `value`.');
+  invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `cloneFragment` utility takes an `editor` instead of a `value`.');
 
   var window = getWindow_1(event.target);
   var native = window.getSelection();
@@ -30270,7 +30371,7 @@ function cloneFragment(event, editor) {
  */
 
 function findNode(element, editor) {
-  invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
+  invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
 
   var closest = element.closest('[data-key]');
   if (!closest) return null;
@@ -30294,7 +30395,7 @@ function findNode(element, editor) {
  */
 
 function getEventRange(event, editor) {
-  invariant(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
+  invariant$1(!Value.isValue(editor), 'As of Slate 0.42.0, the `findNode` utility takes an `editor` instead of a `value`.');
 
   if (event.nativeEvent) {
     event = event.nativeEvent;
@@ -33976,12 +34077,12 @@ var Editor$1 = function (_React$Component) {
   }, {
     key: 'schema',
     get: function get$$1() {
-      invariant(false, 'As of Slate 0.42, the `editor.schema` property no longer exists, and its functionality has been folded into the editor itself. Use the `editor` instead.');
+      invariant$1(false, 'As of Slate 0.42, the `editor.schema` property no longer exists, and its functionality has been folded into the editor itself. Use the `editor` instead.');
     }
   }, {
     key: 'stack',
     get: function get$$1() {
-      invariant(false, 'As of Slate 0.42, the `editor.stack` property no longer exists, and its functionality has been folded into the editor itself. Use the `editor` instead.');
+      invariant$1(false, 'As of Slate 0.42, the `editor.stack` property no longer exists, and its functionality has been folded into the editor itself. Use the `editor` instead.');
     }
   }]);
   return Editor$$1;
@@ -34744,7 +34845,7 @@ var ImageNode = function ImageNode(_ref) {
   var description = data.get("description");
   var height = data.get("height");
   var width = data.get("width");
-  return React.createElement("img", _extends({
+  return /*#__PURE__*/React.createElement("img", _extends({
     src: src,
     height: height,
     width: width,
@@ -34805,22 +34906,22 @@ var ImageButton = function ImageButton(_ref2) {
     editor.command(insertImage, data);
   };
 
-  return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tooltip, {
     title: "Image",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setImageModalOpen(true);
     }
-  }, React.createElement(ImageIcon, null))), imageModalOpen && React.createElement(Dialog, {
+  }, /*#__PURE__*/React.createElement(ImageIcon, null))), imageModalOpen && /*#__PURE__*/React.createElement(Dialog, {
     open: imageModalOpen,
     onClose: function onClose() {
       return setImageModalOpen(false);
     },
     "aria-labelledby": "image-dialog-title"
-  }, React.createElement(DialogTitle, {
+  }, /*#__PURE__*/React.createElement(DialogTitle, {
     id: "image-dialog-title"
-  }, "Image Details"), React.createElement(DialogContent, null, React.createElement(TextField, {
+  }, "Image Details"), /*#__PURE__*/React.createElement(DialogContent, null, /*#__PURE__*/React.createElement(TextField, {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -34830,7 +34931,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "description",
     label: "Description (optional)",
@@ -34839,7 +34940,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setDescription(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "width",
     label: "Width (optional)",
@@ -34848,7 +34949,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setWidth(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "height",
     label: "Height (optional)",
@@ -34857,7 +34958,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setHeight(e.target.value);
     },
     fullWidth: true
-  })), React.createElement(DialogActions, null, React.createElement(Button, {
+  })), /*#__PURE__*/React.createElement(DialogActions, null, /*#__PURE__*/React.createElement(Button, {
     onClick: handleAddImageClick,
     className: classes.basicButton,
     variant: "contained",
@@ -35154,9 +35255,9 @@ var VideoNode = function VideoNode(_ref) {
     width = "100%";
   }
 
-  return React.createElement("div", _extends({}, attributes, {
+  return /*#__PURE__*/React.createElement("div", _extends({}, attributes, {
     className: classes.videoWrapper
-  }), React.createElement("iframe", {
+  }), /*#__PURE__*/React.createElement("iframe", {
     title: "video-embed",
     id: "ytplayer",
     type: "text/html",
@@ -35208,22 +35309,22 @@ var VideoButton = function VideoButton(_ref2) {
     editor.command(insertVideo, data);
   };
 
-  return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tooltip, {
     title: "Video",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setVideoModalOpen(true);
     }
-  }, React.createElement(VideoIcon, null))), videoModalOpen && React.createElement(Dialog, {
+  }, /*#__PURE__*/React.createElement(VideoIcon, null))), videoModalOpen && /*#__PURE__*/React.createElement(Dialog, {
     open: videoModalOpen,
     onClose: function onClose() {
       return setVideoModalOpen(false);
     },
     "aria-labelledby": "add-video-title"
-  }, React.createElement(DialogTitle, {
+  }, /*#__PURE__*/React.createElement(DialogTitle, {
     id: "add-video-title"
-  }, "Video Details"), React.createElement(DialogContent, null, React.createElement(TextField, {
+  }, "Video Details"), /*#__PURE__*/React.createElement(DialogContent, null, /*#__PURE__*/React.createElement(TextField, {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -35233,7 +35334,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "width",
     label: "Width (optional)",
@@ -35242,7 +35343,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setWidth(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "height",
     label: "Height (optional)",
@@ -35251,7 +35352,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setHeight(e.target.value);
     },
     fullWidth: true
-  })), React.createElement(DialogActions, null, React.createElement(Button, {
+  })), /*#__PURE__*/React.createElement(DialogActions, null, /*#__PURE__*/React.createElement(Button, {
     onClick: handleAddVideoClick,
     className: classes.basicButton,
     variant: "contained",
@@ -35316,7 +35417,7 @@ var LinkNode = function LinkNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       data = _ref.node.data;
-  return React.createElement("a", _extends({
+  return /*#__PURE__*/React.createElement("a", _extends({
     href: data.get("href")
   }, attributes), children);
 };
@@ -35389,28 +35490,28 @@ var LinkButton = function LinkButton(_ref2) {
   };
 
   if (!linkModalOpen) {
-    return React.createElement(Tooltip, {
+    return /*#__PURE__*/React.createElement(Tooltip, {
       title: "Link",
       placement: "bottom"
-    }, React.createElement(ToolbarButton, {
+    }, /*#__PURE__*/React.createElement(ToolbarButton, {
       onClick: handleToolbarButtonLink
-    }, React.createElement(LinkIcon, null)));
+    }, /*#__PURE__*/React.createElement(LinkIcon, null)));
   }
 
-  return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tooltip, {
     title: "Link",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: handleToolbarButtonLink
-  }, React.createElement(LinkIcon, null))), React.createElement(Dialog, {
+  }, /*#__PURE__*/React.createElement(LinkIcon, null))), /*#__PURE__*/React.createElement(Dialog, {
     open: linkModalOpen,
     onClose: function onClose() {
       return setLinkModalOpen(false);
     },
     "aria-labelledby": "link-dialog-title"
-  }, React.createElement(DialogTitle, {
+  }, /*#__PURE__*/React.createElement(DialogTitle, {
     id: "link-dialog-title"
-  }, "Link Details"), React.createElement(DialogContent, null, React.createElement(TextField, {
+  }, "Link Details"), /*#__PURE__*/React.createElement(DialogContent, null, /*#__PURE__*/React.createElement(TextField, {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -35421,7 +35522,7 @@ var LinkButton = function LinkButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(TextField, {
+  }), /*#__PURE__*/React.createElement(TextField, {
     margin: "dense",
     id: "text",
     label: "Text",
@@ -35431,10 +35532,10 @@ var LinkButton = function LinkButton(_ref2) {
       return setText(e.target.value);
     },
     fullWidth: true
-  }), React.createElement(FormGroup, {
+  }), /*#__PURE__*/React.createElement(FormGroup, {
     row: true
-  }, React.createElement(FormControlLabel, {
-    control: React.createElement(Checkbox, {
+  }, /*#__PURE__*/React.createElement(FormControlLabel, {
+    control: /*#__PURE__*/React.createElement(Checkbox, {
       checked: emailChecked,
       onChange: function onChange() {
         return setEmailChecked(!emailChecked);
@@ -35442,7 +35543,7 @@ var LinkButton = function LinkButton(_ref2) {
       value: "email"
     }),
     label: "Is this an email link?"
-  }))), React.createElement(DialogActions, null, React.createElement(Button, {
+  }))), /*#__PURE__*/React.createElement(DialogActions, null, /*#__PURE__*/React.createElement(Button, {
     onClick: handleAddButtonClick,
     className: classes.basicButton,
     variant: "contained",
@@ -35568,7 +35669,7 @@ var ToolbarButton = function ToolbarButton(_ref) {
       props = _objectWithoutProperties(_ref, ["children", "onClick", "table"]);
 
   var classes = useStyles$3();
-  return React.createElement(Button, {
+  return /*#__PURE__*/React.createElement(Button, {
     className: table ? classes.tableBtn : classes.button,
     onClick: function onClick(event) {
       isFunction$1(_onClick) && _onClick(event);
@@ -35578,17 +35679,17 @@ var ToolbarButton = function ToolbarButton(_ref) {
 
 var HelpModalContent = function HelpModalContent(_ref) {
   var classes = _ref.classes;
-  return React.createElement(React.Fragment, null, React.createElement("h3", null, "Pasting Content"), React.createElement("p", null, "Some content from HTML pages can be copied and pasted directly into the editor. Just go to any page, highlight what you want to copy then paste it into the editor."), React.createElement("p", null, "Upload any images", " ", React.createElement("a", {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("h3", null, "Pasting Content"), /*#__PURE__*/React.createElement("p", null, "Some content from HTML pages can be copied and pasted directly into the editor. Just go to any page, highlight what you want to copy then paste it into the editor."), /*#__PURE__*/React.createElement("p", null, "Upload any images", " ", /*#__PURE__*/React.createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://github.com/dictyBase/migration-data/issues/9"
-  }, "here"), "."), React.createElement("p", null, "Upload any PDFs or DOCX files", " ", React.createElement("a", {
+  }, "here"), "."), /*#__PURE__*/React.createElement("p", null, "Upload any PDFs or DOCX files", " ", /*#__PURE__*/React.createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://github.com/dictyBase/migration-data/issues/10"
-  }, "here"), "."), React.createElement("p", null, React.createElement("strong", null, "Known bugs:"), " Lists sometimes have a mind of their own, but there are some workarounds for formatting. You can use SHIFT + ENTER to add a space between list items."), React.createElement("h3", null, "Keyboard Shortcuts"), React.createElement("ul", null, React.createElement("li", null, "Align Left: CTRL + SHIFT + L"), React.createElement("li", null, "Align Center: CTRL + SHIFT + C"), React.createElement("li", null, "Align Right: CTRL + SHIFT + R"), React.createElement("li", null, "Align Justify: CTRL + SHIFT + J"), React.createElement("li", null, "Bold: CTRL + B"), React.createElement("li", null, "Divider: CTRL + ]"), React.createElement("li", null, "Italic: CTRL + I"), React.createElement("li", null, "Strikethrough: CTRL + SHIFT + S"), React.createElement("li", null, "Underline: CTRL + U")), React.createElement("h3", null, "Found a bug? Got a request?"), React.createElement("p", null, "Post an issue in the", " ", React.createElement("em", null, React.createElement("a", {
+  }, "here"), "."), /*#__PURE__*/React.createElement("p", null, /*#__PURE__*/React.createElement("strong", null, "Known bugs:"), " Lists sometimes have a mind of their own, but there are some workarounds for formatting. You can use SHIFT + ENTER to add a space between list items."), /*#__PURE__*/React.createElement("h3", null, "Keyboard Shortcuts"), /*#__PURE__*/React.createElement("ul", null, /*#__PURE__*/React.createElement("li", null, "Align Left: CTRL + SHIFT + L"), /*#__PURE__*/React.createElement("li", null, "Align Center: CTRL + SHIFT + C"), /*#__PURE__*/React.createElement("li", null, "Align Right: CTRL + SHIFT + R"), /*#__PURE__*/React.createElement("li", null, "Align Justify: CTRL + SHIFT + J"), /*#__PURE__*/React.createElement("li", null, "Bold: CTRL + B"), /*#__PURE__*/React.createElement("li", null, "Divider: CTRL + ]"), /*#__PURE__*/React.createElement("li", null, "Italic: CTRL + I"), /*#__PURE__*/React.createElement("li", null, "Strikethrough: CTRL + SHIFT + S"), /*#__PURE__*/React.createElement("li", null, "Underline: CTRL + U")), /*#__PURE__*/React.createElement("h3", null, "Found a bug? Got a request?"), /*#__PURE__*/React.createElement("p", null, "Post an issue in the", " ", /*#__PURE__*/React.createElement("em", null, /*#__PURE__*/React.createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
@@ -35618,22 +35719,22 @@ var styles = function styles(theme) {
 var HelpMuiModal = function HelpMuiModal(props) {
   var classes = props.classes,
       handleClose = props.handleClose;
-  return React.createElement(Dialog, {
+  return /*#__PURE__*/React.createElement(Dialog, {
     className: classes.container,
     open: true,
     onClose: handleClose
-  }, React.createElement(DialogTitle, {
+  }, /*#__PURE__*/React.createElement(DialogTitle, {
     id: "help-dialog-title"
-  }, "Editor Help"), React.createElement(DialogContent, null, React.createElement(Grid, {
+  }, "Editor Help"), /*#__PURE__*/React.createElement(DialogContent, null, /*#__PURE__*/React.createElement(Grid, {
     container: true,
     justify: "center",
     direction: "column"
-  }, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 12
-  }, React.createElement(HelpModalContent, {
+  }, /*#__PURE__*/React.createElement(HelpModalContent, {
     classes: classes
-  })))), React.createElement(DialogActions, null, React.createElement(Button, {
+  })))), /*#__PURE__*/React.createElement(DialogActions, null, /*#__PURE__*/React.createElement(Button, {
     className: classes.closeBtn,
     onClick: handleClose
   }, "Close")));
@@ -35647,7 +35748,7 @@ var HelpModal = withStyles(styles)(HelpMuiModal);
 
 var BoldMark = function BoldMark(_ref) {
   var children = _ref.children;
-  return React.createElement("strong", null, children);
+  return /*#__PURE__*/React.createElement("strong", null, children);
 };
 /**
  * Bold button that uses a click handler to connect the button to the editor.
@@ -35656,14 +35757,14 @@ var BoldMark = function BoldMark(_ref) {
 
 var BoldButton = function BoldButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Bold",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("bold");
     }
-  }, React.createElement(FormatBoldIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatBoldIcon, null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for bold.
@@ -35698,7 +35799,7 @@ var BoldPlugin = function BoldPlugin(options) {
 
 var ItalicMark = function ItalicMark(_ref) {
   var children = _ref.children;
-  return React.createElement("em", null, children);
+  return /*#__PURE__*/React.createElement("em", null, children);
 };
 /**
  * Italic button that uses a click handler to connect the button to the editor.
@@ -35707,14 +35808,14 @@ var ItalicMark = function ItalicMark(_ref) {
 
 var ItalicButton = function ItalicButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Italic",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("italic");
     }
-  }, React.createElement(FormatItalicIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatItalicIcon, null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for italic.
@@ -35749,7 +35850,7 @@ var ItalicPlugin = function ItalicPlugin(options) {
 
 var StrikethroughMark = function StrikethroughMark(_ref) {
   var children = _ref.children;
-  return React.createElement("del", null, children);
+  return /*#__PURE__*/React.createElement("del", null, children);
 };
 /**
  * Strikethrough button that uses a click handler to connect the button to the editor.
@@ -35758,14 +35859,14 @@ var StrikethroughMark = function StrikethroughMark(_ref) {
 
 var StrikethroughButton = function StrikethroughButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Strikethrough",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("strikethrough");
     }
-  }, React.createElement(FormatStrikethroughIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatStrikethroughIcon, null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for strikethrough.
@@ -36128,6 +36229,7 @@ function makeIconMasking (_ref) {
       attributes = _ref.attributes,
       main = _ref.main,
       mask = _ref.mask,
+      explicitMaskId = _ref.maskId,
       transform = _ref.transform;
   var mainWidth = main.width,
       mainPath = main.icon;
@@ -36160,8 +36262,8 @@ function makeIconMasking (_ref) {
     attributes: _objectSpread({}, trans.outer),
     children: [maskInnerGroup]
   };
-  var maskId = "mask-".concat(nextUniqueId());
-  var clipId = "clip-".concat(nextUniqueId());
+  var maskId = "mask-".concat(explicitMaskId || nextUniqueId());
+  var clipId = "clip-".concat(explicitMaskId || nextUniqueId());
   var maskTag = {
     tag: 'mask',
     attributes: _objectSpread({}, ALL_SPACE, {
@@ -36294,6 +36396,8 @@ function makeInlineSvgAbstract(params) {
       transform = params.transform,
       symbol = params.symbol,
       title = params.title,
+      maskId = params.maskId,
+      titleId = params.titleId,
       extra = params.extra,
       _params$watchable = params.watchable,
       watchable = _params$watchable === void 0 ? false : _params$watchable;
@@ -36325,7 +36429,7 @@ function makeInlineSvgAbstract(params) {
   if (title) content.children.push({
     tag: 'title',
     attributes: {
-      id: content.attributes['aria-labelledby'] || "title-".concat(nextUniqueId())
+      id: content.attributes['aria-labelledby'] || "title-".concat(titleId || nextUniqueId())
     },
     children: [title]
   });
@@ -36335,6 +36439,7 @@ function makeInlineSvgAbstract(params) {
     iconName: iconName,
     main: main,
     mask: mask,
+    maskId: maskId,
     transform: transform,
     symbol: symbol,
     styles: extra.styles
@@ -36851,8 +36956,12 @@ var icon = resolveIcons(function (iconDefinition) {
       symbol = _params$symbol === void 0 ? false : _params$symbol,
       _params$mask = params.mask,
       mask = _params$mask === void 0 ? null : _params$mask,
+      _params$maskId = params.maskId,
+      maskId = _params$maskId === void 0 ? null : _params$maskId,
       _params$title = params.title,
       title = _params$title === void 0 ? null : _params$title,
+      _params$titleId = params.titleId,
+      titleId = _params$titleId === void 0 ? null : _params$titleId,
       _params$classes = params.classes,
       classes = _params$classes === void 0 ? [] : _params$classes,
       _params$attributes = params.attributes,
@@ -36870,7 +36979,7 @@ var icon = resolveIcons(function (iconDefinition) {
 
     if (config.autoA11y) {
       if (title) {
-        attributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(nextUniqueId());
+        attributes['aria-labelledby'] = "".concat(config.replacementClass, "-title-").concat(titleId || nextUniqueId());
       } else {
         attributes['aria-hidden'] = 'true';
         attributes['focusable'] = 'false';
@@ -36892,6 +37001,8 @@ var icon = resolveIcons(function (iconDefinition) {
       transform: _objectSpread({}, meaninglessTransform, transform),
       symbol: symbol,
       title: title,
+      maskId: maskId,
+      titleId: titleId,
       extra: {
         attributes: attributes,
         styles: styles,
@@ -37044,7 +37155,7 @@ function classList(props) {
     'fa-li': listItem,
     'fa-flip-horizontal': flip === 'horizontal' || flip === 'both',
     'fa-flip-vertical': flip === 'vertical' || flip === 'both'
-  }, _defineProperty$3(_classes, "fa-".concat(size), typeof size !== 'undefined' && size !== null), _defineProperty$3(_classes, "fa-rotate-".concat(rotation), typeof rotation !== 'undefined' && rotation !== null), _defineProperty$3(_classes, "fa-pull-".concat(pull), typeof pull !== 'undefined' && pull !== null), _defineProperty$3(_classes, 'fa-swap-opacity', props.swapOpacity), _classes); // map over all the keys in the classes object
+  }, _defineProperty$3(_classes, "fa-".concat(size), typeof size !== 'undefined' && size !== null), _defineProperty$3(_classes, "fa-rotate-".concat(rotation), typeof rotation !== 'undefined' && rotation !== null && rotation !== 0), _defineProperty$3(_classes, "fa-pull-".concat(pull), typeof pull !== 'undefined' && pull !== null), _defineProperty$3(_classes, 'fa-swap-opacity', props.swapOpacity), _classes); // map over all the keys in the classes object
   // return an array of the keys where the value for the key is not null
 
   return Object.keys(classes).map(function (key) {
@@ -37199,7 +37310,10 @@ function objectWithKey(key, value) {
   return Array.isArray(value) && value.length > 0 || !Array.isArray(value) && value ? _defineProperty$3({}, key, value) : {};
 }
 
-function FontAwesomeIcon(props) {
+function FontAwesomeIcon(_ref) {
+  var forwardedRef = _ref.forwardedRef,
+      props = _objectWithoutProperties$1(_ref, ["forwardedRef"]);
+
   var iconArgs = props.icon,
       maskArgs = props.mask,
       symbol = props.symbol,
@@ -37220,7 +37334,9 @@ function FontAwesomeIcon(props) {
   }
 
   var abstract = renderedIcon.abstract;
-  var extraProps = {};
+  var extraProps = {
+    ref: forwardedRef
+  };
   Object.keys(props).forEach(function (key) {
     // eslint-disable-next-line no-prototype-builtins
     if (!FontAwesomeIcon.defaultProps.hasOwnProperty(key)) {
@@ -37241,7 +37357,7 @@ FontAwesomeIcon.propTypes = {
   listItem: propTypes.bool,
   pull: propTypes.oneOf(['right', 'left']),
   pulse: propTypes.bool,
-  rotation: propTypes.oneOf([90, 180, 270]),
+  rotation: propTypes.oneOf([0, 90, 180, 270]),
   size: propTypes.oneOf(['lg', 'xs', 'sm', '1x', '2x', '3x', '4x', '5x', '6x', '7x', '8x', '9x', '10x']),
   spin: propTypes.bool,
   symbol: propTypes.oneOfType([propTypes.bool, propTypes.string]),
@@ -37287,7 +37403,7 @@ var faSuperscript = {
 
 var SubscriptMark = function SubscriptMark(_ref) {
   var children = _ref.children;
-  return React.createElement("sub", null, children);
+  return /*#__PURE__*/React.createElement("sub", null, children);
 };
 /**
  * Subscript button that uses a click handler to connect the button to the editor.
@@ -37296,14 +37412,14 @@ var SubscriptMark = function SubscriptMark(_ref) {
 
 var SubscriptButton = function SubscriptButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Subscript",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("subscript");
     }
-  }, React.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faSubscript
   })));
 };
@@ -37314,7 +37430,7 @@ var SubscriptButton = function SubscriptButton(_ref2) {
 
 var SuperscriptMark = function SuperscriptMark(_ref) {
   var children = _ref.children;
-  return React.createElement("sup", null, children);
+  return /*#__PURE__*/React.createElement("sup", null, children);
 };
 /**
  * Superscript button that uses a click handler to connect the button to the editor.
@@ -37323,14 +37439,14 @@ var SuperscriptMark = function SuperscriptMark(_ref) {
 
 var SuperscriptButton = function SuperscriptButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Superscript",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("superscript");
     }
-  }, React.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React.createElement(FontAwesomeIcon, {
     icon: faSuperscript
   })));
 };
@@ -37341,7 +37457,7 @@ var SuperscriptButton = function SuperscriptButton(_ref2) {
 
 var UnderlineMark = function UnderlineMark(_ref) {
   var children = _ref.children;
-  return React.createElement("u", null, children);
+  return /*#__PURE__*/React.createElement("u", null, children);
 };
 /**
  * Underline button that uses a click handler to connect the button to the editor.
@@ -37350,14 +37466,14 @@ var UnderlineMark = function UnderlineMark(_ref) {
 
 var UnderlineButton = function UnderlineButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Underline",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("underline");
     }
-  }, React.createElement(FormatUnderlinedIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatUnderlinedIcon, null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for underline.
@@ -37387,7 +37503,7 @@ var UnderlinePlugin = function UnderlinePlugin(options) {
 };
 
 var MarkButtons = function MarkButtons(props) {
-  return React.createElement(React.Fragment, null, React.createElement(BoldButton, props), React.createElement(ItalicButton, props), React.createElement(UnderlineButton, props), React.createElement(StrikethroughButton, props), React.createElement(SubscriptButton, props), React.createElement(SuperscriptButton, props));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(BoldButton, props), /*#__PURE__*/React.createElement(ItalicButton, props), /*#__PURE__*/React.createElement(UnderlineButton, props), /*#__PURE__*/React.createElement(StrikethroughButton, props), /*#__PURE__*/React.createElement(SubscriptButton, props), /*#__PURE__*/React.createElement(SuperscriptButton, props));
 };
 
 /**
@@ -37413,14 +37529,14 @@ var AlignmentNode = function AlignmentNode(_ref) {
       data = _ref.node.data;
 
   if (data.get("align") === "justify") {
-    return React.createElement("div", _extends({
+    return /*#__PURE__*/React.createElement("div", _extends({
       style: {
         textAlign: "justify",
         whiteSpace: "normal"
       }
     }, attributes), children);
   } else {
-    return React.createElement("div", _extends({
+    return /*#__PURE__*/React.createElement("div", _extends({
       style: {
         textAlign: "".concat(data.get("align")),
         whiteSpace: "pre-wrap"
@@ -37435,50 +37551,50 @@ var AlignmentNode = function AlignmentNode(_ref) {
 
 var AlignmentLeftButton = function AlignmentLeftButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Align Left",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "left");
     }
-  }, React.createElement(FormatAlignLeftIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatAlignLeftIcon, null)));
 };
 
 var AlignmentCenterButton = function AlignmentCenterButton(_ref3) {
   var editor = _ref3.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Center Text",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "center");
     }
-  }, React.createElement(FormatAlignCenterIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatAlignCenterIcon, null)));
 };
 
 var AlignmentRightButton = function AlignmentRightButton(_ref4) {
   var editor = _ref4.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Align Right",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "right");
     }
-  }, React.createElement(FormatAlignRightIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatAlignRightIcon, null)));
 };
 
 var AlignmentJustifyButton = function AlignmentJustifyButton(_ref5) {
   var editor = _ref5.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Justify",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "justify");
     }
-  }, React.createElement(FormatAlignJustifyIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatAlignJustifyIcon, null)));
 };
 /**
  * Function that specifies the keyboard shortcuts to use for alignment.
@@ -37536,7 +37652,7 @@ var AlignmentPlugin = function AlignmentPlugin(options) {
 };
 
 var AlignmentButtons = function AlignmentButtons(props) {
-  return React.createElement(React.Fragment, null, React.createElement(AlignmentLeftButton, props), React.createElement(AlignmentCenterButton, props), React.createElement(AlignmentRightButton, props), React.createElement(AlignmentJustifyButton, props));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(AlignmentLeftButton, props), /*#__PURE__*/React.createElement(AlignmentCenterButton, props), /*#__PURE__*/React.createElement(AlignmentRightButton, props), /*#__PURE__*/React.createElement(AlignmentJustifyButton, props));
 };
 
 function _defineProperty$4(obj, key, value) {
@@ -37554,80 +37670,7 @@ function _defineProperty$4(obj, key, value) {
   return obj;
 }
 
-function _extends$6() {
-  _extends$6 = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends$6.apply(this, arguments);
-}
-
-function _objectSpread$1(target) {
-  for (var i = 1; i < arguments.length; i++) {
-    var source = arguments[i] != null ? arguments[i] : {};
-    var ownKeys = Object.keys(source);
-
-    if (typeof Object.getOwnPropertySymbols === 'function') {
-      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
-        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
-      }));
-    }
-
-    ownKeys.forEach(function (key) {
-      _defineProperty$4(target, key, source[key]);
-    });
-  }
-
-  return target;
-}
-
-function _slicedToArray$2(arr, i) {
-  return _arrayWithHoles$2(arr) || _iterableToArrayLimit$2(arr, i) || _nonIterableRest$2();
-}
-
-function _arrayWithHoles$2(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-function _iterableToArrayLimit$2(arr, i) {
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-function _nonIterableRest$2() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance");
-}
+var defineProperty$3 = _defineProperty$4;
 
 function _defineProperty$1$1(obj, key, value) {
   if (key in obj) {
@@ -37644,7 +37687,7 @@ function _defineProperty$1$1(obj, key, value) {
   return obj;
 }
 
-function _objectSpread$1$1(target) {
+function _objectSpread$1(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
     var ownKeys = Object.keys(source);
@@ -37928,7 +37971,7 @@ var lib_6$1 = lib$1.toKeyCode;
 var lib_7$1 = lib$1.toKeyName;
 
 var Keymap = function Keymap(shortcuts, options) {
-  var config = _objectSpread$1$1({
+  var config = _objectSpread$1({
     if: function _if() {
       return true;
     }
@@ -37999,7 +38042,7 @@ var unwrapListByKey = (function (_ref, editor, key) {
 
       if (itemChild.type == blocks.list_item_child) {
         editor.setNodeByKey(itemChild.key, {
-          type: blocks.default
+          type: blocks["default"]
         });
       }
     });
@@ -38132,6 +38175,76 @@ var createCommands = (function (options) {
   };
 });
 
+function _arrayWithHoles$2(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+var arrayWithHoles = _arrayWithHoles$2;
+
+function _iterableToArrayLimit$2(arr, i) {
+  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+var iterableToArrayLimit = _iterableToArrayLimit$2;
+
+function _arrayLikeToArray$1(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+var arrayLikeToArray = _arrayLikeToArray$1;
+
+function _unsupportedIterableToArray$1(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(n);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+var unsupportedIterableToArray = _unsupportedIterableToArray$1;
+
+function _nonIterableRest$2() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+var nonIterableRest = _nonIterableRest$2;
+
+function _slicedToArray$2(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+var slicedToArray$3 = _slicedToArray$2;
+
 var sameType = function sameType(node, other) {
   return node.type == other.type;
 };
@@ -38163,7 +38276,7 @@ var createNormalizeNode = (function (_ref) {
     if (mergable.isEmpty()) return next();
     return function (editor) {
       mergable.reverse().forEach(function (_ref2) {
-        var _ref3 = _slicedToArray$2(_ref2, 2),
+        var _ref3 = slicedToArray$3(_ref2, 2),
             list = _ref3[0],
             adjacent = _ref3[1];
 
@@ -38181,6 +38294,32 @@ var createNormalizeNode = (function (_ref) {
   };
 });
 
+function createCommonjsModule$1$1(fn, module) {
+	return module = { exports: {} }, fn(module, module.exports), module.exports;
+}
+
+var _extends_1 = createCommonjsModule$1$1(function (module) {
+function _extends() {
+  module.exports = _extends = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends.apply(this, arguments);
+}
+
+module.exports = _extends;
+});
+
 var createRenderBlock = (function (_ref) {
   var blocks = _ref.blocks,
       classNames = _ref.classNames;
@@ -38189,27 +38328,35 @@ var createRenderBlock = (function (_ref) {
 
     switch (node.type) {
       case blocks.unordered_list:
-        return React.createElement("ul", _extends$6({
+        return /*#__PURE__*/React.createElement("ul", _extends_1({
           className: classNames.unordered_list
-        }, props.attributes), props.children);
+        }, props.attributes, {
+          style: {
+            listStylePosition: "inside"
+          }
+        }), props.children);
 
       case blocks.ordered_list:
         {
-          return React.createElement("ol", _extends$6({
+          return /*#__PURE__*/React.createElement("ol", _extends_1({
             className: classNames.ordered_list
-          }, props.attributes), props.children);
+          }, props.attributes, {
+            style: {
+              listStylePosition: "inside"
+            }
+          }), props.children);
         }
 
       case blocks.list_item:
         {
-          return React.createElement("li", _extends$6({
+          return /*#__PURE__*/React.createElement("li", _extends_1({
             className: classNames.list_item
           }, props.attributes), props.children);
         }
 
       case blocks.list_item_child:
         {
-          return React.createElement("div", _extends$6({
+          return /*#__PURE__*/React.createElement("span", _extends_1({
             className: classNames.list_item_child
           }, props.attributes), props.children);
         }
@@ -38225,19 +38372,19 @@ var createSchema = (function (_ref) {
 
   var blocks = _ref.blocks;
   return {
-    blocks: (_blocks = {}, _defineProperty$4(_blocks, blocks.unordered_list, {
+    blocks: (_blocks = {}, defineProperty$3(_blocks, blocks.unordered_list, {
       nodes: [{
         match: {
           type: blocks.list_item
         }
       }]
-    }), _defineProperty$4(_blocks, blocks.ordered_list, {
+    }), defineProperty$3(_blocks, blocks.ordered_list, {
       nodes: [{
         match: {
           type: blocks.list_item
         }
       }]
-    }), _defineProperty$4(_blocks, blocks.list_item, {
+    }), defineProperty$3(_blocks, blocks.list_item, {
       parent: [{
         type: blocks.unordered_list
       }, {
@@ -38285,20 +38432,23 @@ var createSchema = (function (_ref) {
   };
 });
 
+function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread$1$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { defineProperty$3(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var index$6 = (function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var config = _objectSpread$1({}, options);
+  var config = _objectSpread$1$1({}, options);
 
-  var blocks = _objectSpread$1({
+  var blocks = _objectSpread$1$1({
     unordered_list: "unordered-list",
     ordered_list: "ordered-list",
     list_item: "list-item",
     list_item_child: "list-item-child",
-    default: "paragraph"
+    "default": "paragraph"
   }, config.blocks);
 
-  var classNames = _objectSpread$1({
+  var classNames = _objectSpread$1$1({
     unordered_list: "unordered-list",
     ordered_list: "ordered-list",
     list_item: "list-item",
@@ -38348,7 +38498,7 @@ var index$6 = (function () {
         selection = _editor$value.selection,
         startBlock = _editor$value.startBlock;
     event.preventDefault();
-    if (selection.isExpanded) editor.delete();
+    if (selection.isExpanded) editor["delete"]();
 
     if (selection.start.offset === 0 && startBlock.getText() === "") {
       var _listItem = getListItem(editor, editor.value.startBlock);
@@ -38404,7 +38554,7 @@ var index$6 = (function () {
     tab: "increaseListItemDepth",
     "shift+tab": "decreaseListItemDepth"
   }, {
-    if: function _if(editor) {
+    "if": function _if(editor) {
       return !!getListItem(editor, editor.value.startBlock);
     }
   })];
@@ -38443,19 +38593,19 @@ var increaseIndent = function increaseIndent(event, editor) {
 var ListItemNode = function ListItemNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children;
-  return React.createElement("li", attributes, children);
+  return /*#__PURE__*/React.createElement("li", attributes, children);
 };
 
 var OrderedListNode = function OrderedListNode(_ref2) {
   var attributes = _ref2.attributes,
       children = _ref2.children;
-  return React.createElement("ol", attributes, children);
+  return /*#__PURE__*/React.createElement("ol", attributes, children);
 };
 
 var UnorderedListNode = function UnorderedListNode(_ref3) {
   var attributes = _ref3.attributes,
       children = _ref3.children;
-  return React.createElement("ul", attributes, children);
+  return /*#__PURE__*/React.createElement("ul", attributes, children);
 };
 /**
  * Button components that use click handlers to connect the buttons to the editor.
@@ -38464,50 +38614,50 @@ var UnorderedListNode = function UnorderedListNode(_ref3) {
 
 var OrderedListButton = function OrderedListButton(_ref4) {
   var editor = _ref4.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Ordered List",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "ordered-list");
     }
-  }, React.createElement(FormatListNumberedIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatListNumberedIcon, null)));
 };
 
 var UnorderedListButton = function UnorderedListButton(_ref5) {
   var editor = _ref5.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Unordered List",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "unordered-list");
     }
-  }, React.createElement(FormatListBulletedIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatListBulletedIcon, null)));
 };
 
 var ListDecreaseIndentButton = function ListDecreaseIndentButton(_ref6) {
   var editor = _ref6.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Decrease List Indent",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return decreaseIndent(event, editor);
     }
-  }, React.createElement(FormatIndentDecreaseIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatIndentDecreaseIcon, null)));
 };
 
 var ListIncreaseIndentButton = function ListIncreaseIndentButton(_ref7) {
   var editor = _ref7.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Increase List Indent",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return increaseIndent(event, editor);
     }
-  }, React.createElement(FormatIndentIncreaseIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatIndentIncreaseIcon, null)));
 };
 /**
  * Function that represents our actual plugin.
@@ -38529,7 +38679,7 @@ var ListPlugin = index$6({
 });
 
 var ListButtons = function ListButtons(props) {
-  return React.createElement(React.Fragment, null, React.createElement(UnorderedListButton, props), React.createElement(OrderedListButton, props), React.createElement(ListIncreaseIndentButton, props), React.createElement(ListDecreaseIndentButton, props));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(UnorderedListButton, props), /*#__PURE__*/React.createElement(OrderedListButton, props), /*#__PURE__*/React.createElement(ListIncreaseIndentButton, props), /*#__PURE__*/React.createElement(ListDecreaseIndentButton, props));
 };
 
 /**
@@ -38556,7 +38706,7 @@ var HeaderNode = function HeaderNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       variant = _ref.variant;
-  return React.createElement(Typography, _extends({
+  return /*#__PURE__*/React.createElement(Typography, _extends({
     variant: variant
   }, attributes), children);
 };
@@ -38567,42 +38717,42 @@ var HeaderNode = function HeaderNode(_ref) {
 
 var H1Button = function H1Button(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Heading 1",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h1");
     }
-  }, React.createElement("strong", null, "H1")));
+  }, /*#__PURE__*/React.createElement("strong", null, "H1")));
 };
 
 var H2Button = function H2Button(_ref3) {
   var editor = _ref3.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Heading 2",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h2");
     }
-  }, React.createElement("strong", null, "H2")));
+  }, /*#__PURE__*/React.createElement("strong", null, "H2")));
 };
 
 var H3Button = function H3Button(_ref4) {
   var editor = _ref4.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Heading 3",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h3");
     }
-  }, React.createElement("strong", null, "H3")));
+  }, /*#__PURE__*/React.createElement("strong", null, "H3")));
 };
 
 var HeadingButtons = function HeadingButtons(props) {
-  return React.createElement(React.Fragment, null, React.createElement(H1Button, props), React.createElement(H2Button, props), React.createElement(H3Button, props));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(H1Button, props), /*#__PURE__*/React.createElement(H2Button, props), /*#__PURE__*/React.createElement(H3Button, props));
 };
 
 var Text$2 = index$1.Text;
@@ -39718,19 +39868,19 @@ var dist = EditTable;
 var TableNode = function TableNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children;
-  return React.createElement("table", null, React.createElement("tbody", attributes, children));
+  return /*#__PURE__*/React.createElement("table", null, /*#__PURE__*/React.createElement("tbody", attributes, children));
 };
 
 var TableRowNode = function TableRowNode(_ref2) {
   var attributes = _ref2.attributes,
       children = _ref2.children;
-  return React.createElement("tr", attributes, children);
+  return /*#__PURE__*/React.createElement("tr", attributes, children);
 };
 
 var TableCellNode = function TableCellNode(_ref3) {
   var attributes = _ref3.attributes,
       children = _ref3.children;
-  return React.createElement("td", attributes, children);
+  return /*#__PURE__*/React.createElement("td", attributes, children);
 };
 /**
  * Button components that use click handlers to connect the buttons to the editor.
@@ -39740,98 +39890,98 @@ var TableCellNode = function TableCellNode(_ref3) {
 var InsertInitialTableButton = function InsertInitialTableButton(_ref4) {
   var showTableOptions = _ref4.showTableOptions,
       setShowTableOptions = _ref4.setShowTableOptions;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowTableOptions(!showTableOptions);
     }
-  }, React.createElement(TableIcon, null)));
+  }, /*#__PURE__*/React.createElement(TableIcon, null)));
 };
 
 var InsertTableButton = function InsertTableButton(_ref5) {
   var editor = _ref5.editor,
       classes = _ref5.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Insert Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertTable();
     }
-  }, React.createElement(AddIcon, null), " Add Table"));
+  }, /*#__PURE__*/React.createElement(AddIcon, null), " Add Table"));
 };
 
 var InsertTableColumnButton = function InsertTableColumnButton(_ref6) {
   var editor = _ref6.editor,
       classes = _ref6.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Insert Column",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertColumn();
     }
-  }, React.createElement(AddIcon, null), " \xA0Add Column"));
+  }, /*#__PURE__*/React.createElement(AddIcon, null), " \xA0Add Column"));
 };
 
 var InsertTableRowButton = function InsertTableRowButton(_ref7) {
   var editor = _ref7.editor,
       classes = _ref7.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Insert Row",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertRow();
     }
-  }, React.createElement(AddIcon, null), " \xA0Add Row"));
+  }, /*#__PURE__*/React.createElement(AddIcon, null), " \xA0Add Row"));
 };
 
 var RemoveTableColumnButton = function RemoveTableColumnButton(_ref8) {
   var editor = _ref8.editor,
       classes = _ref8.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Remove Column",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeColumn();
     }
-  }, React.createElement(RemoveIcon, null), " \xA0Remove Column"));
+  }, /*#__PURE__*/React.createElement(RemoveIcon, null), " \xA0Remove Column"));
 };
 
 var RemoveTableRowButton = function RemoveTableRowButton(_ref9) {
   var editor = _ref9.editor,
       classes = _ref9.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Remove Row",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeRow();
     }
-  }, React.createElement(RemoveIcon, null), " \xA0Remove Row"));
+  }, /*#__PURE__*/React.createElement(RemoveIcon, null), " \xA0Remove Row"));
 };
 
 var RemoveTableButton = function RemoveTableButton(_ref10) {
   var editor = _ref10.editor,
       classes = _ref10.classes;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Remove Table",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeTable();
     }
-  }, React.createElement(DeleteIcon, null), " \xA0Remove Table"));
+  }, /*#__PURE__*/React.createElement(DeleteIcon, null), " \xA0Remove Table"));
 };
 /**
  * Function that represents our actual plugin.
@@ -39848,14 +39998,14 @@ var TablePlugin = dist({
 var FeatureButtons = function FeatureButtons(props) {
   var showTableOptions = props.showTableOptions,
       setShowTableOptions = props.setShowTableOptions;
-  return React.createElement(React.Fragment, null, React.createElement(LinkButton, props), React.createElement(InsertInitialTableButton, _extends({
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(LinkButton, props), /*#__PURE__*/React.createElement(InsertInitialTableButton, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
   }, props, {
     onClick: function onClick() {
       setShowTableOptions(true);
     }
-  })), React.createElement(ImageButton, props), React.createElement(VideoButton, props));
+  })), /*#__PURE__*/React.createElement(ImageButton, props), /*#__PURE__*/React.createElement(VideoButton, props));
 };
 
 var useStyles$4 = makeStyles({
@@ -39870,9 +40020,9 @@ var useStyles$4 = makeStyles({
 
 var TableButtons = function TableButtons(props) {
   var classes = useStyles$4();
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: classes.tableButtons
-  }, React.createElement(InsertTableButton, props), React.createElement(InsertTableColumnButton, props), React.createElement(InsertTableRowButton, props), "\xA0\xA0", React.createElement(RemoveTableRowButton, props), React.createElement(RemoveTableColumnButton, props), React.createElement(RemoveTableButton, props), React.createElement("br", null));
+  }, /*#__PURE__*/React.createElement(InsertTableButton, props), /*#__PURE__*/React.createElement(InsertTableColumnButton, props), /*#__PURE__*/React.createElement(InsertTableRowButton, props), "\xA0\xA0", /*#__PURE__*/React.createElement(RemoveTableRowButton, props), /*#__PURE__*/React.createElement(RemoveTableColumnButton, props), /*#__PURE__*/React.createElement(RemoveTableButton, props), /*#__PURE__*/React.createElement("br", null));
 };
 
 /**
@@ -39967,7 +40117,7 @@ var fontFamilyMarkStrategy = function fontFamilyMarkStrategy(editor, fontFamilyI
 var FontFamilyMark = function FontFamilyMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return React.createElement("span", {
+  return /*#__PURE__*/React.createElement("span", {
     style: {
       fontFamily: FontFamilyList[data.get("fontFamilyIndex")].name
     }
@@ -40002,13 +40152,13 @@ var FontFamilyDropdown = function FontFamilyDropdown(_ref4) {
     fontFamilyMarkStrategy(editor, fontFamilyIndex);
   };
 
-  return React.createElement(FormControl, {
+  return /*#__PURE__*/React.createElement(FormControl, {
     className: classes.fontFamilyDropdown
-  }, React.createElement(Select, {
+  }, /*#__PURE__*/React.createElement(Select, {
     value: currentFont,
     onChange: handleChange
   }, FontFamilyList.map(function (font, index) {
-    return React.createElement(MenuItem, {
+    return /*#__PURE__*/React.createElement(MenuItem, {
       key: "font-family-".concat(index),
       value: index,
       style: {
@@ -40105,7 +40255,7 @@ var fontSizeMarkStrategy = function fontSizeMarkStrategy(editor, fontSizeIndex) 
 var FontSizeMark = function FontSizeMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return React.createElement("span", {
+  return /*#__PURE__*/React.createElement("span", {
     style: {
       fontSize: FontSizeList[data.get("fontSizeIndex")].size
     }
@@ -40140,13 +40290,13 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
     fontSizeMarkStrategy(editor, fontSizeIndex);
   };
 
-  return React.createElement(FormControl, {
+  return /*#__PURE__*/React.createElement(FormControl, {
     className: classes.fontSizeDropdown
-  }, React.createElement(Select, {
+  }, /*#__PURE__*/React.createElement(Select, {
     value: currentFontSize,
     onChange: handleChange
   }, FontSizeList.map(function (font, index) {
-    return React.createElement(MenuItem, {
+    return /*#__PURE__*/React.createElement(MenuItem, {
       key: "font-size-".concat(index),
       value: index,
       style: {
@@ -40169,13 +40319,13 @@ var useStyles$7 = makeStyles({
 
 var Separator = function Separator() {
   var classes = useStyles$7();
-  return React.createElement("div", {
+  return /*#__PURE__*/React.createElement("div", {
     className: classes.separator
   });
 };
 
 var FontDropdowns = function FontDropdowns(props) {
-  return React.createElement(React.Fragment, null, React.createElement(FontFamilyDropdown, props), React.createElement(Separator, null), React.createElement(FontSizeDropdown, props));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(FontFamilyDropdown, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FontSizeDropdown, props));
 };
 
 /**
@@ -40184,7 +40334,7 @@ var FontDropdowns = function FontDropdowns(props) {
 
 var DividerNode = function DividerNode(_ref) {
   var attributes = _ref.attributes;
-  return React.createElement(Divider, attributes);
+  return /*#__PURE__*/React.createElement(Divider, attributes);
 };
 /**
  * Button components that use click handlers to connect to the editor.
@@ -40193,16 +40343,16 @@ var DividerNode = function DividerNode(_ref) {
 
 var DividerButton = function DividerButton(_ref2) {
   var editor = _ref2.editor;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Divider",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.setBlocks({
         type: "divider"
       });
     }
-  }, React.createElement("strong", null, "\u2014")));
+  }, /*#__PURE__*/React.createElement("strong", null, "\u2014")));
 };
 /**
  * Function that specifies the keyboard shortcuts to use for dividers.
@@ -40481,10 +40631,11 @@ function equalArrays(array, other, bitmask, customizer, equalFunc, stack) {
   if (arrLength != othLength && !(isPartial && othLength > arrLength)) {
     return false;
   }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(array);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
+  // Check that cyclic values are equal.
+  var arrStacked = stack.get(array);
+  var othStacked = stack.get(other);
+  if (arrStacked && othStacked) {
+    return arrStacked == other && othStacked == array;
   }
   var index = -1,
       result = true,
@@ -40719,10 +40870,11 @@ function equalObjects(object, other, bitmask, customizer, equalFunc, stack) {
       return false;
     }
   }
-  // Assume cyclic values are equal.
-  var stacked = stack.get(object);
-  if (stacked && stack.get(other)) {
-    return stacked == other;
+  // Check that cyclic values are equal.
+  var objStacked = stack.get(object);
+  var othStacked = stack.get(other);
+  if (objStacked && othStacked) {
+    return objStacked == other && othStacked == object;
   }
   var result = true;
   stack.set(object, other);
@@ -42160,6 +42312,8 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.Checkboard = undefined;
 
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 
 
 var _react2 = _interopRequireDefault(React);
@@ -42182,7 +42336,8 @@ var Checkboard = exports.Checkboard = function Checkboard(_ref) {
       size = _ref.size,
       renderers = _ref.renderers,
       borderRadius = _ref.borderRadius,
-      boxShadow = _ref.boxShadow;
+      boxShadow = _ref.boxShadow,
+      children = _ref.children;
 
   var styles = (0, _reactcss2.default)({
     'default': {
@@ -42194,8 +42349,7 @@ var Checkboard = exports.Checkboard = function Checkboard(_ref) {
       }
     }
   });
-
-  return _react2.default.createElement('div', { style: styles.grid });
+  return (0, React.isValidElement)(children) ? _react2.default.cloneElement(children, _extends({}, children.props, { style: _extends({}, children.props.style, styles.grid) })) : _react2.default.createElement('div', { style: styles.grid });
 };
 
 Checkboard.defaultProps = {
@@ -42413,15 +42567,8 @@ var VALID_KEY_CODES = [UP_KEY_CODE, DOWN_KEY_CODE];
 var isValidKeyCode = function isValidKeyCode(keyCode) {
   return VALID_KEY_CODES.indexOf(keyCode) > -1;
 };
-
-var getFormattedPercentage = function getFormattedPercentage(number) {
-  return number + '%';
-};
 var getNumberValue = function getNumberValue(value) {
   return Number(String(value).replace(/%/g, ''));
-};
-var getIsPercentage = function getIsPercentage(value) {
-  return String(value).indexOf('%') > -1;
 };
 
 var EditableInput = exports.EditableInput = function (_ref) {
@@ -42521,10 +42668,7 @@ var EditableInput = exports.EditableInput = function (_ref) {
       var onChangeValue = this.props.label ? this.getValueObjectWithLabel(value) : value;
       this.props.onChange && this.props.onChange(onChangeValue, e);
 
-      var isPercentage = getIsPercentage(e.target.value);
-      this.setState({
-        value: isPercentage ? getFormattedPercentage(value) : value
-      });
+      this.setState({ value: value });
     }
   }, {
     key: 'render',
@@ -42614,7 +42758,7 @@ var calculateChange = exports.calculateChange = function calculateChange(e, dire
         s: hsl.s,
         l: hsl.l,
         a: hsl.a,
-        source: 'rgb'
+        source: 'hsl'
       };
     }
   } else {
@@ -42634,7 +42778,7 @@ var calculateChange = exports.calculateChange = function calculateChange(e, dire
         s: hsl.s,
         l: hsl.l,
         a: hsl.a,
-        source: 'rgb'
+        source: 'hsl'
       };
     }
   }
@@ -42955,7 +43099,7 @@ var calculateChange = exports.calculateChange = function calculateChange(e, hsl,
     s: saturation,
     v: bright,
     a: hsl.a,
-    source: 'rgb'
+    source: 'hsv'
   };
 };
 });
@@ -45375,7 +45519,7 @@ var fontColorMarkStrategy = function fontColorMarkStrategy(editor, color) {
 var FontColorMark = function FontColorMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return React.createElement("span", {
+  return /*#__PURE__*/React.createElement("span", {
     style: {
       color: data.get("color")
     }
@@ -45389,14 +45533,14 @@ var FontColorMark = function FontColorMark(_ref3) {
 var FontColorButton = function FontColorButton(_ref4) {
   var showColorPicker = _ref4.showColorPicker,
       setShowColorPicker = _ref4.setShowColorPicker;
-  return React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(Tooltip, {
     title: "Font Color",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowColorPicker(!showColorPicker);
     }
-  }, React.createElement(FormatColorTextIcon, null)));
+  }, /*#__PURE__*/React.createElement(FormatColorTextIcon, null)));
 };
 /**
  * The font color picker widget-style component
@@ -45412,7 +45556,7 @@ var FontColorPicker = function FontColorPicker(_ref5) {
     color = getMark$2(value).data.get("color");
   }
 
-  return React.createElement(SketchPicker, {
+  return /*#__PURE__*/React.createElement(SketchPicker, {
     disableAlpha: true,
     color: color,
     onChangeComplete: function onChangeComplete(color, e) {
@@ -45442,7 +45586,7 @@ var LineSpacingNode = function LineSpacingNode(_ref) {
   var children = _ref.children,
       attributes = _ref.attributes,
       data = _ref.node.data;
-  return React.createElement("div", _extends({
+  return /*#__PURE__*/React.createElement("div", _extends({
     style: {
       lineHeight: "".concat(data.get("size"))
     }
@@ -45470,61 +45614,61 @@ var LineSpacingButton = function LineSpacingButton(_ref2) {
     lineSpacingNodeStrategy(editor, size);
   };
 
-  var renderMenu = React.createElement(Menu, {
+  var renderMenu = /*#__PURE__*/React.createElement(Menu, {
     anchorEl: anchorEl,
     open: Boolean(anchorEl),
     onClose: function onClose() {
       return setAnchorEl(null);
     }
-  }, React.createElement(MenuItem, {
+  }, /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.0");
     }
-  }, "1.0"), React.createElement(MenuItem, {
+  }, "1.0"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.1");
     }
-  }, "1.1"), React.createElement(MenuItem, {
+  }, "1.1"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.2");
     }
-  }, "1.2"), React.createElement(MenuItem, {
+  }, "1.2"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.3");
     }
-  }, "1.3"), React.createElement(MenuItem, {
+  }, "1.3"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.4");
     }
-  }, "1.4"), React.createElement(MenuItem, {
+  }, "1.4"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.5");
     }
-  }, "1.5"), React.createElement(MenuItem, {
+  }, "1.5"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("1.6");
     }
-  }, "1.6 (default)"), React.createElement(MenuItem, {
+  }, "1.6 (default)"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("2.0");
     }
-  }, "2.0"), React.createElement(MenuItem, {
+  }, "2.0"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("2.5");
     }
-  }, "2.5"), React.createElement(MenuItem, {
+  }, "2.5"), /*#__PURE__*/React.createElement(MenuItem, {
     onClick: function onClick() {
       return handleItemClick("3.0");
     }
   }, "3.0"));
-  return React.createElement(React.Fragment, null, React.createElement(Tooltip, {
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Tooltip, {
     title: "Line Spacing",
     placement: "bottom"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: handleMenuOpen,
     "aria-owns": anchorEl ? "line-spacing-menu" : undefined,
     "aria-haspopup": "true"
-  }, React.createElement(LineSpacingIcon, null))), renderMenu);
+  }, /*#__PURE__*/React.createElement(LineSpacingIcon, null))), renderMenu);
 };
 
 var useStyles$8 = makeStyles({
@@ -45573,53 +45717,53 @@ var EditorToolbar = function EditorToolbar(props) {
 
   var classes = useStyles$8();
   var onSave = props.onSave;
-  return React.createElement(AppBar, {
+  return /*#__PURE__*/React.createElement(AppBar, {
     className: classes.toolbar,
     position: "static",
     color: "default"
-  }, React.createElement(Toolbar, null, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Toolbar, null, /*#__PURE__*/React.createElement(Grid, {
     container: true
-  }, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 12
-  }, React.createElement(MarkButtons, props), React.createElement(Separator, null), React.createElement(AlignmentButtons, props), React.createElement(Separator, null), React.createElement(DividerButton, props), React.createElement(Separator, null), React.createElement(ListButtons, props), React.createElement(Separator, null), React.createElement(HeadingButtons, props), React.createElement(Separator, null), React.createElement(LineSpacingButton, props), React.createElement(Separator, null), React.createElement(FeatureButtons, _extends({
+  }, /*#__PURE__*/React.createElement(MarkButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(AlignmentButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(DividerButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(ListButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(HeadingButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(LineSpacingButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FeatureButtons, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
-  }, props)), React.createElement(Separator, null), React.createElement(FontColorButton, _extends({
+  }, props)), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FontColorButton, _extends({
     showColorPicker: showColorPicker,
     setShowColorPicker: setShowColorPicker
-  }, props)), "\xA0\xA0", React.createElement("span", {
+  }, props)), "\xA0\xA0", /*#__PURE__*/React.createElement("span", {
     className: classes.colorPicker
-  }, showColorPicker && React.createElement(FontColorPicker, props))), React.createElement(Grid, {
+  }, showColorPicker && /*#__PURE__*/React.createElement(FontColorPicker, props))), /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 12
-  }, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Grid, {
     container: true
-  }, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 10
-  }, showTableOptions && React.createElement(TableButtons, props), React.createElement(FontDropdowns, props), React.createElement(Separator, null), React.createElement(Tooltip, {
+  }, showTableOptions && /*#__PURE__*/React.createElement(TableButtons, props), /*#__PURE__*/React.createElement(FontDropdowns, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(Tooltip, {
     title: "Editor Help"
-  }, React.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowHelpModal(true);
     }
-  }, React.createElement(HelpIcon, {
+  }, /*#__PURE__*/React.createElement(HelpIcon, {
     className: classes.largeIcon
-  }))), showHelpModal && React.createElement(HelpModal, {
+  }))), showHelpModal && /*#__PURE__*/React.createElement(HelpModal, {
     handleClose: function handleClose() {
       setShowHelpModal(false);
     },
     onClick: function onClick() {
       return window.scrollTo(0, 0);
     }
-  })), React.createElement(Grid, {
+  })), /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 1
-  }), React.createElement(Grid, {
+  }), /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 1
-  }, React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement(Button, {
     className: classes.saveButton,
     size: "small",
     variant: "contained",
@@ -45689,23 +45833,23 @@ var PageEditorBottomButtons = function PageEditorBottomButtons(props) {
   var classes = props.classes,
       onCancel = props.onCancel,
       onSave = props.onSave;
-  return React.createElement(Grid, {
+  return /*#__PURE__*/React.createElement(Grid, {
     container: true,
     justify: "flex-end"
-  }, React.createElement(Grid, {
+  }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 2,
     className: classes.buttonGrid
-  }, React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement(Button, {
     className: classes.cancelButton,
     size: "small",
     variant: "contained",
     onClick: onCancel
-  }, "Cancel")), React.createElement(Grid, {
+  }, "Cancel")), /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 2,
     className: classes.buttonGrid
-  }, React.createElement(Button, {
+  }, /*#__PURE__*/React.createElement(Button, {
     className: classes.saveButton,
     size: "small",
     variant: "contained",
@@ -45725,31 +45869,31 @@ var renderMark = function renderMark(props, editor, next) {
 
   switch (mark.type) {
     case "bold":
-      return React.createElement(BoldMark, props);
+      return /*#__PURE__*/React.createElement(BoldMark, props);
 
     case "font-color":
-      return React.createElement(FontColorMark, props);
+      return /*#__PURE__*/React.createElement(FontColorMark, props);
 
     case "font-family":
-      return React.createElement(FontFamilyMark, props);
+      return /*#__PURE__*/React.createElement(FontFamilyMark, props);
 
     case "font-size":
-      return React.createElement(FontSizeMark, props);
+      return /*#__PURE__*/React.createElement(FontSizeMark, props);
 
     case "italic":
-      return React.createElement(ItalicMark, props);
+      return /*#__PURE__*/React.createElement(ItalicMark, props);
 
     case "strikethrough":
-      return React.createElement(StrikethroughMark, props);
+      return /*#__PURE__*/React.createElement(StrikethroughMark, props);
 
     case "subscript":
-      return React.createElement(SubscriptMark, props);
+      return /*#__PURE__*/React.createElement(SubscriptMark, props);
 
     case "superscript":
-      return React.createElement(SuperscriptMark, props);
+      return /*#__PURE__*/React.createElement(SuperscriptMark, props);
 
     case "underline":
-      return React.createElement(UnderlineMark, props);
+      return /*#__PURE__*/React.createElement(UnderlineMark, props);
 
     default:
       return next();
@@ -45761,55 +45905,55 @@ var renderNode = function renderNode(props, editor, next) {
 
   switch (node.type) {
     case "alignment":
-      return React.createElement(AlignmentNode, props);
+      return /*#__PURE__*/React.createElement(AlignmentNode, props);
 
     case "divider":
-      return React.createElement(DividerNode, props);
+      return /*#__PURE__*/React.createElement(DividerNode, props);
 
     case "h1":
-      return React.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
         variant: "h1"
       }, props));
 
     case "h2":
-      return React.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
         variant: "h2"
       }, props));
 
     case "h3":
-      return React.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
         variant: "h3"
       }, props));
 
     case "image":
-      return React.createElement(ImageNode, props);
+      return /*#__PURE__*/React.createElement(ImageNode, props);
 
     case "line-spacing":
-      return React.createElement(LineSpacingNode, props);
+      return /*#__PURE__*/React.createElement(LineSpacingNode, props);
 
     case "link":
-      return React.createElement(LinkNode, props);
+      return /*#__PURE__*/React.createElement(LinkNode, props);
 
     case "list-item":
-      return React.createElement(ListItemNode, props);
+      return /*#__PURE__*/React.createElement(ListItemNode, props);
 
     case "unordered-list":
-      return React.createElement(UnorderedListNode, props);
+      return /*#__PURE__*/React.createElement(UnorderedListNode, props);
 
     case "ordered-list":
-      return React.createElement(OrderedListNode, props);
+      return /*#__PURE__*/React.createElement(OrderedListNode, props);
 
     case "table":
-      return React.createElement(TableNode, props);
+      return /*#__PURE__*/React.createElement(TableNode, props);
 
     case "table-row":
-      return React.createElement(TableRowNode, props);
+      return /*#__PURE__*/React.createElement(TableRowNode, props);
 
     case "table-cell":
-      return React.createElement(TableCellNode, props);
+      return /*#__PURE__*/React.createElement(TableCellNode, props);
 
     case "video":
-      return React.createElement(VideoNode, props);
+      return /*#__PURE__*/React.createElement(VideoNode, props);
 
     default:
       return next();
@@ -45868,13 +46012,15 @@ var plugins = [AlignmentPlugin(), BoldPlugin(), DividerPlugin(), ItalicPlugin(),
 var PageEditor = /*#__PURE__*/function (_Component) {
   _inherits(PageEditor, _Component);
 
+  var _super = _createSuper(PageEditor);
+
   // necessary for Flow
   function PageEditor(props) {
     var _this;
 
     _classCallCheck(this, PageEditor);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(PageEditor).call(this, props));
+    _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "editor", void 0);
 
@@ -45917,7 +46063,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
     } // add check for no props?
 
 
-    _this.editor = React.createRef();
+    _this.editor = /*#__PURE__*/React.createRef();
     return _this;
   }
 
@@ -45933,7 +46079,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
           onCancel = _this$props.onCancel;
 
       if (readOnly) {
-        return React.createElement(Editor$1, {
+        return /*#__PURE__*/React.createElement(Editor$1, {
           className: classes.editor,
           value: value,
           onChange: this.onChange,
@@ -45947,12 +46093,12 @@ var PageEditor = /*#__PURE__*/function (_Component) {
         });
       }
 
-      return React.createElement(React.Fragment, null, React.createElement(EditorToolbar, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(EditorToolbar, {
         editor: this.editor.current,
         onSave: function onSave() {
           return _onSave(value);
         }
-      }), React.createElement(Editor$1, {
+      }), /*#__PURE__*/React.createElement(Editor$1, {
         className: classes.editor,
         value: value,
         onChange: this.onChange,
@@ -45963,7 +46109,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
         plugins: plugins,
         schema: schema,
         ref: this.editor
-      }), React.createElement(PageEditorBottomButtons$1, {
+      }), /*#__PURE__*/React.createElement(PageEditorBottomButtons$1, {
         onSave: function onSave() {
           return _onSave(value);
         },
