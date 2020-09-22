@@ -1,6 +1,6 @@
 const path = require("path")
 module.exports = {
-  styleguideDir: "docs",
+  styleguideDir: "styleguide",
   webpackConfig: require("react-scripts/config/webpack.config")("development"),
   ignore: [
     "**/*.test.{js,jsx,ts,tsx}",

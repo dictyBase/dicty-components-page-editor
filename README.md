@@ -8,8 +8,7 @@
 [![devDependency Status](https://david-dm.org/dictyBase/dicty-components-page-editor/develop/dev-status.svg?style=flat-square)](https://david-dm.org/dictyBase/dicty-components-page-editor/develop?type=dev)  
 [![Technical debt](https://badgen.net/codeclimate/tech-debt/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor/trends/technical_debt)
 [![Issues](https://badgen.net/codeclimate/issues/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor/issues)
-[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor)
-[![Dependabot Status](https://api.dependabot.com/badges/status?host=github&repo=dictyBase/dicty-components-page-editor)](https://dependabot.com)  
+[![Maintainability percentage](https://badgen.net/codeclimate/maintainability-percentage/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor)  
 ![Issues](https://badgen.net/github/issues/dictyBase/dicty-components-page-editor)
 ![Open Issues](https://badgen.net/github/open-issues/dictyBase/dicty-components-page-editor)
 ![Closed Issues](https://badgen.net/github/closed-issues/dictyBase/dicty-components-page-editor)
@@ -76,7 +75,7 @@ const Demo = () => {
 - Run `npm install`
 - Create a new branch (i.e. `feature/foo-plugin`)
 - Complete any necessary work.
-- If creating a new plugin, there is a [guide](./documentation/bold.md) that
+- If creating a new plugin, there is a [guide](./docs/bold.md) that
   walks you through the process using the bold plugin as a guide.
 - Commit all changes and open a pull request. If all checks pass, it is ready
   to merge to `develop`.
