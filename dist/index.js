@@ -6056,21 +6056,28 @@ var hasFlag = (flag, argv) => {
 	return pos !== -1 && (terminatorPos === -1 ? true : pos < terminatorPos);
 };
 
-const env = process.env;
+const {env} = process;
 
 let forceColor;
 if (hasFlag('no-color') ||
 	hasFlag('no-colors') ||
-	hasFlag('color=false')) {
-	forceColor = false;
+	hasFlag('color=false') ||
+	hasFlag('color=never')) {
+	forceColor = 0;
 } else if (hasFlag('color') ||
 	hasFlag('colors') ||
 	hasFlag('color=true') ||
 	hasFlag('color=always')) {
-	forceColor = true;
+	forceColor = 1;
 }
 if ('FORCE_COLOR' in env) {
-	forceColor = env.FORCE_COLOR.length === 0 || parseInt(env.FORCE_COLOR, 10) !== 0;
+	if (env.FORCE_COLOR === true || env.FORCE_COLOR === 'true') {
+		forceColor = 1;
+	} else if (env.FORCE_COLOR === false || env.FORCE_COLOR === 'false') {
+		forceColor = 0;
+	} else {
+		forceColor = env.FORCE_COLOR.length === 0 ? 1 : Math.min(parseInt(env.FORCE_COLOR, 10), 3);
+	}
 }
 
 function translateLevel(level) {
@@ -6087,7 +6094,7 @@ function translateLevel(level) {
 }
 
 function supportsColor(stream) {
-	if (forceColor === false) {
+	if (forceColor === 0) {
 		return 0;
 	}
 
@@ -6101,11 +6108,15 @@ function supportsColor(stream) {
 		return 2;
 	}
 
-	if (stream && !stream.isTTY && forceColor !== true) {
+	if (stream && !stream.isTTY && forceColor === undefined) {
 		return 0;
 	}
 
-	const min = forceColor ? 1 : 0;
+	const min = forceColor || 0;
+
+	if (env.TERM === 'dumb') {
+		return min;
+	}
 
 	if (process.platform === 'win32') {
 		// Node.js 7.5.0 is the first version of Node.js to include a patch to
@@ -6164,10 +6175,6 @@ function supportsColor(stream) {
 
 	if ('COLORTERM' in env) {
 		return 1;
-	}
-
-	if (env.TERM === 'dumb') {
-		return min;
 	}
 
 	return min;
@@ -25707,6 +25714,637 @@ var index$1 = {
   Value: Value
 };
 
+/**
+ * This is the common logic for both the Node.js and web browser
+ * implementations of `debug()`.
+ */
+function setup$1(env) {
+  createDebug.debug = createDebug;
+  createDebug.default = createDebug;
+  createDebug.coerce = coerce;
+  createDebug.disable = disable;
+  createDebug.enable = enable;
+  createDebug.enabled = enabled;
+  createDebug.humanize = ms;
+  Object.keys(env).forEach(function (key) {
+    createDebug[key] = env[key];
+  });
+  /**
+  * Active `debug` instances.
+  */
+
+  createDebug.instances = [];
+  /**
+  * The currently active debug mode names, and names to skip.
+  */
+
+  createDebug.names = [];
+  createDebug.skips = [];
+  /**
+  * Map of special "%n" handling functions, for the debug "format" argument.
+  *
+  * Valid key names are a single, lower or upper-case letter, i.e. "n" and "N".
+  */
+
+  createDebug.formatters = {};
+  /**
+  * Selects a color for a debug namespace
+  * @param {String} namespace The namespace string for the for the debug instance to be colored
+  * @return {Number|String} An ANSI color code for the given namespace
+  * @api private
+  */
+
+  function selectColor(namespace) {
+    var hash = 0;
+
+    for (var i = 0; i < namespace.length; i++) {
+      hash = (hash << 5) - hash + namespace.charCodeAt(i);
+      hash |= 0; // Convert to 32bit integer
+    }
+
+    return createDebug.colors[Math.abs(hash) % createDebug.colors.length];
+  }
+
+  createDebug.selectColor = selectColor;
+  /**
+  * Create a debugger with the given `namespace`.
+  *
+  * @param {String} namespace
+  * @return {Function}
+  * @api public
+  */
+
+  function createDebug(namespace) {
+    var prevTime;
+
+    function debug() {
+      // Disabled?
+      if (!debug.enabled) {
+        return;
+      }
+
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+        args[_key] = arguments[_key];
+      }
+
+      var self = debug; // Set `diff` timestamp
+
+      var curr = Number(new Date());
+      var ms = curr - (prevTime || curr);
+      self.diff = ms;
+      self.prev = prevTime;
+      self.curr = curr;
+      prevTime = curr;
+      args[0] = createDebug.coerce(args[0]);
+
+      if (typeof args[0] !== 'string') {
+        // Anything else let's inspect with %O
+        args.unshift('%O');
+      } // Apply any `formatters` transformations
+
+
+      var index = 0;
+      args[0] = args[0].replace(/%([a-zA-Z%])/g, function (match, format) {
+        // If we encounter an escaped % then don't increase the array index
+        if (match === '%%') {
+          return match;
+        }
+
+        index++;
+        var formatter = createDebug.formatters[format];
+
+        if (typeof formatter === 'function') {
+          var val = args[index];
+          match = formatter.call(self, val); // Now we need to remove `args[index]` since it's inlined in the `format`
+
+          args.splice(index, 1);
+          index--;
+        }
+
+        return match;
+      }); // Apply env-specific formatting (colors, etc.)
+
+      createDebug.formatArgs.call(self, args);
+      var logFn = self.log || createDebug.log;
+      logFn.apply(self, args);
+    }
+
+    debug.namespace = namespace;
+    debug.enabled = createDebug.enabled(namespace);
+    debug.useColors = createDebug.useColors();
+    debug.color = selectColor(namespace);
+    debug.destroy = destroy;
+    debug.extend = extend; // Debug.formatArgs = formatArgs;
+    // debug.rawLog = rawLog;
+    // env-specific initialization logic for debug instances
+
+    if (typeof createDebug.init === 'function') {
+      createDebug.init(debug);
+    }
+
+    createDebug.instances.push(debug);
+    return debug;
+  }
+
+  function destroy() {
+    var index = createDebug.instances.indexOf(this);
+
+    if (index !== -1) {
+      createDebug.instances.splice(index, 1);
+      return true;
+    }
+
+    return false;
+  }
+
+  function extend(namespace, delimiter) {
+    return createDebug(this.namespace + (typeof delimiter === 'undefined' ? ':' : delimiter) + namespace);
+  }
+  /**
+  * Enables a debug mode by namespaces. This can include modes
+  * separated by a colon and wildcards.
+  *
+  * @param {String} namespaces
+  * @api public
+  */
+
+
+  function enable(namespaces) {
+    createDebug.save(namespaces);
+    createDebug.names = [];
+    createDebug.skips = [];
+    var i;
+    var split = (typeof namespaces === 'string' ? namespaces : '').split(/[\s,]+/);
+    var len = split.length;
+
+    for (i = 0; i < len; i++) {
+      if (!split[i]) {
+        // ignore empty strings
+        continue;
+      }
+
+      namespaces = split[i].replace(/\*/g, '.*?');
+
+      if (namespaces[0] === '-') {
+        createDebug.skips.push(new RegExp('^' + namespaces.substr(1) + '$'));
+      } else {
+        createDebug.names.push(new RegExp('^' + namespaces + '$'));
+      }
+    }
+
+    for (i = 0; i < createDebug.instances.length; i++) {
+      var instance = createDebug.instances[i];
+      instance.enabled = createDebug.enabled(instance.namespace);
+    }
+  }
+  /**
+  * Disable debug output.
+  *
+  * @api public
+  */
+
+
+  function disable() {
+    createDebug.enable('');
+  }
+  /**
+  * Returns true if the given mode name is enabled, false otherwise.
+  *
+  * @param {String} name
+  * @return {Boolean}
+  * @api public
+  */
+
+
+  function enabled(name) {
+    if (name[name.length - 1] === '*') {
+      return true;
+    }
+
+    var i;
+    var len;
+
+    for (i = 0, len = createDebug.skips.length; i < len; i++) {
+      if (createDebug.skips[i].test(name)) {
+        return false;
+      }
+    }
+
+    for (i = 0, len = createDebug.names.length; i < len; i++) {
+      if (createDebug.names[i].test(name)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+  /**
+  * Coerce `val`.
+  *
+  * @param {Mixed} val
+  * @return {Mixed}
+  * @api private
+  */
+
+
+  function coerce(val) {
+    if (val instanceof Error) {
+      return val.stack || val.message;
+    }
+
+    return val;
+  }
+
+  createDebug.enable(createDebug.load());
+  return createDebug;
+}
+
+var common$1 = setup$1;
+
+var browser$1 = createCommonjsModule(function (module, exports) {
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+/* eslint-env browser */
+
+/**
+ * This is the web browser implementation of `debug()`.
+ */
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+exports.storage = localstorage();
+/**
+ * Colors.
+ */
+
+exports.colors = ['#0000CC', '#0000FF', '#0033CC', '#0033FF', '#0066CC', '#0066FF', '#0099CC', '#0099FF', '#00CC00', '#00CC33', '#00CC66', '#00CC99', '#00CCCC', '#00CCFF', '#3300CC', '#3300FF', '#3333CC', '#3333FF', '#3366CC', '#3366FF', '#3399CC', '#3399FF', '#33CC00', '#33CC33', '#33CC66', '#33CC99', '#33CCCC', '#33CCFF', '#6600CC', '#6600FF', '#6633CC', '#6633FF', '#66CC00', '#66CC33', '#9900CC', '#9900FF', '#9933CC', '#9933FF', '#99CC00', '#99CC33', '#CC0000', '#CC0033', '#CC0066', '#CC0099', '#CC00CC', '#CC00FF', '#CC3300', '#CC3333', '#CC3366', '#CC3399', '#CC33CC', '#CC33FF', '#CC6600', '#CC6633', '#CC9900', '#CC9933', '#CCCC00', '#CCCC33', '#FF0000', '#FF0033', '#FF0066', '#FF0099', '#FF00CC', '#FF00FF', '#FF3300', '#FF3333', '#FF3366', '#FF3399', '#FF33CC', '#FF33FF', '#FF6600', '#FF6633', '#FF9900', '#FF9933', '#FFCC00', '#FFCC33'];
+/**
+ * Currently only WebKit-based Web Inspectors, Firefox >= v31,
+ * and the Firebug extension (any Firefox version) are known
+ * to support "%c" CSS customizations.
+ *
+ * TODO: add a `localStorage` variable to explicitly enable/disable colors
+ */
+// eslint-disable-next-line complexity
+
+function useColors() {
+  // NB: In an Electron preload script, document will be defined but not fully
+  // initialized. Since we know we're in Chrome, we'll just detect this case
+  // explicitly
+  if (typeof window !== 'undefined' && window.process && (window.process.type === 'renderer' || window.process.__nwjs)) {
+    return true;
+  } // Internet Explorer and Edge do not support colors.
+
+
+  if (typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/(edge|trident)\/(\d+)/)) {
+    return false;
+  } // Is webkit? http://stackoverflow.com/a/16459606/376773
+  // document is undefined in react-native: https://github.com/facebook/react-native/pull/1632
+
+
+  return typeof document !== 'undefined' && document.documentElement && document.documentElement.style && document.documentElement.style.WebkitAppearance || // Is firebug? http://stackoverflow.com/a/398120/376773
+  typeof window !== 'undefined' && window.console && (window.console.firebug || window.console.exception && window.console.table) || // Is firefox >= v31?
+  // https://developer.mozilla.org/en-US/docs/Tools/Web_Console#Styling_messages
+  typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/firefox\/(\d+)/) && parseInt(RegExp.$1, 10) >= 31 || // Double check webkit in userAgent just in case we are in a worker
+  typeof navigator !== 'undefined' && navigator.userAgent && navigator.userAgent.toLowerCase().match(/applewebkit\/(\d+)/);
+}
+/**
+ * Colorize log arguments if enabled.
+ *
+ * @api public
+ */
+
+
+function formatArgs(args) {
+  args[0] = (this.useColors ? '%c' : '') + this.namespace + (this.useColors ? ' %c' : ' ') + args[0] + (this.useColors ? '%c ' : ' ') + '+' + module.exports.humanize(this.diff);
+
+  if (!this.useColors) {
+    return;
+  }
+
+  var c = 'color: ' + this.color;
+  args.splice(1, 0, c, 'color: inherit'); // The final "%c" is somewhat tricky, because there could be other
+  // arguments passed either before or after the %c, so we need to
+  // figure out the correct index to insert the CSS into
+
+  var index = 0;
+  var lastC = 0;
+  args[0].replace(/%[a-zA-Z%]/g, function (match) {
+    if (match === '%%') {
+      return;
+    }
+
+    index++;
+
+    if (match === '%c') {
+      // We only are interested in the *last* %c
+      // (the user may have provided their own)
+      lastC = index;
+    }
+  });
+  args.splice(lastC, 0, c);
+}
+/**
+ * Invokes `console.log()` when available.
+ * No-op when `console.log` is not a "function".
+ *
+ * @api public
+ */
+
+
+function log() {
+  var _console;
+
+  // This hackery is required for IE8/9, where
+  // the `console.log` function doesn't have 'apply'
+  return (typeof console === "undefined" ? "undefined" : _typeof(console)) === 'object' && console.log && (_console = console).log.apply(_console, arguments);
+}
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+
+function save(namespaces) {
+  try {
+    if (namespaces) {
+      exports.storage.setItem('debug', namespaces);
+    } else {
+      exports.storage.removeItem('debug');
+    }
+  } catch (error) {// Swallow
+    // XXX (@Qix-) should we be logging these?
+  }
+}
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+
+function load() {
+  var r;
+
+  try {
+    r = exports.storage.getItem('debug');
+  } catch (error) {} // Swallow
+  // XXX (@Qix-) should we be logging these?
+  // If debug isn't set in LS, and we're in Electron, try to load $DEBUG
+
+
+  if (!r && typeof process !== 'undefined' && 'env' in process) {
+    r = process.env.DEBUG;
+  }
+
+  return r;
+}
+/**
+ * Localstorage attempts to return the localstorage.
+ *
+ * This is necessary because safari throws
+ * when a user disables cookies/localstorage
+ * and you attempt to access it.
+ *
+ * @return {LocalStorage}
+ * @api private
+ */
+
+
+function localstorage() {
+  try {
+    // TVMLKit (Apple TV JS Runtime) does not have a window object, just localStorage in the global context
+    // The Browser also has localStorage in the global context.
+    return localStorage;
+  } catch (error) {// Swallow
+    // XXX (@Qix-) should we be logging these?
+  }
+}
+
+module.exports = common$1(exports);
+var formatters = module.exports.formatters;
+/**
+ * Map %j to `JSON.stringify()`, since no Web Inspectors do that by default.
+ */
+
+formatters.j = function (v) {
+  try {
+    return JSON.stringify(v);
+  } catch (error) {
+    return '[UnexpectedJSONParseError]: ' + error.message;
+  }
+};
+});
+var browser_1$1 = browser$1.log;
+var browser_2$1 = browser$1.formatArgs;
+var browser_3$1 = browser$1.save;
+var browser_4$1 = browser$1.load;
+var browser_5$1 = browser$1.useColors;
+var browser_6$1 = browser$1.storage;
+var browser_7$1 = browser$1.colors;
+
+var node$1 = createCommonjsModule(function (module, exports) {
+
+/**
+ * Module dependencies.
+ */
+
+
+
+/**
+ * This is the Node.js implementation of `debug()`.
+ */
+
+
+exports.init = init;
+exports.log = log;
+exports.formatArgs = formatArgs;
+exports.save = save;
+exports.load = load;
+exports.useColors = useColors;
+/**
+ * Colors.
+ */
+
+exports.colors = [6, 2, 3, 4, 5, 1];
+
+try {
+  // Optional dependency (as in, doesn't need to be installed, NOT like optionalDependencies in package.json)
+  // eslint-disable-next-line import/no-extraneous-dependencies
+  var supportsColor = supportsColor_1;
+
+  if (supportsColor && (supportsColor.stderr || supportsColor).level >= 2) {
+    exports.colors = [20, 21, 26, 27, 32, 33, 38, 39, 40, 41, 42, 43, 44, 45, 56, 57, 62, 63, 68, 69, 74, 75, 76, 77, 78, 79, 80, 81, 92, 93, 98, 99, 112, 113, 128, 129, 134, 135, 148, 149, 160, 161, 162, 163, 164, 165, 166, 167, 168, 169, 170, 171, 172, 173, 178, 179, 184, 185, 196, 197, 198, 199, 200, 201, 202, 203, 204, 205, 206, 207, 208, 209, 214, 215, 220, 221];
+  }
+} catch (error) {} // Swallow - we only care if `supports-color` is available; it doesn't have to be.
+
+/**
+ * Build up the default `inspectOpts` object from the environment variables.
+ *
+ *   $ DEBUG_COLORS=no DEBUG_DEPTH=10 DEBUG_SHOW_HIDDEN=enabled node script.js
+ */
+
+
+exports.inspectOpts = Object.keys(process.env).filter(function (key) {
+  return /^debug_/i.test(key);
+}).reduce(function (obj, key) {
+  // Camel-case
+  var prop = key.substring(6).toLowerCase().replace(/_([a-z])/g, function (_, k) {
+    return k.toUpperCase();
+  }); // Coerce string value into JS value
+
+  var val = process.env[key];
+
+  if (/^(yes|on|true|enabled)$/i.test(val)) {
+    val = true;
+  } else if (/^(no|off|false|disabled)$/i.test(val)) {
+    val = false;
+  } else if (val === 'null') {
+    val = null;
+  } else {
+    val = Number(val);
+  }
+
+  obj[prop] = val;
+  return obj;
+}, {});
+/**
+ * Is stdout a TTY? Colored output is enabled when `true`.
+ */
+
+function useColors() {
+  return 'colors' in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
+}
+/**
+ * Adds ANSI color escape codes if enabled.
+ *
+ * @api public
+ */
+
+
+function formatArgs(args) {
+  var name = this.namespace,
+      useColors = this.useColors;
+
+  if (useColors) {
+    var c = this.color;
+    var colorCode = "\x1B[3" + (c < 8 ? c : '8;5;' + c);
+    var prefix = "  ".concat(colorCode, ";1m").concat(name, " \x1B[0m");
+    args[0] = prefix + args[0].split('\n').join('\n' + prefix);
+    args.push(colorCode + 'm+' + module.exports.humanize(this.diff) + "\x1B[0m");
+  } else {
+    args[0] = getDate() + name + ' ' + args[0];
+  }
+}
+
+function getDate() {
+  if (exports.inspectOpts.hideDate) {
+    return '';
+  }
+
+  return new Date().toISOString() + ' ';
+}
+/**
+ * Invokes `util.format()` with the specified arguments and writes to stderr.
+ */
+
+
+function log() {
+  return process.stderr.write(util.format.apply(util, arguments) + '\n');
+}
+/**
+ * Save `namespaces`.
+ *
+ * @param {String} namespaces
+ * @api private
+ */
+
+
+function save(namespaces) {
+  if (namespaces) {
+    process.env.DEBUG = namespaces;
+  } else {
+    // If you set a process.env field to null or undefined, it gets cast to the
+    // string 'null' or 'undefined'. Just delete instead.
+    delete process.env.DEBUG;
+  }
+}
+/**
+ * Load `namespaces`.
+ *
+ * @return {String} returns the previously persisted debug modes
+ * @api private
+ */
+
+
+function load() {
+  return process.env.DEBUG;
+}
+/**
+ * Init logic for `debug` instances.
+ *
+ * Create a new `inspectOpts` object in case `useColors` is set
+ * differently for a particular `debug` instance.
+ */
+
+
+function init(debug) {
+  debug.inspectOpts = {};
+  var keys = Object.keys(exports.inspectOpts);
+
+  for (var i = 0; i < keys.length; i++) {
+    debug.inspectOpts[keys[i]] = exports.inspectOpts[keys[i]];
+  }
+}
+
+module.exports = common$1(exports);
+var formatters = module.exports.formatters;
+/**
+ * Map %o to `util.inspect()`, all on a single line.
+ */
+
+formatters.o = function (v) {
+  this.inspectOpts.colors = this.useColors;
+  return util.inspect(v, this.inspectOpts).replace(/\s*\n\s*/g, ' ');
+};
+/**
+ * Map %O to `util.inspect()`, allowing multiple lines if needed.
+ */
+
+
+formatters.O = function (v) {
+  this.inspectOpts.colors = this.useColors;
+  return util.inspect(v, this.inspectOpts);
+};
+});
+var node_1$1 = node$1.init;
+var node_2$1 = node$1.log;
+var node_3$1 = node$1.formatArgs;
+var node_4$1 = node$1.save;
+var node_5$1 = node$1.load;
+var node_6$1 = node$1.useColors;
+var node_7$1 = node$1.colors;
+var node_8$1 = node$1.inspectOpts;
+
+var src$1 = createCommonjsModule(function (module) {
+
+/**
+ * Detect Electron renderer / nwjs process, which is node, but we should
+ * treat as a browser.
+ */
+if (typeof process === 'undefined' || process.type === 'renderer' || process.browser === true || process.__nwjs) {
+  module.exports = browser$1;
+} else {
+  module.exports = node$1;
+}
+});
+
 var _typeof$1 = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
 var isBrowser = (typeof window === "undefined" ? "undefined" : _typeof$1(window)) === "object" && (typeof document === "undefined" ? "undefined" : _typeof$1(document)) === 'object' && document.nodeType === 9;
@@ -25757,7 +26395,7 @@ var slicedToArray$1 = function () {
 
 var BROWSER_RULES = [['edge', /Edge\/([0-9\._]+)/], ['chrome', /(?!Chrom.*OPR)Chrom(?:e|ium)\/([0-9\.]+)(:?\s|$)/], ['firefox', /Firefox\/([0-9\.]+)(?:\s|$)/], ['opera', /Opera\/([0-9\.]+)(?:\s|$)/], ['opera', /OPR\/([0-9\.]+)(:?\s|$)$/], ['ie', /Trident\/7\.0.*rv\:([0-9\.]+)\).*Gecko$/], ['ie', /MSIE\s([0-9\.]+);.*Trident\/[4-7].0/], ['ie', /MSIE\s(7\.0)/], ['android', /Android\s([0-9\.]+)/], ['safari', /Version\/([0-9\._]+).*Safari/]];
 
-var browser$1 = void 0;
+var browser$2 = void 0;
 
 if (isBrowser) {
   var _iteratorNormalCompletion$2 = true;
@@ -25774,7 +26412,7 @@ if (isBrowser) {
       var regexp = _ref2[1];
 
       if (regexp.test(window.navigator.userAgent)) {
-        browser$1 = name;
+        browser$2 = name;
         break;
       }
     }
@@ -25947,10 +26585,10 @@ function getAndroidApiVersion() {
 
   return null;
 }
-var IS_FIREFOX = browser$1 === 'firefox';
-var IS_SAFARI = browser$1 === 'safari';
-var IS_IE = browser$1 === 'ie';
-var IS_EDGE = browser$1 === 'edge';
+var IS_FIREFOX = browser$2 === 'firefox';
+var IS_SAFARI = browser$2 === 'safari';
+var IS_IE = browser$2 === 'ie';
+var IS_EDGE = browser$2 === 'edge';
 
 var IS_ANDROID = os === 'android';
 var IS_IOS = os === 'ios';
@@ -28016,6 +28654,17 @@ function createOrderedMapContainsChecker(shapeTypes) {
 
 var ImmutablePropTypes_1 = ImmutablePropTypes;
 
+var isProduction$2 = process.env.NODE_ENV === 'production';
+var index$4 = (function (condition, message) {
+  if (!isProduction$2) {
+    if (condition) {
+      return;
+    }
+
+    console.warn(message);
+  }
+});
+
 function isBackward(selection) {
     var startNode = selection.anchorNode;
     var startOffset = selection.anchorOffset;
@@ -28371,7 +29020,7 @@ function throttle(func, wait, options) {
 var throttle_1 = throttle;
 
 var prefix$1 = 'Invariant failed';
-var index$4 = (function (condition, message) {
+var index$5 = (function (condition, message) {
   if (condition) {
     return;
   }
@@ -28467,9 +29116,9 @@ function SlateReactPlaceholder() {
       style = _options$style === undefined ? {} : _options$style;
 
 
-  index$4(placeholder, 'You must pass `SlateReactPlaceholder` an `options.placeholder` string.');
+  index$5(placeholder, 'You must pass `SlateReactPlaceholder` an `options.placeholder` string.');
 
-  index$4(when, 'You must pass `SlateReactPlaceholder` an `options.when` query.');
+  index$5(when, 'You must pass `SlateReactPlaceholder` an `options.when` query.');
 
   /**
    * Decorate a match node with a placeholder mark when it fits the query.
@@ -28554,7 +29203,7 @@ var simpleIsEqual = function simpleIsEqual(a, b) {
   return a === b;
 };
 
-function index$5 (resultFn, isEqual) {
+function index$6 (resultFn, isEqual) {
   if (isEqual === void 0) {
     isEqual = simpleIsEqual;
   }
@@ -28565,7 +29214,7 @@ function index$5 (resultFn, isEqual) {
   var calledOnce = false;
 
   var isNewArgEqualToLast = function isNewArgEqualToLast(newArg, index) {
-    return isEqual(newArg, lastArgs[index]);
+    return isEqual(newArg, lastArgs[index], index);
   };
 
   var result = function result() {
@@ -29577,8 +30226,8 @@ function Executor(window, fn) {
   this.__setTimeout__(options.timeout);
 };
 
-var debug$3 = src('slate:android');
-debug$3.reconcile = src('slate:reconcile');
+var debug$3 = src$1('slate:android');
+debug$3.reconcile = src$1('slate:reconcile');
 
 debug$3('ANDROID_API_VERSION', { ANDROID_API_VERSION: ANDROID_API_VERSION });
 
@@ -30707,7 +31356,7 @@ function setEventTransfer(event, type, content) {
  * @type {Function}
  */
 
-var debug$1$1 = src('slate:after');
+var debug$1$1 = src$1('slate:after');
 
 /**
  * A plugin that adds the "after" browser-specific logic to the editor.
@@ -31380,7 +32029,7 @@ function AfterPlugin() {
  * @type {Function}
  */
 
-var debug$2$1 = src('slate:before');
+var debug$2$1 = src$1('slate:before');
 
 /**
  * A plugin that adds the "before" browser-specific logic to the editor.
@@ -31866,7 +32515,7 @@ function DOMPlugin() {
  * @type {Function}
  */
 
-var debug$3$1 = src('slate:leaves');
+var debug$3$1 = src$1('slate:leaves');
 
 /**
  * Leaf.
@@ -32098,7 +32747,7 @@ var _initialiseProps = function _initialiseProps() {
  * @type {Function}
  */
 
-var debug$4 = src('slate:node');
+var debug$4 = src$1('slate:node');
 
 /**
  * Text.
@@ -32318,7 +32967,7 @@ var _initialiseProps$1 = function _initialiseProps() {
  * @type {Function}
  */
 
-var debug$5 = src('slate:void');
+var debug$5 = src$1('slate:void');
 
 /**
  * Void.
@@ -32603,7 +33252,7 @@ function getContainingChildOrder(children, keyOrders, order) {
  * @type {Function}
  */
 
-var debug$6 = src('slate:node');
+var debug$6 = src$1('slate:node');
 
 /**
  * Node.
@@ -32668,7 +33317,7 @@ var Node$1 = function (_React$Component) {
           return true;
         }
 
-        index(shouldUpdate !== false, "Returning false in `shouldNodeComponentUpdate` does not disable Slate's internal `shouldComponentUpdate` logic. If you want to prevent updates, use React's `shouldComponentUpdate` instead.");
+        index$4(shouldUpdate !== false, "Returning false in `shouldNodeComponentUpdate` does not disable Slate's internal `shouldComponentUpdate` logic. If you want to prevent updates, use React's `shouldComponentUpdate` instead.");
       }
 
       // If the `readOnly` status has changed, re-render in case there is any
@@ -33109,7 +33758,7 @@ var FIREFOX_NODE_TYPE_ACCESS_ERROR = /Permission denied to access property "node
  * @type {Function}
  */
 
-var debug$7 = src('slate:content');
+var debug$7 = src$1('slate:content');
 
 /**
  * Separate debug to easily see when the DOM has updated either by render or
@@ -33118,7 +33767,7 @@ var debug$7 = src('slate:content');
  * @type {Function}
  */
 
-debug$7.update = src('slate:update');
+debug$7.update = src$1('slate:update');
 
 /**
  * Content.
@@ -33208,7 +33857,7 @@ var Content = function (_React$Component) {
         var range = findDOMRange(selection, window);
 
         if (!range) {
-          index(false, 'Unable to find a native DOM range from the current selection.');
+          index$4(false, 'Unable to find a native DOM range from the current selection.');
 
           return;
         }
@@ -33739,7 +34388,7 @@ function ReactPlugin() {
  * @type {Function}
  */
 
-var debug$8 = src('slate:editor');
+var debug$8 = src$1('slate:editor');
 
 /**
  * Editor.
@@ -33779,8 +34428,8 @@ var Editor$1 = function (_React$Component) {
        * When the component first mounts, flush a queued change if one exists.
        */
 
-    }, _this.resolveController = index$5(function () {
-      index(_this.tmp.resolves < 5 || _this.tmp.resolves !== _this.tmp.updates, 'A Slate <Editor> component is re-resolving the `plugins`, `schema`, `commands`, `queries` or `placeholder` prop on each update, which leads to poor performance. This is often due to passing in a new references for these props with each render by declaring them inline in your render function. Do not do this! Declare them outside your render function, or memoize them instead.');
+    }, _this.resolveController = index$6(function () {
+      index$4(_this.tmp.resolves < 5 || _this.tmp.resolves !== _this.tmp.updates, 'A Slate <Editor> component is re-resolving the `plugins`, `schema`, `commands`, `queries` or `placeholder` prop on each update, which leads to poor performance. This is often due to passing in a new references for these props with each render by declaring them inline in your render function. Do not do this! Declare them outside your render function, or memoize them instead.');
 
       _this.tmp.resolves++;
       var react = ReactPlugin(_extends$4({}, _this.props, {
@@ -38442,7 +39091,7 @@ var createSchema = (function (_ref) {
 function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
 
 function _objectSpread$1$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { defineProperty$3(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-var index$6 = (function () {
+var index$7 = (function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
   var config = _objectSpread$1$1({}, options);
@@ -38672,7 +39321,7 @@ var ListIncreaseIndentButton = function ListIncreaseIndentButton(_ref7) {
  */
 
 
-var ListPlugin = index$6({
+var ListPlugin = index$7({
   blocks: {
     ordered_list: "ordered-list",
     unordered_list: "unordered-list",
@@ -44874,7 +45523,7 @@ exports.default = (0, interaction.handleFocus)(Swatch);
 unwrapExports(Swatch_1);
 var Swatch_2 = Swatch_1.Swatch;
 
-var common$1 = createCommonjsModule(function (module, exports) {
+var common$2 = createCommonjsModule(function (module, exports) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -44955,7 +45604,7 @@ Object.defineProperty(exports, 'Swatch', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 });
 
-unwrapExports(common$1);
+unwrapExports(common$2);
 
 var SketchFields_1 = createCommonjsModule(function (module, exports) {
 
@@ -45068,7 +45717,7 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.double },
-      _react2.default.createElement(common$1.EditableInput, {
+      _react2.default.createElement(common$2.EditableInput, {
         style: { input: styles.input, label: styles.label },
         label: 'hex',
         value: hex.replace('#', ''),
@@ -45078,7 +45727,7 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.single },
-      _react2.default.createElement(common$1.EditableInput, {
+      _react2.default.createElement(common$2.EditableInput, {
         style: { input: styles.input, label: styles.label },
         label: 'r',
         value: rgb.r,
@@ -45090,7 +45739,7 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.single },
-      _react2.default.createElement(common$1.EditableInput, {
+      _react2.default.createElement(common$2.EditableInput, {
         style: { input: styles.input, label: styles.label },
         label: 'g',
         value: rgb.g,
@@ -45102,7 +45751,7 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.single },
-      _react2.default.createElement(common$1.EditableInput, {
+      _react2.default.createElement(common$2.EditableInput, {
         style: { input: styles.input, label: styles.label },
         label: 'b',
         value: rgb.b,
@@ -45114,7 +45763,7 @@ var SketchFields = exports.SketchFields = function SketchFields(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.alpha },
-      _react2.default.createElement(common$1.EditableInput, {
+      _react2.default.createElement(common$2.EditableInput, {
         style: { input: styles.input, label: styles.label },
         label: 'a',
         value: Math.round(rgb.a * 100),
@@ -45208,7 +45857,7 @@ var SketchPresetColors = exports.SketchPresetColors = function SketchPresetColor
       return _react2.default.createElement(
         'div',
         { key: key, style: styles.swatchWrap },
-        _react2.default.createElement(common$1.Swatch, _extends({}, c, {
+        _react2.default.createElement(common$2.Swatch, _extends({}, c, {
           style: styles.swatch,
           onClick: handleClick,
           onHover: onSwatchHover,
@@ -45368,7 +46017,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
     _react2.default.createElement(
       'div',
       { style: styles.saturation },
-      _react2.default.createElement(common$1.Saturation, {
+      _react2.default.createElement(common$2.Saturation, {
         style: styles.Saturation,
         hsl: hsl,
         hsv: hsv,
@@ -45384,7 +46033,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
         _react2.default.createElement(
           'div',
           { style: styles.hue },
-          _react2.default.createElement(common$1.Hue, {
+          _react2.default.createElement(common$2.Hue, {
             style: styles.Hue,
             hsl: hsl,
             onChange: onChange
@@ -45393,7 +46042,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
         _react2.default.createElement(
           'div',
           { style: styles.alpha },
-          _react2.default.createElement(common$1.Alpha, {
+          _react2.default.createElement(common$2.Alpha, {
             style: styles.Alpha,
             rgb: rgb,
             hsl: hsl,
@@ -45405,7 +46054,7 @@ var Sketch = exports.Sketch = function Sketch(_ref) {
       _react2.default.createElement(
         'div',
         { style: styles.color },
-        _react2.default.createElement(common$1.Checkboard, null),
+        _react2.default.createElement(common$2.Checkboard, null),
         _react2.default.createElement('div', { style: styles.activeColor })
       )
     ),
@@ -45437,7 +46086,7 @@ Sketch.defaultProps = {
   presetColors: ['#D0021B', '#F5A623', '#F8E71C', '#8B572A', '#7ED321', '#417505', '#BD10E0', '#9013FE', '#4A90E2', '#50E3C2', '#B8E986', '#000000', '#4A4A4A', '#9B9B9B', '#FFFFFF']
 };
 
-exports.default = (0, common$1.ColorWrap)(Sketch);
+exports.default = (0, common$2.ColorWrap)(Sketch);
 });
 
 unwrapExports(Sketch_1);
