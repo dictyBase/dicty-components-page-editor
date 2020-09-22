@@ -26,6 +26,7 @@
     "analyze": "source-map-explorer 'dist/*.js'",
     "prettier": "prettier --version",
     "flow": "flow",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
     "styleguide": "styleguidist server",
     "styleguide:build": "styleguidist build",
     "semantic-release": "semantic-release"
