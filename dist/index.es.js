@@ -39371,7 +39371,7 @@ var H1Button = function H1Button(_ref2) {
     placement: "bottom"
   }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
-      headingStrategy(editor, "h1");
+      headingStrategy(editor, "h3");
     }
   }, /*#__PURE__*/React.createElement("strong", null, "H1")));
 };
@@ -39383,7 +39383,7 @@ var H2Button = function H2Button(_ref3) {
     placement: "bottom"
   }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
-      headingStrategy(editor, "h2");
+      headingStrategy(editor, "h4");
     }
   }, /*#__PURE__*/React.createElement("strong", null, "H2")));
 };
@@ -39395,7 +39395,7 @@ var H3Button = function H3Button(_ref4) {
     placement: "bottom"
   }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
-      headingStrategy(editor, "h3");
+      headingStrategy(editor, "h5");
     }
   }, /*#__PURE__*/React.createElement("strong", null, "H3")));
 };
@@ -46561,17 +46561,17 @@ var renderNode = function renderNode(props, editor, next) {
 
     case "h1":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
-        variant: "h1"
+        variant: "h3"
       }, props));
 
     case "h2":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
-        variant: "h2"
+        variant: "h4"
       }, props));
 
     case "h3":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
-        variant: "h3"
+        variant: "h5"
       }, props));
 
     case "image":
