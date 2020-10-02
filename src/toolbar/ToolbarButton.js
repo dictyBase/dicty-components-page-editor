@@ -36,7 +36,7 @@ const ToolbarButton = ({ children, onClick, table, ...props }: Props) => {
   return (
     <Button
       className={table ? classes.tableBtn : classes.button}
-      onClick={event => {
+      onClick={(event) => {
         isFunction(onClick) && onClick(event)
       }}>
       {children}

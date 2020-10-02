@@ -9,7 +9,7 @@ import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import HelpModalContent from "./HelpModalContent"
 
-const styles = theme => ({
+const styles = (theme) => ({
   closeBtn: {
     width: "50%",
     color: "#fff",

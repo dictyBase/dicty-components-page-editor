@@ -109,7 +109,7 @@ const LinkButton = ({ editor }: ButtonProps) => {
 
   const handleToolbarButtonLink = () => {
     if (editor && editor.value.selection.isExpanded) {
-      let existingURL = editor.value.inlines.find(el => el.data.get("href"))
+      let existingURL = editor.value.inlines.find((el) => el.data.get("href"))
       let defaultURL
       if (existingURL !== undefined) {
         defaultURL = existingURL.data.get("href")
@@ -161,7 +161,7 @@ const LinkButton = ({ editor }: ButtonProps) => {
             label={emailChecked ? "Email Address" : "URL"}
             type="url"
             defaultValue={url}
-            onChange={e => setURL(e.target.value)}
+            onChange={(e) => setURL(e.target.value)}
             fullWidth
           />
           <TextField
@@ -170,7 +170,7 @@ const LinkButton = ({ editor }: ButtonProps) => {
             label="Text"
             type="text"
             defaultValue={text ? text : ""}
-            onChange={e => setText(e.target.value)}
+            onChange={(e) => setText(e.target.value)}
             fullWidth
           />
           <FormGroup row>

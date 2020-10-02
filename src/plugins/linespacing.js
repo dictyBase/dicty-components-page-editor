@@ -35,10 +35,10 @@ const LineSpacingNode = ({
 const LineSpacingButton = ({ editor }: ButtonProps) => {
   const [anchorEl, setAnchorEl] = React.useState(null)
 
-  const handleMenuOpen = event => {
+  const handleMenuOpen = (event) => {
     setAnchorEl(event.currentTarget)
   }
-  const handleItemClick = size => {
+  const handleItemClick = (size) => {
     setAnchorEl(null)
     lineSpacingNodeStrategy(editor, size)
   }

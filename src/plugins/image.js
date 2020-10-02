@@ -108,7 +108,7 @@ const ImageButton = ({ editor }: ButtonProps) => {
               id="url"
               label="URL"
               type="url"
-              onChange={e => setURL(e.target.value)}
+              onChange={(e) => setURL(e.target.value)}
               fullWidth
             />
             <TextField
@@ -116,7 +116,7 @@ const ImageButton = ({ editor }: ButtonProps) => {
               id="description"
               label="Description (optional)"
               type="description"
-              onChange={e => setDescription(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               fullWidth
             />
             <TextField
@@ -124,7 +124,7 @@ const ImageButton = ({ editor }: ButtonProps) => {
               id="width"
               label="Width (optional)"
               type="width"
-              onChange={e => setWidth(e.target.value)}
+              onChange={(e) => setWidth(e.target.value)}
               fullWidth
             />
             <TextField
@@ -132,7 +132,7 @@ const ImageButton = ({ editor }: ButtonProps) => {
               id="height"
               label="Height (optional)"
               type="height"
-              onChange={e => setHeight(e.target.value)}
+              onChange={(e) => setHeight(e.target.value)}
               fullWidth
             />
           </DialogContent>
