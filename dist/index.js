@@ -36364,7 +36364,7 @@ var useStyles$3 = styles$5.makeStyles({
 /**
  * Material-UI button that has a click handler attached to it.
  */
-var ToolbarButton = function ToolbarButton(_ref) {
+var ToolbarButton = /*#__PURE__*/React__default['default'].forwardRef(function (_ref, ref) {
   var children = _ref.children,
       _onClick = _ref.onClick,
       table = _ref.table,
@@ -36372,12 +36372,13 @@ var ToolbarButton = function ToolbarButton(_ref) {
 
   var classes = useStyles$3();
   return /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
+    ref: ref,
     className: table ? classes.tableBtn : classes.button,
     onClick: function onClick(event) {
       isFunction$1(_onClick) && _onClick(event);
     }
   }, children);
-};
+});
 
 var HelpModalContent = function HelpModalContent(_ref) {
   var classes = _ref.classes;

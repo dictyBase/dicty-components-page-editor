@@ -30,18 +30,21 @@ type Props = {
  * Material-UI button that has a click handler attached to it.
  */
 
-const ToolbarButton = ({ children, onClick, table, ...props }: Props) => {
-  const classes = useStyles()
+const ToolbarButton = React.forwardRef(
+  ({ children, onClick, table, ...props }: Props, ref) => {
+    const classes = useStyles()
 
-  return (
-    <Button
-      className={table ? classes.tableBtn : classes.button}
-      onClick={(event) => {
-        isFunction(onClick) && onClick(event)
-      }}>
-      {children}
-    </Button>
-  )
-}
+    return (
+      <Button
+        ref={ref}
+        className={table ? classes.tableBtn : classes.button}
+        onClick={(event) => {
+          isFunction(onClick) && onClick(event)
+        }}>
+        {children}
+      </Button>
+    )
+  },
+)
 
 export default ToolbarButton
