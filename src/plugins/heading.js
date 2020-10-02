@@ -14,7 +14,8 @@ const headingStrategy = (editor, heading) => {
   return editor.setBlocks(isActive ? "paragraph" : heading)
 }
 
-const hasBlock = (value, type) => value.blocks.some(node => node.type === type)
+const hasBlock = (value, type) =>
+  value.blocks.some((node) => node.type === type)
 
 /**
  * Rendering components that provide the actual HTML to use inside the editor.
@@ -32,7 +33,7 @@ const H1Button = ({ editor }: ButtonProps) => (
   <Tooltip title="Heading 1" placement="bottom">
     <ToolbarButton
       onClick={() => {
-        headingStrategy(editor, "h1")
+        headingStrategy(editor, "h3")
       }}>
       <strong>H1</strong>
     </ToolbarButton>
@@ -43,7 +44,7 @@ const H2Button = ({ editor }: ButtonProps) => (
   <Tooltip title="Heading 2" placement="bottom">
     <ToolbarButton
       onClick={() => {
-        headingStrategy(editor, "h2")
+        headingStrategy(editor, "h4")
       }}>
       <strong>H2</strong>
     </ToolbarButton>
@@ -54,7 +55,7 @@ const H3Button = ({ editor }: ButtonProps) => (
   <Tooltip title="Heading 3" placement="bottom">
     <ToolbarButton
       onClick={() => {
-        headingStrategy(editor, "h3")
+        headingStrategy(editor, "h5")
       }}>
       <strong>H3</strong>
     </ToolbarButton>

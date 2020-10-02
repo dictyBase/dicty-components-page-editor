@@ -29,11 +29,11 @@ const renderNode = (props: nodeProps, editor: Object, next: Function) => {
     case "divider":
       return <DividerNode {...props} />
     case "h1":
-      return <HeaderNode variant="h1" {...props} />
-    case "h2":
-      return <HeaderNode variant="h2" {...props} />
-    case "h3":
       return <HeaderNode variant="h3" {...props} />
+    case "h2":
+      return <HeaderNode variant="h4" {...props} />
+    case "h3":
+      return <HeaderNode variant="h5" {...props} />
     case "image":
       return <ImageNode {...props} />
     case "line-spacing":
