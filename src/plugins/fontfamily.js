@@ -29,11 +29,12 @@ const FontFamilyList = [
 /**
  * Functions to set the font family marks.
  */
-const hasMark = value => value.marks.some(mark => mark.type === "font-family")
-const getMark = value =>
-  value.marks.filter(mark => mark.type === "font-family").first()
+const hasMark = (value) =>
+  value.marks.some((mark) => mark.type === "font-family")
+const getMark = (value) =>
+  value.marks.filter((mark) => mark.type === "font-family").first()
 
-const createMark = fontFamilyIndex => ({
+const createMark = (fontFamilyIndex) => ({
   type: "font-family",
   data: { fontFamilyIndex },
 })
@@ -70,7 +71,7 @@ const FontFamilyMark = ({ children, mark: { data } }: NodeProps) => (
   </span>
 )
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   fontFamilyDropdown: {
     margin: theme.spacing(1),
     minWidth: 150,

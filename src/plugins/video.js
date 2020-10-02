@@ -137,7 +137,7 @@ const VideoButton = ({ editor }: ButtonProps) => {
               id="url"
               label="URL (YouTube or Vimeo)"
               type="url"
-              onChange={e => setURL(e.target.value)}
+              onChange={(e) => setURL(e.target.value)}
               fullWidth
             />
             <TextField
@@ -145,7 +145,7 @@ const VideoButton = ({ editor }: ButtonProps) => {
               id="width"
               label="Width (optional)"
               type="width"
-              onChange={e => setWidth(e.target.value)}
+              onChange={(e) => setWidth(e.target.value)}
               fullWidth
             />
             <TextField
@@ -153,7 +153,7 @@ const VideoButton = ({ editor }: ButtonProps) => {
               id="height"
               label="Height (optional)"
               type="height"
-              onChange={e => setHeight(e.target.value)}
+              onChange={(e) => setHeight(e.target.value)}
               fullWidth
             />
           </DialogContent>

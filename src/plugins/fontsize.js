@@ -23,11 +23,11 @@ const FontSizeList = [
 /**
  * Functions to set the font size blocks.
  */
-const hasMark = value => value.marks.some(mark => mark.type === "font-size")
-const getMark = value =>
-  value.marks.filter(mark => mark.type === "font-size").first()
+const hasMark = (value) => value.marks.some((mark) => mark.type === "font-size")
+const getMark = (value) =>
+  value.marks.filter((mark) => mark.type === "font-size").first()
 
-const createMark = fontSizeIndex => ({
+const createMark = (fontSizeIndex) => ({
   type: "font-size",
   data: { fontSizeIndex },
 })
@@ -66,7 +66,7 @@ const FontSizeMark = ({ children, mark: { data } }: NodeProps) => (
   </span>
 )
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   fontSizeDropdown: {
     margin: theme.spacing(1),
     minWidth: 100,

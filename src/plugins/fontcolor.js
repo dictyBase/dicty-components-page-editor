@@ -14,11 +14,12 @@ type colorProps = {
 /**
  * Functions to set the font color marks.
  */
-const hasMark = value => value.marks.some(mark => mark.type === "font-color")
-const getMark = value =>
-  value.marks.filter(mark => mark.type === "font-color").first()
+const hasMark = (value) =>
+  value.marks.some((mark) => mark.type === "font-color")
+const getMark = (value) =>
+  value.marks.filter((mark) => mark.type === "font-color").first()
 
-const createMark = color => ({
+const createMark = (color) => ({
   type: "font-color",
   data: { color },
 })

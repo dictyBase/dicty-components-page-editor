@@ -1,4 +1,4 @@
-const styles = theme => ({
+const styles = (theme) => ({
   editor: {
     lineHeight: 1.6,
     color: "rgba(0, 0, 0, 0.87)",

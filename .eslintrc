@@ -18,11 +18,12 @@
       }
     ],
     "arrow-body-style": ["error", "as-needed"],
-    "arrow-parens": ["error", "as-needed"],
     "react/jsx-filename-extension": ["off"],
     "react/prop-types": ["off"],
     "jsx-a11y/href-no-hash": ["off"],
     "jsx-a11y/label-has-associated-control": ["off"],
-    "import/no-unresolved": ["off"]
+    "import/no-unresolved": ["off"],
+    "import/exports-last": ["error"],
+    "prettier/prettier": ["error"]
   }
 }

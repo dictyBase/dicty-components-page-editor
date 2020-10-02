@@ -8,7 +8,7 @@ import { insertLink } from "../plugins/link"
 /**
  * Helper function that checks if a given item is a function.
  */
-const isFunction = v => {
+const isFunction = (v) => {
   if (v instanceof Function) {
     return true
   }
@@ -19,7 +19,7 @@ const isFunction = v => {
  * Helper function that checks if the meta or ctrl key is pressed.
  * metaKey = ⌘ for Mac, ⊞ for Windows
  */
-const isMod = event => (event.metaKey && !event.ctrlKey) || event.ctrlKey
+const isMod = (event) => (event.metaKey && !event.ctrlKey) || event.ctrlKey
 
 /**
  * fixHTML receives pasted HTML and wraps inlines with blocks. This is
@@ -28,7 +28,7 @@ const isMod = event => (event.metaKey && !event.ctrlKey) || event.ctrlKey
  * content would be stripped (i.e. lists would completely disappear).
  * https://github.com/ianstormtaylor/slate/issues/1497
  */
-const fixHTML = html => {
+const fixHTML = (html) => {
   const dom = document.createElement("div")
   html = html.replace(/\s+/g, " ").replace(/> </g, "><") // removes white space
 

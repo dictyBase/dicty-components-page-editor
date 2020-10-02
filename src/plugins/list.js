@@ -15,15 +15,9 @@ import { ButtonProps, NodeProps } from "../flow/types"
 const toggleList = (event, editor, type) => {
   event.preventDefault()
   if (type === "ordered-list") {
-    editor
-      .toggleList({ type: "ordered-list" })
-      .moveToEnd()
-      .focus()
+    editor.toggleList({ type: "ordered-list" }).moveToEnd().focus()
   } else {
-    editor
-      .toggleList()
-      .moveToEnd()
-      .focus()
+    editor.toggleList().moveToEnd().focus()
   }
 }
 
@@ -55,7 +49,8 @@ const UnorderedListNode = ({ attributes, children }: NodeProps) => (
  */
 const OrderedListButton = ({ editor }: ButtonProps) => (
   <Tooltip title="Ordered List" placement="bottom">
-    <ToolbarButton onClick={event => toggleList(event, editor, "ordered-list")}>
+    <ToolbarButton
+      onClick={(event) => toggleList(event, editor, "ordered-list")}>
       <FormatListNumberedIcon />
     </ToolbarButton>
   </Tooltip>
@@ -64,7 +59,7 @@ const OrderedListButton = ({ editor }: ButtonProps) => (
 const UnorderedListButton = ({ editor }: ButtonProps) => (
   <Tooltip title="Unordered List" placement="bottom">
     <ToolbarButton
-      onClick={event => toggleList(event, editor, "unordered-list")}>
+      onClick={(event) => toggleList(event, editor, "unordered-list")}>
       <FormatListBulletedIcon />
     </ToolbarButton>
   </Tooltip>
@@ -72,7 +67,7 @@ const UnorderedListButton = ({ editor }: ButtonProps) => (
 
 const ListDecreaseIndentButton = ({ editor }: ButtonProps) => (
   <Tooltip title="Decrease List Indent" placement="bottom">
-    <ToolbarButton onClick={event => decreaseIndent(event, editor)}>
+    <ToolbarButton onClick={(event) => decreaseIndent(event, editor)}>
       <FormatIndentDecreaseIcon />
     </ToolbarButton>
   </Tooltip>
@@ -80,7 +75,7 @@ const ListDecreaseIndentButton = ({ editor }: ButtonProps) => (
 
 const ListIncreaseIndentButton = ({ editor }: ButtonProps) => (
   <Tooltip title="Increase List Indent" placement="bottom">
-    <ToolbarButton onClick={event => increaseIndent(event, editor)}>
+    <ToolbarButton onClick={(event) => increaseIndent(event, editor)}>
       <FormatIndentIncreaseIcon />
     </ToolbarButton>
   </Tooltip>
