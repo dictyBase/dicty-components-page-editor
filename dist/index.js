@@ -2,53 +2,50 @@
 
 Object.defineProperty(exports, '__esModule', { value: true });
 
-function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
-
 var React = require('react');
-var React__default = _interopDefault(React);
-var tty = _interopDefault(require('tty'));
-var util = _interopDefault(require('util'));
-var os$1 = _interopDefault(require('os'));
-var ReactDOM = _interopDefault(require('react-dom'));
+var tty = require('tty');
+var util = require('util');
+var os$1 = require('os');
+var ReactDOM = require('react-dom');
 var styles$5 = require('@material-ui/core/styles');
-var AppBar = _interopDefault(require('@material-ui/core/AppBar'));
-var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
-var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
-var Grid = _interopDefault(require('@material-ui/core/Grid'));
-var Button = _interopDefault(require('@material-ui/core/Button'));
-var HelpIcon = _interopDefault(require('@material-ui/icons/Help'));
+var AppBar = require('@material-ui/core/AppBar');
+var Toolbar = require('@material-ui/core/Toolbar');
+var Tooltip = require('@material-ui/core/Tooltip');
+var Grid = require('@material-ui/core/Grid');
+var Button = require('@material-ui/core/Button');
+var HelpIcon = require('@material-ui/icons/Help');
 var server = require('react-dom/server');
-var TextField = _interopDefault(require('@material-ui/core/TextField'));
-var Dialog = _interopDefault(require('@material-ui/core/Dialog'));
-var DialogActions = _interopDefault(require('@material-ui/core/DialogActions'));
-var DialogContent = _interopDefault(require('@material-ui/core/DialogContent'));
-var DialogTitle = _interopDefault(require('@material-ui/core/DialogTitle'));
-var ImageIcon = _interopDefault(require('@material-ui/icons/Image'));
-var VideoIcon = _interopDefault(require('@material-ui/icons/Videocam'));
-var FormGroup = _interopDefault(require('@material-ui/core/FormGroup'));
-var FormControlLabel = _interopDefault(require('@material-ui/core/FormControlLabel'));
-var Checkbox = _interopDefault(require('@material-ui/core/Checkbox'));
-var LinkIcon = _interopDefault(require('@material-ui/icons/Link'));
-var FormatBoldIcon = _interopDefault(require('@material-ui/icons/FormatBold'));
-var FormatItalicIcon = _interopDefault(require('@material-ui/icons/FormatItalic'));
-var FormatStrikethroughIcon = _interopDefault(require('@material-ui/icons/FormatStrikethrough'));
-var FormatUnderlinedIcon = _interopDefault(require('@material-ui/icons/FormatUnderlined'));
-var FormatAlignLeftIcon = _interopDefault(require('@material-ui/icons/FormatAlignLeft'));
-var FormatAlignCenterIcon = _interopDefault(require('@material-ui/icons/FormatAlignCenter'));
-var FormatAlignJustifyIcon = _interopDefault(require('@material-ui/icons/FormatAlignJustify'));
-var FormatAlignRightIcon = _interopDefault(require('@material-ui/icons/FormatAlignRight'));
-var FormatListBulletedIcon = _interopDefault(require('@material-ui/icons/FormatListBulleted'));
-var FormatListNumberedIcon = _interopDefault(require('@material-ui/icons/FormatListNumbered'));
-var FormatIndentDecreaseIcon = _interopDefault(require('@material-ui/icons/FormatIndentDecrease'));
-var FormatIndentIncreaseIcon = _interopDefault(require('@material-ui/icons/FormatIndentIncrease'));
-var Typography = _interopDefault(require('@material-ui/core/Typography'));
-var TableIcon = _interopDefault(require('@material-ui/icons/BorderAll'));
-var AddIcon = _interopDefault(require('@material-ui/icons/Add'));
-var RemoveIcon = _interopDefault(require('@material-ui/icons/Remove'));
-var DeleteIcon = _interopDefault(require('@material-ui/icons/Delete'));
-var MenuItem = _interopDefault(require('@material-ui/core/MenuItem'));
-var FormControl = _interopDefault(require('@material-ui/core/FormControl'));
-var Select = _interopDefault(require('@material-ui/core/Select'));
+var TextField = require('@material-ui/core/TextField');
+var Dialog = require('@material-ui/core/Dialog');
+var DialogActions = require('@material-ui/core/DialogActions');
+var DialogContent = require('@material-ui/core/DialogContent');
+var DialogTitle = require('@material-ui/core/DialogTitle');
+var ImageIcon = require('@material-ui/icons/Image');
+var VideoIcon = require('@material-ui/icons/Videocam');
+var FormGroup = require('@material-ui/core/FormGroup');
+var FormControlLabel = require('@material-ui/core/FormControlLabel');
+var Checkbox = require('@material-ui/core/Checkbox');
+var LinkIcon = require('@material-ui/icons/Link');
+var FormatBoldIcon = require('@material-ui/icons/FormatBold');
+var FormatItalicIcon = require('@material-ui/icons/FormatItalic');
+var FormatStrikethroughIcon = require('@material-ui/icons/FormatStrikethrough');
+var FormatUnderlinedIcon = require('@material-ui/icons/FormatUnderlined');
+var FormatAlignLeftIcon = require('@material-ui/icons/FormatAlignLeft');
+var FormatAlignCenterIcon = require('@material-ui/icons/FormatAlignCenter');
+var FormatAlignJustifyIcon = require('@material-ui/icons/FormatAlignJustify');
+var FormatAlignRightIcon = require('@material-ui/icons/FormatAlignRight');
+var FormatListBulletedIcon = require('@material-ui/icons/FormatListBulleted');
+var FormatListNumberedIcon = require('@material-ui/icons/FormatListNumbered');
+var FormatIndentDecreaseIcon = require('@material-ui/icons/FormatIndentDecrease');
+var FormatIndentIncreaseIcon = require('@material-ui/icons/FormatIndentIncrease');
+var Typography = require('@material-ui/core/Typography');
+var TableIcon = require('@material-ui/icons/BorderAll');
+var AddIcon = require('@material-ui/icons/Add');
+var RemoveIcon = require('@material-ui/icons/Remove');
+var DeleteIcon = require('@material-ui/icons/Delete');
+var MenuItem = require('@material-ui/core/MenuItem');
+var FormControl = require('@material-ui/core/FormControl');
+var Select = require('@material-ui/core/Select');
 require('typeface-roboto');
 require('typeface-roboto-condensed');
 require('typeface-roboto-mono');
@@ -56,10 +53,59 @@ require('typeface-roboto-slab');
 require('typeface-lato');
 require('typeface-merriweather');
 require('typeface-montserrat');
-var Divider = _interopDefault(require('@material-ui/core/Divider'));
-var FormatColorTextIcon = _interopDefault(require('@material-ui/icons/FormatColorText'));
-var Menu = _interopDefault(require('@material-ui/core/Menu'));
-var LineSpacingIcon = _interopDefault(require('@material-ui/icons/FormatLineSpacing'));
+var Divider = require('@material-ui/core/Divider');
+var FormatColorTextIcon = require('@material-ui/icons/FormatColorText');
+var Menu = require('@material-ui/core/Menu');
+var LineSpacingIcon = require('@material-ui/icons/FormatLineSpacing');
+
+function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
+
+var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
+var tty__default = /*#__PURE__*/_interopDefaultLegacy(tty);
+var util__default = /*#__PURE__*/_interopDefaultLegacy(util);
+var os__default = /*#__PURE__*/_interopDefaultLegacy(os$1);
+var ReactDOM__default = /*#__PURE__*/_interopDefaultLegacy(ReactDOM);
+var AppBar__default = /*#__PURE__*/_interopDefaultLegacy(AppBar);
+var Toolbar__default = /*#__PURE__*/_interopDefaultLegacy(Toolbar);
+var Tooltip__default = /*#__PURE__*/_interopDefaultLegacy(Tooltip);
+var Grid__default = /*#__PURE__*/_interopDefaultLegacy(Grid);
+var Button__default = /*#__PURE__*/_interopDefaultLegacy(Button);
+var HelpIcon__default = /*#__PURE__*/_interopDefaultLegacy(HelpIcon);
+var TextField__default = /*#__PURE__*/_interopDefaultLegacy(TextField);
+var Dialog__default = /*#__PURE__*/_interopDefaultLegacy(Dialog);
+var DialogActions__default = /*#__PURE__*/_interopDefaultLegacy(DialogActions);
+var DialogContent__default = /*#__PURE__*/_interopDefaultLegacy(DialogContent);
+var DialogTitle__default = /*#__PURE__*/_interopDefaultLegacy(DialogTitle);
+var ImageIcon__default = /*#__PURE__*/_interopDefaultLegacy(ImageIcon);
+var VideoIcon__default = /*#__PURE__*/_interopDefaultLegacy(VideoIcon);
+var FormGroup__default = /*#__PURE__*/_interopDefaultLegacy(FormGroup);
+var FormControlLabel__default = /*#__PURE__*/_interopDefaultLegacy(FormControlLabel);
+var Checkbox__default = /*#__PURE__*/_interopDefaultLegacy(Checkbox);
+var LinkIcon__default = /*#__PURE__*/_interopDefaultLegacy(LinkIcon);
+var FormatBoldIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatBoldIcon);
+var FormatItalicIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatItalicIcon);
+var FormatStrikethroughIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatStrikethroughIcon);
+var FormatUnderlinedIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatUnderlinedIcon);
+var FormatAlignLeftIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatAlignLeftIcon);
+var FormatAlignCenterIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatAlignCenterIcon);
+var FormatAlignJustifyIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatAlignJustifyIcon);
+var FormatAlignRightIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatAlignRightIcon);
+var FormatListBulletedIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatListBulletedIcon);
+var FormatListNumberedIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatListNumberedIcon);
+var FormatIndentDecreaseIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatIndentDecreaseIcon);
+var FormatIndentIncreaseIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatIndentIncreaseIcon);
+var Typography__default = /*#__PURE__*/_interopDefaultLegacy(Typography);
+var TableIcon__default = /*#__PURE__*/_interopDefaultLegacy(TableIcon);
+var AddIcon__default = /*#__PURE__*/_interopDefaultLegacy(AddIcon);
+var RemoveIcon__default = /*#__PURE__*/_interopDefaultLegacy(RemoveIcon);
+var DeleteIcon__default = /*#__PURE__*/_interopDefaultLegacy(DeleteIcon);
+var MenuItem__default = /*#__PURE__*/_interopDefaultLegacy(MenuItem);
+var FormControl__default = /*#__PURE__*/_interopDefaultLegacy(FormControl);
+var Select__default = /*#__PURE__*/_interopDefaultLegacy(Select);
+var Divider__default = /*#__PURE__*/_interopDefaultLegacy(Divider);
+var FormatColorTextIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatColorTextIcon);
+var Menu__default = /*#__PURE__*/_interopDefaultLegacy(Menu);
+var LineSpacingIcon__default = /*#__PURE__*/_interopDefaultLegacy(LineSpacingIcon);
 
 function _classCallCheck(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -6125,7 +6171,7 @@ function supportsColor(stream) {
 		// release, and Node.js 7 is not. Windows 10 build 10586 is the first Windows
 		// release that supports 256 colors. Windows 10 build 14931 is the first release
 		// that supports 16m/TrueColor.
-		const osRelease = os$1.release().split('.');
+		const osRelease = os__default['default'].release().split('.');
 		if (
 			Number(process.versions.node.split('.')[0]) >= 8 &&
 			Number(osRelease[0]) >= 10 &&
@@ -6261,7 +6307,7 @@ exports.inspectOpts = Object.keys(process.env).filter(function (key) {
  */
 
 function useColors() {
-  return 'colors' in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
+  return 'colors' in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty__default['default'].isatty(process.stderr.fd);
 }
 /**
  * Adds ANSI color escape codes if enabled.
@@ -6298,7 +6344,7 @@ function getDate() {
 
 
 function log() {
-  return process.stderr.write(util.format.apply(util, arguments) + '\n');
+  return process.stderr.write(util__default['default'].format.apply(util__default['default'], arguments) + '\n');
 }
 /**
  * Save `namespaces`.
@@ -6353,7 +6399,7 @@ var formatters = module.exports.formatters;
 
 formatters.o = function (v) {
   this.inspectOpts.colors = this.useColors;
-  return util.inspect(v, this.inspectOpts).replace(/\s*\n\s*/g, ' ');
+  return util__default['default'].inspect(v, this.inspectOpts).replace(/\s*\n\s*/g, ' ');
 };
 /**
  * Map %O to `util.inspect()`, allowing multiple lines if needed.
@@ -6362,7 +6408,7 @@ formatters.o = function (v) {
 
 formatters.O = function (v) {
   this.inspectOpts.colors = this.useColors;
-  return util.inspect(v, this.inspectOpts);
+  return util__default['default'].inspect(v, this.inspectOpts);
 };
 });
 var node_1 = node.init;
@@ -26219,7 +26265,7 @@ exports.inspectOpts = Object.keys(process.env).filter(function (key) {
  */
 
 function useColors() {
-  return 'colors' in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty.isatty(process.stderr.fd);
+  return 'colors' in exports.inspectOpts ? Boolean(exports.inspectOpts.colors) : tty__default['default'].isatty(process.stderr.fd);
 }
 /**
  * Adds ANSI color escape codes if enabled.
@@ -26256,7 +26302,7 @@ function getDate() {
 
 
 function log() {
-  return process.stderr.write(util.format.apply(util, arguments) + '\n');
+  return process.stderr.write(util__default['default'].format.apply(util__default['default'], arguments) + '\n');
 }
 /**
  * Save `namespaces`.
@@ -26311,7 +26357,7 @@ var formatters = module.exports.formatters;
 
 formatters.o = function (v) {
   this.inspectOpts.colors = this.useColors;
-  return util.inspect(v, this.inspectOpts).replace(/\s*\n\s*/g, ' ');
+  return util__default['default'].inspect(v, this.inspectOpts).replace(/\s*\n\s*/g, ' ');
 };
 /**
  * Map %O to `util.inspect()`, allowing multiple lines if needed.
@@ -26320,7 +26366,7 @@ formatters.o = function (v) {
 
 formatters.O = function (v) {
   this.inspectOpts.colors = this.useColors;
-  return util.inspect(v, this.inspectOpts);
+  return util__default['default'].inspect(v, this.inspectOpts);
 };
 });
 var node_1$1 = node$1.init;
@@ -29175,10 +29221,10 @@ function SlateReactPlaceholder() {
         opacity: '0.333'
       }, style);
 
-      return React__default.createElement(
+      return React__default['default'].createElement(
         'span',
         null,
-        React__default.createElement(
+        React__default['default'].createElement(
           'span',
           { contentEditable: false, style: placeHolderStyle },
           placeholder
@@ -32091,7 +32137,7 @@ function BeforePlugin() {
     // COMPAT: The `relatedTarget` can be null when the new focus target is not
     // a "focusable" element (eg. a `<div>` without `tabindex` set).
     if (relatedTarget) {
-      var el = ReactDOM.findDOMNode(editor);
+      var el = ReactDOM__default['default'].findDOMNode(editor);
 
       // COMPAT: The event should be ignored if the focus is returning to the
       // editor from an embedded editable element (eg. an <input> element inside
@@ -32356,7 +32402,7 @@ function BeforePlugin() {
     if (isCopying) return;
     if (editor.readOnly) return;
 
-    var el = ReactDOM.findDOMNode(editor);
+    var el = ReactDOM__default['default'].findDOMNode(editor);
 
     // Save the new `activeElement`.
     var window = getWindow_1(event.target);
@@ -32593,7 +32639,7 @@ var Leaf$1 = function (_React$Component) {
         index: index
       });
 
-      return React__default.createElement(
+      return React__default['default'].createElement(
         'span',
         { 'data-slate-leaf': true, 'data-offset-key': offsetKey },
         this.renderMarks()
@@ -32659,7 +32705,7 @@ var Leaf$1 = function (_React$Component) {
       // So the node can contain selection but the text is not visible.
 
       if (editor.query('isVoid', parent)) {
-        return React__default.createElement(
+        return React__default['default'].createElement(
           'span',
           { 'data-slate-zero-width': 'z', 'data-slate-length': parent.text.length },
           '\uFEFF'
@@ -32670,11 +32716,11 @@ var Leaf$1 = function (_React$Component) {
       // width space that will convert into a line break when copying and pasting
       // to support expected plain text.
       if (text === '' && parent.object === 'block' && parent.text === '' && parent.nodes.last() === node) {
-        return React__default.createElement(
+        return React__default['default'].createElement(
           'span',
           { 'data-slate-zero-width': 'n', 'data-slate-length': 0 },
           '\uFEFF',
-          React__default.createElement('br', null)
+          React__default['default'].createElement('br', null)
         );
       }
 
@@ -32682,7 +32728,7 @@ var Leaf$1 = function (_React$Component) {
       // node, so we render a zero-width space so that the selection can be
       // inserted next to it still.
       if (text === '') {
-        return React__default.createElement(
+        return React__default['default'].createElement(
           'span',
           { 'data-slate-zero-width': 'z', 'data-slate-length': 0 },
           '\uFEFF'
@@ -32695,14 +32741,14 @@ var Leaf$1 = function (_React$Component) {
       var lastChar = text.charAt(text.length - 1);
       var isLastText = node === lastText;
       var isLastLeaf = index === leaves.size - 1;
-      if (isLastText && isLastLeaf && lastChar === '\n') return React__default.createElement(
+      if (isLastText && isLastLeaf && lastChar === '\n') return React__default['default'].createElement(
         'span',
         { 'data-slate-content': true },
         text + '\n'
       );
 
       // Otherwise, just return the content.
-      return React__default.createElement(
+      return React__default['default'].createElement(
         'span',
         { 'data-slate-content': true },
         text
@@ -32710,7 +32756,7 @@ var Leaf$1 = function (_React$Component) {
     }
   }]);
   return Leaf;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -32858,7 +32904,7 @@ var Text$1 = function (_React$Component) {
         return child;
       });
 
-      return React__default.createElement(
+      return React__default['default'].createElement(
         'span',
         { 'data-key': key, style: style },
         children
@@ -32877,7 +32923,7 @@ var Text$1 = function (_React$Component) {
 
   }]);
   return Text;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -32946,7 +32992,7 @@ var _initialiseProps$1 = function _initialiseProps() {
         marks = leaf.marks;
 
 
-    return React__default.createElement(Leaf$1, {
+    return React__default['default'].createElement(Leaf$1, {
       key: node.key + '-' + index,
       block: block,
       editor: editor,
@@ -33028,13 +33074,13 @@ var Void = function (_React$Component) {
         position: 'absolute'
       };
 
-      var spacer = React__default.createElement(
+      var spacer = React__default['default'].createElement(
         Tag,
         { 'data-slate-spacer': true, style: style },
         this.renderText()
       );
 
-      var content = React__default.createElement(
+      var content = React__default['default'].createElement(
         Tag,
         { contentEditable: readOnly ? null : false },
         children
@@ -33042,7 +33088,7 @@ var Void = function (_React$Component) {
 
       this.debug('render', { props: props });
 
-      return React__default.createElement(
+      return React__default['default'].createElement(
         Tag,
         {
           'data-slate-void': true,
@@ -33067,7 +33113,7 @@ var Void = function (_React$Component) {
 
   }]);
   return Void;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -33108,7 +33154,7 @@ var _initialiseProps$2 = function _initialiseProps() {
         editor = _props.editor;
 
     var child = node.getFirstText();
-    return React__default.createElement(Text$1, {
+    return React__default['default'].createElement(Text$1, {
       block: node.object === 'block' ? node : block,
       decorations: decorations,
       editor: editor,
@@ -33405,7 +33451,7 @@ var Node$1 = function (_React$Component) {
         children: children
       }));
 
-      return editor.query('isVoid', node) ? React__default.createElement(
+      return editor.query('isVoid', node) ? React__default['default'].createElement(
         Void,
         this.props,
         element
@@ -33423,7 +33469,7 @@ var Node$1 = function (_React$Component) {
 
   }]);
   return Node$$1;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -33466,7 +33512,7 @@ var _initialiseProps$3 = function _initialiseProps() {
 
     var Component = child.object === 'text' ? Text$1 : Node$1;
 
-    return React__default.createElement(Component, {
+    return React__default['default'].createElement(Component, {
       block: node.object === 'block' ? node : block,
       decorations: decorations,
       editor: editor,
@@ -33967,7 +34013,7 @@ var Content = function (_React$Component) {
       var isFocused = selection.isFocused;
 
 
-      return React__default.createElement(Node$1, {
+      return React__default['default'].createElement(Node$1, {
         block: null,
         editor: editor,
         decorations: decorations,
@@ -34204,7 +34250,7 @@ var Content = function (_React$Component) {
         });
       }
 
-      return React__default.createElement(
+      return React__default['default'].createElement(
         Container,
         _extends$4({}, handlers, {
           'data-slate-editor': true,
@@ -34238,7 +34284,7 @@ var Content = function (_React$Component) {
 
   }]);
   return Content;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -34305,7 +34351,7 @@ function ReactPlugin() {
    */
 
   function renderEditor(props, editor, next) {
-    return React__default.createElement(Content, {
+    return React__default['default'].createElement(Content, {
       autoCorrect: props.autoCorrect,
       className: props.className,
       editor: editor,
@@ -34341,7 +34387,7 @@ function ReactPlugin() {
 
     var Tag = object === 'block' ? 'div' : 'span';
     var style = { position: 'relative' };
-    return React__default.createElement(
+    return React__default['default'].createElement(
       Tag,
       _extends$4({}, attributes, { style: style }),
       children
@@ -34742,7 +34788,7 @@ var Editor$1 = function (_React$Component) {
     }
   }]);
   return Editor$$1;
-}(React__default.Component);
+}(React__default['default'].Component);
 
 /**
  * Export.
@@ -34976,7 +35022,7 @@ var TEXT_RULE = {
   serialize: function serialize(obj, children) {
     if (obj.object === 'string') {
       return children.split('\n').reduce(function (array, text, i) {
-        if (i !== 0) array.push(React__default.createElement('br', { key: i }));
+        if (i !== 0) array.push(React__default['default'].createElement('br', { key: i }));
         array.push(text);
         return array;
       }, []);
@@ -35245,7 +35291,7 @@ var _initialiseProps$4 = function _initialiseProps() {
     });
     if (options.render === false) return elements;
 
-    var html = server.renderToStaticMarkup(React__default.createElement(
+    var html = server.renderToStaticMarkup(React__default['default'].createElement(
       'body',
       null,
       elements
@@ -35367,7 +35413,7 @@ var _initialiseProps$4 = function _initialiseProps() {
 var key = 0;
 
 function addKey(element) {
-  return React__default.cloneElement(element, { key: key++ });
+  return React__default['default'].cloneElement(element, { key: key++ });
 }
 
 var BLOCK_TAGS = {
@@ -35501,7 +35547,7 @@ var ImageNode = function ImageNode(_ref) {
   var description = data.get("description");
   var height = data.get("height");
   var width = data.get("width");
-  return /*#__PURE__*/React__default.createElement("img", _extends({
+  return /*#__PURE__*/React__default['default'].createElement("img", _extends({
     src: src,
     height: height,
     width: width,
@@ -35562,22 +35608,22 @@ var ImageButton = function ImageButton(_ref2) {
     editor.command(insertImage, data);
   };
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Image",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       setImageModalOpen(true);
     }
-  }, /*#__PURE__*/React__default.createElement(ImageIcon, null))), imageModalOpen && /*#__PURE__*/React__default.createElement(Dialog, {
+  }, /*#__PURE__*/React__default['default'].createElement(ImageIcon__default['default'], null))), imageModalOpen && /*#__PURE__*/React__default['default'].createElement(Dialog__default['default'], {
     open: imageModalOpen,
     onClose: function onClose() {
       return setImageModalOpen(false);
     },
     "aria-labelledby": "image-dialog-title"
-  }, /*#__PURE__*/React__default.createElement(DialogTitle, {
+  }, /*#__PURE__*/React__default['default'].createElement(DialogTitle__default['default'], {
     id: "image-dialog-title"
-  }, "Image Details"), /*#__PURE__*/React__default.createElement(DialogContent, null, /*#__PURE__*/React__default.createElement(TextField, {
+  }, "Image Details"), /*#__PURE__*/React__default['default'].createElement(DialogContent__default['default'], null, /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -35587,7 +35633,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "description",
     label: "Description (optional)",
@@ -35596,7 +35642,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setDescription(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "width",
     label: "Width (optional)",
@@ -35605,7 +35651,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setWidth(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "height",
     label: "Height (optional)",
@@ -35614,7 +35660,7 @@ var ImageButton = function ImageButton(_ref2) {
       return setHeight(e.target.value);
     },
     fullWidth: true
-  })), /*#__PURE__*/React__default.createElement(DialogActions, null, /*#__PURE__*/React__default.createElement(Button, {
+  })), /*#__PURE__*/React__default['default'].createElement(DialogActions__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     onClick: handleAddImageClick,
     className: classes.basicButton,
     variant: "contained",
@@ -35911,9 +35957,9 @@ var VideoNode = function VideoNode(_ref) {
     width = "100%";
   }
 
-  return /*#__PURE__*/React__default.createElement("div", _extends({}, attributes, {
+  return /*#__PURE__*/React__default['default'].createElement("div", _extends({}, attributes, {
     className: classes.videoWrapper
-  }), /*#__PURE__*/React__default.createElement("iframe", {
+  }), /*#__PURE__*/React__default['default'].createElement("iframe", {
     title: "video-embed",
     id: "ytplayer",
     type: "text/html",
@@ -35965,22 +36011,22 @@ var VideoButton = function VideoButton(_ref2) {
     editor.command(insertVideo, data);
   };
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Video",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       setVideoModalOpen(true);
     }
-  }, /*#__PURE__*/React__default.createElement(VideoIcon, null))), videoModalOpen && /*#__PURE__*/React__default.createElement(Dialog, {
+  }, /*#__PURE__*/React__default['default'].createElement(VideoIcon__default['default'], null))), videoModalOpen && /*#__PURE__*/React__default['default'].createElement(Dialog__default['default'], {
     open: videoModalOpen,
     onClose: function onClose() {
       return setVideoModalOpen(false);
     },
     "aria-labelledby": "add-video-title"
-  }, /*#__PURE__*/React__default.createElement(DialogTitle, {
+  }, /*#__PURE__*/React__default['default'].createElement(DialogTitle__default['default'], {
     id: "add-video-title"
-  }, "Video Details"), /*#__PURE__*/React__default.createElement(DialogContent, null, /*#__PURE__*/React__default.createElement(TextField, {
+  }, "Video Details"), /*#__PURE__*/React__default['default'].createElement(DialogContent__default['default'], null, /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -35990,7 +36036,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "width",
     label: "Width (optional)",
@@ -35999,7 +36045,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setWidth(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "height",
     label: "Height (optional)",
@@ -36008,7 +36054,7 @@ var VideoButton = function VideoButton(_ref2) {
       return setHeight(e.target.value);
     },
     fullWidth: true
-  })), /*#__PURE__*/React__default.createElement(DialogActions, null, /*#__PURE__*/React__default.createElement(Button, {
+  })), /*#__PURE__*/React__default['default'].createElement(DialogActions__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     onClick: handleAddVideoClick,
     className: classes.basicButton,
     variant: "contained",
@@ -36073,7 +36119,7 @@ var LinkNode = function LinkNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       data = _ref.node.data;
-  return /*#__PURE__*/React__default.createElement("a", _extends({
+  return /*#__PURE__*/React__default['default'].createElement("a", _extends({
     href: data.get("href")
   }, attributes), children);
 };
@@ -36146,28 +36192,28 @@ var LinkButton = function LinkButton(_ref2) {
   };
 
   if (!linkModalOpen) {
-    return /*#__PURE__*/React__default.createElement(Tooltip, {
+    return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
       title: "Link",
       placement: "bottom"
-    }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+    }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
       onClick: handleToolbarButtonLink
-    }, /*#__PURE__*/React__default.createElement(LinkIcon, null)));
+    }, /*#__PURE__*/React__default['default'].createElement(LinkIcon__default['default'], null)));
   }
 
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Link",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: handleToolbarButtonLink
-  }, /*#__PURE__*/React__default.createElement(LinkIcon, null))), /*#__PURE__*/React__default.createElement(Dialog, {
+  }, /*#__PURE__*/React__default['default'].createElement(LinkIcon__default['default'], null))), /*#__PURE__*/React__default['default'].createElement(Dialog__default['default'], {
     open: linkModalOpen,
     onClose: function onClose() {
       return setLinkModalOpen(false);
     },
     "aria-labelledby": "link-dialog-title"
-  }, /*#__PURE__*/React__default.createElement(DialogTitle, {
+  }, /*#__PURE__*/React__default['default'].createElement(DialogTitle__default['default'], {
     id: "link-dialog-title"
-  }, "Link Details"), /*#__PURE__*/React__default.createElement(DialogContent, null, /*#__PURE__*/React__default.createElement(TextField, {
+  }, "Link Details"), /*#__PURE__*/React__default['default'].createElement(DialogContent__default['default'], null, /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     autoFocus: true,
     margin: "dense",
     id: "url",
@@ -36178,7 +36224,7 @@ var LinkButton = function LinkButton(_ref2) {
       return setURL(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(TextField, {
+  }), /*#__PURE__*/React__default['default'].createElement(TextField__default['default'], {
     margin: "dense",
     id: "text",
     label: "Text",
@@ -36188,10 +36234,10 @@ var LinkButton = function LinkButton(_ref2) {
       return setText(e.target.value);
     },
     fullWidth: true
-  }), /*#__PURE__*/React__default.createElement(FormGroup, {
+  }), /*#__PURE__*/React__default['default'].createElement(FormGroup__default['default'], {
     row: true
-  }, /*#__PURE__*/React__default.createElement(FormControlLabel, {
-    control: /*#__PURE__*/React__default.createElement(Checkbox, {
+  }, /*#__PURE__*/React__default['default'].createElement(FormControlLabel__default['default'], {
+    control: /*#__PURE__*/React__default['default'].createElement(Checkbox__default['default'], {
       checked: emailChecked,
       onChange: function onChange() {
         return setEmailChecked(!emailChecked);
@@ -36199,7 +36245,7 @@ var LinkButton = function LinkButton(_ref2) {
       value: "email"
     }),
     label: "Is this an email link?"
-  }))), /*#__PURE__*/React__default.createElement(DialogActions, null, /*#__PURE__*/React__default.createElement(Button, {
+  }))), /*#__PURE__*/React__default['default'].createElement(DialogActions__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     onClick: handleAddButtonClick,
     className: classes.basicButton,
     variant: "contained",
@@ -36325,7 +36371,7 @@ var ToolbarButton = function ToolbarButton(_ref) {
       props = _objectWithoutProperties(_ref, ["children", "onClick", "table"]);
 
   var classes = useStyles$3();
-  return /*#__PURE__*/React__default.createElement(Button, {
+  return /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: table ? classes.tableBtn : classes.button,
     onClick: function onClick(event) {
       isFunction$1(_onClick) && _onClick(event);
@@ -36335,17 +36381,17 @@ var ToolbarButton = function ToolbarButton(_ref) {
 
 var HelpModalContent = function HelpModalContent(_ref) {
   var classes = _ref.classes;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement("h3", null, "Pasting Content"), /*#__PURE__*/React__default.createElement("p", null, "Some content from HTML pages can be copied and pasted directly into the editor. Just go to any page, highlight what you want to copy then paste it into the editor."), /*#__PURE__*/React__default.createElement("p", null, "Upload any images", " ", /*#__PURE__*/React__default.createElement("a", {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement("h3", null, "Pasting Content"), /*#__PURE__*/React__default['default'].createElement("p", null, "Some content from HTML pages can be copied and pasted directly into the editor. Just go to any page, highlight what you want to copy then paste it into the editor."), /*#__PURE__*/React__default['default'].createElement("p", null, "Upload any images", " ", /*#__PURE__*/React__default['default'].createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://github.com/dictyBase/migration-data/issues/9"
-  }, "here"), "."), /*#__PURE__*/React__default.createElement("p", null, "Upload any PDFs or DOCX files", " ", /*#__PURE__*/React__default.createElement("a", {
+  }, "here"), "."), /*#__PURE__*/React__default['default'].createElement("p", null, "Upload any PDFs or DOCX files", " ", /*#__PURE__*/React__default['default'].createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
     href: "https://github.com/dictyBase/migration-data/issues/10"
-  }, "here"), "."), /*#__PURE__*/React__default.createElement("p", null, /*#__PURE__*/React__default.createElement("strong", null, "Known bugs:"), " Lists sometimes have a mind of their own, but there are some workarounds for formatting. You can use SHIFT + ENTER to add a space between list items."), /*#__PURE__*/React__default.createElement("h3", null, "Keyboard Shortcuts"), /*#__PURE__*/React__default.createElement("ul", null, /*#__PURE__*/React__default.createElement("li", null, "Align Left: CTRL + SHIFT + L"), /*#__PURE__*/React__default.createElement("li", null, "Align Center: CTRL + SHIFT + C"), /*#__PURE__*/React__default.createElement("li", null, "Align Right: CTRL + SHIFT + R"), /*#__PURE__*/React__default.createElement("li", null, "Align Justify: CTRL + SHIFT + J"), /*#__PURE__*/React__default.createElement("li", null, "Bold: CTRL + B"), /*#__PURE__*/React__default.createElement("li", null, "Divider: CTRL + ]"), /*#__PURE__*/React__default.createElement("li", null, "Italic: CTRL + I"), /*#__PURE__*/React__default.createElement("li", null, "Strikethrough: CTRL + SHIFT + S"), /*#__PURE__*/React__default.createElement("li", null, "Underline: CTRL + U")), /*#__PURE__*/React__default.createElement("h3", null, "Found a bug? Got a request?"), /*#__PURE__*/React__default.createElement("p", null, "Post an issue in the", " ", /*#__PURE__*/React__default.createElement("em", null, /*#__PURE__*/React__default.createElement("a", {
+  }, "here"), "."), /*#__PURE__*/React__default['default'].createElement("p", null, /*#__PURE__*/React__default['default'].createElement("strong", null, "Known bugs:"), " Lists sometimes have a mind of their own, but there are some workarounds for formatting. You can use SHIFT + ENTER to add a space between list items."), /*#__PURE__*/React__default['default'].createElement("h3", null, "Keyboard Shortcuts"), /*#__PURE__*/React__default['default'].createElement("ul", null, /*#__PURE__*/React__default['default'].createElement("li", null, "Align Left: CTRL + SHIFT + L"), /*#__PURE__*/React__default['default'].createElement("li", null, "Align Center: CTRL + SHIFT + C"), /*#__PURE__*/React__default['default'].createElement("li", null, "Align Right: CTRL + SHIFT + R"), /*#__PURE__*/React__default['default'].createElement("li", null, "Align Justify: CTRL + SHIFT + J"), /*#__PURE__*/React__default['default'].createElement("li", null, "Bold: CTRL + B"), /*#__PURE__*/React__default['default'].createElement("li", null, "Divider: CTRL + ]"), /*#__PURE__*/React__default['default'].createElement("li", null, "Italic: CTRL + I"), /*#__PURE__*/React__default['default'].createElement("li", null, "Strikethrough: CTRL + SHIFT + S"), /*#__PURE__*/React__default['default'].createElement("li", null, "Underline: CTRL + U")), /*#__PURE__*/React__default['default'].createElement("h3", null, "Found a bug? Got a request?"), /*#__PURE__*/React__default['default'].createElement("p", null, "Post an issue in the", " ", /*#__PURE__*/React__default['default'].createElement("em", null, /*#__PURE__*/React__default['default'].createElement("a", {
     className: classes.link,
     target: "_blank",
     rel: "noopener noreferrer",
@@ -36375,22 +36421,22 @@ var styles = function styles(theme) {
 var HelpMuiModal = function HelpMuiModal(props) {
   var classes = props.classes,
       handleClose = props.handleClose;
-  return /*#__PURE__*/React__default.createElement(Dialog, {
+  return /*#__PURE__*/React__default['default'].createElement(Dialog__default['default'], {
     className: classes.container,
     open: true,
     onClose: handleClose
-  }, /*#__PURE__*/React__default.createElement(DialogTitle, {
+  }, /*#__PURE__*/React__default['default'].createElement(DialogTitle__default['default'], {
     id: "help-dialog-title"
-  }, "Editor Help"), /*#__PURE__*/React__default.createElement(DialogContent, null, /*#__PURE__*/React__default.createElement(Grid, {
+  }, "Editor Help"), /*#__PURE__*/React__default['default'].createElement(DialogContent__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     container: true,
     justify: "center",
     direction: "column"
-  }, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/React__default.createElement(HelpModalContent, {
+  }, /*#__PURE__*/React__default['default'].createElement(HelpModalContent, {
     classes: classes
-  })))), /*#__PURE__*/React__default.createElement(DialogActions, null, /*#__PURE__*/React__default.createElement(Button, {
+  })))), /*#__PURE__*/React__default['default'].createElement(DialogActions__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: classes.closeBtn,
     onClick: handleClose
   }, "Close")));
@@ -36404,7 +36450,7 @@ var HelpModal = styles$5.withStyles(styles)(HelpMuiModal);
 
 var BoldMark = function BoldMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("strong", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("strong", null, children);
 };
 /**
  * Bold button that uses a click handler to connect the button to the editor.
@@ -36413,14 +36459,14 @@ var BoldMark = function BoldMark(_ref) {
 
 var BoldButton = function BoldButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Bold",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("bold");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatBoldIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatBoldIcon__default['default'], null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for bold.
@@ -36455,7 +36501,7 @@ var BoldPlugin = function BoldPlugin(options) {
 
 var ItalicMark = function ItalicMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("em", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("em", null, children);
 };
 /**
  * Italic button that uses a click handler to connect the button to the editor.
@@ -36464,14 +36510,14 @@ var ItalicMark = function ItalicMark(_ref) {
 
 var ItalicButton = function ItalicButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Italic",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("italic");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatItalicIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatItalicIcon__default['default'], null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for italic.
@@ -36506,7 +36552,7 @@ var ItalicPlugin = function ItalicPlugin(options) {
 
 var StrikethroughMark = function StrikethroughMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("del", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("del", null, children);
 };
 /**
  * Strikethrough button that uses a click handler to connect the button to the editor.
@@ -36515,14 +36561,14 @@ var StrikethroughMark = function StrikethroughMark(_ref) {
 
 var StrikethroughButton = function StrikethroughButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Strikethrough",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("strikethrough");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatStrikethroughIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatStrikethroughIcon__default['default'], null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for strikethrough.
@@ -36550,6 +36596,11 @@ var StrikethroughPlugin = function StrikethroughPlugin(options) {
     }
   };
 };
+
+/*!
+ * Font Awesome Free 5.15.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
 
 function _classCallCheck$1(instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -37062,9 +37113,12 @@ function makeInlineSvgAbstract(params) {
       width = _ref.width,
       height = _ref.height;
 
-  var widthClass = "fa-w-".concat(Math.ceil(width / height * 16));
+  var isUploadedIcon = prefix === 'fak';
+  var widthClass = isUploadedIcon ? '' : "fa-w-".concat(Math.ceil(width / height * 16));
   var attrClass = [config.replacementClass, iconName ? "".concat(config.familyPrefix, "-").concat(iconName) : '', widthClass].filter(function (c) {
     return extra.classes.indexOf(c) === -1;
+  }).filter(function (c) {
+    return c !== '' || !!c;
   }).concat(extra.classes).join(' ');
   var content = {
     children: [],
@@ -37077,6 +37131,9 @@ function makeInlineSvgAbstract(params) {
       'viewBox': "0 0 ".concat(width, " ").concat(height)
     })
   };
+  var uploadedIconWidthStyle = isUploadedIcon && !~extra.classes.indexOf('fa-fw') ? {
+    width: "".concat(width / height * 16 * 0.0625, "em")
+  } : {};
 
   if (watchable) {
     content.attributes[DATA_FA_I2SVG] = '';
@@ -37098,7 +37155,7 @@ function makeInlineSvgAbstract(params) {
     maskId: maskId,
     transform: transform,
     symbol: symbol,
-    styles: extra.styles
+    styles: _objectSpread({}, uploadedIconWidthStyle, extra.styles)
   });
 
   var _ref2 = mask.found && main.found ? makeIconMasking(args) : makeIconStandard(args),
@@ -38040,8 +38097,12 @@ FontAwesomeIcon.defaultProps = {
   transform: null,
   swapOpacity: false
 };
-var convertCurry = convert.bind(null, React__default.createElement);
+var convertCurry = convert.bind(null, React__default['default'].createElement);
 
+/*!
+ * Font Awesome Free 5.15.0 by @fontawesome - https://fontawesome.com
+ * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
+ */
 var faSubscript = {
   prefix: 'fas',
   iconName: 'subscript',
@@ -38059,7 +38120,7 @@ var faSuperscript = {
 
 var SubscriptMark = function SubscriptMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("sub", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("sub", null, children);
 };
 /**
  * Subscript button that uses a click handler to connect the button to the editor.
@@ -38068,14 +38129,14 @@ var SubscriptMark = function SubscriptMark(_ref) {
 
 var SubscriptButton = function SubscriptButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Subscript",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("subscript");
     }
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default['default'].createElement(FontAwesomeIcon, {
     icon: faSubscript
   })));
 };
@@ -38086,7 +38147,7 @@ var SubscriptButton = function SubscriptButton(_ref2) {
 
 var SuperscriptMark = function SuperscriptMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("sup", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("sup", null, children);
 };
 /**
  * Superscript button that uses a click handler to connect the button to the editor.
@@ -38095,14 +38156,14 @@ var SuperscriptMark = function SuperscriptMark(_ref) {
 
 var SuperscriptButton = function SuperscriptButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Superscript",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("superscript");
     }
-  }, /*#__PURE__*/React__default.createElement(FontAwesomeIcon, {
+  }, /*#__PURE__*/React__default['default'].createElement(FontAwesomeIcon, {
     icon: faSuperscript
   })));
 };
@@ -38113,7 +38174,7 @@ var SuperscriptButton = function SuperscriptButton(_ref2) {
 
 var UnderlineMark = function UnderlineMark(_ref) {
   var children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("u", null, children);
+  return /*#__PURE__*/React__default['default'].createElement("u", null, children);
 };
 /**
  * Underline button that uses a click handler to connect the button to the editor.
@@ -38122,14 +38183,14 @@ var UnderlineMark = function UnderlineMark(_ref) {
 
 var UnderlineButton = function UnderlineButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Underline",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.toggleMark("underline");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatUnderlinedIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatUnderlinedIcon__default['default'], null)));
 };
 /**
  * Function that specifies the keyboard shortcut to use for underline.
@@ -38159,7 +38220,7 @@ var UnderlinePlugin = function UnderlinePlugin(options) {
 };
 
 var MarkButtons = function MarkButtons(props) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(BoldButton, props), /*#__PURE__*/React__default.createElement(ItalicButton, props), /*#__PURE__*/React__default.createElement(UnderlineButton, props), /*#__PURE__*/React__default.createElement(StrikethroughButton, props), /*#__PURE__*/React__default.createElement(SubscriptButton, props), /*#__PURE__*/React__default.createElement(SuperscriptButton, props));
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(BoldButton, props), /*#__PURE__*/React__default['default'].createElement(ItalicButton, props), /*#__PURE__*/React__default['default'].createElement(UnderlineButton, props), /*#__PURE__*/React__default['default'].createElement(StrikethroughButton, props), /*#__PURE__*/React__default['default'].createElement(SubscriptButton, props), /*#__PURE__*/React__default['default'].createElement(SuperscriptButton, props));
 };
 
 /**
@@ -38185,14 +38246,14 @@ var AlignmentNode = function AlignmentNode(_ref) {
       data = _ref.node.data;
 
   if (data.get("align") === "justify") {
-    return /*#__PURE__*/React__default.createElement("div", _extends({
+    return /*#__PURE__*/React__default['default'].createElement("div", _extends({
       style: {
         textAlign: "justify",
         whiteSpace: "normal"
       }
     }, attributes), children);
   } else {
-    return /*#__PURE__*/React__default.createElement("div", _extends({
+    return /*#__PURE__*/React__default['default'].createElement("div", _extends({
       style: {
         textAlign: "".concat(data.get("align")),
         whiteSpace: "pre-wrap"
@@ -38207,50 +38268,50 @@ var AlignmentNode = function AlignmentNode(_ref) {
 
 var AlignmentLeftButton = function AlignmentLeftButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Align Left",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "left");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatAlignLeftIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatAlignLeftIcon__default['default'], null)));
 };
 
 var AlignmentCenterButton = function AlignmentCenterButton(_ref3) {
   var editor = _ref3.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Center Text",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "center");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatAlignCenterIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatAlignCenterIcon__default['default'], null)));
 };
 
 var AlignmentRightButton = function AlignmentRightButton(_ref4) {
   var editor = _ref4.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Align Right",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "right");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatAlignRightIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatAlignRightIcon__default['default'], null)));
 };
 
 var AlignmentJustifyButton = function AlignmentJustifyButton(_ref5) {
   var editor = _ref5.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Justify",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       alignmentMarkStrategy(editor, "justify");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatAlignJustifyIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatAlignJustifyIcon__default['default'], null)));
 };
 /**
  * Function that specifies the keyboard shortcuts to use for alignment.
@@ -38308,7 +38369,7 @@ var AlignmentPlugin = function AlignmentPlugin(options) {
 };
 
 var AlignmentButtons = function AlignmentButtons(props) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(AlignmentLeftButton, props), /*#__PURE__*/React__default.createElement(AlignmentCenterButton, props), /*#__PURE__*/React__default.createElement(AlignmentRightButton, props), /*#__PURE__*/React__default.createElement(AlignmentJustifyButton, props));
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(AlignmentLeftButton, props), /*#__PURE__*/React__default['default'].createElement(AlignmentCenterButton, props), /*#__PURE__*/React__default['default'].createElement(AlignmentRightButton, props), /*#__PURE__*/React__default['default'].createElement(AlignmentJustifyButton, props));
 };
 
 function _defineProperty$4(obj, key, value) {
@@ -38984,7 +39045,7 @@ var createRenderBlock = (function (_ref) {
 
     switch (node.type) {
       case blocks.unordered_list:
-        return /*#__PURE__*/React__default.createElement("ul", _extends_1({
+        return /*#__PURE__*/React__default['default'].createElement("ul", _extends_1({
           className: classNames.unordered_list
         }, props.attributes, {
           style: {
@@ -38994,7 +39055,7 @@ var createRenderBlock = (function (_ref) {
 
       case blocks.ordered_list:
         {
-          return /*#__PURE__*/React__default.createElement("ol", _extends_1({
+          return /*#__PURE__*/React__default['default'].createElement("ol", _extends_1({
             className: classNames.ordered_list
           }, props.attributes, {
             style: {
@@ -39005,14 +39066,14 @@ var createRenderBlock = (function (_ref) {
 
       case blocks.list_item:
         {
-          return /*#__PURE__*/React__default.createElement("li", _extends_1({
+          return /*#__PURE__*/React__default['default'].createElement("li", _extends_1({
             className: classNames.list_item
           }, props.attributes), props.children);
         }
 
       case blocks.list_item_child:
         {
-          return /*#__PURE__*/React__default.createElement("span", _extends_1({
+          return /*#__PURE__*/React__default['default'].createElement("span", _extends_1({
             className: classNames.list_item_child
           }, props.attributes), props.children);
         }
@@ -39249,19 +39310,19 @@ var increaseIndent = function increaseIndent(event, editor) {
 var ListItemNode = function ListItemNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("li", attributes, children);
+  return /*#__PURE__*/React__default['default'].createElement("li", attributes, children);
 };
 
 var OrderedListNode = function OrderedListNode(_ref2) {
   var attributes = _ref2.attributes,
       children = _ref2.children;
-  return /*#__PURE__*/React__default.createElement("ol", attributes, children);
+  return /*#__PURE__*/React__default['default'].createElement("ol", attributes, children);
 };
 
 var UnorderedListNode = function UnorderedListNode(_ref3) {
   var attributes = _ref3.attributes,
       children = _ref3.children;
-  return /*#__PURE__*/React__default.createElement("ul", attributes, children);
+  return /*#__PURE__*/React__default['default'].createElement("ul", attributes, children);
 };
 /**
  * Button components that use click handlers to connect the buttons to the editor.
@@ -39270,50 +39331,50 @@ var UnorderedListNode = function UnorderedListNode(_ref3) {
 
 var OrderedListButton = function OrderedListButton(_ref4) {
   var editor = _ref4.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Ordered List",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "ordered-list");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatListNumberedIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatListNumberedIcon__default['default'], null)));
 };
 
 var UnorderedListButton = function UnorderedListButton(_ref5) {
   var editor = _ref5.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Unordered List",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return toggleList$1(event, editor, "unordered-list");
     }
-  }, /*#__PURE__*/React__default.createElement(FormatListBulletedIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatListBulletedIcon__default['default'], null)));
 };
 
 var ListDecreaseIndentButton = function ListDecreaseIndentButton(_ref6) {
   var editor = _ref6.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Decrease List Indent",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return decreaseIndent(event, editor);
     }
-  }, /*#__PURE__*/React__default.createElement(FormatIndentDecreaseIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatIndentDecreaseIcon__default['default'], null)));
 };
 
 var ListIncreaseIndentButton = function ListIncreaseIndentButton(_ref7) {
   var editor = _ref7.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Increase List Indent",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick(event) {
       return increaseIndent(event, editor);
     }
-  }, /*#__PURE__*/React__default.createElement(FormatIndentIncreaseIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatIndentIncreaseIcon__default['default'], null)));
 };
 /**
  * Function that represents our actual plugin.
@@ -39335,7 +39396,7 @@ var ListPlugin = index$7({
 });
 
 var ListButtons = function ListButtons(props) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(UnorderedListButton, props), /*#__PURE__*/React__default.createElement(OrderedListButton, props), /*#__PURE__*/React__default.createElement(ListIncreaseIndentButton, props), /*#__PURE__*/React__default.createElement(ListDecreaseIndentButton, props));
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(UnorderedListButton, props), /*#__PURE__*/React__default['default'].createElement(OrderedListButton, props), /*#__PURE__*/React__default['default'].createElement(ListIncreaseIndentButton, props), /*#__PURE__*/React__default['default'].createElement(ListDecreaseIndentButton, props));
 };
 
 /**
@@ -39362,7 +39423,7 @@ var HeaderNode = function HeaderNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       variant = _ref.variant;
-  return /*#__PURE__*/React__default.createElement(Typography, _extends({
+  return /*#__PURE__*/React__default['default'].createElement(Typography__default['default'], _extends({
     variant: variant
   }, attributes), children);
 };
@@ -39373,42 +39434,42 @@ var HeaderNode = function HeaderNode(_ref) {
 
 var H1Button = function H1Button(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Heading 1",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h3");
     }
-  }, /*#__PURE__*/React__default.createElement("strong", null, "H1")));
+  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H1")));
 };
 
 var H2Button = function H2Button(_ref3) {
   var editor = _ref3.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Heading 2",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h4");
     }
-  }, /*#__PURE__*/React__default.createElement("strong", null, "H2")));
+  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H2")));
 };
 
 var H3Button = function H3Button(_ref4) {
   var editor = _ref4.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Heading 3",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       headingStrategy(editor, "h5");
     }
-  }, /*#__PURE__*/React__default.createElement("strong", null, "H3")));
+  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H3")));
 };
 
 var HeadingButtons = function HeadingButtons(props) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(H1Button, props), /*#__PURE__*/React__default.createElement(H2Button, props), /*#__PURE__*/React__default.createElement(H3Button, props));
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(H1Button, props), /*#__PURE__*/React__default['default'].createElement(H2Button, props), /*#__PURE__*/React__default['default'].createElement(H3Button, props));
 };
 
 var Text$2 = index$1.Text;
@@ -40344,19 +40405,19 @@ var makeRenderers = function makeRenderers() {
     return function (props, editor, next) {
         switch (props.node.type) {
             case 'paragraph':
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'p',
                     props.attributes,
                     props.children
                 );
             case 'heading':
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'h1',
                     props.attributes,
                     props.children
                 );
             case 'subheading':
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'h2',
                     props.attributes,
                     props.children
@@ -40366,28 +40427,28 @@ var makeRenderers = function makeRenderers() {
                     header = _splitHeader.header,
                     rows = _splitHeader.rows;
 
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'table',
                     null,
-                    header && React__default.createElement(
+                    header && React__default['default'].createElement(
                         'thead',
                         props.attributes,
                         header
                     ),
-                    React__default.createElement(
+                    React__default['default'].createElement(
                         'tbody',
                         props.attributes,
                         rows
                     )
                 );
             case opts.typeRow:
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'tr',
                     props.attributes,
                     props.children
                 );
             case opts.typeCell:
-                return React__default.createElement(
+                return React__default['default'].createElement(
                     'td',
                     props.attributes,
                     props.children
@@ -40524,19 +40585,19 @@ var dist = EditTable;
 var TableNode = function TableNode(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children;
-  return /*#__PURE__*/React__default.createElement("table", null, /*#__PURE__*/React__default.createElement("tbody", attributes, children));
+  return /*#__PURE__*/React__default['default'].createElement("table", null, /*#__PURE__*/React__default['default'].createElement("tbody", attributes, children));
 };
 
 var TableRowNode = function TableRowNode(_ref2) {
   var attributes = _ref2.attributes,
       children = _ref2.children;
-  return /*#__PURE__*/React__default.createElement("tr", attributes, children);
+  return /*#__PURE__*/React__default['default'].createElement("tr", attributes, children);
 };
 
 var TableCellNode = function TableCellNode(_ref3) {
   var attributes = _ref3.attributes,
       children = _ref3.children;
-  return /*#__PURE__*/React__default.createElement("td", attributes, children);
+  return /*#__PURE__*/React__default['default'].createElement("td", attributes, children);
 };
 /**
  * Button components that use click handlers to connect the buttons to the editor.
@@ -40546,98 +40607,98 @@ var TableCellNode = function TableCellNode(_ref3) {
 var InsertInitialTableButton = function InsertInitialTableButton(_ref4) {
   var showTableOptions = _ref4.showTableOptions,
       setShowTableOptions = _ref4.setShowTableOptions;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Table",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowTableOptions(!showTableOptions);
     }
-  }, /*#__PURE__*/React__default.createElement(TableIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(TableIcon__default['default'], null)));
 };
 
 var InsertTableButton = function InsertTableButton(_ref5) {
   var editor = _ref5.editor,
       classes = _ref5.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Insert Table",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertTable();
     }
-  }, /*#__PURE__*/React__default.createElement(AddIcon, null), " Add Table"));
+  }, /*#__PURE__*/React__default['default'].createElement(AddIcon__default['default'], null), " Add Table"));
 };
 
 var InsertTableColumnButton = function InsertTableColumnButton(_ref6) {
   var editor = _ref6.editor,
       classes = _ref6.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Insert Column",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertColumn();
     }
-  }, /*#__PURE__*/React__default.createElement(AddIcon, null), " \xA0Add Column"));
+  }, /*#__PURE__*/React__default['default'].createElement(AddIcon__default['default'], null), " \xA0Add Column"));
 };
 
 var InsertTableRowButton = function InsertTableRowButton(_ref7) {
   var editor = _ref7.editor,
       classes = _ref7.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Insert Row",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.insertRow();
     }
-  }, /*#__PURE__*/React__default.createElement(AddIcon, null), " \xA0Add Row"));
+  }, /*#__PURE__*/React__default['default'].createElement(AddIcon__default['default'], null), " \xA0Add Row"));
 };
 
 var RemoveTableColumnButton = function RemoveTableColumnButton(_ref8) {
   var editor = _ref8.editor,
       classes = _ref8.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Remove Column",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeColumn();
     }
-  }, /*#__PURE__*/React__default.createElement(RemoveIcon, null), " \xA0Remove Column"));
+  }, /*#__PURE__*/React__default['default'].createElement(RemoveIcon__default['default'], null), " \xA0Remove Column"));
 };
 
 var RemoveTableRowButton = function RemoveTableRowButton(_ref9) {
   var editor = _ref9.editor,
       classes = _ref9.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Remove Row",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeRow();
     }
-  }, /*#__PURE__*/React__default.createElement(RemoveIcon, null), " \xA0Remove Row"));
+  }, /*#__PURE__*/React__default['default'].createElement(RemoveIcon__default['default'], null), " \xA0Remove Row"));
 };
 
 var RemoveTableButton = function RemoveTableButton(_ref10) {
   var editor = _ref10.editor,
       classes = _ref10.classes;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Remove Table",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     table: true,
     onClick: function onClick() {
       editor.removeTable();
     }
-  }, /*#__PURE__*/React__default.createElement(DeleteIcon, null), " \xA0Remove Table"));
+  }, /*#__PURE__*/React__default['default'].createElement(DeleteIcon__default['default'], null), " \xA0Remove Table"));
 };
 /**
  * Function that represents our actual plugin.
@@ -40654,14 +40715,14 @@ var TablePlugin = dist({
 var FeatureButtons = function FeatureButtons(props) {
   var showTableOptions = props.showTableOptions,
       setShowTableOptions = props.setShowTableOptions;
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(LinkButton, props), /*#__PURE__*/React__default.createElement(InsertInitialTableButton, _extends({
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(LinkButton, props), /*#__PURE__*/React__default['default'].createElement(InsertInitialTableButton, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
   }, props, {
     onClick: function onClick() {
       setShowTableOptions(true);
     }
-  })), /*#__PURE__*/React__default.createElement(ImageButton, props), /*#__PURE__*/React__default.createElement(VideoButton, props));
+  })), /*#__PURE__*/React__default['default'].createElement(ImageButton, props), /*#__PURE__*/React__default['default'].createElement(VideoButton, props));
 };
 
 var useStyles$4 = styles$5.makeStyles({
@@ -40676,9 +40737,9 @@ var useStyles$4 = styles$5.makeStyles({
 
 var TableButtons = function TableButtons(props) {
   var classes = useStyles$4();
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React__default['default'].createElement("div", {
     className: classes.tableButtons
-  }, /*#__PURE__*/React__default.createElement(InsertTableButton, props), /*#__PURE__*/React__default.createElement(InsertTableColumnButton, props), /*#__PURE__*/React__default.createElement(InsertTableRowButton, props), "\xA0\xA0", /*#__PURE__*/React__default.createElement(RemoveTableRowButton, props), /*#__PURE__*/React__default.createElement(RemoveTableColumnButton, props), /*#__PURE__*/React__default.createElement(RemoveTableButton, props), /*#__PURE__*/React__default.createElement("br", null));
+  }, /*#__PURE__*/React__default['default'].createElement(InsertTableButton, props), /*#__PURE__*/React__default['default'].createElement(InsertTableColumnButton, props), /*#__PURE__*/React__default['default'].createElement(InsertTableRowButton, props), "\xA0\xA0", /*#__PURE__*/React__default['default'].createElement(RemoveTableRowButton, props), /*#__PURE__*/React__default['default'].createElement(RemoveTableColumnButton, props), /*#__PURE__*/React__default['default'].createElement(RemoveTableButton, props), /*#__PURE__*/React__default['default'].createElement("br", null));
 };
 
 /**
@@ -40773,7 +40834,7 @@ var fontFamilyMarkStrategy = function fontFamilyMarkStrategy(editor, fontFamilyI
 var FontFamilyMark = function FontFamilyMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return /*#__PURE__*/React__default.createElement("span", {
+  return /*#__PURE__*/React__default['default'].createElement("span", {
     style: {
       fontFamily: FontFamilyList[data.get("fontFamilyIndex")].name
     }
@@ -40808,13 +40869,13 @@ var FontFamilyDropdown = function FontFamilyDropdown(_ref4) {
     fontFamilyMarkStrategy(editor, fontFamilyIndex);
   };
 
-  return /*#__PURE__*/React__default.createElement(FormControl, {
+  return /*#__PURE__*/React__default['default'].createElement(FormControl__default['default'], {
     className: classes.fontFamilyDropdown
-  }, /*#__PURE__*/React__default.createElement(Select, {
+  }, /*#__PURE__*/React__default['default'].createElement(Select__default['default'], {
     value: currentFont,
     onChange: handleChange
   }, FontFamilyList.map(function (font, index) {
-    return /*#__PURE__*/React__default.createElement(MenuItem, {
+    return /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
       key: "font-family-".concat(index),
       value: index,
       style: {
@@ -40911,7 +40972,7 @@ var fontSizeMarkStrategy = function fontSizeMarkStrategy(editor, fontSizeIndex) 
 var FontSizeMark = function FontSizeMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return /*#__PURE__*/React__default.createElement("span", {
+  return /*#__PURE__*/React__default['default'].createElement("span", {
     style: {
       fontSize: FontSizeList[data.get("fontSizeIndex")].size
     }
@@ -40946,13 +41007,13 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
     fontSizeMarkStrategy(editor, fontSizeIndex);
   };
 
-  return /*#__PURE__*/React__default.createElement(FormControl, {
+  return /*#__PURE__*/React__default['default'].createElement(FormControl__default['default'], {
     className: classes.fontSizeDropdown
-  }, /*#__PURE__*/React__default.createElement(Select, {
+  }, /*#__PURE__*/React__default['default'].createElement(Select__default['default'], {
     value: currentFontSize,
     onChange: handleChange
   }, FontSizeList.map(function (font, index) {
-    return /*#__PURE__*/React__default.createElement(MenuItem, {
+    return /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
       key: "font-size-".concat(index),
       value: index,
       style: {
@@ -40975,13 +41036,13 @@ var useStyles$7 = styles$5.makeStyles({
 
 var Separator = function Separator() {
   var classes = useStyles$7();
-  return /*#__PURE__*/React__default.createElement("div", {
+  return /*#__PURE__*/React__default['default'].createElement("div", {
     className: classes.separator
   });
 };
 
 var FontDropdowns = function FontDropdowns(props) {
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(FontFamilyDropdown, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(FontSizeDropdown, props));
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(FontFamilyDropdown, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FontSizeDropdown, props));
 };
 
 /**
@@ -40990,7 +41051,7 @@ var FontDropdowns = function FontDropdowns(props) {
 
 var DividerNode = function DividerNode(_ref) {
   var attributes = _ref.attributes;
-  return /*#__PURE__*/React__default.createElement(Divider, attributes);
+  return /*#__PURE__*/React__default['default'].createElement(Divider__default['default'], attributes);
 };
 /**
  * Button components that use click handlers to connect to the editor.
@@ -40999,16 +41060,16 @@ var DividerNode = function DividerNode(_ref) {
 
 var DividerButton = function DividerButton(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Divider",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       editor.setBlocks({
         type: "divider"
       });
     }
-  }, /*#__PURE__*/React__default.createElement("strong", null, "\u2014")));
+  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "\u2014")));
 };
 /**
  * Function that specifies the keyboard shortcuts to use for dividers.
@@ -42336,7 +42397,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42397,7 +42458,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -42972,7 +43033,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43005,7 +43066,7 @@ var Checkboard = exports.Checkboard = function Checkboard(_ref) {
       }
     }
   });
-  return (0, React__default.isValidElement)(children) ? _react2.default.cloneElement(children, _extends({}, children.props, { style: _extends({}, children.props.style, styles.grid) })) : _react2.default.createElement('div', { style: styles.grid });
+  return (0, React__default['default'].isValidElement)(children) ? _react2.default.cloneElement(children, _extends({}, children.props, { style: _extends({}, children.props.style, styles.grid) })) : _react2.default.createElement('div', { style: styles.grid });
 };
 
 Checkboard.defaultProps = {
@@ -43034,7 +43095,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43180,7 +43241,7 @@ var Alpha = exports.Alpha = function (_ref) {
   }]);
 
   return Alpha;
-}(React__default.PureComponent || React__default.Component);
+}(React__default['default'].PureComponent || React__default['default'].Component);
 
 exports.default = Alpha;
 });
@@ -43199,7 +43260,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43376,7 +43437,7 @@ var EditableInput = exports.EditableInput = function (_ref) {
   }]);
 
   return EditableInput;
-}(React__default.PureComponent || React__default.Component);
+}(React__default['default'].PureComponent || React__default['default'].Component);
 
 exports.default = EditableInput;
 });
@@ -43456,7 +43517,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43588,7 +43649,7 @@ var Hue = exports.Hue = function (_ref) {
   }]);
 
   return Hue;
-}(React__default.PureComponent || React__default.Component);
+}(React__default['default'].PureComponent || React__default['default'].Component);
 
 exports.default = Hue;
 });
@@ -43605,7 +43666,7 @@ exports.Raised = undefined;
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43774,7 +43835,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -43921,7 +43982,7 @@ var Saturation = exports.Saturation = function (_ref) {
   }]);
 
   return Saturation;
-}(React__default.PureComponent || React__default.Component);
+}(React__default['default'].PureComponent || React__default['default'].Component);
 
 exports.default = Saturation;
 });
@@ -43969,7 +44030,7 @@ var forEach_1 = forEach;
 var each = forEach_1;
 
 var tinycolor = createCommonjsModule(function (module) {
-// TinyColor v1.4.1
+// TinyColor v1.4.2
 // https://github.com/bgrins/TinyColor
 // Brian Grinstead, MIT License
 
@@ -45270,7 +45331,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -45343,7 +45404,7 @@ var ColorWrap = exports.ColorWrap = function ColorWrap(Picker) {
     }]);
 
     return ColorPicker;
-  }(React__default.PureComponent || React__default.Component);
+  }(React__default['default'].PureComponent || React__default['default'].Component);
 
   ColorPicker.propTypes = _extends({}, Picker.propTypes);
 
@@ -45378,7 +45439,7 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -45442,7 +45503,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -45615,7 +45676,7 @@ exports.SketchFields = undefined;
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -45792,7 +45853,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -45894,7 +45955,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 
 
 
-var _react2 = _interopRequireDefault(React__default);
+var _react2 = _interopRequireDefault(React__default['default']);
 
 
 
@@ -46175,7 +46236,7 @@ var fontColorMarkStrategy = function fontColorMarkStrategy(editor, color) {
 var FontColorMark = function FontColorMark(_ref3) {
   var children = _ref3.children,
       data = _ref3.mark.data;
-  return /*#__PURE__*/React__default.createElement("span", {
+  return /*#__PURE__*/React__default['default'].createElement("span", {
     style: {
       color: data.get("color")
     }
@@ -46189,14 +46250,14 @@ var FontColorMark = function FontColorMark(_ref3) {
 var FontColorButton = function FontColorButton(_ref4) {
   var showColorPicker = _ref4.showColorPicker,
       setShowColorPicker = _ref4.setShowColorPicker;
-  return /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Font Color",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowColorPicker(!showColorPicker);
     }
-  }, /*#__PURE__*/React__default.createElement(FormatColorTextIcon, null)));
+  }, /*#__PURE__*/React__default['default'].createElement(FormatColorTextIcon__default['default'], null)));
 };
 /**
  * The font color picker widget-style component
@@ -46212,7 +46273,7 @@ var FontColorPicker = function FontColorPicker(_ref5) {
     color = getMark$2(value).data.get("color");
   }
 
-  return /*#__PURE__*/React__default.createElement(SketchPicker, {
+  return /*#__PURE__*/React__default['default'].createElement(SketchPicker, {
     disableAlpha: true,
     color: color,
     onChangeComplete: function onChangeComplete(color, e) {
@@ -46242,7 +46303,7 @@ var LineSpacingNode = function LineSpacingNode(_ref) {
   var children = _ref.children,
       attributes = _ref.attributes,
       data = _ref.node.data;
-  return /*#__PURE__*/React__default.createElement("div", _extends({
+  return /*#__PURE__*/React__default['default'].createElement("div", _extends({
     style: {
       lineHeight: "".concat(data.get("size"))
     }
@@ -46256,7 +46317,7 @@ var LineSpacingNode = function LineSpacingNode(_ref) {
 var LineSpacingButton = function LineSpacingButton(_ref2) {
   var editor = _ref2.editor;
 
-  var _React$useState = React__default.useState(null),
+  var _React$useState = React__default['default'].useState(null),
       _React$useState2 = _slicedToArray(_React$useState, 2),
       anchorEl = _React$useState2[0],
       setAnchorEl = _React$useState2[1];
@@ -46270,61 +46331,61 @@ var LineSpacingButton = function LineSpacingButton(_ref2) {
     lineSpacingNodeStrategy(editor, size);
   };
 
-  var renderMenu = /*#__PURE__*/React__default.createElement(Menu, {
+  var renderMenu = /*#__PURE__*/React__default['default'].createElement(Menu__default['default'], {
     anchorEl: anchorEl,
     open: Boolean(anchorEl),
     onClose: function onClose() {
       return setAnchorEl(null);
     }
-  }, /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.0");
     }
-  }, "1.0"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.0"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.1");
     }
-  }, "1.1"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.1"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.2");
     }
-  }, "1.2"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.2"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.3");
     }
-  }, "1.3"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.3"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.4");
     }
-  }, "1.4"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.4"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.5");
     }
-  }, "1.5"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.5"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("1.6");
     }
-  }, "1.6 (default)"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "1.6 (default)"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("2.0");
     }
-  }, "2.0"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "2.0"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("2.5");
     }
-  }, "2.5"), /*#__PURE__*/React__default.createElement(MenuItem, {
+  }, "2.5"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     onClick: function onClick() {
       return handleItemClick("3.0");
     }
   }, "3.0"));
-  return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(Tooltip, {
+  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Line Spacing",
     placement: "bottom"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: handleMenuOpen,
     "aria-owns": anchorEl ? "line-spacing-menu" : undefined,
     "aria-haspopup": "true"
-  }, /*#__PURE__*/React__default.createElement(LineSpacingIcon, null))), renderMenu);
+  }, /*#__PURE__*/React__default['default'].createElement(LineSpacingIcon__default['default'], null))), renderMenu);
 };
 
 var useStyles$8 = styles$5.makeStyles({
@@ -46373,53 +46434,53 @@ var EditorToolbar = function EditorToolbar(props) {
 
   var classes = useStyles$8();
   var onSave = props.onSave;
-  return /*#__PURE__*/React__default.createElement(AppBar, {
+  return /*#__PURE__*/React__default['default'].createElement(AppBar__default['default'], {
     className: classes.toolbar,
     position: "static",
     color: "default"
-  }, /*#__PURE__*/React__default.createElement(Toolbar, null, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Toolbar__default['default'], null, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     container: true
-  }, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/React__default.createElement(MarkButtons, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(AlignmentButtons, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(DividerButton, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(ListButtons, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(HeadingButtons, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(LineSpacingButton, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(FeatureButtons, _extends({
+  }, /*#__PURE__*/React__default['default'].createElement(MarkButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(AlignmentButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(DividerButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(ListButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(HeadingButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(LineSpacingButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FeatureButtons, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
-  }, props)), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(FontColorButton, _extends({
+  }, props)), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FontColorButton, _extends({
     showColorPicker: showColorPicker,
     setShowColorPicker: setShowColorPicker
-  }, props)), "\xA0\xA0", /*#__PURE__*/React__default.createElement("span", {
+  }, props)), "\xA0\xA0", /*#__PURE__*/React__default['default'].createElement("span", {
     className: classes.colorPicker
-  }, showColorPicker && /*#__PURE__*/React__default.createElement(FontColorPicker, props))), /*#__PURE__*/React__default.createElement(Grid, {
+  }, showColorPicker && /*#__PURE__*/React__default['default'].createElement(FontColorPicker, props))), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     container: true
-  }, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 10
-  }, showTableOptions && /*#__PURE__*/React__default.createElement(TableButtons, props), /*#__PURE__*/React__default.createElement(FontDropdowns, props), /*#__PURE__*/React__default.createElement(Separator, null), /*#__PURE__*/React__default.createElement(Tooltip, {
+  }, showTableOptions && /*#__PURE__*/React__default['default'].createElement(TableButtons, props), /*#__PURE__*/React__default['default'].createElement(FontDropdowns, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Editor Help"
-  }, /*#__PURE__*/React__default.createElement(ToolbarButton, {
+  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
       setShowHelpModal(true);
     }
-  }, /*#__PURE__*/React__default.createElement(HelpIcon, {
+  }, /*#__PURE__*/React__default['default'].createElement(HelpIcon__default['default'], {
     className: classes.largeIcon
-  }))), showHelpModal && /*#__PURE__*/React__default.createElement(HelpModal, {
+  }))), showHelpModal && /*#__PURE__*/React__default['default'].createElement(HelpModal, {
     handleClose: function handleClose() {
       setShowHelpModal(false);
     },
     onClick: function onClick() {
       return window.scrollTo(0, 0);
     }
-  })), /*#__PURE__*/React__default.createElement(Grid, {
+  })), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 1
-  }), /*#__PURE__*/React__default.createElement(Grid, {
+  }), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 1
-  }, /*#__PURE__*/React__default.createElement(Button, {
+  }, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: classes.saveButton,
     size: "small",
     variant: "contained",
@@ -46489,23 +46550,23 @@ var PageEditorBottomButtons = function PageEditorBottomButtons(props) {
   var classes = props.classes,
       onCancel = props.onCancel,
       onSave = props.onSave;
-  return /*#__PURE__*/React__default.createElement(Grid, {
+  return /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     container: true,
     justify: "flex-end"
-  }, /*#__PURE__*/React__default.createElement(Grid, {
+  }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 2,
     className: classes.buttonGrid
-  }, /*#__PURE__*/React__default.createElement(Button, {
+  }, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: classes.cancelButton,
     size: "small",
     variant: "contained",
     onClick: onCancel
-  }, "Cancel")), /*#__PURE__*/React__default.createElement(Grid, {
+  }, "Cancel")), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 2,
     className: classes.buttonGrid
-  }, /*#__PURE__*/React__default.createElement(Button, {
+  }, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: classes.saveButton,
     size: "small",
     variant: "contained",
@@ -46525,31 +46586,31 @@ var renderMark = function renderMark(props, editor, next) {
 
   switch (mark.type) {
     case "bold":
-      return /*#__PURE__*/React__default.createElement(BoldMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(BoldMark, props);
 
     case "font-color":
-      return /*#__PURE__*/React__default.createElement(FontColorMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(FontColorMark, props);
 
     case "font-family":
-      return /*#__PURE__*/React__default.createElement(FontFamilyMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(FontFamilyMark, props);
 
     case "font-size":
-      return /*#__PURE__*/React__default.createElement(FontSizeMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(FontSizeMark, props);
 
     case "italic":
-      return /*#__PURE__*/React__default.createElement(ItalicMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(ItalicMark, props);
 
     case "strikethrough":
-      return /*#__PURE__*/React__default.createElement(StrikethroughMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(StrikethroughMark, props);
 
     case "subscript":
-      return /*#__PURE__*/React__default.createElement(SubscriptMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(SubscriptMark, props);
 
     case "superscript":
-      return /*#__PURE__*/React__default.createElement(SuperscriptMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(SuperscriptMark, props);
 
     case "underline":
-      return /*#__PURE__*/React__default.createElement(UnderlineMark, props);
+      return /*#__PURE__*/React__default['default'].createElement(UnderlineMark, props);
 
     default:
       return next();
@@ -46561,55 +46622,55 @@ var renderNode = function renderNode(props, editor, next) {
 
   switch (node.type) {
     case "alignment":
-      return /*#__PURE__*/React__default.createElement(AlignmentNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(AlignmentNode, props);
 
     case "divider":
-      return /*#__PURE__*/React__default.createElement(DividerNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(DividerNode, props);
 
     case "h1":
-      return /*#__PURE__*/React__default.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
         variant: "h3"
       }, props));
 
     case "h2":
-      return /*#__PURE__*/React__default.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
         variant: "h4"
       }, props));
 
     case "h3":
-      return /*#__PURE__*/React__default.createElement(HeaderNode, _extends({
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
         variant: "h5"
       }, props));
 
     case "image":
-      return /*#__PURE__*/React__default.createElement(ImageNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(ImageNode, props);
 
     case "line-spacing":
-      return /*#__PURE__*/React__default.createElement(LineSpacingNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(LineSpacingNode, props);
 
     case "link":
-      return /*#__PURE__*/React__default.createElement(LinkNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(LinkNode, props);
 
     case "list-item":
-      return /*#__PURE__*/React__default.createElement(ListItemNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(ListItemNode, props);
 
     case "unordered-list":
-      return /*#__PURE__*/React__default.createElement(UnorderedListNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(UnorderedListNode, props);
 
     case "ordered-list":
-      return /*#__PURE__*/React__default.createElement(OrderedListNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(OrderedListNode, props);
 
     case "table":
-      return /*#__PURE__*/React__default.createElement(TableNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(TableNode, props);
 
     case "table-row":
-      return /*#__PURE__*/React__default.createElement(TableRowNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(TableRowNode, props);
 
     case "table-cell":
-      return /*#__PURE__*/React__default.createElement(TableCellNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(TableCellNode, props);
 
     case "video":
-      return /*#__PURE__*/React__default.createElement(VideoNode, props);
+      return /*#__PURE__*/React__default['default'].createElement(VideoNode, props);
 
     default:
       return next();
@@ -46719,7 +46780,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
     } // add check for no props?
 
 
-    _this.editor = /*#__PURE__*/React__default.createRef();
+    _this.editor = /*#__PURE__*/React__default['default'].createRef();
     return _this;
   }
 
@@ -46735,7 +46796,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
           onCancel = _this$props.onCancel;
 
       if (readOnly) {
-        return /*#__PURE__*/React__default.createElement(Editor$1, {
+        return /*#__PURE__*/React__default['default'].createElement(Editor$1, {
           className: classes.editor,
           value: value,
           onChange: this.onChange,
@@ -46749,12 +46810,12 @@ var PageEditor = /*#__PURE__*/function (_Component) {
         });
       }
 
-      return /*#__PURE__*/React__default.createElement(React__default.Fragment, null, /*#__PURE__*/React__default.createElement(EditorToolbar, {
+      return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(EditorToolbar, {
         editor: this.editor.current,
         onSave: function onSave() {
           return _onSave(value);
         }
-      }), /*#__PURE__*/React__default.createElement(Editor$1, {
+      }), /*#__PURE__*/React__default['default'].createElement(Editor$1, {
         className: classes.editor,
         value: value,
         onChange: this.onChange,
@@ -46765,7 +46826,7 @@ var PageEditor = /*#__PURE__*/function (_Component) {
         plugins: plugins,
         schema: schema,
         ref: this.editor
-      }), /*#__PURE__*/React__default.createElement(PageEditorBottomButtons$1, {
+      }), /*#__PURE__*/React__default['default'].createElement(PageEditorBottomButtons$1, {
         onSave: function onSave() {
           return _onSave(value);
         },
