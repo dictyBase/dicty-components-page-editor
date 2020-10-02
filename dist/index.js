@@ -38388,7 +38388,80 @@ function _defineProperty$4(obj, key, value) {
   return obj;
 }
 
-var defineProperty$3 = _defineProperty$4;
+function _extends$6() {
+  _extends$6 = Object.assign || function (target) {
+    for (var i = 1; i < arguments.length; i++) {
+      var source = arguments[i];
+
+      for (var key in source) {
+        if (Object.prototype.hasOwnProperty.call(source, key)) {
+          target[key] = source[key];
+        }
+      }
+    }
+
+    return target;
+  };
+
+  return _extends$6.apply(this, arguments);
+}
+
+function _objectSpread$1(target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i] != null ? arguments[i] : {};
+    var ownKeys = Object.keys(source);
+
+    if (typeof Object.getOwnPropertySymbols === 'function') {
+      ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) {
+        return Object.getOwnPropertyDescriptor(source, sym).enumerable;
+      }));
+    }
+
+    ownKeys.forEach(function (key) {
+      _defineProperty$4(target, key, source[key]);
+    });
+  }
+
+  return target;
+}
+
+function _slicedToArray$2(arr, i) {
+  return _arrayWithHoles$2(arr) || _iterableToArrayLimit$2(arr, i) || _nonIterableRest$2();
+}
+
+function _arrayWithHoles$2(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+function _iterableToArrayLimit$2(arr, i) {
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+  var _e = undefined;
+
+  try {
+    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+function _nonIterableRest$2() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance");
+}
 
 function _defineProperty$1$1(obj, key, value) {
   if (key in obj) {
@@ -38405,7 +38478,7 @@ function _defineProperty$1$1(obj, key, value) {
   return obj;
 }
 
-function _objectSpread$1(target) {
+function _objectSpread$1$1(target) {
   for (var i = 1; i < arguments.length; i++) {
     var source = arguments[i] != null ? arguments[i] : {};
     var ownKeys = Object.keys(source);
@@ -38689,7 +38762,7 @@ var lib_6$1 = lib$1.toKeyCode;
 var lib_7$1 = lib$1.toKeyName;
 
 var Keymap = function Keymap(shortcuts, options) {
-  var config = _objectSpread$1({
+  var config = _objectSpread$1$1({
     if: function _if() {
       return true;
     }
@@ -38760,7 +38833,7 @@ var unwrapListByKey = (function (_ref, editor, key) {
 
       if (itemChild.type == blocks.list_item_child) {
         editor.setNodeByKey(itemChild.key, {
-          type: blocks["default"]
+          type: blocks.default
         });
       }
     });
@@ -38893,76 +38966,6 @@ var createCommands = (function (options) {
   };
 });
 
-function _arrayWithHoles$2(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-var arrayWithHoles = _arrayWithHoles$2;
-
-function _iterableToArrayLimit$2(arr, i) {
-  if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-  var _e = undefined;
-
-  try {
-    for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-var iterableToArrayLimit = _iterableToArrayLimit$2;
-
-function _arrayLikeToArray$1(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-var arrayLikeToArray = _arrayLikeToArray$1;
-
-function _unsupportedIterableToArray$1(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(n);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-var unsupportedIterableToArray = _unsupportedIterableToArray$1;
-
-function _nonIterableRest$2() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-var nonIterableRest = _nonIterableRest$2;
-
-function _slicedToArray$2(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-var slicedToArray$3 = _slicedToArray$2;
-
 var sameType = function sameType(node, other) {
   return node.type == other.type;
 };
@@ -38994,7 +38997,7 @@ var createNormalizeNode = (function (_ref) {
     if (mergable.isEmpty()) return next();
     return function (editor) {
       mergable.reverse().forEach(function (_ref2) {
-        var _ref3 = slicedToArray$3(_ref2, 2),
+        var _ref3 = _slicedToArray$2(_ref2, 2),
             list = _ref3[0],
             adjacent = _ref3[1];
 
@@ -39012,32 +39015,6 @@ var createNormalizeNode = (function (_ref) {
   };
 });
 
-function createCommonjsModule$1$1(fn, module) {
-	return module = { exports: {} }, fn(module, module.exports), module.exports;
-}
-
-var _extends_1 = createCommonjsModule$1$1(function (module) {
-function _extends() {
-  module.exports = _extends = Object.assign || function (target) {
-    for (var i = 1; i < arguments.length; i++) {
-      var source = arguments[i];
-
-      for (var key in source) {
-        if (Object.prototype.hasOwnProperty.call(source, key)) {
-          target[key] = source[key];
-        }
-      }
-    }
-
-    return target;
-  };
-
-  return _extends.apply(this, arguments);
-}
-
-module.exports = _extends;
-});
-
 var createRenderBlock = (function (_ref) {
   var blocks = _ref.blocks,
       classNames = _ref.classNames;
@@ -39046,35 +39023,27 @@ var createRenderBlock = (function (_ref) {
 
     switch (node.type) {
       case blocks.unordered_list:
-        return /*#__PURE__*/React__default['default'].createElement("ul", _extends_1({
+        return React__default['default'].createElement("ul", _extends$6({
           className: classNames.unordered_list
-        }, props.attributes, {
-          style: {
-            listStylePosition: "inside"
-          }
-        }), props.children);
+        }, props.attributes), props.children);
 
       case blocks.ordered_list:
         {
-          return /*#__PURE__*/React__default['default'].createElement("ol", _extends_1({
+          return React__default['default'].createElement("ol", _extends$6({
             className: classNames.ordered_list
-          }, props.attributes, {
-            style: {
-              listStylePosition: "inside"
-            }
-          }), props.children);
+          }, props.attributes), props.children);
         }
 
       case blocks.list_item:
         {
-          return /*#__PURE__*/React__default['default'].createElement("li", _extends_1({
+          return React__default['default'].createElement("li", _extends$6({
             className: classNames.list_item
           }, props.attributes), props.children);
         }
 
       case blocks.list_item_child:
         {
-          return /*#__PURE__*/React__default['default'].createElement("span", _extends_1({
+          return React__default['default'].createElement("div", _extends$6({
             className: classNames.list_item_child
           }, props.attributes), props.children);
         }
@@ -39090,19 +39059,19 @@ var createSchema = (function (_ref) {
 
   var blocks = _ref.blocks;
   return {
-    blocks: (_blocks = {}, defineProperty$3(_blocks, blocks.unordered_list, {
+    blocks: (_blocks = {}, _defineProperty$4(_blocks, blocks.unordered_list, {
       nodes: [{
         match: {
           type: blocks.list_item
         }
       }]
-    }), defineProperty$3(_blocks, blocks.ordered_list, {
+    }), _defineProperty$4(_blocks, blocks.ordered_list, {
       nodes: [{
         match: {
           type: blocks.list_item
         }
       }]
-    }), defineProperty$3(_blocks, blocks.list_item, {
+    }), _defineProperty$4(_blocks, blocks.list_item, {
       parent: [{
         type: blocks.unordered_list
       }, {
@@ -39150,23 +39119,20 @@ var createSchema = (function (_ref) {
   };
 });
 
-function ownKeys$1(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread$1$1(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys$1(Object(source), true).forEach(function (key) { defineProperty$3(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys$1(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
 var index$7 = (function () {
   var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-  var config = _objectSpread$1$1({}, options);
+  var config = _objectSpread$1({}, options);
 
-  var blocks = _objectSpread$1$1({
+  var blocks = _objectSpread$1({
     unordered_list: "unordered-list",
     ordered_list: "ordered-list",
     list_item: "list-item",
     list_item_child: "list-item-child",
-    "default": "paragraph"
+    default: "paragraph"
   }, config.blocks);
 
-  var classNames = _objectSpread$1$1({
+  var classNames = _objectSpread$1({
     unordered_list: "unordered-list",
     ordered_list: "ordered-list",
     list_item: "list-item",
@@ -39216,7 +39182,7 @@ var index$7 = (function () {
         selection = _editor$value.selection,
         startBlock = _editor$value.startBlock;
     event.preventDefault();
-    if (selection.isExpanded) editor["delete"]();
+    if (selection.isExpanded) editor.delete();
 
     if (selection.start.offset === 0 && startBlock.getText() === "") {
       var _listItem = getListItem(editor, editor.value.startBlock);
@@ -39272,7 +39238,7 @@ var index$7 = (function () {
     tab: "increaseListItemDepth",
     "shift+tab": "decreaseListItemDepth"
   }, {
-    "if": function _if(editor) {
+    if: function _if(editor) {
       return !!getListItem(editor, editor.value.startBlock);
     }
   })];
