@@ -34,7 +34,8 @@
 yarn add dictyBase/dicty-components-page-editor
 ```
 
-To install a specific version, add a tag to the end:
+To install a specific version, add a tag to the end. You can see the latest release on
+the right side of this repository page.
 
 ```bash
 yarn add dictyBase/dicty-components-page-editor#1.0.0
@@ -68,6 +69,7 @@ const Demo = () => {
 - `newPage` (boolean) - identifier for creating a new page _(optional)_
 - `onSave` (function) - called when user clicks the save button
 - `onCancel` (function) - called when user clicks the cancel button
+- `inline` (boolean) - used to display a smaller toolbar for inline editing _(optional)_
 
 ## Development
 

@@ -4,6 +4,7 @@ import { Editor, getEventTransfer } from "slate-react"
 import { Value } from "slate"
 import { withStyles } from "@material-ui/core/styles"
 import EditorToolbar from "../toolbar/EditorToolbar"
+import InlineToolbar from "../toolbar/InlineToolbar"
 import PageEditorBottomButtons from "./PageEditorBottomButtons"
 import renderMark from "../renderers/renderMark"
 import renderNode from "../renderers/renderNode"
@@ -52,6 +53,8 @@ type Props = {
   onSave: Function,
   /** Function called when user clicks cancel button */
   onCancel: Function,
+  /** Identifier to display a smaller inline toolbar */
+  inline: boolean,
 }
 
 type State = {
@@ -105,7 +108,7 @@ export class PageEditor extends Component<Props, State> {
 
   render() {
     const { readOnly, value } = this.state
-    const { classes, onSave, onCancel } = this.props
+    const { classes, onSave, onCancel, inline } = this.props
 
     if (readOnly) {
       return (
@@ -126,10 +129,17 @@ export class PageEditor extends Component<Props, State> {
 
     return (
       <>
-        <EditorToolbar
-          editor={this.editor.current}
-          onSave={() => onSave(value)}
-        />
+        {inline ? (
+          <InlineToolbar
+            editor={this.editor.current}
+            onSave={() => onSave(value)}
+          />
+        ) : (
+          <EditorToolbar
+            editor={this.editor.current}
+            onSave={() => onSave(value)}
+          />
+        )}
         <Editor
           className={classes.editor}
           value={value}

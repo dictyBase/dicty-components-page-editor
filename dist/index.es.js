@@ -46409,6 +46409,51 @@ var EditorToolbar = function EditorToolbar(props) {
   }, "Save")))))));
 };
 
+var useStyles$a = makeStyles({
+  toolbar: {
+    position: "sticky",
+    top: 0,
+    backgroundColor: "#ccd9ff",
+    cursor: "default"
+  },
+  colorPicker: {
+    position: "absolute",
+    zIndex: "100",
+    borderRadius: "5px"
+  }
+});
+/**
+ * The toolbar for the page editor. It uses Material-UI's AppBar component as the foundation, then displays individual buttons inside of it.
+ */
+
+var InlineToolbar = function InlineToolbar(props) {
+  var _useState = useState(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      showColorPicker = _useState2[0],
+      setShowColorPicker = _useState2[1];
+
+  var classes = useStyles$a();
+  return /*#__PURE__*/React.createElement(AppBar, {
+    className: classes.toolbar,
+    position: "static",
+    color: "default"
+  }, /*#__PURE__*/React.createElement(Toolbar, {
+    disableGutters: true,
+    variant: "dense"
+  }, /*#__PURE__*/React.createElement(Grid, {
+    container: true
+  }, /*#__PURE__*/React.createElement(Grid, {
+    item: true,
+    xs: 12,
+    className: classes.buttonGrid
+  }, /*#__PURE__*/React.createElement(BoldButton, props), /*#__PURE__*/React.createElement(ItalicButton, props), /*#__PURE__*/React.createElement(UnderlineButton, props), /*#__PURE__*/React.createElement(SubscriptButton, props), /*#__PURE__*/React.createElement(SuperscriptButton, props), /*#__PURE__*/React.createElement(LinkButton, props), /*#__PURE__*/React.createElement(FontColorButton, _extends({
+    showColorPicker: showColorPicker,
+    setShowColorPicker: setShowColorPicker
+  }, props)), "\xA0\xA0", /*#__PURE__*/React.createElement("span", {
+    className: classes.colorPicker
+  }, showColorPicker && /*#__PURE__*/React.createElement(FontColorPicker, props))))));
+};
+
 var styles$4 = function styles(theme) {
   return {
     editor: {
@@ -46734,7 +46779,8 @@ var PageEditor = /*#__PURE__*/function (_Component) {
       var _this$props = this.props,
           classes = _this$props.classes,
           _onSave = _this$props.onSave,
-          onCancel = _this$props.onCancel;
+          onCancel = _this$props.onCancel,
+          inline = _this$props.inline;
 
       if (readOnly) {
         return /*#__PURE__*/React.createElement(Editor$1, {
@@ -46751,7 +46797,12 @@ var PageEditor = /*#__PURE__*/function (_Component) {
         });
       }
 
-      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(EditorToolbar, {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, inline ? /*#__PURE__*/React.createElement(InlineToolbar, {
+        editor: this.editor.current,
+        onSave: function onSave() {
+          return _onSave(value);
+        }
+      }) : /*#__PURE__*/React.createElement(EditorToolbar, {
         editor: this.editor.current,
         onSave: function onSave() {
           return _onSave(value);
