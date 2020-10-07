@@ -46451,14 +46451,19 @@ var styles$4 = function styles(theme) {
     },
     buttonGrid: {
       marginRight: "8px",
-      marginTop: "8px"
+      marginTop: "8px",
+      display: "flex",
+      justifyContent: "right"
     },
     saveButton: {
+      minWidth: "50px",
       width: "100%",
       backgroundColor: "#15317e"
     },
     cancelButton: {
-      width: "100%"
+      minWidth: "50px",
+      width: "100%",
+      marginRight: "6px"
     }
   };
 };
@@ -46475,18 +46480,15 @@ var PageEditorBottomButtons = function PageEditorBottomButtons(props) {
     justify: "flex-end"
   }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
-    xs: 2,
+    xs: 4,
+    md: 2,
     className: classes.buttonGrid
   }, /*#__PURE__*/React.createElement(Button, {
     className: classes.cancelButton,
     size: "small",
     variant: "contained",
     onClick: onCancel
-  }, "Cancel")), /*#__PURE__*/React.createElement(Grid, {
-    item: true,
-    xs: 2,
-    className: classes.buttonGrid
-  }, /*#__PURE__*/React.createElement(Button, {
+  }, "Cancel"), /*#__PURE__*/React.createElement(Button, {
     className: classes.saveButton,
     size: "small",
     variant: "contained",
