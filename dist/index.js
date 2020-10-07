@@ -39,13 +39,14 @@ var FormatListNumberedIcon = require('@material-ui/icons/FormatListNumbered');
 var FormatIndentDecreaseIcon = require('@material-ui/icons/FormatIndentDecrease');
 var FormatIndentIncreaseIcon = require('@material-ui/icons/FormatIndentIncrease');
 var Typography = require('@material-ui/core/Typography');
+require('@material-ui/core/InputLabel');
+var MenuItem = require('@material-ui/core/MenuItem');
+var FormControl = require('@material-ui/core/FormControl');
+var Select = require('@material-ui/core/Select');
 var TableIcon = require('@material-ui/icons/BorderAll');
 var AddIcon = require('@material-ui/icons/Add');
 var RemoveIcon = require('@material-ui/icons/Remove');
 var DeleteIcon = require('@material-ui/icons/Delete');
-var MenuItem = require('@material-ui/core/MenuItem');
-var FormControl = require('@material-ui/core/FormControl');
-var Select = require('@material-ui/core/Select');
 require('typeface-roboto');
 require('typeface-roboto-condensed');
 require('typeface-roboto-mono');
@@ -95,13 +96,13 @@ var FormatListNumberedIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatL
 var FormatIndentDecreaseIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatIndentDecreaseIcon);
 var FormatIndentIncreaseIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatIndentIncreaseIcon);
 var Typography__default = /*#__PURE__*/_interopDefaultLegacy(Typography);
+var MenuItem__default = /*#__PURE__*/_interopDefaultLegacy(MenuItem);
+var FormControl__default = /*#__PURE__*/_interopDefaultLegacy(FormControl);
+var Select__default = /*#__PURE__*/_interopDefaultLegacy(Select);
 var TableIcon__default = /*#__PURE__*/_interopDefaultLegacy(TableIcon);
 var AddIcon__default = /*#__PURE__*/_interopDefaultLegacy(AddIcon);
 var RemoveIcon__default = /*#__PURE__*/_interopDefaultLegacy(RemoveIcon);
 var DeleteIcon__default = /*#__PURE__*/_interopDefaultLegacy(DeleteIcon);
-var MenuItem__default = /*#__PURE__*/_interopDefaultLegacy(MenuItem);
-var FormControl__default = /*#__PURE__*/_interopDefaultLegacy(FormControl);
-var Select__default = /*#__PURE__*/_interopDefaultLegacy(Select);
 var Divider__default = /*#__PURE__*/_interopDefaultLegacy(Divider);
 var FormatColorTextIcon__default = /*#__PURE__*/_interopDefaultLegacy(FormatColorTextIcon);
 var Menu__default = /*#__PURE__*/_interopDefaultLegacy(Menu);
@@ -39394,49 +39395,48 @@ var HeaderNode = function HeaderNode(_ref) {
     variant: variant
   }, attributes), children);
 };
-/**
- * Button components that use click handlers to connect the buttons to the editor.
- */
 
+var useStyles$4 = styles$5.makeStyles(function (theme) {
+  return {
+    dropdown: {
+      margin: theme.spacing(1),
+      minWidth: 50
+    }
+  };
+});
+var HeadingList = ["H1", "H2", "H3", "H4", "H5", "H6"];
 
-var H1Button = function H1Button(_ref2) {
+var HeadingDropdown = function HeadingDropdown(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
-    title: "Heading 1",
-    placement: "bottom"
-  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h3");
-    }
-  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H1")));
-};
 
-var H2Button = function H2Button(_ref3) {
-  var editor = _ref3.editor;
-  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
-    title: "Heading 2",
-    placement: "bottom"
-  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h4");
-    }
-  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H2")));
-};
+  var _React$useState = React__default['default'].useState(""),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      currentHeading = _React$useState2[0],
+      setCurrentHeading = _React$useState2[1];
 
-var H3Button = function H3Button(_ref4) {
-  var editor = _ref4.editor;
-  return /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
-    title: "Heading 3",
-    placement: "bottom"
-  }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h5");
-    }
-  }, /*#__PURE__*/React__default['default'].createElement("strong", null, "H3")));
-};
+  var classes = useStyles$4();
 
-var HeadingButtons = function HeadingButtons(props) {
-  return /*#__PURE__*/React__default['default'].createElement(React__default['default'].Fragment, null, /*#__PURE__*/React__default['default'].createElement(H1Button, props), /*#__PURE__*/React__default['default'].createElement(H2Button, props), /*#__PURE__*/React__default['default'].createElement(H3Button, props));
+  var handleChange = function handleChange(_ref3) {
+    var value = _ref3.target.value;
+    setCurrentHeading(value);
+    headingStrategy(editor, value.toLowerCase());
+  };
+
+  return /*#__PURE__*/React__default['default'].createElement(FormControl__default['default'], {
+    className: classes.dropdown
+  }, /*#__PURE__*/React__default['default'].createElement(Select__default['default'], {
+    value: currentHeading,
+    onChange: handleChange,
+    displayEmpty: true
+  }, /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
+    value: "",
+    disabled: true
+  }, "Heading"), HeadingList.map(function (heading, index) {
+    return /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
+      key: "h".concat(index),
+      value: heading
+    }, heading);
+  })));
 };
 
 var Text$2 = index$1.Text;
@@ -40692,7 +40692,7 @@ var FeatureButtons = function FeatureButtons(props) {
   })), /*#__PURE__*/React__default['default'].createElement(ImageButton, props), /*#__PURE__*/React__default['default'].createElement(VideoButton, props));
 };
 
-var useStyles$4 = styles$5.makeStyles({
+var useStyles$5 = styles$5.makeStyles({
   tableButtons: {
     border: "1px solid #bcbcbc",
     borderRadius: "2px",
@@ -40703,7 +40703,7 @@ var useStyles$4 = styles$5.makeStyles({
 });
 
 var TableButtons = function TableButtons(props) {
-  var classes = useStyles$4();
+  var classes = useStyles$5();
   return /*#__PURE__*/React__default['default'].createElement("div", {
     className: classes.tableButtons
   }, /*#__PURE__*/React__default['default'].createElement(InsertTableButton, props), /*#__PURE__*/React__default['default'].createElement(InsertTableColumnButton, props), /*#__PURE__*/React__default['default'].createElement(InsertTableRowButton, props), "\xA0\xA0", /*#__PURE__*/React__default['default'].createElement(RemoveTableRowButton, props), /*#__PURE__*/React__default['default'].createElement(RemoveTableColumnButton, props), /*#__PURE__*/React__default['default'].createElement(RemoveTableButton, props), /*#__PURE__*/React__default['default'].createElement("br", null));
@@ -40808,7 +40808,7 @@ var FontFamilyMark = function FontFamilyMark(_ref3) {
   }, children);
 };
 
-var useStyles$5 = styles$5.makeStyles(function (theme) {
+var useStyles$6 = styles$5.makeStyles(function (theme) {
   return {
     fontFamilyDropdown: {
       margin: theme.spacing(1),
@@ -40828,7 +40828,7 @@ var FontFamilyDropdown = function FontFamilyDropdown(_ref4) {
       currentFont = _useState2[0],
       setCurrentFont = _useState2[1];
 
-  var classes = useStyles$5();
+  var classes = useStyles$6();
 
   var handleChange = function handleChange(_ref5) {
     var fontFamilyIndex = _ref5.target.value;
@@ -40946,7 +40946,7 @@ var FontSizeMark = function FontSizeMark(_ref3) {
   }, children);
 };
 
-var useStyles$6 = styles$5.makeStyles(function (theme) {
+var useStyles$7 = styles$5.makeStyles(function (theme) {
   return {
     fontSizeDropdown: {
       margin: theme.spacing(1),
@@ -40966,7 +40966,7 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
       currentFontSize = _useState2[0],
       setCurrentFontSize = _useState2[1];
 
-  var classes = useStyles$6();
+  var classes = useStyles$7();
 
   var handleChange = function handleChange(_ref5) {
     var fontSizeIndex = _ref5.target.value;
@@ -40990,7 +40990,7 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
   })));
 };
 
-var useStyles$7 = styles$5.makeStyles({
+var useStyles$8 = styles$5.makeStyles({
   separator: {
     borderLeftColor: "#c1c1c1",
     borderLeftStyle: "solid",
@@ -41002,7 +41002,7 @@ var useStyles$7 = styles$5.makeStyles({
 });
 
 var Separator = function Separator() {
-  var classes = useStyles$7();
+  var classes = useStyles$8();
   return /*#__PURE__*/React__default['default'].createElement("div", {
     className: classes.separator
   });
@@ -46355,7 +46355,7 @@ var LineSpacingButton = function LineSpacingButton(_ref2) {
   }, /*#__PURE__*/React__default['default'].createElement(LineSpacingIcon__default['default'], null))), renderMenu);
 };
 
-var useStyles$8 = styles$5.makeStyles({
+var useStyles$9 = styles$5.makeStyles({
   toolbar: {
     position: "sticky",
     top: 0,
@@ -46399,7 +46399,7 @@ var EditorToolbar = function EditorToolbar(props) {
       showHelpModal = _useState6[0],
       setShowHelpModal = _useState6[1];
 
-  var classes = useStyles$8();
+  var classes = useStyles$9();
   var onSave = props.onSave;
   return /*#__PURE__*/React__default['default'].createElement(AppBar__default['default'], {
     className: classes.toolbar,
@@ -46410,7 +46410,7 @@ var EditorToolbar = function EditorToolbar(props) {
   }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 12
-  }, /*#__PURE__*/React__default['default'].createElement(MarkButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(AlignmentButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(DividerButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(ListButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(HeadingButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(LineSpacingButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FeatureButtons, _extends({
+  }, /*#__PURE__*/React__default['default'].createElement(MarkButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(AlignmentButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(DividerButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(ListButtons, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(LineSpacingButton, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FeatureButtons, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
   }, props)), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FontColorButton, _extends({
@@ -46426,7 +46426,7 @@ var EditorToolbar = function EditorToolbar(props) {
   }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
     xs: 10
-  }, showTableOptions && /*#__PURE__*/React__default['default'].createElement(TableButtons, props), /*#__PURE__*/React__default['default'].createElement(FontDropdowns, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
+  }, showTableOptions && /*#__PURE__*/React__default['default'].createElement(TableButtons, props), /*#__PURE__*/React__default['default'].createElement(HeadingDropdown, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FontDropdowns, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Editor Help"
   }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
     onClick: function onClick() {
@@ -46596,17 +46596,32 @@ var renderNode = function renderNode(props, editor, next) {
 
     case "h1":
       return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
-        variant: "h3"
+        variant: "h1"
       }, props));
 
     case "h2":
       return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
-        variant: "h4"
+        variant: "h2"
       }, props));
 
     case "h3":
       return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
+        variant: "h3"
+      }, props));
+
+    case "h4":
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
+        variant: "h4"
+      }, props));
+
+    case "h5":
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
         variant: "h5"
+      }, props));
+
+    case "h6":
+      return /*#__PURE__*/React__default['default'].createElement(HeaderNode, _extends({
+        variant: "h6"
       }, props));
 
     case "image":

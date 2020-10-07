@@ -1,8 +1,11 @@
 // @flow
 import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
-import Tooltip from "@material-ui/core/Tooltip"
-import ToolbarButton from "../toolbar/ToolbarButton"
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
 import { ButtonProps, NodeProps } from "../flow/types"
 
 /**
@@ -26,43 +29,41 @@ const HeaderNode = ({ attributes, children, variant }: NodeProps) => (
   </Typography>
 )
 
-/**
- * Button components that use click handlers to connect the buttons to the editor.
- */
-const H1Button = ({ editor }: ButtonProps) => (
-  <Tooltip title="Heading 1" placement="bottom">
-    <ToolbarButton
-      onClick={() => {
-        headingStrategy(editor, "h3")
-      }}>
-      <strong>H1</strong>
-    </ToolbarButton>
-  </Tooltip>
-)
+const useStyles = makeStyles((theme) => ({
+  dropdown: {
+    margin: theme.spacing(1),
+    minWidth: 50,
+  },
+}))
 
-const H2Button = ({ editor }: ButtonProps) => (
-  <Tooltip title="Heading 2" placement="bottom">
-    <ToolbarButton
-      onClick={() => {
-        headingStrategy(editor, "h4")
-      }}>
-      <strong>H2</strong>
-    </ToolbarButton>
-  </Tooltip>
-)
+const HeadingList = ["H1", "H2", "H3", "H4", "H5", "H6"]
 
-const H3Button = ({ editor }: ButtonProps) => (
-  <Tooltip title="Heading 3" placement="bottom">
-    <ToolbarButton
-      onClick={() => {
-        headingStrategy(editor, "h5")
-      }}>
-      <strong>H3</strong>
-    </ToolbarButton>
-  </Tooltip>
-)
+const HeadingDropdown = ({ editor }: ButtonProps) => {
+  const [currentHeading, setCurrentHeading] = React.useState("")
+  const classes = useStyles()
+
+  const handleChange = ({ target: { value } }) => {
+    setCurrentHeading(value)
+    headingStrategy(editor, value.toLowerCase())
+  }
+
+  return (
+    <FormControl className={classes.dropdown}>
+      <Select value={currentHeading} onChange={handleChange} displayEmpty>
+        <MenuItem value="" disabled>
+          Heading
+        </MenuItem>
+        {HeadingList.map((heading, index) => (
+          <MenuItem key={`h${index}`} value={heading}>
+            {heading}
+          </MenuItem>
+        ))}
+      </Select>
+    </FormControl>
+  )
+}
 
 /**
  * Export everything needed for the editor.
  */
-export { HeaderNode, H1Button, H2Button, H3Button }
+export { HeaderNode, HeadingDropdown }

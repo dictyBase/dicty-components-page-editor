@@ -14,7 +14,7 @@ import HelpModal from "../toolbar/HelpModal"
 import MarkButtons from "./buttons/MarkButtons"
 import AlignmentButtons from "./buttons/AlignmentButtons"
 import ListButtons from "./buttons/ListButtons"
-import HeadingButtons from "./buttons/HeadingButtons"
+import { HeadingDropdown } from "../plugins/heading"
 import FeatureButtons from "./buttons/FeatureButtons"
 import TableButtons from "./buttons/TableButtons"
 import FontDropdowns from "./buttons/FontDropdowns"
@@ -77,8 +77,6 @@ export const EditorToolbar = (props: Props) => {
             <Separator />
             <ListButtons {...props} />
             <Separator />
-            <HeadingButtons {...props} />
-            <Separator />
             <LineSpacingButton {...props} />
             <Separator />
             <FeatureButtons
@@ -101,6 +99,8 @@ export const EditorToolbar = (props: Props) => {
             <Grid container>
               <Grid item xs={10}>
                 {showTableOptions && <TableButtons {...props} />}
+                <HeadingDropdown {...props} />
+                <Separator />
                 <FontDropdowns {...props} />
                 <Separator />
                 <Tooltip title="Editor Help">
