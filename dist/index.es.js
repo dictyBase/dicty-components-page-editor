@@ -35,13 +35,14 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatIndentDecreaseIcon from '@material-ui/icons/FormatIndentDecrease';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import Typography from '@material-ui/core/Typography';
+import '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 import TableIcon from '@material-ui/icons/BorderAll';
 import AddIcon from '@material-ui/icons/Add';
 import RemoveIcon from '@material-ui/icons/Remove';
 import DeleteIcon from '@material-ui/icons/Delete';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import 'typeface-roboto';
 import 'typeface-roboto-condensed';
 import 'typeface-roboto-mono';
@@ -39341,49 +39342,48 @@ var HeaderNode = function HeaderNode(_ref) {
     variant: variant
   }, attributes), children);
 };
-/**
- * Button components that use click handlers to connect the buttons to the editor.
- */
 
+var useStyles$4 = makeStyles(function (theme) {
+  return {
+    dropdown: {
+      margin: theme.spacing(1),
+      minWidth: 50
+    }
+  };
+});
+var HeadingList = ["H1", "H2", "H3", "H4", "H5", "H6"];
 
-var H1Button = function H1Button(_ref2) {
+var HeadingDropdown = function HeadingDropdown(_ref2) {
   var editor = _ref2.editor;
-  return /*#__PURE__*/React.createElement(Tooltip, {
-    title: "Heading 1",
-    placement: "bottom"
-  }, /*#__PURE__*/React.createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h3");
-    }
-  }, /*#__PURE__*/React.createElement("strong", null, "H1")));
-};
 
-var H2Button = function H2Button(_ref3) {
-  var editor = _ref3.editor;
-  return /*#__PURE__*/React.createElement(Tooltip, {
-    title: "Heading 2",
-    placement: "bottom"
-  }, /*#__PURE__*/React.createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h4");
-    }
-  }, /*#__PURE__*/React.createElement("strong", null, "H2")));
-};
+  var _React$useState = React.useState(""),
+      _React$useState2 = _slicedToArray(_React$useState, 2),
+      currentHeading = _React$useState2[0],
+      setCurrentHeading = _React$useState2[1];
 
-var H3Button = function H3Button(_ref4) {
-  var editor = _ref4.editor;
-  return /*#__PURE__*/React.createElement(Tooltip, {
-    title: "Heading 3",
-    placement: "bottom"
-  }, /*#__PURE__*/React.createElement(ToolbarButton, {
-    onClick: function onClick() {
-      headingStrategy(editor, "h5");
-    }
-  }, /*#__PURE__*/React.createElement("strong", null, "H3")));
-};
+  var classes = useStyles$4();
 
-var HeadingButtons = function HeadingButtons(props) {
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(H1Button, props), /*#__PURE__*/React.createElement(H2Button, props), /*#__PURE__*/React.createElement(H3Button, props));
+  var handleChange = function handleChange(_ref3) {
+    var value = _ref3.target.value;
+    setCurrentHeading(value);
+    headingStrategy(editor, value.toLowerCase());
+  };
+
+  return /*#__PURE__*/React.createElement(FormControl, {
+    className: classes.dropdown
+  }, /*#__PURE__*/React.createElement(Select, {
+    value: currentHeading,
+    onChange: handleChange,
+    displayEmpty: true
+  }, /*#__PURE__*/React.createElement(MenuItem, {
+    value: "",
+    disabled: true
+  }, "Heading"), HeadingList.map(function (heading, index) {
+    return /*#__PURE__*/React.createElement(MenuItem, {
+      key: "h".concat(index),
+      value: heading
+    }, heading);
+  })));
 };
 
 var Text$2 = index$1.Text;
@@ -40639,7 +40639,7 @@ var FeatureButtons = function FeatureButtons(props) {
   })), /*#__PURE__*/React.createElement(ImageButton, props), /*#__PURE__*/React.createElement(VideoButton, props));
 };
 
-var useStyles$4 = makeStyles({
+var useStyles$5 = makeStyles({
   tableButtons: {
     border: "1px solid #bcbcbc",
     borderRadius: "2px",
@@ -40650,7 +40650,7 @@ var useStyles$4 = makeStyles({
 });
 
 var TableButtons = function TableButtons(props) {
-  var classes = useStyles$4();
+  var classes = useStyles$5();
   return /*#__PURE__*/React.createElement("div", {
     className: classes.tableButtons
   }, /*#__PURE__*/React.createElement(InsertTableButton, props), /*#__PURE__*/React.createElement(InsertTableColumnButton, props), /*#__PURE__*/React.createElement(InsertTableRowButton, props), "\xA0\xA0", /*#__PURE__*/React.createElement(RemoveTableRowButton, props), /*#__PURE__*/React.createElement(RemoveTableColumnButton, props), /*#__PURE__*/React.createElement(RemoveTableButton, props), /*#__PURE__*/React.createElement("br", null));
@@ -40755,7 +40755,7 @@ var FontFamilyMark = function FontFamilyMark(_ref3) {
   }, children);
 };
 
-var useStyles$5 = makeStyles(function (theme) {
+var useStyles$6 = makeStyles(function (theme) {
   return {
     fontFamilyDropdown: {
       margin: theme.spacing(1),
@@ -40775,7 +40775,7 @@ var FontFamilyDropdown = function FontFamilyDropdown(_ref4) {
       currentFont = _useState2[0],
       setCurrentFont = _useState2[1];
 
-  var classes = useStyles$5();
+  var classes = useStyles$6();
 
   var handleChange = function handleChange(_ref5) {
     var fontFamilyIndex = _ref5.target.value;
@@ -40893,7 +40893,7 @@ var FontSizeMark = function FontSizeMark(_ref3) {
   }, children);
 };
 
-var useStyles$6 = makeStyles(function (theme) {
+var useStyles$7 = makeStyles(function (theme) {
   return {
     fontSizeDropdown: {
       margin: theme.spacing(1),
@@ -40913,7 +40913,7 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
       currentFontSize = _useState2[0],
       setCurrentFontSize = _useState2[1];
 
-  var classes = useStyles$6();
+  var classes = useStyles$7();
 
   var handleChange = function handleChange(_ref5) {
     var fontSizeIndex = _ref5.target.value;
@@ -40937,7 +40937,7 @@ var FontSizeDropdown = function FontSizeDropdown(_ref4) {
   })));
 };
 
-var useStyles$7 = makeStyles({
+var useStyles$8 = makeStyles({
   separator: {
     borderLeftColor: "#c1c1c1",
     borderLeftStyle: "solid",
@@ -40949,7 +40949,7 @@ var useStyles$7 = makeStyles({
 });
 
 var Separator = function Separator() {
-  var classes = useStyles$7();
+  var classes = useStyles$8();
   return /*#__PURE__*/React.createElement("div", {
     className: classes.separator
   });
@@ -46302,7 +46302,7 @@ var LineSpacingButton = function LineSpacingButton(_ref2) {
   }, /*#__PURE__*/React.createElement(LineSpacingIcon, null))), renderMenu);
 };
 
-var useStyles$8 = makeStyles({
+var useStyles$9 = makeStyles({
   toolbar: {
     position: "sticky",
     top: 0,
@@ -46346,7 +46346,7 @@ var EditorToolbar = function EditorToolbar(props) {
       showHelpModal = _useState6[0],
       setShowHelpModal = _useState6[1];
 
-  var classes = useStyles$8();
+  var classes = useStyles$9();
   var onSave = props.onSave;
   return /*#__PURE__*/React.createElement(AppBar, {
     className: classes.toolbar,
@@ -46357,7 +46357,7 @@ var EditorToolbar = function EditorToolbar(props) {
   }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 12
-  }, /*#__PURE__*/React.createElement(MarkButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(AlignmentButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(DividerButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(ListButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(HeadingButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(LineSpacingButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FeatureButtons, _extends({
+  }, /*#__PURE__*/React.createElement(MarkButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(AlignmentButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(DividerButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(ListButtons, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(LineSpacingButton, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FeatureButtons, _extends({
     showTableOptions: showTableOptions,
     setShowTableOptions: setShowTableOptions
   }, props)), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FontColorButton, _extends({
@@ -46373,7 +46373,7 @@ var EditorToolbar = function EditorToolbar(props) {
   }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
     xs: 10
-  }, showTableOptions && /*#__PURE__*/React.createElement(TableButtons, props), /*#__PURE__*/React.createElement(FontDropdowns, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(Tooltip, {
+  }, showTableOptions && /*#__PURE__*/React.createElement(TableButtons, props), /*#__PURE__*/React.createElement(HeadingDropdown, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FontDropdowns, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(Tooltip, {
     title: "Editor Help"
   }, /*#__PURE__*/React.createElement(ToolbarButton, {
     onClick: function onClick() {
@@ -46543,17 +46543,32 @@ var renderNode = function renderNode(props, editor, next) {
 
     case "h1":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
-        variant: "h3"
+        variant: "h1"
       }, props));
 
     case "h2":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
-        variant: "h4"
+        variant: "h2"
       }, props));
 
     case "h3":
       return /*#__PURE__*/React.createElement(HeaderNode, _extends({
+        variant: "h3"
+      }, props));
+
+    case "h4":
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
+        variant: "h4"
+      }, props));
+
+    case "h5":
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
         variant: "h5"
+      }, props));
+
+    case "h6":
+      return /*#__PURE__*/React.createElement(HeaderNode, _extends({
+        variant: "h6"
       }, props));
 
     case "image":

@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
-import NativeSelect from "@material-ui/core/NativeSelect"
+import Select from "@material-ui/core/Select"
 import { NodeProps, ButtonProps } from "../flow/types"
 import "typeface-roboto"
 import "typeface-roboto-condensed"
@@ -92,7 +92,7 @@ const FontFamilyDropdown = ({ editor }: ButtonProps) => {
 
   return (
     <FormControl className={classes.fontFamilyDropdown}>
-      <NativeSelect value={currentFont} onChange={handleChange}>
+      <Select value={currentFont} onChange={handleChange}>
         {FontFamilyList.map((font, index) => (
           <MenuItem
             key={`font-family-${index}`}
@@ -101,7 +101,7 @@ const FontFamilyDropdown = ({ editor }: ButtonProps) => {
             {font.name}
           </MenuItem>
         ))}
-      </NativeSelect>
+      </Select>
     </FormControl>
   )
 }
