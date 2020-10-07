@@ -25,7 +25,7 @@ const PageEditorBottomButtons = (props: Props) => {
 
   return (
     <Grid container justify="flex-end">
-      <Grid item xs={2} className={classes.buttonGrid}>
+      <Grid item xs={4} md={2} className={classes.buttonGrid}>
         <Button
           className={classes.cancelButton}
           size="small"
@@ -33,8 +33,6 @@ const PageEditorBottomButtons = (props: Props) => {
           onClick={onCancel}>
           Cancel
         </Button>
-      </Grid>
-      <Grid item xs={2} className={classes.buttonGrid}>
         <Button
           className={classes.saveButton}
           size="small"

@@ -45,13 +45,18 @@ const styles = (theme) => ({
   buttonGrid: {
     marginRight: "8px",
     marginTop: "8px",
+    display: "flex",
+    justifyContent: "right",
   },
   saveButton: {
+    minWidth: "50px",
     width: "100%",
     backgroundColor: "#15317e",
   },
   cancelButton: {
+    minWidth: "50px",
     width: "100%",
+    marginRight: "6px",
   },
 })
 
