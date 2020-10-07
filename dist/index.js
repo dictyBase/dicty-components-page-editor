@@ -46467,6 +46467,10 @@ var styles$4 = function styles(theme) {
     editor: {
       lineHeight: 1.6,
       color: "rgba(0, 0, 0, 0.87)",
+      "& p": {
+        margin: 0,
+        padding: 0
+      },
       "& a": {
         color: "#004080",
         textDecoration: "none"
