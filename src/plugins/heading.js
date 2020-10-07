@@ -2,7 +2,6 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
-import InputLabel from "@material-ui/core/InputLabel"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
@@ -53,6 +52,7 @@ const HeadingDropdown = ({ editor }: ButtonProps) => {
         <MenuItem value="" disabled>
           Heading
         </MenuItem>
+        <MenuItem value="body1">Normal</MenuItem>
         {HeadingList.map((heading, index) => (
           <MenuItem key={`h${index}`} value={heading}>
             {heading}
