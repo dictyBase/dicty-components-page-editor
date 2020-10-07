@@ -31,13 +31,13 @@
 ## Install
 
 ```bash
-npm install dictyBase/dicty-components-page-editor
+yarn add dictyBase/dicty-components-page-editor
 ```
 
 To install a specific version, add a tag to the end:
 
 ```bash
-npm install dictyBase/dicty-components-page-editor#1.0.0
+yarn add dictyBase/dicty-components-page-editor#1.0.0
 ```
 
 ## Usage
@@ -61,7 +61,7 @@ const Demo = () => {
 }
 ```
 
-#### Props
+### Props
 
 - `pageContent` (string) - fetched page content _(optional)_
 - `readOnly` (boolean) - determines if editor is in read-only mode
@@ -72,7 +72,7 @@ const Demo = () => {
 ## Development
 
 - Clone the `develop` branch of this repository
-- Run `npm install`
+- Run `yarn install`
 - Create a new branch (i.e. `feature/foo-plugin`)
 - Complete any necessary work.
 - If creating a new plugin, there is a [guide](./docs/bold.md) that
@@ -83,6 +83,11 @@ const Demo = () => {
 If you are ready to cut a new release, you can then merge into `master`. This
 will trigger a GitHub Action that uses `semantic-release` to create a new tag
 automatically.
+
+### Live Development
+
+To open a demo and see your changes happen live, first run `yarn start` from the
+root directory. Then run `yarn start` from the `/example` directory.
 
 ## Dependencies
 
