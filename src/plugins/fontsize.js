@@ -3,7 +3,7 @@ import React, { useState } from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
-import Select from "@material-ui/core/Select"
+import NativeSelect from "@material-ui/core/NativeSelect"
 import { NodeProps, ButtonProps } from "../flow/types"
 
 /**
@@ -87,7 +87,7 @@ const FontSizeDropdown = ({ editor }: ButtonProps) => {
 
   return (
     <FormControl className={classes.fontSizeDropdown}>
-      <Select value={currentFontSize} onChange={handleChange}>
+      <NativeSelect value={currentFontSize} onChange={handleChange}>
         {FontSizeList.map((font, index) => (
           <MenuItem
             key={`font-size-${index}`}
@@ -96,7 +96,7 @@ const FontSizeDropdown = ({ editor }: ButtonProps) => {
             {font.size}
           </MenuItem>
         ))}
-      </Select>
+      </NativeSelect>
     </FormControl>
   )
 }
