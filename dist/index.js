@@ -39,7 +39,6 @@ var FormatListNumberedIcon = require('@material-ui/icons/FormatListNumbered');
 var FormatIndentDecreaseIcon = require('@material-ui/icons/FormatIndentDecrease');
 var FormatIndentIncreaseIcon = require('@material-ui/icons/FormatIndentIncrease');
 var Typography = require('@material-ui/core/Typography');
-require('@material-ui/core/InputLabel');
 var MenuItem = require('@material-ui/core/MenuItem');
 var FormControl = require('@material-ui/core/FormControl');
 var Select = require('@material-ui/core/Select');
@@ -39431,7 +39430,9 @@ var HeadingDropdown = function HeadingDropdown(_ref2) {
   }, /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
     value: "",
     disabled: true
-  }, "Heading"), HeadingList.map(function (heading, index) {
+  }, "Heading"), /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
+    value: "body1"
+  }, "Normal"), HeadingList.map(function (heading, index) {
     return /*#__PURE__*/React__default['default'].createElement(MenuItem__default['default'], {
       key: "h".concat(index),
       value: heading
@@ -46373,9 +46374,14 @@ var useStyles$9 = styles$5.makeStyles({
     height: "35px",
     width: "40px"
   },
+  saveButtonGrid: {
+    display: "flex",
+    justifyContent: "right"
+  },
   saveButton: {
     marginTop: "5px",
-    width: "100%",
+    marginBottom: "5px",
+    width: "120px",
     backgroundColor: "#15317e"
   }
 });
@@ -46425,7 +46431,8 @@ var EditorToolbar = function EditorToolbar(props) {
     container: true
   }, /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
-    xs: 10
+    xs: 12,
+    md: 10
   }, showTableOptions && /*#__PURE__*/React__default['default'].createElement(TableButtons, props), /*#__PURE__*/React__default['default'].createElement(HeadingDropdown, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(FontDropdowns, props), /*#__PURE__*/React__default['default'].createElement(Separator, null), /*#__PURE__*/React__default['default'].createElement(Tooltip__default['default'], {
     title: "Editor Help"
   }, /*#__PURE__*/React__default['default'].createElement(ToolbarButton, {
@@ -46443,10 +46450,9 @@ var EditorToolbar = function EditorToolbar(props) {
     }
   })), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
     item: true,
-    xs: 1
-  }), /*#__PURE__*/React__default['default'].createElement(Grid__default['default'], {
-    item: true,
-    xs: 1
+    xs: 12,
+    md: 2,
+    className: classes.saveButtonGrid
   }, /*#__PURE__*/React__default['default'].createElement(Button__default['default'], {
     className: classes.saveButton,
     size: "small",

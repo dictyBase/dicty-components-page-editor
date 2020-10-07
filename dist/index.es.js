@@ -35,7 +35,6 @@ import FormatListNumberedIcon from '@material-ui/icons/FormatListNumbered';
 import FormatIndentDecreaseIcon from '@material-ui/icons/FormatIndentDecrease';
 import FormatIndentIncreaseIcon from '@material-ui/icons/FormatIndentIncrease';
 import Typography from '@material-ui/core/Typography';
-import '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
@@ -39378,7 +39377,9 @@ var HeadingDropdown = function HeadingDropdown(_ref2) {
   }, /*#__PURE__*/React.createElement(MenuItem, {
     value: "",
     disabled: true
-  }, "Heading"), HeadingList.map(function (heading, index) {
+  }, "Heading"), /*#__PURE__*/React.createElement(MenuItem, {
+    value: "body1"
+  }, "Normal"), HeadingList.map(function (heading, index) {
     return /*#__PURE__*/React.createElement(MenuItem, {
       key: "h".concat(index),
       value: heading
@@ -46320,9 +46321,14 @@ var useStyles$9 = makeStyles({
     height: "35px",
     width: "40px"
   },
+  saveButtonGrid: {
+    display: "flex",
+    justifyContent: "right"
+  },
   saveButton: {
     marginTop: "5px",
-    width: "100%",
+    marginBottom: "5px",
+    width: "120px",
     backgroundColor: "#15317e"
   }
 });
@@ -46372,7 +46378,8 @@ var EditorToolbar = function EditorToolbar(props) {
     container: true
   }, /*#__PURE__*/React.createElement(Grid, {
     item: true,
-    xs: 10
+    xs: 12,
+    md: 10
   }, showTableOptions && /*#__PURE__*/React.createElement(TableButtons, props), /*#__PURE__*/React.createElement(HeadingDropdown, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(FontDropdowns, props), /*#__PURE__*/React.createElement(Separator, null), /*#__PURE__*/React.createElement(Tooltip, {
     title: "Editor Help"
   }, /*#__PURE__*/React.createElement(ToolbarButton, {
@@ -46390,10 +46397,9 @@ var EditorToolbar = function EditorToolbar(props) {
     }
   })), /*#__PURE__*/React.createElement(Grid, {
     item: true,
-    xs: 1
-  }), /*#__PURE__*/React.createElement(Grid, {
-    item: true,
-    xs: 1
+    xs: 12,
+    md: 2,
+    className: classes.saveButtonGrid
   }, /*#__PURE__*/React.createElement(Button, {
     className: classes.saveButton,
     size: "small",

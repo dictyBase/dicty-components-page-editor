@@ -41,9 +41,14 @@ const useStyles = makeStyles({
     height: "35px",
     width: "40px",
   },
+  saveButtonGrid: {
+    display: "flex",
+    justifyContent: "right",
+  },
   saveButton: {
     marginTop: "5px",
-    width: "100%",
+    marginBottom: "5px",
+    width: "120px",
     backgroundColor: "#15317e",
   },
 })
@@ -97,7 +102,7 @@ export const EditorToolbar = (props: Props) => {
           </Grid>
           <Grid item xs={12}>
             <Grid container>
-              <Grid item xs={10}>
+              <Grid item xs={12} md={10}>
                 {showTableOptions && <TableButtons {...props} />}
                 <HeadingDropdown {...props} />
                 <Separator />
@@ -120,8 +125,7 @@ export const EditorToolbar = (props: Props) => {
                   />
                 )}
               </Grid>
-              <Grid item xs={1} />
-              <Grid item xs={1}>
+              <Grid item xs={12} md={2} className={classes.saveButtonGrid}>
                 <Button
                   className={classes.saveButton}
                   size="small"
