@@ -50,7 +50,7 @@
     "typeface-montserrat": "0.0.75",
     "typeface-roboto": "0.0.75",
     "typeface-roboto-condensed": "0.0.75",
-    "typeface-roboto-mono": "0.0.75",
+    "typeface-roboto-mono": "1.1.13",
     "typeface-roboto-slab": "1.1.4"
   },
   "peerDependencies": {
