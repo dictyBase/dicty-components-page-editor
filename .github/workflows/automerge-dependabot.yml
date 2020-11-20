@@ -2,7 +2,7 @@ name: Automerge (Dependabot)
 on: [pull_request]
 jobs:
   automerge:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     if: |
       github.actor == 'dependabot[bot]' && 
       startsWith(github.event.pull_request.title, 'chore(deps-dev):')
