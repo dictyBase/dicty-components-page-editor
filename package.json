@@ -53,7 +53,7 @@
     "slate-schema-violations": "^0.1.39"
   },
   "peerDependencies": {
-    "@material-ui/core": "^4.11.0",
+    "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
     "react": ">= 16.8.0",
     "react-dom": ">= 16.8.0"
@@ -80,7 +80,7 @@
     "@babel/preset-env": "^7.12.7",
     "@babel/preset-flow": "^7.12.1",
     "@babel/preset-react": "^7.12.7",
-    "@material-ui/core": "^4.11.0",
+    "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
     "@semantic-release/git": "^9.0.0",
     "@svgr/rollup": "^5.5.0",
