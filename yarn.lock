@@ -1286,19 +1286,19 @@
     exec-sh "^0.3.2"
     minimist "^1.2.0"
 
-"@convertkit/slate-keymap@^0.1.9":
+"@convertkit/slate-keymap@^0.1.10":
   version "0.1.10"
   resolved "https://registry.yarnpkg.com/@convertkit/slate-keymap/-/slate-keymap-0.1.10.tgz#8a6ccb6d57649c155446120d8fec6668f46591a1"
   integrity sha512-wkSRk2io5u1Jb033jrT5XhIX+TigN1v6xyxUoSoJglcxVkktO+WVqOwNqX2THKLyDwc3l6dLLmT7WXYiwvYqMQ==
   dependencies:
     is-hotkey "^0.1.4"
 
-"@convertkit/slate-lists@0.2.5":
-  version "0.2.5"
-  resolved "https://registry.yarnpkg.com/@convertkit/slate-lists/-/slate-lists-0.2.5.tgz#16d05ce9961e15408a6a536ec58095d410cdf33d"
-  integrity sha512-3tkcC+PDzhMC0qkvkzfHxPk/7WQ5XlaktZTu8unQeHxqNNfQtUI1tMPIuOESjtX0qjxjaV9mpfiWtmVYXcBgsQ==
+"@convertkit/slate-lists@0.2.11":
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/@convertkit/slate-lists/-/slate-lists-0.2.11.tgz#69ce84aa06b2d40effbbf1a35217657c5a31ca79"
+  integrity sha512-OX5mTK089VqxSu8IUPQDGoCXxMOAQxz4pNnT/aFErGZnnHc9Ym3QK4XT32OWidhqOBjxA7IYE31srz/+eyXETg==
   dependencies:
-    "@convertkit/slate-keymap" "^0.1.9"
+    "@convertkit/slate-keymap" "^0.1.10"
 
 "@csstools/convert-colors@^1.4.0":
   version "1.4.0"

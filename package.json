@@ -31,7 +31,7 @@
     "semantic-release": "semantic-release"
   },
   "dependencies": {
-    "@convertkit/slate-lists": "0.2.5",
+    "@convertkit/slate-lists": "0.2.11",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
