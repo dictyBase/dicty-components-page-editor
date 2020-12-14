@@ -1291,15 +1291,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.12.10":
-  version "7.12.10"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.12.10.tgz#7965e4a7260b26f09c56bcfcb0498af1f6d9b260"
-  integrity sha512-sf6wboJV5mGyip2hIpDSKsr80RszPinEFjsHTalMxZAZkoQ2/2yQzxlcFN52SJqsyPfLtPmenL4g2KB3KJXPDw==
-  dependencies:
-    "@babel/helper-validator-identifier" "^7.10.4"
-    lodash "^4.17.19"
-    to-fast-properties "^2.0.0"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -6824,10 +6815,10 @@ fontsource-montserrat@^3.0.9:
   resolved "https://registry.yarnpkg.com/fontsource-montserrat/-/fontsource-montserrat-3.0.9.tgz#ff614725c420839c4aefbca6f2b49c6224050991"
   integrity sha512-kSE4GwWoEKJlIp0UyuoYtBvjKv5kwOTK7EvCwdQ7ukvKvgIK1LR5+GpZC5c/juonasNtFTKav67Zd7/C7m+a5w==
 
-fontsource-roboto-condensed@^3.0.9:
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/fontsource-roboto-condensed/-/fontsource-roboto-condensed-3.0.9.tgz#7401dbf55d36be90c385aa7c847a497506b21fa7"
-  integrity sha512-dv0Hvm4AocuwKkMmXKBuHg552I07N6MC08M2jlG3Xdg8W5CQgRGIcUsewaFAdmuGdNpNHt+R3YAedABOgJbP1Q==
+fontsource-roboto-condensed@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/fontsource-roboto-condensed/-/fontsource-roboto-condensed-3.1.5.tgz#665f424d3589830f89114385dfb2b605c5f62fa4"
+  integrity sha512-U+4OSZQbfGr/DeSArMJnvrEIANLbnZ/GgQQ1yyr5CX3zP1mhyyWr/9UZNZesH8bZ+WgN6+4XOqE99kiFmK3XSQ==
 
 fontsource-roboto-mono@^3.1.6:
   version "3.1.6"
