@@ -6810,10 +6810,10 @@ fontsource-merriweather@^3.1.5:
   resolved "https://registry.yarnpkg.com/fontsource-merriweather/-/fontsource-merriweather-3.1.5.tgz#41489b21ebbf334b5de9800c62147c8701dd3d95"
   integrity sha512-fpdKa7MYR5UfbJWZLOJtAj5Pl8qyESPirBO5NptfqZCBv0uDkL5v8gAaO1CGiSvsAGtTiW6kJSmpbGbA4vkDIQ==
 
-fontsource-montserrat@^3.0.9:
-  version "3.0.9"
-  resolved "https://registry.yarnpkg.com/fontsource-montserrat/-/fontsource-montserrat-3.0.9.tgz#ff614725c420839c4aefbca6f2b49c6224050991"
-  integrity sha512-kSE4GwWoEKJlIp0UyuoYtBvjKv5kwOTK7EvCwdQ7ukvKvgIK1LR5+GpZC5c/juonasNtFTKav67Zd7/C7m+a5w==
+fontsource-montserrat@^3.1.5:
+  version "3.1.5"
+  resolved "https://registry.yarnpkg.com/fontsource-montserrat/-/fontsource-montserrat-3.1.5.tgz#766d71f9255a4abe9abb628e47e95a8912b45897"
+  integrity sha512-wLmozvb4j/yDbPEBrzHmkAM2PDHp+GV7l6T/GzrmiM8rHeLDIQuUfWJ3b05pAu7q5xRhuG2cDqr+bCagaKws0w==
 
 fontsource-roboto-condensed@^3.1.5:
   version "3.1.5"
