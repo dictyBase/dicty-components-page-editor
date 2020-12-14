@@ -6825,10 +6825,10 @@ fontsource-roboto-mono@^3.1.6:
   resolved "https://registry.yarnpkg.com/fontsource-roboto-mono/-/fontsource-roboto-mono-3.1.6.tgz#0223c20f4fbac4762a056b67eb08c8cdc08db36b"
   integrity sha512-Evl8kuBf9xWx6zA1sBQd8qjSo0KgYg4+e7ZZK69e+izjOvLOIeTpcwz9ALDLv9AMZvcOvbdMUztxHXG0ntmFEw==
 
-fontsource-roboto-slab@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/fontsource-roboto-slab/-/fontsource-roboto-slab-3.0.3.tgz#84907e38d3e43e3b532cf1c5a6d55a1228be077f"
-  integrity sha512-/oO4MNBWoL6ZMvUpoMtnDmHp2lcqirYGovxLfBzANy2ts3K39yuAh5odQV7+BjrVNyktwwE1K9pPJIl4/HtwkA==
+fontsource-roboto-slab@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/fontsource-roboto-slab/-/fontsource-roboto-slab-3.1.6.tgz#83a265755302ea0ddb8917dd0346ab95e6cdffe4"
+  integrity sha512-rAUpqo8IAnmdJOyevVB7jjgPj3N3Kl3bgv2rihF5NaX5SR4UfK6k/mXC8OlCvepo2gSziT6iS8ch/vDioxKMxQ==
 
 fontsource-roboto@^3.0.3:
   version "3.0.3"
