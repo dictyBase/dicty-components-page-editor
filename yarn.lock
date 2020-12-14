@@ -1291,15 +1291,6 @@
     lodash "^4.17.19"
     to-fast-properties "^2.0.0"
 
-"@babel/types@^7.12.10":
-  version "7.12.10"
-  resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.12.10.tgz#7965e4a7260b26f09c56bcfcb0498af1f6d9b260"
-  integrity sha512-sf6wboJV5mGyip2hIpDSKsr80RszPinEFjsHTalMxZAZkoQ2/2yQzxlcFN52SJqsyPfLtPmenL4g2KB3KJXPDw==
-  dependencies:
-    "@babel/helper-validator-identifier" "^7.10.4"
-    lodash "^4.17.19"
-    to-fast-properties "^2.0.0"
-
 "@cnakazawa/watch@^1.0.3":
   version "1.0.4"
   resolved "https://registry.yarnpkg.com/@cnakazawa/watch/-/watch-1.0.4.tgz#f864ae85004d0fcab6f50be9141c4da368d1656a"
@@ -6834,10 +6825,10 @@ fontsource-roboto-mono@^3.1.6:
   resolved "https://registry.yarnpkg.com/fontsource-roboto-mono/-/fontsource-roboto-mono-3.1.6.tgz#0223c20f4fbac4762a056b67eb08c8cdc08db36b"
   integrity sha512-Evl8kuBf9xWx6zA1sBQd8qjSo0KgYg4+e7ZZK69e+izjOvLOIeTpcwz9ALDLv9AMZvcOvbdMUztxHXG0ntmFEw==
 
-fontsource-roboto-slab@^3.0.3:
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/fontsource-roboto-slab/-/fontsource-roboto-slab-3.0.3.tgz#84907e38d3e43e3b532cf1c5a6d55a1228be077f"
-  integrity sha512-/oO4MNBWoL6ZMvUpoMtnDmHp2lcqirYGovxLfBzANy2ts3K39yuAh5odQV7+BjrVNyktwwE1K9pPJIl4/HtwkA==
+fontsource-roboto-slab@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/fontsource-roboto-slab/-/fontsource-roboto-slab-3.1.6.tgz#83a265755302ea0ddb8917dd0346ab95e6cdffe4"
+  integrity sha512-rAUpqo8IAnmdJOyevVB7jjgPj3N3Kl3bgv2rihF5NaX5SR4UfK6k/mXC8OlCvepo2gSziT6iS8ch/vDioxKMxQ==
 
 fontsource-roboto@^3.0.3:
   version "3.0.3"
