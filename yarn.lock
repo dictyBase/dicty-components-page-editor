@@ -6812,10 +6812,10 @@ follow-redirects@^1.0.0:
   resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.13.0.tgz#b42e8d93a2a7eea5ed88633676d6597bc8e384db"
   integrity sha512-aq6gF1BEKje4a9i9+5jimNFIpq4Q1WiwBToeRK5NvZBd/TRsmW8BsJfOEGkr76TbOyPVD3OVDN910EcUNtRYEA==
 
-fontsource-lato@^3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/fontsource-lato/-/fontsource-lato-3.1.5.tgz#05951190e6567594fedd66f045346d85a8b00ece"
-  integrity sha512-sKMya9p+XvGfXYtm7qIQmVRRRLkS0Bgbf0E2QlYvHZ2+t9B0gAzrvF2meG82qKbA/dsiKyn8A0wN/D4DLrUhRw==
+fontsource-lato@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/fontsource-lato/-/fontsource-lato-4.0.0.tgz#cdd93644f12ed4c326f84d871cef7b3732cd801e"
+  integrity sha512-YviJ8Dh/Mk5IDbnrcWwolx4kRFJOEYvzWoFkBtjebj8mXocIh7RVtk31IdRAW7/ZNb6oOPm2WtE1gpBvTRsN7g==
 
 fontsource-merriweather@^3.1.5:
   version "3.1.5"

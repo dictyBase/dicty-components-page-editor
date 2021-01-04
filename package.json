@@ -35,7 +35,7 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "fontsource-lato": "^3.1.5",
+    "fontsource-lato": "^4.0.0",
     "fontsource-merriweather": "^3.1.5",
     "fontsource-montserrat": "^3.1.5",
     "fontsource-roboto": "^3.1.5",
