@@ -6817,10 +6817,10 @@ fontsource-lato@^3.1.5:
   resolved "https://registry.yarnpkg.com/fontsource-lato/-/fontsource-lato-3.1.5.tgz#05951190e6567594fedd66f045346d85a8b00ece"
   integrity sha512-sKMya9p+XvGfXYtm7qIQmVRRRLkS0Bgbf0E2QlYvHZ2+t9B0gAzrvF2meG82qKbA/dsiKyn8A0wN/D4DLrUhRw==
 
-fontsource-merriweather@^3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/fontsource-merriweather/-/fontsource-merriweather-3.1.5.tgz#41489b21ebbf334b5de9800c62147c8701dd3d95"
-  integrity sha512-fpdKa7MYR5UfbJWZLOJtAj5Pl8qyESPirBO5NptfqZCBv0uDkL5v8gAaO1CGiSvsAGtTiW6kJSmpbGbA4vkDIQ==
+fontsource-merriweather@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/fontsource-merriweather/-/fontsource-merriweather-4.0.0.tgz#1d38d6c94ea4d152d49948127ddf7db6d05fbab1"
+  integrity sha512-1LnYjXYHZm0GNAMSqRJ84O8MHMT6wNywjt8JY0j0lyuvjPLSMRr7mrt4uqWbOnpPF8GnsKS0bYGY6LAidTfH9w==
 
 fontsource-montserrat@^3.1.5:
   version "3.1.5"
