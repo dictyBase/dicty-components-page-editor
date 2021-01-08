@@ -10,6 +10,10 @@
     "react-dom": "file:../node_modules/react-dom",
     "react-scripts": "file:../node_modules/react-scripts"
   },
+  "devDependencies": {
+    "husky": "file:../node_modules/husky",
+    "lint-staged": "file:../node_modules/lint-staged"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -26,6 +30,17 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
+      "git add"
     ]
   }
 }
