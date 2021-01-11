@@ -14,15 +14,15 @@ const App = () => (
       }}>
       <Grid item>
         <PageEditor
-          newPage
-          // pageContent={data}
-          onCancel={() => {}}
-          onSave={() => {}}
-          readOnly={false}
+        // newPage
+        // pageContent={data}
+        // onCancel={() => {}}
+        // onSave={() => {}}
+        // readOnly={false}
         />
       </Grid>
     </Grid>
-    <Grid container justify="center" style={{ marginTop: "25px" }}>
+    {/* <Grid container justify="center" style={{ marginTop: "25px" }}>
       <Grid item xs={2}>
         <PageEditor
           newPage
@@ -32,7 +32,7 @@ const App = () => (
           inline
         />
       </Grid>
-    </Grid>
+    </Grid> */}
   </>
 )
 
