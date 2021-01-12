@@ -3,44 +3,72 @@ import { Editor, createEditor } from 'slate';
 import { useSlate, withReact, Slate, Editable } from 'slate-react';
 import IconButton from '@material-ui/core/IconButton';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
+import FormatItalicIcon from '@material-ui/icons/FormatItalic';
+import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import Typography from '@material-ui/core/Typography';
 
-var isBoldMarkActive = function isBoldMarkActive(editor) {
-  // gets a list of marks on the text on the given selection
-  var marks = Editor.marks(editor); // if there are bold marks then the bold mark is active
+var isMarkActive = function isMarkActive(editor, format) {
+  // get a list of marks from the selected text
+  var marks = Editor.marks(editor); // if there are marks for specified format then the mark is active
 
-  return marks ? marks["bold"] === true : false;
+  if (marks && marks[format]) {
+    return true;
+  } else {
+    return false;
+  }
 };
 
-var toggleBoldMark = function toggleBoldMark(editor) {
+var toggleMark = function toggleMark(editor, format) {
   // first find if the selection's mark is currently active
-  var isActive = isBoldMarkActive(editor);
+  var isActive = isMarkActive(editor, format); // we either want to add or remove a mark based on whether it is currently active
 
   if (isActive) {
-    Editor.removeMark(editor, "bold");
+    Editor.removeMark(editor, format);
   } else {
-    Editor.addMark(editor, "bold", true);
+    Editor.addMark(editor, format, true);
   }
-
-  console.log(Editor.marks(editor));
 };
+/**
+ * MarkButton displays a button with associated click logic for toggling a mark.
+ */
 
-var BoldButton = function BoldButton() {
-  var editor = useSlate(); // when bold button is clicked, toggle the mark
+
+var MarkButton = function MarkButton(_ref) {
+  var format = _ref.format,
+      icon = _ref.icon;
+  var editor = useSlate(); // when button is clicked, toggle the mark within the editor
 
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    toggleBoldMark(editor);
+    toggleMark(editor, format);
   };
 
   return React.createElement(IconButton, {
     size: "small",
     onClick: handleClick
-  }, React.createElement(FormatBoldIcon, null));
+  }, icon);
 };
 
+/**
+ * Toolbar is the display for the editor toolbar.
+ */
+
 var Toolbar = function Toolbar() {
-  return React.createElement("div", null, React.createElement(BoldButton, null));
+  return React.createElement("div", null, React.createElement(MarkButton, {
+    format: "bold",
+    icon: React.createElement(FormatBoldIcon, null)
+  }), React.createElement(MarkButton, {
+    format: "italic",
+    icon: React.createElement(FormatItalicIcon, null)
+  }), React.createElement(MarkButton, {
+    format: "underline",
+    icon: React.createElement(FormatUnderlinedIcon, null)
+  }));
 };
+
+/**
+ * Element is used to render blocks based on a given type.
+ */
 
 var Element = function Element(_ref) {
   var attributes = _ref.attributes,
@@ -49,9 +77,16 @@ var Element = function Element(_ref) {
 
   switch (element.type) {
     default:
-      return React.createElement("p", Object.assign({}, attributes), children);
+      return React.createElement(Typography, Object.assign({
+        component: "p",
+        variant: "body1"
+      }, attributes), children);
   }
 };
+
+/**
+ * Leaf is used to render text based on a given style.
+ */
 
 var Leaf = function Leaf(_ref) {
   var attributes = _ref.attributes,
@@ -70,7 +105,10 @@ var Leaf = function Leaf(_ref) {
     children = React.createElement("u", null, children);
   }
 
-  return React.createElement("span", Object.assign({}, attributes), children);
+  return React.createElement(Typography, Object.assign({
+    component: "span",
+    variant: "body1"
+  }, attributes), children);
 };
 
 var initialValue = [{
@@ -79,6 +117,9 @@ var initialValue = [{
     text: "A line of text in a paragraph."
   }]
 }];
+/**
+ * PageEditor is the main editor component.
+ */
 
 var PageEditor = function PageEditor() {
   // create a slate editor object that won't change across renders

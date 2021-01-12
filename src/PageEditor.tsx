@@ -12,6 +12,9 @@ const initialValue = [
   },
 ]
 
+/**
+ * PageEditor is the main editor component.
+ */
 const PageEditor = () => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(() => withReact(createEditor()), [])
