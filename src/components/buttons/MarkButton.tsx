@@ -1,0 +1,58 @@
+import React, { MouseEvent } from "react"
+import { Editor } from "slate"
+import { useSlate, ReactEditor } from "slate-react"
+import IconButton from "@material-ui/core/IconButton"
+import { MarkFormat } from "../../types"
+
+const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
+  // get a list of marks from the selected text
+  const marks = Editor.marks(editor)
+
+  // if there are marks for specified format then the mark is active
+  if (marks && marks[format]) {
+    return true
+  } else {
+    return false
+  }
+}
+
+const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
+  // first find if the selection's mark is currently active
+  const isActive = isMarkActive(editor, format)
+
+  // we either want to add or remove a mark based on whether it is currently active
+  if (isActive) {
+    Editor.removeMark(editor, format)
+  } else {
+    Editor.addMark(editor, format, true)
+  }
+}
+
+type Props = {
+  /** Type of mark */
+  format: MarkFormat
+  /** Icon to display in button */
+  icon: JSX.Element
+}
+
+/**
+ * MarkButton displays a button with associated click logic for toggling a mark.
+ */
+
+const MarkButton = ({ format, icon }: Props) => {
+  const editor = useSlate()
+
+  // when button is clicked, toggle the mark within the editor
+  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault()
+    toggleMark(editor, format)
+  }
+
+  return (
+    <IconButton size="small" onClick={handleClick}>
+      {icon}
+    </IconButton>
+  )
+}
+
+export default MarkButton
