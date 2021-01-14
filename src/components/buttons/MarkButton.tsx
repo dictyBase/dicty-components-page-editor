@@ -4,6 +4,10 @@ import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import { MarkFormat } from "../../types"
 
+/**
+ * isMarkActive determines if the current text selection contains an
+ * active mark
+ */
 const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
   // get a list of marks from the selected text
   const marks = Editor.marks(editor)
@@ -16,6 +20,9 @@ const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
   }
 }
 
+/**
+ * toggleMark will either remove or add a mark to the given text selection
+ */
 const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
   // first find if the selection's mark is currently active
   const isActive = isMarkActive(editor, format)
@@ -38,7 +45,6 @@ type Props = {
 /**
  * MarkButton displays a button with associated click logic for toggling a mark.
  */
-
 const MarkButton = ({ format, icon }: Props) => {
   const editor = useSlate()
 

@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography"
 /**
  * Leaf is used to render text based on a given style.
  */
-
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   if (leaf.bold) {
     children = <strong>{children}</strong>

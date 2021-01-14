@@ -5,7 +5,6 @@ import Typography from "@material-ui/core/Typography"
 /**
  * Element is used to render blocks based on a given type.
  */
-
 const Element = ({ attributes, children, element }: RenderElementProps) => {
   switch (element.type) {
     default:

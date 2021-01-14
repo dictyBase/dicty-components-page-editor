@@ -15,6 +15,11 @@ var FormatUnderlinedIcon = _interopDefault(require('@material-ui/icons/FormatUnd
 var FormatStrikethroughIcon = _interopDefault(require('@material-ui/icons/FormatStrikethrough'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 
+/**
+ * isMarkActive determines if the current text selection contains an
+ * active mark
+ */
+
 var isMarkActive = function isMarkActive(editor, format) {
   // get a list of marks from the selected text
   var marks = slate.Editor.marks(editor); // if there are marks for specified format then the mark is active
@@ -25,6 +30,10 @@ var isMarkActive = function isMarkActive(editor, format) {
     return false;
   }
 };
+/**
+ * toggleMark will either remove or add a mark to the given text selection
+ */
+
 
 var toggleMark = function toggleMark(editor, format) {
   // first find if the selection's mark is currently active
