@@ -1,6 +1,5 @@
 import React from "react"
 import { RenderLeafProps } from "slate-react"
-import Typography from "@material-ui/core/Typography"
 
 /**
  * Leaf is used to render text based on a given style.
@@ -22,11 +21,7 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     children = <s>{children}</s>
   }
 
-  return (
-    <Typography component="span" variant="body1" {...attributes}>
-      {children}
-    </Typography>
-  )
+  return <span {...attributes}>{children}</span>
 }
 
 export default Leaf
