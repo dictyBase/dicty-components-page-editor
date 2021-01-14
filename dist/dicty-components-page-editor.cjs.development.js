@@ -12,6 +12,7 @@ var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var FormatBoldIcon = _interopDefault(require('@material-ui/icons/FormatBold'));
 var FormatItalicIcon = _interopDefault(require('@material-ui/icons/FormatItalic'));
 var FormatUnderlinedIcon = _interopDefault(require('@material-ui/icons/FormatUnderlined'));
+var FormatStrikethroughIcon = _interopDefault(require('@material-ui/icons/FormatStrikethrough'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 
 var isMarkActive = function isMarkActive(editor, format) {
@@ -70,6 +71,9 @@ var Toolbar = function Toolbar() {
   }), React__default.createElement(MarkButton, {
     format: "underline",
     icon: React__default.createElement(FormatUnderlinedIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: "strikethrough",
+    icon: React__default.createElement(FormatStrikethroughIcon, null)
   }));
 };
 
@@ -110,6 +114,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.underline) {
     children = React__default.createElement("u", null, children);
+  }
+
+  if (leaf.strikethrough) {
+    children = React__default.createElement("s", null, children);
   }
 
   return React__default.createElement(Typography, Object.assign({

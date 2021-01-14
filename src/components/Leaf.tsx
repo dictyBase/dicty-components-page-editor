@@ -19,6 +19,10 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     children = <u>{children}</u>
   }
 
+  if (leaf.strikethrough) {
+    children = <s>{children}</s>
+  }
+
   return (
     <Typography component="span" variant="body1" {...attributes}>
       {children}

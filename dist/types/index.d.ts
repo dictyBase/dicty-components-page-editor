@@ -1,2 +1,2 @@
-declare type Mark = "bold" | "italic" | "underline";
-export type { Mark };
+declare type MarkFormat = "bold" | "italic" | "underline" | "strikethrough";
+export type { MarkFormat };

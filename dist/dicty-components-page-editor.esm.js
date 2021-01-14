@@ -5,6 +5,7 @@ import IconButton from '@material-ui/core/IconButton';
 import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
+import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
 import Typography from '@material-ui/core/Typography';
 
 var isMarkActive = function isMarkActive(editor, format) {
@@ -63,6 +64,9 @@ var Toolbar = function Toolbar() {
   }), React.createElement(MarkButton, {
     format: "underline",
     icon: React.createElement(FormatUnderlinedIcon, null)
+  }), React.createElement(MarkButton, {
+    format: "strikethrough",
+    icon: React.createElement(FormatStrikethroughIcon, null)
   }));
 };
 
@@ -103,6 +107,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.underline) {
     children = React.createElement("u", null, children);
+  }
+
+  if (leaf.strikethrough) {
+    children = React.createElement("s", null, children);
   }
 
   return React.createElement(Typography, Object.assign({
