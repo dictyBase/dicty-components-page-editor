@@ -67,6 +67,63 @@ var MarkButton = function MarkButton(_ref) {
 };
 
 /**
+ * isBlockActive determines if the current text selection contains an active block
+ */
+
+var isBlockActive = function isBlockActive(editor, format) {
+  // nodes returns a generator that iterates through all of the editor's nodes. We are looking for matches for the selected format.
+  var nodeGenerator = slate.Editor.nodes(editor, {
+    match: function match(n) {
+      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === format;
+    }
+  }); // run the generator to find the nearest match
+  // then return true if this is the last value
+
+  var node = nodeGenerator.next();
+
+  while (!node.done) {
+    return true;
+  }
+
+  return false;
+};
+/**
+ * toggleBlock will set the appropriate nodes for the given selection
+ */
+
+
+var toggleBlock = function toggleBlock(editor, format) {
+  // first find if the selected block is currently active
+  var isActive = isBlockActive(editor, format); // Transforms provides helper functions to interact with the document.
+  // setNodes is used to set properties at the specified location.
+  // Here we are setting the type as paragraph if the block is active for the given format, otherwise we set it as the format.
+
+  slate.Transforms.setNodes(editor, {
+    type: isActive ? "paragraph" : format
+  });
+};
+/**
+ * BlockButton displays a button with associated click logic for toggling a block.
+ */
+
+
+var BlockButton = function BlockButton(_ref) {
+  var format = _ref.format,
+      icon = _ref.icon;
+  var editor = slateReact.useSlate(); // when button is clicked, toggle the mark within the editor
+
+  var handleClick = function handleClick(event) {
+    event.preventDefault();
+    toggleBlock(editor, format);
+  };
+
+  return React__default.createElement(IconButton, {
+    size: "small",
+    onClick: handleClick
+  }, icon);
+};
+
+/**
  * Toolbar is the display for the editor toolbar.
  */
 
@@ -83,6 +140,12 @@ var Toolbar = function Toolbar() {
   }), React__default.createElement(MarkButton, {
     format: "strikethrough",
     icon: React__default.createElement(FormatStrikethroughIcon, null)
+  }), React__default.createElement(BlockButton, {
+    format: "h1",
+    icon: React__default.createElement("span", null, "1")
+  }), React__default.createElement(BlockButton, {
+    format: "h2",
+    icon: React__default.createElement("span", null, "2")
   }));
 };
 
@@ -96,6 +159,16 @@ var Element = function Element(_ref) {
       element = _ref.element;
 
   switch (element.type) {
+    case "h1":
+      return React__default.createElement(Typography, Object.assign({
+        variant: "h1"
+      }, attributes), children);
+
+    case "h2":
+      return React__default.createElement(Typography, Object.assign({
+        variant: "h2"
+      }, attributes), children);
+
     default:
       return React__default.createElement(Typography, Object.assign({
         component: "p",
@@ -129,10 +202,7 @@ var Leaf = function Leaf(_ref) {
     children = React__default.createElement("s", null, children);
   }
 
-  return React__default.createElement(Typography, Object.assign({
-    component: "span",
-    variant: "body1"
-  }, attributes), children);
+  return React__default.createElement("span", Object.assign({}, attributes), children);
 };
 
 var initialValue = [{

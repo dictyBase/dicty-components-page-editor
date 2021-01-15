@@ -1,5 +1,6 @@
 import React from "react"
 import MarkButton from "./components/buttons/MarkButton"
+import BlockButton from "./components/buttons/BlockButton"
 import FormatBoldIcon from "@material-ui/icons/FormatBold"
 import FormatItalicIcon from "@material-ui/icons/FormatItalic"
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined"
@@ -15,6 +16,8 @@ const Toolbar = () => {
       <MarkButton format="italic" icon={<FormatItalicIcon />} />
       <MarkButton format="underline" icon={<FormatUnderlinedIcon />} />
       <MarkButton format="strikethrough" icon={<FormatStrikethroughIcon />} />
+      <BlockButton format="h1" icon={<span>1</span>} />
+      <BlockButton format="h2" icon={<span>2</span>} />
     </div>
   )
 }
