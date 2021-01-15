@@ -9,12 +9,8 @@ var React__default = _interopDefault(React);
 var slate = require('slate');
 var slateReact = require('slate-react');
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
-var FormatBoldIcon = _interopDefault(require('@material-ui/icons/FormatBold'));
-var FormatItalicIcon = _interopDefault(require('@material-ui/icons/FormatItalic'));
-var FormatUnderlinedIcon = _interopDefault(require('@material-ui/icons/FormatUnderlined'));
-var FormatStrikethroughIcon = _interopDefault(require('@material-ui/icons/FormatStrikethrough'));
-var H1Icon = _interopDefault(require('@material-ui/icons/LooksOne'));
-var H2Icon = _interopDefault(require('@material-ui/icons/LooksTwo'));
+var md = require('react-icons/md');
+var fa = require('react-icons/fa');
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 
 /**
@@ -149,22 +145,25 @@ var BlockButton = function BlockButton(_ref) {
 var Toolbar = function Toolbar() {
   return React__default.createElement("div", null, React__default.createElement(MarkButton, {
     format: "bold",
-    icon: React__default.createElement(FormatBoldIcon, null)
+    icon: React__default.createElement(md.MdFormatBold, null)
   }), React__default.createElement(MarkButton, {
     format: "italic",
-    icon: React__default.createElement(FormatItalicIcon, null)
+    icon: React__default.createElement(md.MdFormatItalic, null)
   }), React__default.createElement(MarkButton, {
     format: "underline",
-    icon: React__default.createElement(FormatUnderlinedIcon, null)
+    icon: React__default.createElement(md.MdFormatUnderlined, null)
   }), React__default.createElement(MarkButton, {
     format: "strikethrough",
-    icon: React__default.createElement(FormatStrikethroughIcon, null)
+    icon: React__default.createElement(md.MdFormatStrikethrough, null)
+  }), React__default.createElement(MarkButton, {
+    format: "subscript",
+    icon: React__default.createElement(fa.FaSubscript, null)
   }), React__default.createElement(BlockButton, {
     format: "h1",
-    icon: React__default.createElement(H1Icon, null)
+    icon: React__default.createElement(md.MdLooksOne, null)
   }), React__default.createElement(BlockButton, {
     format: "h2",
-    icon: React__default.createElement(H2Icon, null)
+    icon: React__default.createElement(md.MdLooksTwo, null)
   }));
 };
 
@@ -219,6 +218,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.strikethrough) {
     children = React__default.createElement("s", null, children);
+  }
+
+  if (leaf.subscript) {
+    children = React__default.createElement("sub", null, children);
   }
 
   return React__default.createElement("span", Object.assign({}, attributes), children);

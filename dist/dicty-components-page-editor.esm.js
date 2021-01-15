@@ -2,12 +2,8 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Editor, Transforms, Element as Element$1, createEditor } from 'slate';
 import { useSlate, withReact, Slate, Editable } from 'slate-react';
 import IconButton from '@material-ui/core/IconButton';
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
-import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
-import H1Icon from '@material-ui/icons/LooksOne';
-import H2Icon from '@material-ui/icons/LooksTwo';
+import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdFormatStrikethrough, MdLooksOne, MdLooksTwo } from 'react-icons/md';
+import { FaSubscript } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
 
 /**
@@ -142,22 +138,25 @@ var BlockButton = function BlockButton(_ref) {
 var Toolbar = function Toolbar() {
   return React.createElement("div", null, React.createElement(MarkButton, {
     format: "bold",
-    icon: React.createElement(FormatBoldIcon, null)
+    icon: React.createElement(MdFormatBold, null)
   }), React.createElement(MarkButton, {
     format: "italic",
-    icon: React.createElement(FormatItalicIcon, null)
+    icon: React.createElement(MdFormatItalic, null)
   }), React.createElement(MarkButton, {
     format: "underline",
-    icon: React.createElement(FormatUnderlinedIcon, null)
+    icon: React.createElement(MdFormatUnderlined, null)
   }), React.createElement(MarkButton, {
     format: "strikethrough",
-    icon: React.createElement(FormatStrikethroughIcon, null)
+    icon: React.createElement(MdFormatStrikethrough, null)
+  }), React.createElement(MarkButton, {
+    format: "subscript",
+    icon: React.createElement(FaSubscript, null)
   }), React.createElement(BlockButton, {
     format: "h1",
-    icon: React.createElement(H1Icon, null)
+    icon: React.createElement(MdLooksOne, null)
   }), React.createElement(BlockButton, {
     format: "h2",
-    icon: React.createElement(H2Icon, null)
+    icon: React.createElement(MdLooksTwo, null)
   }));
 };
 
@@ -212,6 +211,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.strikethrough) {
     children = React.createElement("s", null, children);
+  }
+
+  if (leaf.subscript) {
+    children = React.createElement("sub", null, children);
   }
 
   return React.createElement("span", Object.assign({}, attributes), children);

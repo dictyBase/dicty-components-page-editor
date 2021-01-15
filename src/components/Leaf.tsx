@@ -21,6 +21,10 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
     children = <s>{children}</s>
   }
 
+  if (leaf.subscript) {
+    children = <sub>{children}</sub>
+  }
+
   return <span {...attributes}>{children}</span>
 }
 
