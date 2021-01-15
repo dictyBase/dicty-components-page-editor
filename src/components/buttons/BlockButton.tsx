@@ -5,10 +5,26 @@ import IconButton from "@material-ui/core/IconButton"
 import { BlockFormat } from "../../types"
 
 /**
+ * PROCESS:
+ *
+ * 1. User clicks button
+ * 2. We run generator function to find any matching nodes for that block type.
+ * 3. If there are no matches (value == undefined) then the generator is done
+ *    and we do not mark that block as active.
+ * 4. If the block is not active, then we set the nodes to match that format type.
+ * 5. If the generator does find a match, we mark that block as active for the
+ *    first matching node.
+ * 6. If the block is active, then we set the nodes back to the default type of
+ *    'paragraph'.
+ */
+
+/**
  * isBlockActive determines if the current text selection contains an active block
  */
 const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
-  // nodes returns a generator that iterates through all of the editor's nodes. We are looking for matches for the selected format.
+  // Editor.nodes returns a generator that iterates through all of the editor's
+  // nodes. We are looking for matches for the selected format.
+  // https://github.com/ianstormtaylor/slate/blob/master/packages/slate/src/interfaces/node.ts#L467
   const nodeGenerator = Editor.nodes(editor, {
     match: (n) =>
       !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
@@ -16,7 +32,7 @@ const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
 
   // run the generator to find the nearest match
   // then return true if this is the last value
-  let node = nodeGenerator.next()
+  const node = nodeGenerator.next()
   while (!node.done) {
     return true
   }
@@ -32,7 +48,8 @@ const toggleBlock = (editor: ReactEditor, format: BlockFormat) => {
 
   // Transforms provides helper functions to interact with the document.
   // setNodes is used to set properties at the specified location.
-  // Here we are setting the type as paragraph if the block is active for the given format, otherwise we set it as the format.
+  // Here we are setting the type as paragraph if the block is active for the
+  // given format, otherwise we set it as the format.
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
   })

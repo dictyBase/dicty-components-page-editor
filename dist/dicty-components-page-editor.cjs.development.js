@@ -67,11 +67,27 @@ var MarkButton = function MarkButton(_ref) {
 };
 
 /**
+ * PROCESS:
+ *
+ * 1. User clicks button
+ * 2. We run generator function to find any matching nodes for that block type.
+ * 3. If there are no matches (value == undefined) then the generator is done
+ *    and we do not mark that block as active.
+ * 4. If the block is not active, then we set the nodes to match that format type.
+ * 5. If the generator does find a match, we mark that block as active for the
+ *    first matching node.
+ * 6. If the block is active, then we set the nodes back to the default type of
+ *    'paragraph'.
+ */
+
+/**
  * isBlockActive determines if the current text selection contains an active block
  */
 
 var isBlockActive = function isBlockActive(editor, format) {
-  // nodes returns a generator that iterates through all of the editor's nodes. We are looking for matches for the selected format.
+  // Editor.nodes returns a generator that iterates through all of the editor's
+  // nodes. We are looking for matches for the selected format.
+  // https://github.com/ianstormtaylor/slate/blob/master/packages/slate/src/interfaces/node.ts#L467
   var nodeGenerator = slate.Editor.nodes(editor, {
     match: function match(n) {
       return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === format;
@@ -96,7 +112,8 @@ var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
   var isActive = isBlockActive(editor, format); // Transforms provides helper functions to interact with the document.
   // setNodes is used to set properties at the specified location.
-  // Here we are setting the type as paragraph if the block is active for the given format, otherwise we set it as the format.
+  // Here we are setting the type as paragraph if the block is active for the
+  // given format, otherwise we set it as the format.
 
   slate.Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format
