@@ -122,7 +122,7 @@ var toggleBlock = function toggleBlock(editor, format) {
 var BlockButton = function BlockButton(_ref) {
   var format = _ref.format,
       icon = _ref.icon;
-  var editor = useSlate(); // when button is clicked, toggle the mark within the editor
+  var editor = useSlate(); // when button is clicked, toggle the block within the editor
 
   var handleClick = function handleClick(event) {
     event.preventDefault();

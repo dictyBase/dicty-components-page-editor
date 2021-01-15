@@ -68,7 +68,7 @@ type Props = {
 const BlockButton = ({ format, icon }: Props) => {
   const editor = useSlate()
 
-  // when button is clicked, toggle the mark within the editor
+  // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     toggleBlock(editor, format)

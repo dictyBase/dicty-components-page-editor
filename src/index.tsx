@@ -1,1 +1,1 @@
-export { default as PageEditor } from "./PageEditor"
+export { default as PageEditor } from "./components/PageEditor"

@@ -2,8 +2,8 @@ import React, { useCallback, useMemo, useState } from "react"
 import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import Toolbar from "./Toolbar"
-import Element from "./components/Element"
-import Leaf from "./components/Leaf"
+import Element from "./Element"
+import Leaf from "./Leaf"
 
 const initialValue = [
   {
