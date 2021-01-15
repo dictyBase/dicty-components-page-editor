@@ -6,6 +6,8 @@ import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import FormatStrikethroughIcon from '@material-ui/icons/FormatStrikethrough';
+import H1Icon from '@material-ui/icons/LooksOne';
+import H2Icon from '@material-ui/icons/LooksTwo';
 import Typography from '@material-ui/core/Typography';
 
 /**
@@ -152,10 +154,10 @@ var Toolbar = function Toolbar() {
     icon: React.createElement(FormatStrikethroughIcon, null)
   }), React.createElement(BlockButton, {
     format: "h1",
-    icon: React.createElement("span", null, "1")
+    icon: React.createElement(H1Icon, null)
   }), React.createElement(BlockButton, {
     format: "h2",
-    icon: React.createElement("span", null, "2")
+    icon: React.createElement(H2Icon, null)
   }));
 };
 

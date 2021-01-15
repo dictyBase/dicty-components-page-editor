@@ -5,6 +5,8 @@ import FormatBoldIcon from "@material-ui/icons/FormatBold"
 import FormatItalicIcon from "@material-ui/icons/FormatItalic"
 import FormatUnderlinedIcon from "@material-ui/icons/FormatUnderlined"
 import FormatStrikethroughIcon from "@material-ui/icons/FormatStrikethrough"
+import H1Icon from "@material-ui/icons/LooksOne"
+import H2Icon from "@material-ui/icons/LooksTwo"
 
 /**
  * Toolbar is the display for the editor toolbar.
@@ -16,8 +18,8 @@ const Toolbar = () => {
       <MarkButton format="italic" icon={<FormatItalicIcon />} />
       <MarkButton format="underline" icon={<FormatUnderlinedIcon />} />
       <MarkButton format="strikethrough" icon={<FormatStrikethroughIcon />} />
-      <BlockButton format="h1" icon={<span>1</span>} />
-      <BlockButton format="h2" icon={<span>2</span>} />
+      <BlockButton format="h1" icon={<H1Icon />} />
+      <BlockButton format="h2" icon={<H2Icon />} />
     </div>
   )
 }

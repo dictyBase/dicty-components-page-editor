@@ -13,6 +13,8 @@ var FormatBoldIcon = _interopDefault(require('@material-ui/icons/FormatBold'));
 var FormatItalicIcon = _interopDefault(require('@material-ui/icons/FormatItalic'));
 var FormatUnderlinedIcon = _interopDefault(require('@material-ui/icons/FormatUnderlined'));
 var FormatStrikethroughIcon = _interopDefault(require('@material-ui/icons/FormatStrikethrough'));
+var H1Icon = _interopDefault(require('@material-ui/icons/LooksOne'));
+var H2Icon = _interopDefault(require('@material-ui/icons/LooksTwo'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 
 /**
@@ -159,10 +161,10 @@ var Toolbar = function Toolbar() {
     icon: React__default.createElement(FormatStrikethroughIcon, null)
   }), React__default.createElement(BlockButton, {
     format: "h1",
-    icon: React__default.createElement("span", null, "1")
+    icon: React__default.createElement(H1Icon, null)
   }), React__default.createElement(BlockButton, {
     format: "h2",
-    icon: React__default.createElement("span", null, "2")
+    icon: React__default.createElement(H2Icon, null)
   }));
 };
 
