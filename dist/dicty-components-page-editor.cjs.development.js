@@ -158,6 +158,9 @@ var Toolbar = function Toolbar() {
   }), React__default.createElement(MarkButton, {
     format: "subscript",
     icon: React__default.createElement(fa.FaSubscript, null)
+  }), React__default.createElement(MarkButton, {
+    format: "superscript",
+    icon: React__default.createElement(fa.FaSuperscript, null)
   }), React__default.createElement(BlockButton, {
     format: "h1",
     icon: React__default.createElement(md.MdLooksOne, null)
@@ -222,6 +225,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.subscript) {
     children = React__default.createElement("sub", null, children);
+  }
+
+  if (leaf.superscript) {
+    children = React__default.createElement("sup", null, children);
   }
 
   return React__default.createElement("span", Object.assign({}, attributes), children);

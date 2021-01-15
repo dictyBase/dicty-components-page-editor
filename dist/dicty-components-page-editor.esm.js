@@ -3,7 +3,7 @@ import { Editor, Transforms, Element as Element$1, createEditor } from 'slate';
 import { useSlate, withReact, Slate, Editable } from 'slate-react';
 import IconButton from '@material-ui/core/IconButton';
 import { MdFormatBold, MdFormatItalic, MdFormatUnderlined, MdFormatStrikethrough, MdLooksOne, MdLooksTwo } from 'react-icons/md';
-import { FaSubscript } from 'react-icons/fa';
+import { FaSubscript, FaSuperscript } from 'react-icons/fa';
 import Typography from '@material-ui/core/Typography';
 
 /**
@@ -151,6 +151,9 @@ var Toolbar = function Toolbar() {
   }), React.createElement(MarkButton, {
     format: "subscript",
     icon: React.createElement(FaSubscript, null)
+  }), React.createElement(MarkButton, {
+    format: "superscript",
+    icon: React.createElement(FaSuperscript, null)
   }), React.createElement(BlockButton, {
     format: "h1",
     icon: React.createElement(MdLooksOne, null)
@@ -215,6 +218,10 @@ var Leaf = function Leaf(_ref) {
 
   if (leaf.subscript) {
     children = React.createElement("sub", null, children);
+  }
+
+  if (leaf.superscript) {
+    children = React.createElement("sup", null, children);
   }
 
   return React.createElement("span", Object.assign({}, attributes), children);

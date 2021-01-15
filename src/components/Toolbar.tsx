@@ -9,7 +9,7 @@ import {
   MdLooksOne,
   MdLooksTwo,
 } from "react-icons/md"
-import { FaSubscript } from "react-icons/fa"
+import { FaSubscript, FaSuperscript } from "react-icons/fa"
 
 /**
  * Toolbar is the display for the editor toolbar.
@@ -22,6 +22,7 @@ const Toolbar = () => {
       <MarkButton format="underline" icon={<MdFormatUnderlined />} />
       <MarkButton format="strikethrough" icon={<MdFormatStrikethrough />} />
       <MarkButton format="subscript" icon={<FaSubscript />} />
+      <MarkButton format="superscript" icon={<FaSuperscript />} />
       <BlockButton format="h1" icon={<MdLooksOne />} />
       <BlockButton format="h2" icon={<MdLooksTwo />} />
     </div>
