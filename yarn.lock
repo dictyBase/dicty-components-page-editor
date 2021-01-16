@@ -7166,10 +7166,10 @@ get-value@^2.0.3, get-value@^2.0.6:
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"
   integrity sha1-3BXKHGcjh8p2vTesCjlbogQqLCg=
 
-get-video-id@^3.1.5:
-  version "3.1.5"
-  resolved "https://registry.yarnpkg.com/get-video-id/-/get-video-id-3.1.5.tgz#69f25ecb77d8021d25476f578e0ede2df5bc61a3"
-  integrity sha512-jAc0aZiMava8lFJB/t/VyVKaYtcB9dVAKH/T7rjkYhnzHQ58WDlG9eKJgbzLJ+x0gPHrT87IvXkTP8tByB3ADg==
+get-video-id@^3.1.6:
+  version "3.1.6"
+  resolved "https://registry.yarnpkg.com/get-video-id/-/get-video-id-3.1.6.tgz#6d3b11f0d7e1cc421a0e48c1bf0b8626a77258ed"
+  integrity sha512-7HYqDjwGrEyIJ4UJqLqcvMRTYCEA7Q+l6hHAPdEZ7okBiGzdpiRMBT/aBVA7QsKViaCDe4MA8UBcxe9k7gZpBA==
   dependencies:
     get-src "^1.0.1"
 
