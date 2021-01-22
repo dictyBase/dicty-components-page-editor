@@ -2,5 +2,5 @@
 /**
  * Toolbar is the display for the editor toolbar.
  */
-declare const Toolbar: () => JSX.Element;
-export default Toolbar;
+declare const EditorToolbar: () => JSX.Element;
+export default EditorToolbar;

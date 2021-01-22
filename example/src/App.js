@@ -12,7 +12,7 @@ const App = () => (
         border: "1px solid #ddd",
         paddingBottom: "5px",
       }}>
-      <Grid item>
+      <Grid item xs={12}>
         <PageEditor
         // newPage
         // pageContent={data}

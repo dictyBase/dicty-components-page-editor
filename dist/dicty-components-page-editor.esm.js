@@ -1,6 +1,10 @@
 import React, { useMemo, useState, useCallback } from 'react';
 import { Editor, Transforms, Element as Element$1, createEditor } from 'slate';
 import { useSlate, withReact, Slate, Editable } from 'slate-react';
+import { makeStyles } from '@material-ui/core/styles';
+import AppBar from '@material-ui/core/AppBar';
+import Toolbar from '@material-ui/core/Toolbar';
+import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
@@ -205,12 +209,25 @@ var UnderlinedIcon = function UnderlinedIcon() {
   }));
 };
 
+var useStyles = /*#__PURE__*/makeStyles({
+  divider: {
+    marginLeft: "4px",
+    marginRight: "4px"
+  }
+});
 /**
  * Toolbar is the display for the editor toolbar.
  */
 
-var Toolbar = function Toolbar() {
-  return React.createElement("div", null, React.createElement(MarkButton, {
+var EditorToolbar = function EditorToolbar() {
+  var classes = useStyles();
+  return React.createElement(AppBar, {
+    color: "default",
+    position: "static"
+  }, React.createElement(Toolbar, {
+    disableGutters: true,
+    variant: "dense"
+  }, React.createElement(MarkButton, {
     format: "bold",
     icon: React.createElement(BoldIcon, null)
   }), React.createElement(MarkButton, {
@@ -228,6 +245,10 @@ var Toolbar = function Toolbar() {
   }), React.createElement(MarkButton, {
     format: "superscript",
     icon: React.createElement(SuperscriptIcon, null)
+  }), React.createElement(Divider, {
+    className: classes.divider,
+    orientation: "vertical",
+    flexItem: true
   }), React.createElement(BlockButton, {
     format: "h1",
     icon: React.createElement(H1Icon, null)
@@ -237,7 +258,7 @@ var Toolbar = function Toolbar() {
   }), React.createElement(BlockButton, {
     format: "h3",
     icon: React.createElement(H3Icon, null)
-  }));
+  })));
 };
 
 /**
@@ -344,7 +365,7 @@ var PageEditor = function PageEditor() {
     onChange: function onChange(value) {
       return setValue(value);
     }
-  }, React.createElement(Toolbar, null), React.createElement(Editable, {
+  }, React.createElement(EditorToolbar, null), React.createElement(Editable, {
     renderElement: renderElement,
     renderLeaf: renderLeaf
   }));

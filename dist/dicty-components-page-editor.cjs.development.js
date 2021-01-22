@@ -8,6 +8,10 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var slate = require('slate');
 var slateReact = require('slate-react');
+var styles = require('@material-ui/core/styles');
+var AppBar = _interopDefault(require('@material-ui/core/AppBar'));
+var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
+var Divider = _interopDefault(require('@material-ui/core/Divider'));
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var SvgIcon = _interopDefault(require('@material-ui/core/SvgIcon'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
@@ -212,12 +216,25 @@ var UnderlinedIcon = function UnderlinedIcon() {
   }));
 };
 
+var useStyles = /*#__PURE__*/styles.makeStyles({
+  divider: {
+    marginLeft: "4px",
+    marginRight: "4px"
+  }
+});
 /**
  * Toolbar is the display for the editor toolbar.
  */
 
-var Toolbar = function Toolbar() {
-  return React__default.createElement("div", null, React__default.createElement(MarkButton, {
+var EditorToolbar = function EditorToolbar() {
+  var classes = useStyles();
+  return React__default.createElement(AppBar, {
+    color: "default",
+    position: "static"
+  }, React__default.createElement(Toolbar, {
+    disableGutters: true,
+    variant: "dense"
+  }, React__default.createElement(MarkButton, {
     format: "bold",
     icon: React__default.createElement(BoldIcon, null)
   }), React__default.createElement(MarkButton, {
@@ -235,6 +252,10 @@ var Toolbar = function Toolbar() {
   }), React__default.createElement(MarkButton, {
     format: "superscript",
     icon: React__default.createElement(SuperscriptIcon, null)
+  }), React__default.createElement(Divider, {
+    className: classes.divider,
+    orientation: "vertical",
+    flexItem: true
   }), React__default.createElement(BlockButton, {
     format: "h1",
     icon: React__default.createElement(H1Icon, null)
@@ -244,7 +265,7 @@ var Toolbar = function Toolbar() {
   }), React__default.createElement(BlockButton, {
     format: "h3",
     icon: React__default.createElement(H3Icon, null)
-  }));
+  })));
 };
 
 /**
@@ -351,7 +372,7 @@ var PageEditor = function PageEditor() {
     onChange: function onChange(value) {
       return setValue(value);
     }
-  }, React__default.createElement(Toolbar, null), React__default.createElement(slateReact.Editable, {
+  }, React__default.createElement(EditorToolbar, null), React__default.createElement(slateReact.Editable, {
     renderElement: renderElement,
     renderLeaf: renderLeaf
   }));
