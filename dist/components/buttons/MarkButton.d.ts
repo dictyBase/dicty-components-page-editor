@@ -1,8 +1,7 @@
 /// <reference types="react" />
-import { MarkFormat } from "../../types";
 declare type Props = {
-    /** Type of mark */
-    format: MarkFormat;
+    /** Type of mark (i.e. "bold") */
+    format: string;
     /** Icon to display in button */
     icon: JSX.Element;
 };

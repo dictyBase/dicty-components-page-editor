@@ -2,8 +2,6 @@ import React, { MouseEvent } from "react"
 import { Editor, Transforms, Element as SlateElement } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
-import { BlockFormat } from "../../types"
-
 /**
  * PROCESS:
  *
@@ -21,7 +19,7 @@ import { BlockFormat } from "../../types"
 /**
  * isBlockActive determines if the current text selection contains an active block
  */
-const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
+const isBlockActive = (editor: ReactEditor, format: string) => {
   // Editor.nodes returns a generator that iterates through all of the editor's
   // nodes. We are looking for matches for the selected format.
   // https://github.com/ianstormtaylor/slate/blob/master/packages/slate/src/interfaces/node.ts#L467
@@ -42,7 +40,7 @@ const isBlockActive = (editor: ReactEditor, format: BlockFormat) => {
 /**
  * toggleBlock will set the appropriate nodes for the given selection
  */
-const toggleBlock = (editor: ReactEditor, format: BlockFormat) => {
+const toggleBlock = (editor: ReactEditor, format: string) => {
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, format)
 
@@ -56,8 +54,8 @@ const toggleBlock = (editor: ReactEditor, format: BlockFormat) => {
 }
 
 type Props = {
-  /** Type of block */
-  format: BlockFormat
+  /** Type of block (i.e. "h1") */
+  format: string
   /** Icon to display in button */
   icon: JSX.Element
 }

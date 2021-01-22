@@ -1,8 +1,7 @@
 /// <reference types="react" />
-import { BlockFormat } from "../../types";
 declare type Props = {
-    /** Type of block */
-    format: BlockFormat;
+    /** Type of block (i.e. "h1") */
+    format: string;
     /** Icon to display in button */
     icon: JSX.Element;
 };

@@ -2,13 +2,12 @@ import React, { MouseEvent } from "react"
 import { Editor } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
-import { MarkFormat } from "../../types"
 
 /**
  * isMarkActive determines if the current text selection contains an
  * active mark
  */
-const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
+const isMarkActive = (editor: ReactEditor, format: string) => {
   // get a list of marks from the selected text
   const marks = Editor.marks(editor)
 
@@ -23,7 +22,7 @@ const isMarkActive = (editor: ReactEditor, format: MarkFormat) => {
 /**
  * toggleMark will either remove or add a mark to the given text selection
  */
-const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
+const toggleMark = (editor: ReactEditor, format: string) => {
   // first find if the selection's mark is currently active
   const isActive = isMarkActive(editor, format)
 
@@ -36,8 +35,8 @@ const toggleMark = (editor: ReactEditor, format: MarkFormat) => {
 }
 
 type Props = {
-  /** Type of mark */
-  format: MarkFormat
+  /** Type of mark (i.e. "bold") */
+  format: string
   /** Icon to display in button */
   icon: JSX.Element
 }
