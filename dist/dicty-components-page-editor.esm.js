@@ -102,7 +102,11 @@ var isBlockActive = function isBlockActive(editor, format) {
  */
 
 
-var toggleBlock = function toggleBlock(editor, format) {
+var toggleBlock = function toggleBlock(editor, format, align) {
+  if (align === void 0) {
+    align = "left";
+  }
+
   // first find if the selected block is currently active
   var isActive = isBlockActive(editor, format); // Transforms provides helper functions to interact with the document.
   // setNodes is used to set properties at the specified location.
@@ -110,7 +114,8 @@ var toggleBlock = function toggleBlock(editor, format) {
   // given format, otherwise we set it as the format.
 
   Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format
+    type: isActive ? "paragraph" : format,
+    align: isActive ? "left" : align
   });
 };
 /**
@@ -120,12 +125,13 @@ var toggleBlock = function toggleBlock(editor, format) {
 
 var BlockButton = function BlockButton(_ref) {
   var format = _ref.format,
-      icon = _ref.icon;
+      icon = _ref.icon,
+      align = _ref.align;
   var editor = useSlate(); // when button is clicked, toggle the block within the editor
 
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    toggleBlock(editor, format);
+    toggleBlock(editor, format, align);
   };
 
   return React.createElement(IconButton, {
@@ -140,33 +146,6 @@ var BoldIcon = function BoldIcon() {
     fill: "none"
   }), React.createElement("path", {
     d: "M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"
-  }));
-};
-
-var H1Icon = function H1Icon() {
-  return React.createElement(SvgIcon, null, React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    fill: "none"
-  }), React.createElement("path", {
-    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"
-  }));
-};
-
-var H2Icon = function H2Icon() {
-  return React.createElement(SvgIcon, null, React.createElement("path", {
-    d: "M0 0h24v24H0z",
-    fill: "none"
-  }), React.createElement("path", {
-    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"
-  }));
-};
-
-var H3Icon = function H3Icon() {
-  return React.createElement(SvgIcon, null, React.createElement("path", {
-    d: "M.01 0h24v24h-24z",
-    fill: "none"
-  }), React.createElement("path", {
-    d: "M19.01 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 7.5c0 .83-.67 1.5-1.5 1.5.83 0 1.5.67 1.5 1.5V15c0 1.11-.9 2-2 2h-4v-2h4v-2h-2v-2h2V9h-4V7h4c1.1 0 2 .89 2 2v1.5z"
   }));
 };
 
@@ -206,6 +185,69 @@ var UnderlinedIcon = function UnderlinedIcon() {
     fill: "none"
   }), React.createElement("path", {
     d: "M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"
+  }));
+};
+
+var AlignLeftIcon = function AlignLeftIcon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M15 15H3v2h12v-2zm0-8H3v2h12V7zM3 13h18v-2H3v2zm0 8h18v-2H3v2zM3 3v2h18V3H3z"
+  }));
+};
+
+var AlignCenterIcon = function AlignCenterIcon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M7 15v2h10v-2H7zm-4 6h18v-2H3v2zm0-8h18v-2H3v2zm4-6v2h10V7H7zM3 3v2h18V3H3z"
+  }));
+};
+
+var AlignRightIcon = function AlignRightIcon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M3 21h18v-2H3v2zm6-4h12v-2H9v2zm-6-4h18v-2H3v2zm6-4h12V7H9v2zM3 3v2h18V3H3z"
+  }));
+};
+
+var AlignJustifyIcon = function AlignJustifyIcon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"
+  }));
+};
+
+var H1Icon = function H1Icon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"
+  }));
+};
+
+var H2Icon = function H2Icon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"
+  }));
+};
+
+var H3Icon = function H3Icon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M.01 0h24v24h-24z",
+    fill: "none"
+  }), React.createElement("path", {
+    d: "M19.01 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 7.5c0 .83-.67 1.5-1.5 1.5.83 0 1.5.67 1.5 1.5V15c0 1.11-.9 2-2 2h-4v-2h4v-2h-2v-2h2V9h-4V7h4c1.1 0 2 .89 2 2v1.5z"
   }));
 };
 
@@ -258,6 +300,26 @@ var EditorToolbar = function EditorToolbar() {
   }), React.createElement(BlockButton, {
     format: "h3",
     icon: React.createElement(H3Icon, null)
+  }), React.createElement(Divider, {
+    className: classes.divider,
+    orientation: "vertical",
+    flexItem: true
+  }), React.createElement(BlockButton, {
+    format: "align",
+    align: "left",
+    icon: React.createElement(AlignLeftIcon, null)
+  }), React.createElement(BlockButton, {
+    format: "align",
+    align: "center",
+    icon: React.createElement(AlignCenterIcon, null)
+  }), React.createElement(BlockButton, {
+    format: "align",
+    align: "right",
+    icon: React.createElement(AlignRightIcon, null)
+  }), React.createElement(BlockButton, {
+    format: "align",
+    align: "justify",
+    icon: React.createElement(AlignJustifyIcon, null)
   })));
 };
 
@@ -271,6 +333,12 @@ var Element = function Element(_ref) {
       element = _ref.element;
 
   switch (element.type) {
+    case "align":
+      return React.createElement(Typography, Object.assign({
+        variant: "inherit",
+        align: element.align
+      }, attributes), children);
+
     case "h1":
       return React.createElement(Typography, Object.assign({
         variant: "h1"

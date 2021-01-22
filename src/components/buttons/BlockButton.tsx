@@ -40,7 +40,11 @@ const isBlockActive = (editor: ReactEditor, format: string) => {
 /**
  * toggleBlock will set the appropriate nodes for the given selection
  */
-const toggleBlock = (editor: ReactEditor, format: string) => {
+const toggleBlock = (
+  editor: ReactEditor,
+  format: string,
+  align: string = "left",
+) => {
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, format)
 
@@ -50,6 +54,7 @@ const toggleBlock = (editor: ReactEditor, format: string) => {
   // given format, otherwise we set it as the format.
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
+    align: isActive ? "left" : align,
   })
 }
 
@@ -58,18 +63,20 @@ type Props = {
   format: string
   /** Icon to display in button */
   icon: JSX.Element
+  /** Property used for text alignment */
+  align?: string
 }
 
 /**
  * BlockButton displays a button with associated click logic for toggling a block.
  */
-const BlockButton = ({ format, icon }: Props) => {
+const BlockButton = ({ format, icon, align }: Props) => {
   const editor = useSlate()
 
   // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    toggleBlock(editor, format)
+    toggleBlock(editor, format, align)
   }
 
   return (
