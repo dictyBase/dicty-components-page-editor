@@ -26,7 +26,6 @@
     "styleguide:build": "styleguidist build"
   },
   "dependencies": {
-    "react-icons": "^4.1.0",
     "slate": "^0.59.0",
     "slate-react": "^0.59.0"
   },
