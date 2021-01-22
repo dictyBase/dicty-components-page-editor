@@ -4,6 +4,7 @@ import BlockButton from "./buttons/BlockButton"
 import BoldIcon from "./icons/BoldIcon"
 import H1Icon from "./icons/H1Icon"
 import H2Icon from "./icons/H2Icon"
+import H3Icon from "./icons/H3Icon"
 import ItalicIcon from "./icons/ItalicIcon"
 import StrikethroughIcon from "./icons/StrikethroughIcon"
 import SubscriptIcon from "./icons/SubscriptIcon"
@@ -24,6 +25,7 @@ const Toolbar = () => {
       <MarkButton format="superscript" icon={<SuperscriptIcon />} />
       <BlockButton format="h1" icon={<H1Icon />} />
       <BlockButton format="h2" icon={<H2Icon />} />
+      <BlockButton format="h3" icon={<H3Icon />} />
     </div>
   )
 }

@@ -19,6 +19,12 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
           {children}
         </Typography>
       )
+    case "h3":
+      return (
+        <Typography variant="h3" {...attributes}>
+          {children}
+        </Typography>
+      )
     default:
       return (
         <Typography component="p" variant="body1" {...attributes}>
