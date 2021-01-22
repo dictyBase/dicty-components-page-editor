@@ -9,8 +9,7 @@ var React__default = _interopDefault(React);
 var slate = require('slate');
 var slateReact = require('slate-react');
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
-var md = require('react-icons/md');
-var fa = require('react-icons/fa');
+var SvgIcon = _interopDefault(require('@material-ui/core/SvgIcon'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
 
 /**
@@ -138,6 +137,72 @@ var BlockButton = function BlockButton(_ref) {
   }, icon);
 };
 
+var BoldIcon = function BoldIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M15.6 10.79c.97-.67 1.65-1.77 1.65-2.79 0-2.26-1.75-4-4-4H7v14h7.04c2.09 0 3.71-1.7 3.71-3.79 0-1.52-.86-2.82-2.15-3.42zM10 6.5h3c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5h-3v-3zm3.5 9H10v-3h3.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5z"
+  }));
+};
+
+var H1Icon = function H1Icon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"
+  }));
+};
+
+var H2Icon = function H2Icon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"
+  }));
+};
+
+var ItalicIcon = function ItalicIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M10 4v3h2.21l-3.42 8H6v3h8v-3h-2.21l3.42-8H18V4z"
+  }));
+};
+
+var StrikethroughIcon = function StrikethroughIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M10 19h4v-3h-4v3zM5 4v3h5v3h4V7h5V4H5zM3 14h18v-2H3v2z"
+  }));
+};
+
+var SubscriptIcon = function SubscriptIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M22,18h-2v1h3v1h-4v-2c0-0.55,0.45-1,1-1h2v-1h-3v-1h3c0.55,0,1,0.45,1,1v1C23,17.55,22.55,18,22,18z M5.88,18h2.66 l3.4-5.42h0.12l3.4,5.42h2.66l-4.65-7.27L17.81,4h-2.68l-3.07,4.99h-0.12L8.85,4H6.19l4.32,6.73L5.88,18z"
+  }));
+};
+
+var SuperscriptIcon = function SuperscriptIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M22,7h-2v1h3v1h-4V7c0-0.55,0.45-1,1-1h2V5h-3V4h3c0.55,0,1,0.45,1,1v1C23,6.55,22.55,7,22,7z M5.88,20h2.66l3.4-5.42h0.12 l3.4,5.42h2.66l-4.65-7.27L17.81,6h-2.68l-3.07,4.99h-0.12L8.85,6H6.19l4.32,6.73L5.88,20z"
+  }));
+};
+
+var UnderlinedIcon = function UnderlinedIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M12 17c3.31 0 6-2.69 6-6V3h-2.5v8c0 1.93-1.57 3.5-3.5 3.5S8.5 12.93 8.5 11V3H6v8c0 3.31 2.69 6 6 6zm-7 2v2h14v-2H5z"
+  }));
+};
+
 /**
  * Toolbar is the display for the editor toolbar.
  */
@@ -145,28 +210,28 @@ var BlockButton = function BlockButton(_ref) {
 var Toolbar = function Toolbar() {
   return React__default.createElement("div", null, React__default.createElement(MarkButton, {
     format: "bold",
-    icon: React__default.createElement(md.MdFormatBold, null)
+    icon: React__default.createElement(BoldIcon, null)
   }), React__default.createElement(MarkButton, {
     format: "italic",
-    icon: React__default.createElement(md.MdFormatItalic, null)
+    icon: React__default.createElement(ItalicIcon, null)
   }), React__default.createElement(MarkButton, {
     format: "underline",
-    icon: React__default.createElement(md.MdFormatUnderlined, null)
+    icon: React__default.createElement(UnderlinedIcon, null)
   }), React__default.createElement(MarkButton, {
     format: "strikethrough",
-    icon: React__default.createElement(md.MdFormatStrikethrough, null)
+    icon: React__default.createElement(StrikethroughIcon, null)
   }), React__default.createElement(MarkButton, {
     format: "subscript",
-    icon: React__default.createElement(fa.FaSubscript, null)
+    icon: React__default.createElement(SubscriptIcon, null)
   }), React__default.createElement(MarkButton, {
     format: "superscript",
-    icon: React__default.createElement(fa.FaSuperscript, null)
+    icon: React__default.createElement(SuperscriptIcon, null)
   }), React__default.createElement(BlockButton, {
     format: "h1",
-    icon: React__default.createElement(md.MdLooksOne, null)
+    icon: React__default.createElement(H1Icon, null)
   }), React__default.createElement(BlockButton, {
     format: "h2",
-    icon: React__default.createElement(md.MdLooksTwo, null)
+    icon: React__default.createElement(H2Icon, null)
   }));
 };
 

@@ -1,15 +1,14 @@
 import React from "react"
 import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
-import {
-  MdFormatBold,
-  MdFormatItalic,
-  MdFormatUnderlined,
-  MdFormatStrikethrough,
-  MdLooksOne,
-  MdLooksTwo,
-} from "react-icons/md"
-import { FaSubscript, FaSuperscript } from "react-icons/fa"
+import BoldIcon from "./icons/BoldIcon"
+import H1Icon from "./icons/H1Icon"
+import H2Icon from "./icons/H2Icon"
+import ItalicIcon from "./icons/ItalicIcon"
+import StrikethroughIcon from "./icons/StrikethroughIcon"
+import SubscriptIcon from "./icons/SubscriptIcon"
+import SuperscriptIcon from "./icons/SuperscriptIcon"
+import UnderlinedIcon from "./icons/UnderlinedIcon"
 
 /**
  * Toolbar is the display for the editor toolbar.
@@ -17,14 +16,14 @@ import { FaSubscript, FaSuperscript } from "react-icons/fa"
 const Toolbar = () => {
   return (
     <div>
-      <MarkButton format="bold" icon={<MdFormatBold />} />
-      <MarkButton format="italic" icon={<MdFormatItalic />} />
-      <MarkButton format="underline" icon={<MdFormatUnderlined />} />
-      <MarkButton format="strikethrough" icon={<MdFormatStrikethrough />} />
-      <MarkButton format="subscript" icon={<FaSubscript />} />
-      <MarkButton format="superscript" icon={<FaSuperscript />} />
-      <BlockButton format="h1" icon={<MdLooksOne />} />
-      <BlockButton format="h2" icon={<MdLooksTwo />} />
+      <MarkButton format="bold" icon={<BoldIcon />} />
+      <MarkButton format="italic" icon={<ItalicIcon />} />
+      <MarkButton format="underline" icon={<UnderlinedIcon />} />
+      <MarkButton format="strikethrough" icon={<StrikethroughIcon />} />
+      <MarkButton format="subscript" icon={<SubscriptIcon />} />
+      <MarkButton format="superscript" icon={<SuperscriptIcon />} />
+      <BlockButton format="h1" icon={<H1Icon />} />
+      <BlockButton format="h2" icon={<H2Icon />} />
     </div>
   )
 }
