@@ -115,7 +115,7 @@ var toggleBlock = function toggleBlock(editor, format, align) {
 
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
-    align: isActive ? "left" : align
+    alignment: isActive ? "left" : align
   });
 };
 /**
@@ -331,32 +331,39 @@ var Element = function Element(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       element = _ref.element;
+  var align = element.align,
+      type = element.type;
 
-  switch (element.type) {
+  switch (type) {
     case "align":
       return React.createElement(Typography, Object.assign({
+        component: "span",
         variant: "inherit",
-        align: element.align
+        align: align
       }, attributes), children);
 
     case "h1":
       return React.createElement(Typography, Object.assign({
-        variant: "h1"
+        variant: "h1",
+        align: align
       }, attributes), children);
 
     case "h2":
       return React.createElement(Typography, Object.assign({
-        variant: "h2"
+        variant: "h2",
+        align: align
       }, attributes), children);
 
     case "h3":
       return React.createElement(Typography, Object.assign({
-        variant: "h3"
+        variant: "h3",
+        align: align
       }, attributes), children);
 
     default:
       return React.createElement(Typography, Object.assign({
         component: "p",
+        align: align,
         variant: "body1"
       }, attributes), children);
   }
@@ -404,6 +411,28 @@ var Leaf = function Leaf(_ref) {
   return React.createElement("span", Object.assign({}, attributes), children);
 };
 
+var withAlignment = function withAlignment(editor) {
+  var normalizeNode = editor.normalizeNode;
+
+  editor.normalizeNode = function (match) {
+    var node = match[0],
+        path = match[1]; // every node needs a standard alignment of 'left'
+
+    if (!node.alignment) {
+      Transforms.setNodes(editor, {
+        alignment: "left"
+      }, {
+        at: path
+      });
+      return;
+    }
+
+    normalizeNode(match);
+  };
+
+  return editor;
+};
+
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -417,7 +446,7 @@ var initialValue = [{
 var PageEditor = function PageEditor() {
   // create a slate editor object that won't change across renders
   var editor = useMemo(function () {
-    return withReact(createEditor());
+    return withReact(withAlignment(createEditor()));
   }, []); // store the value of the editor
 
   var _useState = useState(initialValue),

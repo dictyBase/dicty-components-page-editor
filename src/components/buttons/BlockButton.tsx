@@ -54,9 +54,11 @@ const toggleBlock = (
   // given format, otherwise we set it as the format.
   Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format,
-    align: isActive ? "left" : align,
+    alignment: isActive ? "left" : align,
   })
 }
+
+// Transforms.setNodes(editor, { alignment: 'right' }, { match: n => n.type === 'paragraph' });
 
 type Props = {
   /** Type of block (i.e. "h1") */

@@ -19,34 +19,40 @@ interface ElementProps extends RenderElementProps {
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: ElementProps) => {
-  switch (element.type) {
+  const { align, type } = element
+
+  switch (type) {
     case "align":
       return (
-        <Typography variant="inherit" align={element.align} {...attributes}>
+        <Typography
+          component="span"
+          variant="inherit"
+          align={align}
+          {...attributes}>
           {children}
         </Typography>
       )
     case "h1":
       return (
-        <Typography variant="h1" {...attributes}>
+        <Typography variant="h1" align={align} {...attributes}>
           {children}
         </Typography>
       )
     case "h2":
       return (
-        <Typography variant="h2" {...attributes}>
+        <Typography variant="h2" align={align} {...attributes}>
           {children}
         </Typography>
       )
     case "h3":
       return (
-        <Typography variant="h3" {...attributes}>
+        <Typography variant="h3" align={align} {...attributes}>
           {children}
         </Typography>
       )
     default:
       return (
-        <Typography component="p" variant="body1" {...attributes}>
+        <Typography component="p" align={align} variant="body1" {...attributes}>
           {children}
         </Typography>
       )
