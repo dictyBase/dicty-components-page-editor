@@ -342,28 +342,24 @@ var Element = function Element(_ref) {
     case "align-left":
       return React.createElement(Typography, Object.assign({
         component: "span",
-        variant: "inherit",
         align: "left"
       }, attributes), children);
 
     case "align-center":
       return React.createElement(Typography, Object.assign({
         component: "span",
-        variant: "inherit",
         align: "center"
       }, attributes), children);
 
     case "align-right":
       return React.createElement(Typography, Object.assign({
         component: "span",
-        variant: "inherit",
         align: "right"
       }, attributes), children);
 
     case "align-justify":
       return React.createElement(Typography, Object.assign({
         component: "span",
-        variant: "inherit",
         align: "justify"
       }, attributes), children);
 

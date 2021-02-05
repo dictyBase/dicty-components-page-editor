@@ -11,41 +11,25 @@ const Element = ({ attributes, children, element }: RenderElementProps) => {
   switch (type) {
     case "align-left":
       return (
-        <Typography
-          component="span"
-          variant="inherit"
-          align="left"
-          {...attributes}>
+        <Typography component="span" align="left" {...attributes}>
           {children}
         </Typography>
       )
     case "align-center":
       return (
-        <Typography
-          component="span"
-          variant="inherit"
-          align="center"
-          {...attributes}>
+        <Typography component="span" align="center" {...attributes}>
           {children}
         </Typography>
       )
     case "align-right":
       return (
-        <Typography
-          component="span"
-          variant="inherit"
-          align="right"
-          {...attributes}>
+        <Typography component="span" align="right" {...attributes}>
           {children}
         </Typography>
       )
     case "align-justify":
       return (
-        <Typography
-          component="span"
-          variant="inherit"
-          align="justify"
-          {...attributes}>
+        <Typography component="span" align="justify" {...attributes}>
           {children}
         </Typography>
       )

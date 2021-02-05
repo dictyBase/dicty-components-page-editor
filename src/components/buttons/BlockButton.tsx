@@ -69,8 +69,6 @@ const toggleBlock = (editor: ReactEditor, format: string) => {
   }
 }
 
-// Transforms.setNodes(editor, { alignment: 'right' }, { match: n => n.type === 'paragraph' });
-
 type Props = {
   /** Type of block (i.e. "h1") */
   format: string
