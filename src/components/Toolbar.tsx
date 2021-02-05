@@ -22,6 +22,8 @@ import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
 import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
+// types
+import { types, alignments } from "../constants/types"
 
 const useStyles = makeStyles({
   divider: {
@@ -39,21 +41,21 @@ const EditorToolbar = () => {
   return (
     <AppBar color="default" position="static">
       <Toolbar disableGutters variant="dense">
-        <MarkButton format="bold" icon={<BoldIcon />} />
-        <MarkButton format="italic" icon={<ItalicIcon />} />
-        <MarkButton format="underline" icon={<UnderlinedIcon />} />
-        <MarkButton format="strikethrough" icon={<StrikethroughIcon />} />
-        <MarkButton format="subscript" icon={<SubscriptIcon />} />
-        <MarkButton format="superscript" icon={<SuperscriptIcon />} />
+        <MarkButton format={types.bold} icon={<BoldIcon />} />
+        <MarkButton format={types.italic} icon={<ItalicIcon />} />
+        <MarkButton format={types.underline} icon={<UnderlinedIcon />} />
+        <MarkButton format={types.strikethrough} icon={<StrikethroughIcon />} />
+        <MarkButton format={types.subscript} icon={<SubscriptIcon />} />
+        <MarkButton format={types.superscript} icon={<SuperscriptIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format="h1" icon={<H1Icon />} />
-        <BlockButton format="h2" icon={<H2Icon />} />
-        <BlockButton format="h3" icon={<H3Icon />} />
+        <BlockButton format={types.h1} icon={<H1Icon />} />
+        <BlockButton format={types.h2} icon={<H2Icon />} />
+        <BlockButton format={types.h3} icon={<H3Icon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <AlignButton align="left" icon={<AlignLeftIcon />} />
-        <AlignButton align="center" icon={<AlignCenterIcon />} />
-        <AlignButton align="right" icon={<AlignRightIcon />} />
-        <AlignButton align="justify" icon={<AlignJustifyIcon />} />
+        <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
+        <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
+        <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
+        <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
       </Toolbar>
     </AppBar>
   )

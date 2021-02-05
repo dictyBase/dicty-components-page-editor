@@ -1,6 +1,8 @@
 import React from "react"
 import { RenderElementProps } from "slate-react"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
+import { types } from "../constants/types"
+
 interface ElementProps extends RenderElementProps {
   element: {
     align?: TypographyProps["align"]
@@ -16,19 +18,19 @@ const Element = ({ attributes, children, element }: ElementProps) => {
   const { type, align } = element
 
   switch (type) {
-    case "h1":
+    case types.h1:
       return (
         <Typography variant="h1" align={align} {...attributes}>
           {children}
         </Typography>
       )
-    case "h2":
+    case types.h2:
       return (
         <Typography variant="h2" align={align} {...attributes}>
           {children}
         </Typography>
       )
-    case "h3":
+    case types.h3:
       return (
         <Typography variant="h3" align={align} {...attributes}>
           {children}
