@@ -113,20 +113,21 @@ var isBlockActive = function isBlockActive(editor, format) {
 var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
   var isActive = isBlockActive(editor, format);
+  var isAlign = ALIGN_TYPES.includes(format);
   slate.Transforms.unwrapNodes(editor, {
     match: function match(n) {
       return ALIGN_TYPES.includes(n.type);
     },
     split: true
-  });
+  }); // Transforms provides helper functions to interact with the document.
 
-  if (ALIGN_TYPES.includes(format)) {
+  if (isAlign) {
+    // wrapNodes will wrap the current node with the specified element
     slate.Transforms.wrapNodes(editor, {
       type: format,
       children: []
     });
   } else {
-    // Transforms provides helper functions to interact with the document.
     // setNodes is used to set properties at the specified location.
     // Here we are setting the type as paragraph if the block is active for the
     // given format, otherwise we set it as the format.
