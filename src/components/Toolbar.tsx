@@ -5,6 +5,7 @@ import Toolbar from "@material-ui/core/Toolbar"
 import Divider from "@material-ui/core/Divider"
 import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
+import AlignButton from "./buttons/AlignButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -13,13 +14,14 @@ import SubscriptIcon from "./icons/SubscriptIcon"
 import SuperscriptIcon from "./icons/SuperscriptIcon"
 import UnderlinedIcon from "./icons/UnderlinedIcon"
 // block icons
+import H1Icon from "./icons/H1Icon"
+import H2Icon from "./icons/H2Icon"
+import H3Icon from "./icons/H3Icon"
+// align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
 import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
-import H1Icon from "./icons/H1Icon"
-import H2Icon from "./icons/H2Icon"
-import H3Icon from "./icons/H3Icon"
 
 const useStyles = makeStyles({
   divider: {
@@ -48,10 +50,10 @@ const EditorToolbar = () => {
         <BlockButton format="h2" icon={<H2Icon />} />
         <BlockButton format="h3" icon={<H3Icon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format="align-left" icon={<AlignLeftIcon />} />
-        <BlockButton format="align-center" icon={<AlignCenterIcon />} />
-        <BlockButton format="align-right" icon={<AlignRightIcon />} />
-        <BlockButton format="align-justify" icon={<AlignJustifyIcon />} />
+        <AlignButton align="left" icon={<AlignLeftIcon />} />
+        <AlignButton align="center" icon={<AlignCenterIcon />} />
+        <AlignButton align="right" icon={<AlignRightIcon />} />
+        <AlignButton align="justify" icon={<AlignJustifyIcon />} />
       </Toolbar>
     </AppBar>
   )

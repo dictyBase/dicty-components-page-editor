@@ -17,13 +17,6 @@ import IconButton from "@material-ui/core/IconButton"
  *    'paragraph'.
  */
 
-const ALIGN_TYPES = [
-  "align-left",
-  "align-center",
-  "align-right",
-  "align-justify",
-]
-
 /**
  * isBlockActive determines if the current text selection contains an active block
  */
@@ -51,25 +44,13 @@ const isBlockActive = (editor: ReactEditor, format: string) => {
 const toggleBlock = (editor: ReactEditor, format: string) => {
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, format)
-  const isAlign = ALIGN_TYPES.includes(format)
 
-  Transforms.unwrapNodes(editor, {
-    match: (n) => ALIGN_TYPES.includes(n.type as string),
-    split: true,
+  // setNodes is used to set properties at the specified location.
+  // Here we are setting the type as paragraph if the block is active for the
+  // given format, otherwise we set it as the format.
+  Transforms.setNodes(editor, {
+    type: isActive ? "paragraph" : format,
   })
-
-  // Transforms provides helper functions to interact with the document.
-  if (isAlign) {
-    // wrapNodes will wrap the current node with the specified element
-    Transforms.wrapNodes(editor, { type: format, children: [] })
-  } else {
-    // setNodes is used to set properties at the specified location.
-    // Here we are setting the type as paragraph if the block is active for the
-    // given format, otherwise we set it as the format.
-    Transforms.setNodes(editor, {
-      type: isActive ? "paragraph" : format,
-    })
-  }
 }
 
 type Props = {
@@ -80,7 +61,8 @@ type Props = {
 }
 
 /**
- * BlockButton displays a button with associated click logic for toggling a block.
+ * BlockButton displays a button with associated click logic for toggling a
+ * block.
  */
 const BlockButton = ({ format, icon }: Props) => {
   const editor = useSlate()

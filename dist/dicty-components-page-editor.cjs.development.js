@@ -81,7 +81,6 @@ var MarkButton = function MarkButton(_ref) {
  *    'paragraph'.
  */
 
-var ALIGN_TYPES = ["align-left", "align-center", "align-right", "align-justify"];
 /**
  * isBlockActive determines if the current text selection contains an active block
  */
@@ -112,32 +111,17 @@ var isBlockActive = function isBlockActive(editor, format) {
 
 var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
-  var isActive = isBlockActive(editor, format);
-  var isAlign = ALIGN_TYPES.includes(format);
-  slate.Transforms.unwrapNodes(editor, {
-    match: function match(n) {
-      return ALIGN_TYPES.includes(n.type);
-    },
-    split: true
-  }); // Transforms provides helper functions to interact with the document.
+  var isActive = isBlockActive(editor, format); // setNodes is used to set properties at the specified location.
+  // Here we are setting the type as paragraph if the block is active for the
+  // given format, otherwise we set it as the format.
 
-  if (isAlign) {
-    // wrapNodes will wrap the current node with the specified element
-    slate.Transforms.wrapNodes(editor, {
-      type: format,
-      children: []
-    });
-  } else {
-    // setNodes is used to set properties at the specified location.
-    // Here we are setting the type as paragraph if the block is active for the
-    // given format, otherwise we set it as the format.
-    slate.Transforms.setNodes(editor, {
-      type: isActive ? "paragraph" : format
-    });
-  }
+  slate.Transforms.setNodes(editor, {
+    type: isActive ? "paragraph" : format
+  });
 };
 /**
- * BlockButton displays a button with associated click logic for toggling a block.
+ * BlockButton displays a button with associated click logic for toggling a
+ * block.
  */
 
 
@@ -149,6 +133,51 @@ var BlockButton = function BlockButton(_ref) {
   var handleClick = function handleClick(event) {
     event.preventDefault();
     toggleBlock(editor, format);
+  };
+
+  return React__default.createElement(IconButton, {
+    size: "small",
+    onClick: handleClick
+  }, icon);
+};
+
+var isAlignActive = function isAlignActive(editor, align) {
+  var nodeGenerator = slate.Editor.nodes(editor, {
+    match: function match(n) {
+      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.align === align;
+    }
+  }); // run the generator to find the nearest match
+  // then return true if this is the last value
+
+  var node = nodeGenerator.next();
+
+  while (!node.done) {
+    return true;
+  }
+
+  return false;
+};
+
+var toggleAlign = function toggleAlign(editor, align) {
+  var isActive = isAlignActive(editor, align);
+  slate.Transforms.setNodes(editor, {
+    align: isActive ? "left" : align
+  });
+};
+/**
+ * AlignButton displays a button with associated logic for adding the "align"
+ * attribute.
+ */
+
+
+var AlignButton = function AlignButton(_ref) {
+  var icon = _ref.icon,
+      align = _ref.align;
+  var editor = slateReact.useSlate(); // when button is clicked, toggle the block within the editor
+
+  var handleClick = function handleClick(event) {
+    event.preventDefault();
+    toggleAlign(editor, align);
   };
 
   return React__default.createElement(IconButton, {
@@ -205,6 +234,33 @@ var UnderlinedIcon = function UnderlinedIcon() {
   }));
 };
 
+var H1Icon = function H1Icon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"
+  }));
+};
+
+var H2Icon = function H2Icon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"
+  }));
+};
+
+var H3Icon = function H3Icon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M.01 0h24v24h-24z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M19.01 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 7.5c0 .83-.67 1.5-1.5 1.5.83 0 1.5.67 1.5 1.5V15c0 1.11-.9 2-2 2h-4v-2h4v-2h-2v-2h2V9h-4V7h4c1.1 0 2 .89 2 2v1.5z"
+  }));
+};
+
 var AlignLeftIcon = function AlignLeftIcon() {
   return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
     d: "M0 0h24v24H0z",
@@ -238,33 +294,6 @@ var AlignJustifyIcon = function AlignJustifyIcon() {
     fill: "none"
   }), React__default.createElement("path", {
     d: "M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"
-  }));
-};
-
-var H1Icon = function H1Icon() {
-  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
-    d: "M0 0h24v24H0z",
-    fill: "none"
-  }), React__default.createElement("path", {
-    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14h-2V9h-2V7h4v10z"
-  }));
-};
-
-var H2Icon = function H2Icon() {
-  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
-    d: "M0 0h24v24H0z",
-    fill: "none"
-  }), React__default.createElement("path", {
-    d: "M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 8c0 1.11-.9 2-2 2h-2v2h4v2H9v-4c0-1.11.9-2 2-2h2V9H9V7h4c1.1 0 2 .89 2 2v2z"
-  }));
-};
-
-var H3Icon = function H3Icon() {
-  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
-    d: "M.01 0h24v24h-24z",
-    fill: "none"
-  }), React__default.createElement("path", {
-    d: "M19.01 3h-14c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-4 7.5c0 .83-.67 1.5-1.5 1.5.83 0 1.5.67 1.5 1.5V15c0 1.11-.9 2-2 2h-4v-2h4v-2h-2v-2h2V9h-4V7h4c1.1 0 2 .89 2 2v1.5z"
   }));
 };
 
@@ -321,17 +350,17 @@ var EditorToolbar = function EditorToolbar() {
     className: classes.divider,
     orientation: "vertical",
     flexItem: true
-  }), React__default.createElement(BlockButton, {
-    format: "align-left",
+  }), React__default.createElement(AlignButton, {
+    align: "left",
     icon: React__default.createElement(AlignLeftIcon, null)
-  }), React__default.createElement(BlockButton, {
-    format: "align-center",
+  }), React__default.createElement(AlignButton, {
+    align: "center",
     icon: React__default.createElement(AlignCenterIcon, null)
-  }), React__default.createElement(BlockButton, {
-    format: "align-right",
+  }), React__default.createElement(AlignButton, {
+    align: "right",
     icon: React__default.createElement(AlignRightIcon, null)
-  }), React__default.createElement(BlockButton, {
-    format: "align-justify",
+  }), React__default.createElement(AlignButton, {
+    align: "justify",
     icon: React__default.createElement(AlignJustifyIcon, null)
   })));
 };
@@ -344,52 +373,33 @@ var Element = function Element(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       element = _ref.element;
-  var type = element.type;
+  var type = element.type,
+      align = element.align;
 
   switch (type) {
-    case "align-left":
-      return React__default.createElement(Typography, Object.assign({
-        component: "span",
-        align: "left"
-      }, attributes), children);
-
-    case "align-center":
-      return React__default.createElement(Typography, Object.assign({
-        component: "span",
-        align: "center"
-      }, attributes), children);
-
-    case "align-right":
-      return React__default.createElement(Typography, Object.assign({
-        component: "span",
-        align: "right"
-      }, attributes), children);
-
-    case "align-justify":
-      return React__default.createElement(Typography, Object.assign({
-        component: "span",
-        align: "justify"
-      }, attributes), children);
-
     case "h1":
       return React__default.createElement(Typography, Object.assign({
-        variant: "h1"
+        variant: "h1",
+        align: align
       }, attributes), children);
 
     case "h2":
       return React__default.createElement(Typography, Object.assign({
-        variant: "h2"
+        variant: "h2",
+        align: align
       }, attributes), children);
 
     case "h3":
       return React__default.createElement(Typography, Object.assign({
-        variant: "h3"
+        variant: "h3",
+        align: align
       }, attributes), children);
 
     default:
       return React__default.createElement(Typography, Object.assign({
         component: "p",
-        variant: "body1"
+        variant: "body1",
+        align: align
       }, attributes), children);
   }
 };

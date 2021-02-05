@@ -6,7 +6,8 @@ declare type Props = {
     icon: JSX.Element;
 };
 /**
- * BlockButton displays a button with associated click logic for toggling a block.
+ * BlockButton displays a button with associated click logic for toggling a
+ * block.
  */
 declare const BlockButton: ({ format, icon }: Props) => JSX.Element;
 export default BlockButton;
