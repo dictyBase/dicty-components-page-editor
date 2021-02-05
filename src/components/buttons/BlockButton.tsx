@@ -16,6 +16,13 @@ import IconButton from "@material-ui/core/IconButton"
  *    'paragraph'.
  */
 
+const ALIGN_TYPES = [
+  "align-left",
+  "align-center",
+  "align-right",
+  "align-justify",
+]
+
 /**
  * isBlockActive determines if the current text selection contains an active block
  */
@@ -44,13 +51,22 @@ const toggleBlock = (editor: ReactEditor, format: string) => {
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, format)
 
-  // Transforms provides helper functions to interact with the document.
-  // setNodes is used to set properties at the specified location.
-  // Here we are setting the type as paragraph if the block is active for the
-  // given format, otherwise we set it as the format.
-  Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format,
+  Transforms.unwrapNodes(editor, {
+    match: (n) => ALIGN_TYPES.includes(n.type as string),
+    split: true,
   })
+
+  if (ALIGN_TYPES.includes(format)) {
+    Transforms.wrapNodes(editor, { type: format, children: [] })
+  } else {
+    // Transforms provides helper functions to interact with the document.
+    // setNodes is used to set properties at the specified location.
+    // Here we are setting the type as paragraph if the block is active for the
+    // given format, otherwise we set it as the format.
+    Transforms.setNodes(editor, {
+      type: isActive ? "paragraph" : format,
+    })
+  }
 }
 
 // Transforms.setNodes(editor, { alignment: 'right' }, { match: n => n.type === 'paragraph' });

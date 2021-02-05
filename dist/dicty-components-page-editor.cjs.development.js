@@ -81,6 +81,7 @@ var MarkButton = function MarkButton(_ref) {
  *    'paragraph'.
  */
 
+var ALIGN_TYPES = ["align-left", "align-center", "align-right", "align-justify"];
 /**
  * isBlockActive determines if the current text selection contains an active block
  */
@@ -111,14 +112,28 @@ var isBlockActive = function isBlockActive(editor, format) {
 
 var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
-  var isActive = isBlockActive(editor, format); // Transforms provides helper functions to interact with the document.
-  // setNodes is used to set properties at the specified location.
-  // Here we are setting the type as paragraph if the block is active for the
-  // given format, otherwise we set it as the format.
-
-  slate.Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format
+  var isActive = isBlockActive(editor, format);
+  slate.Transforms.unwrapNodes(editor, {
+    match: function match(n) {
+      return ALIGN_TYPES.includes(n.type);
+    },
+    split: true
   });
+
+  if (ALIGN_TYPES.includes(format)) {
+    slate.Transforms.wrapNodes(editor, {
+      type: format,
+      children: []
+    });
+  } else {
+    // Transforms provides helper functions to interact with the document.
+    // setNodes is used to set properties at the specified location.
+    // Here we are setting the type as paragraph if the block is active for the
+    // given format, otherwise we set it as the format.
+    slate.Transforms.setNodes(editor, {
+      type: isActive ? "paragraph" : format
+    });
+  }
 };
 /**
  * BlockButton displays a button with associated click logic for toggling a block.
@@ -453,6 +468,7 @@ var PageEditor = function PageEditor() {
   var renderLeaf = React.useCallback(function (props) {
     return React__default.createElement(Leaf, Object.assign({}, props));
   }, []);
+  console.log(value);
   return React__default.createElement(slateReact.Slate, {
     editor: editor,
     value: value,
