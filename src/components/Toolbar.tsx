@@ -48,14 +48,10 @@ const EditorToolbar = () => {
         <BlockButton format="h2" icon={<H2Icon />} />
         <BlockButton format="h3" icon={<H3Icon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format="align" align="left" icon={<AlignLeftIcon />} />
-        <BlockButton format="align" align="center" icon={<AlignCenterIcon />} />
-        <BlockButton format="align" align="right" icon={<AlignRightIcon />} />
-        <BlockButton
-          format="align"
-          align="justify"
-          icon={<AlignJustifyIcon />}
-        />
+        <BlockButton format="align-left" icon={<AlignLeftIcon />} />
+        <BlockButton format="align-center" icon={<AlignCenterIcon />} />
+        <BlockButton format="align-right" icon={<AlignRightIcon />} />
+        <BlockButton format="align-justify" icon={<AlignJustifyIcon />} />
       </Toolbar>
     </AppBar>
   )

@@ -102,11 +102,7 @@ var isBlockActive = function isBlockActive(editor, format) {
  */
 
 
-var toggleBlock = function toggleBlock(editor, format, align) {
-  if (align === void 0) {
-    align = "left";
-  }
-
+var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
   var isActive = isBlockActive(editor, format); // Transforms provides helper functions to interact with the document.
   // setNodes is used to set properties at the specified location.
@@ -114,8 +110,7 @@ var toggleBlock = function toggleBlock(editor, format, align) {
   // given format, otherwise we set it as the format.
 
   Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format,
-    alignment: isActive ? "left" : align
+    type: isActive ? "paragraph" : format
   });
 };
 /**
@@ -125,13 +120,12 @@ var toggleBlock = function toggleBlock(editor, format, align) {
 
 var BlockButton = function BlockButton(_ref) {
   var format = _ref.format,
-      icon = _ref.icon,
-      align = _ref.align;
+      icon = _ref.icon;
   var editor = useSlate(); // when button is clicked, toggle the block within the editor
 
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    toggleBlock(editor, format, align);
+    toggleBlock(editor, format);
   };
 
   return React.createElement(IconButton, {
@@ -305,20 +299,16 @@ var EditorToolbar = function EditorToolbar() {
     orientation: "vertical",
     flexItem: true
   }), React.createElement(BlockButton, {
-    format: "align",
-    align: "left",
+    format: "align-left",
     icon: React.createElement(AlignLeftIcon, null)
   }), React.createElement(BlockButton, {
-    format: "align",
-    align: "center",
+    format: "align-center",
     icon: React.createElement(AlignCenterIcon, null)
   }), React.createElement(BlockButton, {
-    format: "align",
-    align: "right",
+    format: "align-right",
     icon: React.createElement(AlignRightIcon, null)
   }), React.createElement(BlockButton, {
-    format: "align",
-    align: "justify",
+    format: "align-justify",
     icon: React.createElement(AlignJustifyIcon, null)
   })));
 };
@@ -331,39 +321,55 @@ var Element = function Element(_ref) {
   var attributes = _ref.attributes,
       children = _ref.children,
       element = _ref.element;
-  var align = element.align,
-      type = element.type;
+  var type = element.type;
 
   switch (type) {
-    case "align":
+    case "align-left":
       return React.createElement(Typography, Object.assign({
         component: "span",
         variant: "inherit",
-        align: align
+        align: "left"
+      }, attributes), children);
+
+    case "align-center":
+      return React.createElement(Typography, Object.assign({
+        component: "span",
+        variant: "inherit",
+        align: "center"
+      }, attributes), children);
+
+    case "align-right":
+      return React.createElement(Typography, Object.assign({
+        component: "span",
+        variant: "inherit",
+        align: "right"
+      }, attributes), children);
+
+    case "align-justify":
+      return React.createElement(Typography, Object.assign({
+        component: "span",
+        variant: "inherit",
+        align: "justify"
       }, attributes), children);
 
     case "h1":
       return React.createElement(Typography, Object.assign({
-        variant: "h1",
-        align: align
+        variant: "h1"
       }, attributes), children);
 
     case "h2":
       return React.createElement(Typography, Object.assign({
-        variant: "h2",
-        align: align
+        variant: "h2"
       }, attributes), children);
 
     case "h3":
       return React.createElement(Typography, Object.assign({
-        variant: "h3",
-        align: align
+        variant: "h3"
       }, attributes), children);
 
     default:
       return React.createElement(Typography, Object.assign({
         component: "p",
-        align: align,
         variant: "body1"
       }, attributes), children);
   }
@@ -411,28 +417,6 @@ var Leaf = function Leaf(_ref) {
   return React.createElement("span", Object.assign({}, attributes), children);
 };
 
-var withAlignment = function withAlignment(editor) {
-  var normalizeNode = editor.normalizeNode;
-
-  editor.normalizeNode = function (match) {
-    var node = match[0],
-        path = match[1]; // every node needs a standard alignment of 'left'
-
-    if (!node.alignment) {
-      Transforms.setNodes(editor, {
-        alignment: "left"
-      }, {
-        at: path
-      });
-      return;
-    }
-
-    normalizeNode(match);
-  };
-
-  return editor;
-};
-
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -446,7 +430,7 @@ var initialValue = [{
 var PageEditor = function PageEditor() {
   // create a slate editor object that won't change across renders
   var editor = useMemo(function () {
-    return withReact(withAlignment(createEditor()));
+    return withReact(createEditor());
   }, []); // store the value of the editor
 
   var _useState = useState(initialValue),

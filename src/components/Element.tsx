@@ -1,58 +1,75 @@
 import React from "react"
 import { RenderElementProps } from "slate-react"
-import Typography, { TypographyProps } from "@material-ui/core/Typography"
-
-interface ElementProps extends RenderElementProps {
-  element: {
-    align?: TypographyProps["align"]
-    children: any
-    type: {
-      align?: boolean
-      h1?: boolean
-      h2?: boolean
-      h3?: boolean
-    }
-  }
-}
+import Typography from "@material-ui/core/Typography"
 
 /**
  * Element is used to render blocks based on a given type.
  */
-const Element = ({ attributes, children, element }: ElementProps) => {
-  const { align, type } = element
+const Element = ({ attributes, children, element }: RenderElementProps) => {
+  const { type } = element
 
   switch (type) {
-    case "align":
+    case "align-left":
       return (
         <Typography
           component="span"
           variant="inherit"
-          align={align}
+          align="left"
+          {...attributes}>
+          {children}
+        </Typography>
+      )
+    case "align-center":
+      return (
+        <Typography
+          component="span"
+          variant="inherit"
+          align="center"
+          {...attributes}>
+          {children}
+        </Typography>
+      )
+    case "align-right":
+      return (
+        <Typography
+          component="span"
+          variant="inherit"
+          align="right"
+          {...attributes}>
+          {children}
+        </Typography>
+      )
+    case "align-justify":
+      return (
+        <Typography
+          component="span"
+          variant="inherit"
+          align="justify"
           {...attributes}>
           {children}
         </Typography>
       )
     case "h1":
       return (
-        <Typography variant="h1" align={align} {...attributes}>
+        <Typography variant="h1" {...attributes}>
           {children}
         </Typography>
       )
     case "h2":
       return (
-        <Typography variant="h2" align={align} {...attributes}>
+        <Typography variant="h2" {...attributes}>
           {children}
         </Typography>
       )
     case "h3":
       return (
-        <Typography variant="h3" align={align} {...attributes}>
+        <Typography variant="h3" {...attributes}>
           {children}
         </Typography>
       )
     default:
       return (
-        <Typography component="p" align={align} variant="body1" {...attributes}>
+        <Typography component="p" variant="body1" {...attributes}>
           {children}
         </Typography>
       )
