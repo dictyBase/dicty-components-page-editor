@@ -7,6 +7,7 @@ const types = {
   subscript: "subscript",
   superscript: "superscript",
   // blocks
+  paragraph: "paragraph",
   h1: "h1",
   h2: "h2",
   h3: "h3",

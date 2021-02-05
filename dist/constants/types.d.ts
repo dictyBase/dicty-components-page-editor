@@ -5,6 +5,7 @@ declare const types: {
     strikethrough: string;
     subscript: string;
     superscript: string;
+    paragraph: string;
     h1: string;
     h2: string;
     h3: string;

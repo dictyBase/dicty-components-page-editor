@@ -297,6 +297,27 @@ var AlignJustifyIcon = function AlignJustifyIcon() {
   }));
 };
 
+var types = {
+  // marks
+  bold: "bold",
+  italic: "italic",
+  underline: "underline",
+  strikethrough: "strikethrough",
+  subscript: "subscript",
+  superscript: "superscript",
+  // blocks
+  paragraph: "paragraph",
+  h1: "h1",
+  h2: "h2",
+  h3: "h3"
+};
+var alignments = {
+  left: "left",
+  center: "center",
+  right: "right",
+  justify: "justify"
+};
+
 var useStyles = /*#__PURE__*/styles.makeStyles({
   divider: {
     marginLeft: "4px",
@@ -316,51 +337,51 @@ var EditorToolbar = function EditorToolbar() {
     disableGutters: true,
     variant: "dense"
   }, React__default.createElement(MarkButton, {
-    format: "bold",
+    format: types.bold,
     icon: React__default.createElement(BoldIcon, null)
   }), React__default.createElement(MarkButton, {
-    format: "italic",
+    format: types.italic,
     icon: React__default.createElement(ItalicIcon, null)
   }), React__default.createElement(MarkButton, {
-    format: "underline",
+    format: types.underline,
     icon: React__default.createElement(UnderlinedIcon, null)
   }), React__default.createElement(MarkButton, {
-    format: "strikethrough",
+    format: types.strikethrough,
     icon: React__default.createElement(StrikethroughIcon, null)
   }), React__default.createElement(MarkButton, {
-    format: "subscript",
+    format: types.subscript,
     icon: React__default.createElement(SubscriptIcon, null)
   }), React__default.createElement(MarkButton, {
-    format: "superscript",
+    format: types.superscript,
     icon: React__default.createElement(SuperscriptIcon, null)
   }), React__default.createElement(Divider, {
     className: classes.divider,
     orientation: "vertical",
     flexItem: true
   }), React__default.createElement(BlockButton, {
-    format: "h1",
+    format: types.h1,
     icon: React__default.createElement(H1Icon, null)
   }), React__default.createElement(BlockButton, {
-    format: "h2",
+    format: types.h2,
     icon: React__default.createElement(H2Icon, null)
   }), React__default.createElement(BlockButton, {
-    format: "h3",
+    format: types.h3,
     icon: React__default.createElement(H3Icon, null)
   }), React__default.createElement(Divider, {
     className: classes.divider,
     orientation: "vertical",
     flexItem: true
   }), React__default.createElement(AlignButton, {
-    align: "left",
+    align: alignments.left,
     icon: React__default.createElement(AlignLeftIcon, null)
   }), React__default.createElement(AlignButton, {
-    align: "center",
+    align: alignments.center,
     icon: React__default.createElement(AlignCenterIcon, null)
   }), React__default.createElement(AlignButton, {
-    align: "right",
+    align: alignments.right,
     icon: React__default.createElement(AlignRightIcon, null)
   }), React__default.createElement(AlignButton, {
-    align: "justify",
+    align: alignments.justify,
     icon: React__default.createElement(AlignJustifyIcon, null)
   })));
 };
@@ -377,19 +398,19 @@ var Element = function Element(_ref) {
       align = element.align;
 
   switch (type) {
-    case "h1":
+    case types.h1:
       return React__default.createElement(Typography, Object.assign({
         variant: "h1",
         align: align
       }, attributes), children);
 
-    case "h2":
+    case types.h2:
       return React__default.createElement(Typography, Object.assign({
         variant: "h2",
         align: align
       }, attributes), children);
 
-    case "h3":
+    case types.h3:
       return React__default.createElement(Typography, Object.assign({
         variant: "h3",
         align: align
