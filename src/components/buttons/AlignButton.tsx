@@ -47,7 +47,10 @@ const AlignButton = ({ icon, align }: Props) => {
   }
 
   return (
-    <IconButton size="small" onClick={handleClick}>
+    <IconButton
+      size="small"
+      aria-label={`align-${align}`}
+      onClick={handleClick}>
       {icon}
     </IconButton>
   )
