@@ -42,7 +42,7 @@
     "fontsource-roboto-condensed": "^3.1.5",
     "fontsource-roboto-mono": "^3.1.6",
     "fontsource-roboto-slab": "^3.1.6",
-    "get-video-id": "^3.1.5",
+    "get-video-id": "^3.1.9",
     "immutable": "^3.8.2",
     "is-url": "^1.2.4",
     "react-color": "^2.19.3",
