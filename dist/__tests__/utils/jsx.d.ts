@@ -1,7 +1,20 @@
+/// <reference types="react" />
+/**
+ * This file is used to transform the JSX output based on our specifications.
+ * The createHyperscript function allows us to define how we want the elements
+ * to look.
+ *
+ * To use these in our tests we need to import jsx and then add the "@jsx pragma"
+ * at the top of the file. This is used to specify how the output of the React
+ * Transformer should look (based on our definitions below).
+ * See align.fixture.tsx for an example.
+ */
 declare global {
     namespace JSX {
         interface IntrinsicElements {
-            [elementName: string]: any;
+            [elementName: string]: {
+                children?: React.ReactNode;
+            };
         }
     }
 }

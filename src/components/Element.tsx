@@ -15,7 +15,7 @@ interface ElementProps extends RenderElementProps {
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: ElementProps) => {
-  const { type, align } = element
+  const { type, align = "left" } = element
 
   switch (type) {
     case types.h1:

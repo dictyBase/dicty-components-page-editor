@@ -182,6 +182,7 @@ var AlignButton = function AlignButton(_ref) {
 
   return React__default.createElement(IconButton, {
     size: "small",
+    "aria-label": "align-" + align,
     onClick: handleClick
   }, icon);
 };
@@ -395,7 +396,8 @@ var Element = function Element(_ref) {
       children = _ref.children,
       element = _ref.element;
   var type = element.type,
-      align = element.align;
+      _element$align = element.align,
+      align = _element$align === void 0 ? "left" : _element$align;
 
   switch (type) {
     case types.h1:
