@@ -12,13 +12,13 @@ const input = ((
   </editor>
 ) as any) as Editor
 
-const output = (
+const output = ((
   <editor>
     <alignCenter>
       test
       <cursor />
     </alignCenter>
   </editor>
-) as any
+) as any) as Editor
 
 export { input, output }
