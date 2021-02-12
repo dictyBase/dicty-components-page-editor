@@ -16,8 +16,8 @@ describe("text alignment", () => {
 
     render(<AlignButton align={alignments.center} icon={<div />} />)
 
-    const element = screen.getByLabelText("align-center")
-    userEvent.click(element)
+    const button = screen.getByLabelText("align-center")
+    userEvent.click(button)
     expect(editor.children).toEqual(output.children)
   })
 })
