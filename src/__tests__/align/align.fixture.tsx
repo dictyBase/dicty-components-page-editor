@@ -12,16 +12,7 @@ const input = ((
   </editor>
 ) as any) as Editor
 
-const leftOutput = (
-  <editor>
-    <alignLeft>
-      test
-      <cursor />
-    </alignLeft>
-  </editor>
-) as any
-
-const centerOutput = (
+const output = (
   <editor>
     <alignCenter>
       test
@@ -30,13 +21,4 @@ const centerOutput = (
   </editor>
 ) as any
 
-const rightOutput = (
-  <editor>
-    <alignRight>
-      test
-      <cursor />
-    </alignRight>
-  </editor>
-) as any
-
-export { input, leftOutput, centerOutput, rightOutput }
+export { input, output }

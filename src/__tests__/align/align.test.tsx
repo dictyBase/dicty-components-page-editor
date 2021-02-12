@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import AlignButton from "../../components/buttons/AlignButton"
 import { alignments } from "../../constants/types"
-import { input, centerOutput } from "./align.fixture"
+import { input, output } from "./align.fixture"
 
 describe("text alignment", () => {
   it("should center align", () => {
@@ -18,6 +18,6 @@ describe("text alignment", () => {
 
     const element = screen.getByLabelText("align-center")
     userEvent.click(element)
-    expect(editor.children).toEqual(centerOutput.children)
+    expect(editor.children).toEqual(output.children)
   })
 })
