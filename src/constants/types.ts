@@ -6,6 +6,8 @@ const types = {
   strikethrough: "strikethrough",
   subscript: "subscript",
   superscript: "superscript",
+  // inline
+  link: "link",
   // blocks
   paragraph: "paragraph",
   h1: "h1",

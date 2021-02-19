@@ -6,6 +6,7 @@ import Divider from "@material-ui/core/Divider"
 import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
 import AlignButton from "./buttons/AlignButton"
+import LinkButton from "./buttons/LinkButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -17,6 +18,7 @@ import UnderlinedIcon from "./icons/UnderlinedIcon"
 import H1Icon from "./icons/H1Icon"
 import H2Icon from "./icons/H2Icon"
 import H3Icon from "./icons/H3Icon"
+import LinkIcon from "./icons/LinkIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -51,6 +53,7 @@ const EditorToolbar = () => {
         <BlockButton format={types.h1} icon={<H1Icon />} />
         <BlockButton format={types.h2} icon={<H2Icon />} />
         <BlockButton format={types.h3} icon={<H3Icon />} />
+        <LinkButton icon={<LinkIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />

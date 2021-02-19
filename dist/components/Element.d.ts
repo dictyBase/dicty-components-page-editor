@@ -3,9 +3,14 @@ import { RenderElementProps } from "slate-react";
 import { TypographyProps } from "@material-ui/core/Typography";
 interface ElementProps extends RenderElementProps {
     element: {
-        align?: TypographyProps["align"];
-        children: any;
+        /** Type of element to render */
         type: string;
+        /** Text alignment (left, center, right, justify) */
+        align?: TypographyProps["align"];
+        /** URL used for links */
+        url?: string;
+        /** Any children to render */
+        children: any;
     };
 }
 /**

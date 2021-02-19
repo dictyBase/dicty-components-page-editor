@@ -189,6 +189,104 @@ var AlignButton = function AlignButton(_ref) {
   }, icon);
 };
 
+var types = {
+  // marks
+  bold: "bold",
+  italic: "italic",
+  underline: "underline",
+  strikethrough: "strikethrough",
+  subscript: "subscript",
+  superscript: "superscript",
+  // inline
+  link: "link",
+  // blocks
+  paragraph: "paragraph",
+  h1: "h1",
+  h2: "h2",
+  h3: "h3"
+};
+var alignments = {
+  left: "left",
+  center: "center",
+  right: "right",
+  justify: "justify"
+};
+
+var isLinkActive = function isLinkActive(editor) {
+  var nodeGenerator = slate.Editor.nodes(editor, {
+    match: function match(n) {
+      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === types.link;
+    }
+  });
+  var node = nodeGenerator.next();
+
+  while (!node.done) {
+    return true;
+  }
+
+  return false;
+};
+
+var unwrapLink = function unwrapLink(editor) {
+  slate.Transforms.unwrapNodes(editor, {
+    match: function match(n) {
+      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === types.link;
+    }
+  });
+};
+
+var insertLink = function insertLink(editor, url) {
+  if (!editor.selection) {
+    return;
+  }
+
+  if (isLinkActive(editor)) {
+    unwrapLink(editor);
+  }
+
+  var isCollapsed = editor.selection && slate.Range.isCollapsed(editor.selection);
+  var link = {
+    type: types.link,
+    url: url,
+    children: isCollapsed ? [{
+      text: url
+    }] : []
+  };
+
+  if (isCollapsed) {
+    slate.Transforms.insertNodes(editor, link);
+  } else {
+    slate.Transforms.wrapNodes(editor, link, {
+      split: true
+    });
+    slate.Transforms.collapse(editor, {
+      edge: "end"
+    });
+  }
+};
+/**
+ * LinkButton is a button specifically for adding links.
+ */
+
+
+var LinkButton = function LinkButton(_ref) {
+  var icon = _ref.icon;
+  var editor = slateReact.useSlate();
+
+  var handleClick = function handleClick(event) {
+    event.preventDefault();
+    var url = window.prompt("Enter the URL of the link:");
+    if (!url) return;
+    insertLink(editor, url);
+  };
+
+  return React__default.createElement(IconButton, {
+    size: "small",
+    "aria-label": "link-button",
+    onClick: handleClick
+  }, icon);
+};
+
 var BoldIcon = function BoldIcon() {
   return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
     d: "M0 0h24v24H0z",
@@ -264,6 +362,15 @@ var H3Icon = function H3Icon() {
   }));
 };
 
+var LinkIcon = function LinkIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M0 0h24v24H0z",
+    fill: "none"
+  }), React__default.createElement("path", {
+    d: "M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"
+  }));
+};
+
 var AlignLeftIcon = function AlignLeftIcon() {
   return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
     d: "M0 0h24v24H0z",
@@ -298,27 +405,6 @@ var AlignJustifyIcon = function AlignJustifyIcon() {
   }), React__default.createElement("path", {
     d: "M3 21h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18v-2H3v2zm0-4h18V7H3v2zm0-6v2h18V3H3z"
   }));
-};
-
-var types = {
-  // marks
-  bold: "bold",
-  italic: "italic",
-  underline: "underline",
-  strikethrough: "strikethrough",
-  subscript: "subscript",
-  superscript: "superscript",
-  // blocks
-  paragraph: "paragraph",
-  h1: "h1",
-  h2: "h2",
-  h3: "h3"
-};
-var alignments = {
-  left: "left",
-  center: "center",
-  right: "right",
-  justify: "justify"
 };
 
 var useStyles = /*#__PURE__*/styles.makeStyles({
@@ -370,6 +456,8 @@ var EditorToolbar = function EditorToolbar() {
   }), React__default.createElement(BlockButton, {
     format: types.h3,
     icon: React__default.createElement(H3Icon, null)
+  }), React__default.createElement(LinkButton, {
+    icon: React__default.createElement(LinkIcon, null)
   }), React__default.createElement(Divider, {
     className: classes.divider,
     orientation: "vertical",
@@ -399,7 +487,8 @@ var Element = function Element(_ref) {
       element = _ref.element;
   var type = element.type,
       _element$align = element.align,
-      align = _element$align === void 0 ? "left" : _element$align;
+      align = _element$align === void 0 ? "left" : _element$align,
+      url = element.url;
 
   switch (type) {
     case types.h1:
@@ -418,6 +507,11 @@ var Element = function Element(_ref) {
       return React__default.createElement(Typography, Object.assign({
         variant: "h3",
         align: align
+      }, attributes), children);
+
+    case types.link:
+      return React__default.createElement("a", Object.assign({
+        href: url
       }, attributes), children);
 
     default:
@@ -471,6 +565,20 @@ var Leaf = function Leaf(_ref) {
   return React__default.createElement("span", Object.assign({}, attributes), children);
 };
 
+var withLinks = function withLinks(editor) {
+  var isInline = editor.isInline;
+
+  editor.isInline = function (element) {
+    if (element.type === types.link) {
+      return true;
+    }
+
+    return isInline(editor);
+  };
+
+  return editor;
+};
+
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -484,7 +592,7 @@ var initialValue = [{
 var PageEditor = function PageEditor() {
   // create a slate editor object that won't change across renders
   var editor = React.useMemo(function () {
-    return slateReact.withReact(slate.createEditor());
+    return slateReact.withReact(withLinks(slate.createEditor()));
   }, []); // store the value of the editor
 
   var _useState = React.useState(initialValue),
