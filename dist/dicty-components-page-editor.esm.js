@@ -205,39 +205,32 @@ var alignments = {
   justify: "justify"
 };
 
-var isLinkActive = function isLinkActive(editor) {
-  var nodeGenerator = Editor.nodes(editor, {
-    match: function match(n) {
-      return !Editor.isEditor(n) && Element$1.isElement(n) && n.type === types.link;
-    }
-  });
-  var node = nodeGenerator.next();
-
-  while (!node.done) {
-    return true;
+var nodeOptions = {
+  match: function match(n) {
+    return !Editor.isEditor(n) && Element$1.isElement(n) && n.type === types.link;
   }
+};
 
-  return false;
+var isLinkActive = function isLinkActive(editor) {
+  // get the first match for the link type
+  var _Editor$nodes = Editor.nodes(editor, nodeOptions),
+      link = _Editor$nodes[0]; // return boolean representation of match
+
+
+  return !!link;
 };
 
 var unwrapLink = function unwrapLink(editor) {
-  Transforms.unwrapNodes(editor, {
-    match: function match(n) {
-      return !Editor.isEditor(n) && Element$1.isElement(n) && n.type === types.link;
-    }
-  });
+  Transforms.unwrapNodes(editor, nodeOptions);
 };
 
-var insertLink = function insertLink(editor, url) {
-  if (!editor.selection) {
-    return;
-  }
-
+var wrapLink = function wrapLink(editor, url) {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }
 
-  var isCollapsed = editor.selection && Range.isCollapsed(editor.selection);
+  var selection = editor.selection;
+  var isCollapsed = selection && Range.isCollapsed(selection);
   var link = {
     type: types.link,
     url: url,
@@ -247,6 +240,7 @@ var insertLink = function insertLink(editor, url) {
   };
 
   if (isCollapsed) {
+    // if there isn't a range selected, insert the link as the text as well
     Transforms.insertNodes(editor, link);
   } else {
     Transforms.wrapNodes(editor, link, {
@@ -255,6 +249,12 @@ var insertLink = function insertLink(editor, url) {
     Transforms.collapse(editor, {
       edge: "end"
     });
+  }
+};
+
+var insertLink = function insertLink(editor, url) {
+  if (editor.selection) {
+    wrapLink(editor, url);
   }
 };
 /**

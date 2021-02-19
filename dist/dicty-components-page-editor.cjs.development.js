@@ -212,39 +212,32 @@ var alignments = {
   justify: "justify"
 };
 
-var isLinkActive = function isLinkActive(editor) {
-  var nodeGenerator = slate.Editor.nodes(editor, {
-    match: function match(n) {
-      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === types.link;
-    }
-  });
-  var node = nodeGenerator.next();
-
-  while (!node.done) {
-    return true;
+var nodeOptions = {
+  match: function match(n) {
+    return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === types.link;
   }
+};
 
-  return false;
+var isLinkActive = function isLinkActive(editor) {
+  // get the first match for the link type
+  var _Editor$nodes = slate.Editor.nodes(editor, nodeOptions),
+      link = _Editor$nodes[0]; // return boolean representation of match
+
+
+  return !!link;
 };
 
 var unwrapLink = function unwrapLink(editor) {
-  slate.Transforms.unwrapNodes(editor, {
-    match: function match(n) {
-      return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === types.link;
-    }
-  });
+  slate.Transforms.unwrapNodes(editor, nodeOptions);
 };
 
-var insertLink = function insertLink(editor, url) {
-  if (!editor.selection) {
-    return;
-  }
-
+var wrapLink = function wrapLink(editor, url) {
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   }
 
-  var isCollapsed = editor.selection && slate.Range.isCollapsed(editor.selection);
+  var selection = editor.selection;
+  var isCollapsed = selection && slate.Range.isCollapsed(selection);
   var link = {
     type: types.link,
     url: url,
@@ -254,6 +247,7 @@ var insertLink = function insertLink(editor, url) {
   };
 
   if (isCollapsed) {
+    // if there isn't a range selected, insert the link as the text as well
     slate.Transforms.insertNodes(editor, link);
   } else {
     slate.Transforms.wrapNodes(editor, link, {
@@ -262,6 +256,12 @@ var insertLink = function insertLink(editor, url) {
     slate.Transforms.collapse(editor, {
       edge: "end"
     });
+  }
+};
+
+var insertLink = function insertLink(editor, url) {
+  if (editor.selection) {
+    wrapLink(editor, url);
   }
 };
 /**
