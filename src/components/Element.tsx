@@ -5,9 +5,14 @@ import { types } from "../constants/types"
 
 interface ElementProps extends RenderElementProps {
   element: {
-    align?: TypographyProps["align"]
-    children: any
+    /** Type of element to render */
     type: string
+    /** Text alignment (left, center, right, justify) */
+    align?: TypographyProps["align"]
+    /** URL used for links */
+    url?: string
+    /** Any children to render */
+    children: any
   }
 }
 
@@ -15,7 +20,7 @@ interface ElementProps extends RenderElementProps {
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: ElementProps) => {
-  const { type, align = "left" } = element
+  const { type, align = "left", url } = element
 
   switch (type) {
     case types.h1:
@@ -35,6 +40,12 @@ const Element = ({ attributes, children, element }: ElementProps) => {
         <Typography variant="h3" align={align} {...attributes}>
           {children}
         </Typography>
+      )
+    case types.link:
+      return (
+        <a href={url} {...attributes}>
+          {children}
+        </a>
       )
     default:
       return (
