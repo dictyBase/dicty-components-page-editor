@@ -4,6 +4,7 @@ import { Slate, Editable, withReact } from "slate-react"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
+import withLinks from "./plugins/withLinks"
 
 const initialValue = [
   {
@@ -17,7 +18,7 @@ const initialValue = [
  */
 const PageEditor = () => {
   // create a slate editor object that won't change across renders
-  const editor = useMemo(() => withReact(createEditor()), [])
+  const editor = useMemo(() => withReact(withLinks(createEditor())), [])
   // store the value of the editor
   const [value, setValue] = useState<Node[]>(initialValue)
   // render expected element based on type passed as props
