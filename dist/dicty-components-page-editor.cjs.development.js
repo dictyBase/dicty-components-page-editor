@@ -94,13 +94,15 @@ var isBlockActive = function isBlockActive(editor, format) {
       return !slate.Editor.isEditor(n) && slate.Element.isElement(n) && n.type === format;
     }
   }); // run the generator to find the nearest match
-  // then return true if this is the last value
 
-  var node = nodeGenerator.next();
+  var node = nodeGenerator.next(); // if it finds a match then return true to indicate the block is currently
+  // active
 
   while (!node.done) {
     return true;
-  }
+  } // if it doesn't find a match, then the generator has yielded its last value
+  // meaning that it did not find a match for this block type
+
 
   return false;
 };
@@ -111,9 +113,9 @@ var isBlockActive = function isBlockActive(editor, format) {
 
 var toggleBlock = function toggleBlock(editor, format) {
   // first find if the selected block is currently active
-  var isActive = isBlockActive(editor, format); // setNodes is used to set properties at the specified location.
-  // Here we are setting the type as paragraph if the block is active for the
-  // given format, otherwise we set it as the format.
+  var isActive = isBlockActive(editor, format); // setNodes is used to set properties at the currently selected element.
+  // If the block is active, then we want to toggle it back to the default
+  // paragraph type. If the block is not active, we toggle the type to match it.
 
   slate.Transforms.setNodes(editor, {
     type: isActive ? "paragraph" : format
