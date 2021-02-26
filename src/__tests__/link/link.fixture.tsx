@@ -16,7 +16,7 @@ const input = ((
 const output = ((
   <editor>
     <p>
-      <link>here</link>
+      insert link <link>here</link>
     </p>
   </editor>
 ) as any) as Editor

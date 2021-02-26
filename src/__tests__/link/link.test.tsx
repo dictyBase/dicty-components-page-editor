@@ -3,9 +3,8 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import LinkButton from "../../components/buttons/LinkButton"
-import { input } from "./link.fixture"
-
-global.prompt = () => "https://dictycr.org"
+// import withLinks from "../../plugins/withLinks"
+import { input, output } from "./link.fixture"
 
 describe("adding links", () => {
   it("should add new link", () => {
@@ -15,11 +14,12 @@ describe("adding links", () => {
       .spyOn(SlateReact, "useSlate")
       .mockReturnValue(editor as SlateReact.ReactEditor)
 
+    jest.spyOn(window, "prompt").mockReturnValue("https://dictycr.org")
+
     render(<LinkButton icon={<div />} />)
 
     const button = screen.getByLabelText("link-button")
     userEvent.click(button)
-    screen.debug()
-    // expect(editor.children).toEqual(output.children)
+    expect(editor.children).toEqual(output.children)
   })
 })
