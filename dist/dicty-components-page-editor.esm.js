@@ -629,7 +629,8 @@ var PageEditor = function PageEditor() {
     }
   }, React.createElement(EditorToolbar, null), React.createElement(Editable, {
     renderElement: renderElement,
-    renderLeaf: renderLeaf
+    renderLeaf: renderLeaf,
+    placeholder: "Enter some text..."
   }));
 };
 

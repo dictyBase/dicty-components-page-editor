@@ -30,7 +30,11 @@ const PageEditor = () => {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
-      <Editable renderElement={renderElement} renderLeaf={renderLeaf} />
+      <Editable
+        renderElement={renderElement}
+        renderLeaf={renderLeaf}
+        placeholder="Enter some text..."
+      />
     </Slate>
   )
 }

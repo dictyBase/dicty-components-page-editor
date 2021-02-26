@@ -636,7 +636,8 @@ var PageEditor = function PageEditor() {
     }
   }, React__default.createElement(EditorToolbar, null), React__default.createElement(slateReact.Editable, {
     renderElement: renderElement,
-    renderLeaf: renderLeaf
+    renderLeaf: renderLeaf,
+    placeholder: "Enter some text..."
   }));
 };
 
