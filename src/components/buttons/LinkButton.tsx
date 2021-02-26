@@ -14,13 +14,13 @@ const isLinkActive = (editor: Editor) => {
   const nodeGenerator = Editor.nodes(editor, nodeOptions)
   // run the generator to find the nearest match
   const node = nodeGenerator.next()
-  // if it finds a match then return true to indicate the block is currently
+  // if it finds a match then return true to indicate the link is currently
   // active
   while (!node.done) {
     return true
   }
   // if it doesn't find a match, then the generator has yielded its last value
-  // meaning that it did not find a match for this block type
+  // meaning that it did not find a match for this type
   return false
 }
 
@@ -32,7 +32,8 @@ const unwrapLink = (editor: Editor) => {
 // wrapLink has all of the logic for wrapping a given selection with
 // an inline link node
 const wrapLink = (editor: Editor, url: string) => {
-  // first, if the selection is already a link then we want to unwrap it
+  // first, if the selection is already a link then we want to unwrap it;
+  // this prevents nested links
   if (isLinkActive(editor)) {
     unwrapLink(editor)
   }

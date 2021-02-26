@@ -221,13 +221,13 @@ var nodeOptions = {
 var isLinkActive = function isLinkActive(editor) {
   var nodeGenerator = slate.Editor.nodes(editor, nodeOptions); // run the generator to find the nearest match
 
-  var node = nodeGenerator.next(); // if it finds a match then return true to indicate the block is currently
+  var node = nodeGenerator.next(); // if it finds a match then return true to indicate the link is currently
   // active
 
   while (!node.done) {
     return true;
   } // if it doesn't find a match, then the generator has yielded its last value
-  // meaning that it did not find a match for this block type
+  // meaning that it did not find a match for this type
 
 
   return false;
@@ -241,7 +241,8 @@ var unwrapLink = function unwrapLink(editor) {
 
 
 var wrapLink = function wrapLink(editor, url) {
-  // first, if the selection is already a link then we want to unwrap it
+  // first, if the selection is already a link then we want to unwrap it;
+  // this prevents nested links
   if (isLinkActive(editor)) {
     unwrapLink(editor);
   } // add variable to determine if the given selection is collapsed;
