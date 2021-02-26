@@ -31,7 +31,7 @@ const jsx = createHyperscript({
     alignLeft: { type: types.paragraph, align: alignments.center },
     alignCenter: { type: types.paragraph, align: alignments.center },
     alignRight: { type: types.paragraph, align: alignments.center },
-    block: {},
+    link: { type: types.link, url: "https://dictycr.org" },
   },
 })
 
