@@ -219,25 +219,39 @@ var nodeOptions = {
 };
 
 var isLinkActive = function isLinkActive(editor) {
-  // get the first match for the link type
-  var _Editor$nodes = slate.Editor.nodes(editor, nodeOptions),
-      link = _Editor$nodes[0]; // return boolean representation of match
+  var nodeGenerator = slate.Editor.nodes(editor, nodeOptions); // run the generator to find the nearest match
+
+  var node = nodeGenerator.next(); // if it finds a match then return true to indicate the block is currently
+  // active
+
+  while (!node.done) {
+    return true;
+  } // if it doesn't find a match, then the generator has yielded its last value
+  // meaning that it did not find a match for this block type
 
 
-  return !!link;
-};
+  return false;
+}; // unwrap the link from the current selection
+
 
 var unwrapLink = function unwrapLink(editor) {
   slate.Transforms.unwrapNodes(editor, nodeOptions);
-};
+}; // wrapLink has all of the logic for wrapping a given selection with
+// an inline link node
+
 
 var wrapLink = function wrapLink(editor, url) {
+  // first, if the selection is already a link then we want to unwrap it
   if (isLinkActive(editor)) {
     unwrapLink(editor);
-  }
+  } // add variable to determine if the given selection is collapsed;
+  // this means that the user does not have any text actively selected
+
 
   var selection = editor.selection;
-  var isCollapsed = selection && slate.Range.isCollapsed(selection);
+  var isCollapsed = selection && slate.Range.isCollapsed(selection); // define the link data structure
+  // if it is collapsed then we add the url as the text portion of the link
+
   var link = {
     type: types.link,
     url: url,
@@ -247,12 +261,15 @@ var wrapLink = function wrapLink(editor, url) {
   };
 
   if (isCollapsed) {
-    // if there isn't a range selected, insert the link as the text as well
+    // if there isn't a range selected, insert a new node
     slate.Transforms.insertNodes(editor, link);
   } else {
+    // otherwise wrap the node with the link data
+    // split is necessary to only wrap the selection and not the entire block
     slate.Transforms.wrapNodes(editor, link, {
       split: true
-    });
+    }); // and collapse the selection to the end of the node
+
     slate.Transforms.collapse(editor, {
       edge: "end"
     });
@@ -260,6 +277,7 @@ var wrapLink = function wrapLink(editor, url) {
 };
 
 var insertLink = function insertLink(editor, url) {
+  // only insert a link if there is a selection in the editor
   if (editor.selection) {
     wrapLink(editor, url);
   }

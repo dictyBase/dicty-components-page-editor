@@ -4,30 +4,46 @@ import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import { types } from "../../constants/types"
 
+// this config looks for a match of the link type
 const nodeOptions = {
   match: (n: Node) =>
     !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === types.link,
 }
 
 const isLinkActive = (editor: Editor) => {
-  // get the first match for the link type
-  const [link] = Editor.nodes(editor, nodeOptions)
-  // return boolean representation of match
-  return !!link
+  const nodeGenerator = Editor.nodes(editor, nodeOptions)
+  // run the generator to find the nearest match
+  const node = nodeGenerator.next()
+  // if it finds a match then return true to indicate the block is currently
+  // active
+  while (!node.done) {
+    return true
+  }
+  // if it doesn't find a match, then the generator has yielded its last value
+  // meaning that it did not find a match for this block type
+  return false
 }
 
+// unwrap the link from the current selection
 const unwrapLink = (editor: Editor) => {
   Transforms.unwrapNodes(editor, nodeOptions)
 }
 
+// wrapLink has all of the logic for wrapping a given selection with
+// an inline link node
 const wrapLink = (editor: Editor, url: string) => {
+  // first, if the selection is already a link then we want to unwrap it
   if (isLinkActive(editor)) {
     unwrapLink(editor)
   }
 
+  // add variable to determine if the given selection is collapsed;
+  // this means that the user does not have any text actively selected
   const { selection } = editor
   const isCollapsed = selection && Range.isCollapsed(selection)
 
+  // define the link data structure
+  // if it is collapsed then we add the url as the text portion of the link
   const link = {
     type: types.link,
     url,
@@ -35,15 +51,19 @@ const wrapLink = (editor: Editor, url: string) => {
   }
 
   if (isCollapsed) {
-    // if there isn't a range selected, insert the link as the text as well
+    // if there isn't a range selected, insert a new node
     Transforms.insertNodes(editor, link)
   } else {
+    // otherwise wrap the node with the link data
+    // split is necessary to only wrap the selection and not the entire block
     Transforms.wrapNodes(editor, link, { split: true })
+    // and collapse the selection to the end of the node
     Transforms.collapse(editor, { edge: "end" })
   }
 }
 
 const insertLink = (editor: Editor, url: string) => {
+  // only insert a link if there is a selection in the editor
   if (editor.selection) {
     wrapLink(editor, url)
   }
