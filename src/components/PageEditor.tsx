@@ -4,7 +4,7 @@ import { Slate, Editable, withReact } from "slate-react"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
-import withLinks from "./plugins/withLinks"
+import withLinks from "../plugins/withLinks"
 
 const initialValue = [
   {

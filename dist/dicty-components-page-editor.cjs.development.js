@@ -584,7 +584,7 @@ var Leaf = function Leaf(_ref) {
 };
 
 var withLinks = function withLinks(editor) {
-  var isInline = editor.isInline;
+  var isInline = editor.isInline; // make sure every link type is rendered as inline
 
   editor.isInline = function (element) {
     if (element.type === types.link) {
