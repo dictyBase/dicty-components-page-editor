@@ -6,6 +6,15 @@ import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
 import SvgIcon from '@material-ui/core/SvgIcon';
 import Typography from '@material-ui/core/Typography';
 
@@ -182,6 +191,63 @@ var AlignButton = function AlignButton(_ref) {
   }, icon);
 };
 
+var LinkDialog = function LinkDialog(_ref) {
+  var handleClick = _ref.handleClick,
+      linkModalOpen = _ref.linkModalOpen,
+      setLinkModalOpen = _ref.setLinkModalOpen,
+      url = _ref.url,
+      setURL = _ref.setURL,
+      text = _ref.text,
+      setText = _ref.setText,
+      emailChecked = _ref.emailChecked,
+      setEmailChecked = _ref.setEmailChecked;
+  return React.createElement(Dialog, {
+    open: linkModalOpen,
+    onClose: function onClose() {
+      return setLinkModalOpen(false);
+    },
+    "aria-labelledby": "link-dialog-title"
+  }, React.createElement(DialogTitle, {
+    id: "link-dialog-title"
+  }, "Link Details"), React.createElement(DialogContent, null, React.createElement(TextField, {
+    autoFocus: true,
+    margin: "dense",
+    id: "url",
+    label: "URL",
+    type: "url",
+    defaultValue: url,
+    onChange: function onChange(e) {
+      return setURL(e.target.value);
+    },
+    fullWidth: true
+  }), React.createElement(TextField, {
+    margin: "dense",
+    id: "text",
+    label: "Text",
+    type: "text",
+    defaultValue: text ? text : "",
+    onChange: function onChange(e) {
+      return setText(e.target.value);
+    },
+    fullWidth: true
+  }), React.createElement(FormGroup, {
+    row: true
+  }, React.createElement(FormControlLabel, {
+    control: React.createElement(Checkbox, {
+      checked: emailChecked,
+      onChange: function onChange() {
+        return setEmailChecked(!emailChecked);
+      },
+      value: "email"
+    }),
+    label: "Is this an email link?"
+  }))), React.createElement(DialogActions, null, React.createElement(Button, {
+    onClick: handleClick,
+    variant: "contained",
+    color: "primary"
+  }, "Add Link")));
+};
+
 var types = {
   // marks
   bold: "bold",
@@ -218,6 +284,7 @@ var isLinkActive = function isLinkActive(editor) {
   // active
 
   while (!node.done) {
+    console.log(node);
     return true;
   } // if it doesn't find a match, then the generator has yielded its last value
   // meaning that it did not find a match for this type
@@ -285,18 +352,68 @@ var LinkButton = function LinkButton(_ref) {
   var icon = _ref.icon;
   var editor = useSlate();
 
+  var _React$useState = React.useState(false),
+      linkModalOpen = _React$useState[0],
+      setLinkModalOpen = _React$useState[1];
+
+  var _React$useState2 = React.useState(""),
+      url = _React$useState2[0],
+      setURL = _React$useState2[1];
+
+  var _React$useState3 = React.useState(""),
+      text = _React$useState3[0],
+      setText = _React$useState3[1];
+
+  var _React$useState4 = React.useState(false),
+      emailChecked = _React$useState4[0],
+      setEmailChecked = _React$useState4[1];
+
+  var handleToolbarButtonClick = function handleToolbarButtonClick() {
+    // if expanded...
+    var selection = editor.selection;
+
+    if (selection && !Range.isCollapsed(selection)) {
+      var nodeGenerator = Editor.nodes(editor, nodeOptions);
+      var node = nodeGenerator.next();
+
+      if (node.value && node.value[0].url !== undefined) {
+        // @ts-ignore
+        setURL(node.value[0].url);
+      } else {
+        setURL("");
+      }
+
+      insertLink(editor, url);
+      setText("");
+      setLinkModalOpen(true);
+    } else {
+      setURL("");
+      setText("");
+      setLinkModalOpen(true);
+    }
+  };
+
   var handleClick = function handleClick(event) {
     event.preventDefault();
-    var url = window.prompt("Enter the URL of the link:");
-    if (!url) return;
+    setLinkModalOpen(false);
     insertLink(editor, url);
   };
 
-  return React.createElement(IconButton, {
+  return React.createElement(React.Fragment, null, React.createElement(IconButton, {
     size: "small",
     "aria-label": "link-button",
-    onClick: handleClick
-  }, icon);
+    onClick: handleToolbarButtonClick
+  }, icon), React.createElement(LinkDialog, {
+    handleClick: handleClick,
+    linkModalOpen: linkModalOpen,
+    setLinkModalOpen: setLinkModalOpen,
+    url: url,
+    setURL: setURL,
+    text: text,
+    setText: setText,
+    emailChecked: emailChecked,
+    setEmailChecked: setEmailChecked
+  }));
 };
 
 var BoldIcon = function BoldIcon() {
