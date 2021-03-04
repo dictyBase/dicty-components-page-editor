@@ -3,12 +3,12 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import LinkButton from "../../components/buttons/LinkButton"
-// import withLinks from "../../plugins/withLinks"
+import withLinks from "../../plugins/withLinks"
 import { input, output } from "./link.fixture"
 
 describe("adding links", () => {
   it("should add new link", () => {
-    const editor = input
+    const editor = withLinks(input)
 
     jest
       .spyOn(SlateReact, "useSlate")
