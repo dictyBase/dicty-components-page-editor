@@ -1,8 +1,7 @@
-import React, { MouseEvent } from "react"
+import React from "react"
 import { Editor, Transforms, Range, Node, Element as SlateElement } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
-import LinkDialog from "../modals/LinkDialog"
 import { types } from "../../constants/types"
 
 // this config looks for a match of the link type
@@ -15,10 +14,8 @@ const isLinkActive = (editor: Editor) => {
   const nodeGenerator = Editor.nodes(editor, nodeOptions)
   // run the generator to find the nearest match
   const node = nodeGenerator.next()
-  // if it finds a match then return true to indicate the link is currently
-  // active
+  // if it finds a match then return true to indicate the link is currently active
   while (!node.done) {
-    console.log(node)
     return true
   }
   // if it doesn't find a match, then the generator has yielded its last value
@@ -39,7 +36,6 @@ const wrapLink = (editor: Editor, url: string) => {
   if (isLinkActive(editor)) {
     unwrapLink(editor)
   }
-
   // add variable to determine if the given selection is collapsed;
   // this means that the user does not have any text actively selected
   const { selection } = editor
@@ -72,6 +68,20 @@ const insertLink = (editor: Editor, url: string) => {
   }
 }
 
+const getLinkURL = (editor: Editor) => {
+  let prevURL = ""
+  const linkNode = Editor.above(editor, nodeOptions)
+  if (linkNode) {
+    prevURL = linkNode[0].url as string
+  }
+  const url = window.prompt("Enter the URL of the link:", prevURL)
+  if (!url) {
+    linkNode && editor.selection && unwrapLink(editor)
+    return
+  }
+  return url
+}
+
 type Props = {
   /** Icon to display in button */
   icon: JSX.Element
@@ -82,58 +92,20 @@ type Props = {
  */
 const LinkButton = ({ icon }: Props) => {
   const editor = useSlate()
-  const [linkModalOpen, setLinkModalOpen] = React.useState(false)
-  const [url, setURL] = React.useState("")
-  const [text, setText] = React.useState("")
-  const [emailChecked, setEmailChecked] = React.useState(false)
 
-  const handleToolbarButtonClick = () => {
-    // if expanded...
-    const { selection } = editor
-    if (selection && !Range.isCollapsed(selection)) {
-      const nodeGenerator = Editor.nodes(editor, nodeOptions)
-      const node = nodeGenerator.next()
-      if (node.value && node.value[0].url !== undefined) {
-        setURL(node.value[0].url)
-      } else {
-        setURL("")
-      }
-
-      insertLink(editor, url)
-      setText("")
-      setLinkModalOpen(true)
-    } else {
-      setURL("")
-      setText("")
-      setLinkModalOpen(true)
-    }
-  }
-
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    setLinkModalOpen(false)
-    insertLink(editor, url)
+    const url = getLinkURL(editor)
+    if (url) {
+      insertLink(editor, url)
+    }
   }
 
   return (
     <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="link-button"
-        onClick={handleToolbarButtonClick}>
+      <IconButton size="small" aria-label="link-button" onClick={handleClick}>
         {icon}
       </IconButton>
-      <LinkDialog
-        handleClick={handleClick}
-        linkModalOpen={linkModalOpen}
-        setLinkModalOpen={setLinkModalOpen}
-        url={url}
-        setURL={setURL}
-        text={text}
-        setText={setText}
-        emailChecked={emailChecked}
-        setEmailChecked={setEmailChecked}
-      />
     </React.Fragment>
   )
 }
