@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import AlignButton from "../../components/buttons/AlignButton"
+import AlignCenterIcon from "../../components/icons/AlignCenterIcon"
 import { alignments } from "../../constants/types"
 import { input, output } from "./align.fixture"
 
@@ -14,7 +15,7 @@ describe("text alignment", () => {
       .spyOn(SlateReact, "useSlate")
       .mockReturnValue(editor as SlateReact.ReactEditor)
 
-    render(<AlignButton align={alignments.center} icon={<div />} />)
+    render(<AlignButton align={alignments.center} icon={<AlignCenterIcon />} />)
 
     const button = screen.getByLabelText("align-center")
     userEvent.click(button)
