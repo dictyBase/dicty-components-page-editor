@@ -70,15 +70,22 @@ const insertLink = (editor: Editor, url: string) => {
 
 const getLinkURL = (editor: Editor) => {
   let prevURL = ""
+  // get the link node above the currently selected text
   const linkNode = Editor.above(editor, nodeOptions)
+  // This returns an array with the first element being the actual Slate content.
+  // If there is an existing link node then we want to get the URL to display
+  // in the prompt.
   if (linkNode) {
     prevURL = linkNode[0].url as string
   }
   const url = window.prompt("Enter the URL of the link:", prevURL)
+  // If the user does not enter a URL then we verify there is a link node at the
+  // current selection and unwrap the link.
   if (!url) {
     linkNode && editor.selection && unwrapLink(editor)
     return
   }
+  // return the user's entered URL
   return url
 }
 
@@ -96,6 +103,7 @@ const LinkButton = ({ icon }: Props) => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const url = getLinkURL(editor)
+    // only insert a link if the user actually enters a URL
     if (url) {
       insertLink(editor, url)
     }
