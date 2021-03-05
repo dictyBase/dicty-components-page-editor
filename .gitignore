@@ -23,5 +23,8 @@ example/build
 
 .eslintcache
 
+# test coverage
+coverage
+
 # remove these later
 dist
