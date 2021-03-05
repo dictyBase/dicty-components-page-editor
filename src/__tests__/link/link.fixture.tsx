@@ -6,9 +6,9 @@ import jsx from "../utils/jsx"
 const input = ((
   <editor>
     <p>
-      insert link <anchor />
+      Insert link <anchor />
       here
-      <focus />
+      <focus />.
     </p>
   </editor>
 ) as any) as Editor
@@ -16,7 +16,7 @@ const input = ((
 const output = ((
   <editor>
     <p>
-      insert link <link>here</link>
+      Insert link <link>here</link>.
     </p>
   </editor>
 ) as any) as Editor
