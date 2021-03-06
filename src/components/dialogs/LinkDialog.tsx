@@ -5,9 +5,6 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
-import FormGroup from "@material-ui/core/FormGroup"
-import FormControlLabel from "@material-ui/core/FormControlLabel"
-import Checkbox from "@material-ui/core/Checkbox"
 
 type Props = {
   /** Function to call when  */
@@ -24,10 +21,6 @@ type Props = {
   text: string
   /** Set text for link */
   setText: (arg0: string) => void
-  /** Determines if link is for email */
-  emailChecked: boolean
-  /** Toggle email checkbox */
-  setEmailChecked: (arg0: boolean) => void
 }
 
 const LinkDialog = ({
@@ -38,8 +31,6 @@ const LinkDialog = ({
   setURL,
   text,
   setText,
-  emailChecked,
-  setEmailChecked,
 }: Props) => {
   return (
     <Dialog
@@ -67,18 +58,6 @@ const LinkDialog = ({
           onChange={(e) => setText(e.target.value)}
           fullWidth
         />
-        <FormGroup row>
-          <FormControlLabel
-            control={
-              <Checkbox
-                checked={emailChecked}
-                onChange={() => setEmailChecked(!emailChecked)}
-                value="email"
-              />
-            }
-            label="Is this an email link?"
-          />
-        </FormGroup>
       </DialogContent>
       <DialogActions>
         <Button onClick={handleClick} variant="contained" color="primary">
