@@ -32,32 +32,25 @@ const unwrapLink = (editor: Editor) => {
   Transforms.unwrapNodes(editor, nodeOptions)
 }
 
-// wrapLink has all of the logic for wrapping a given selection with
-// an inline link node
-const wrapLink = (editor: Editor, url: string, text: string) => {
-  // first, if the selection is already a link then we want to unwrap it;
-  // this prevents nested links
-  if (isLinkActive(editor)) {
-    unwrapLink(editor)
-  }
-
-  const { selection } = editor
-  const isCollapsed = selection && Range.isCollapsed(selection)
+/**
+ * upsertLink updates or adds a new link. If there is no selection,
+ * it adds a new link with the provided text. Otherwise it will wrap the
+ * selection with a link node using the user's link and text.
+ */
+const upsertLink = (editor: Editor, url: string, text: string) => {
   const link = {
     type: types.link,
     url,
     children: [{ text: text }],
   }
+  const { selection } = editor
+  const isCollapsed = selection && Range.isCollapsed(selection)
   if (isCollapsed) {
     Transforms.insertNodes(editor, link)
   } else {
     Transforms.wrapNodes(editor, link, { split: true })
     Transforms.collapse(editor, { edge: "end" })
   }
-}
-
-const insertLink = (editor: Editor, url: string, text: string) => {
-  wrapLink(editor, url, text)
 }
 
 type Props = {
@@ -73,19 +66,20 @@ const LinkButton = ({ icon }: Props) => {
   const [linkModalOpen, setLinkModalOpen] = React.useState(false)
   const [url, setURL] = React.useState("")
   const [text, setText] = React.useState("")
-  const [emailChecked, setEmailChecked] = React.useState(false)
 
   const handleToolbarButtonClick = () => {
     const { selection } = editor
+    // if there is a current selection then pull the text and URL from it
+    // and update state accordingly
     if (selection && !Range.isCollapsed(selection)) {
       let prevURL = ""
-      const text = Editor.string(editor, selection)
+      const selectedText = Editor.string(editor, selection)
       const linkNode = Editor.above(editor, nodeOptions)
       if (linkNode) {
         prevURL = linkNode[0].url as string
       }
       setURL(prevURL)
-      setText(text)
+      setText(selectedText)
     } else {
       setURL("")
       setText("")
@@ -94,8 +88,12 @@ const LinkButton = ({ icon }: Props) => {
   }
 
   const handleAddButtonClick = () => {
+    // check if there is an existing link first then unwrap it
+    if (isLinkActive(editor)) {
+      unwrapLink(editor)
+    }
+    upsertLink(editor, url, text)
     setLinkModalOpen(false)
-    insertLink(editor, url, text)
   }
 
   return (
@@ -114,8 +112,6 @@ const LinkButton = ({ icon }: Props) => {
         setURL={setURL}
         text={text}
         setText={setText}
-        emailChecked={emailChecked}
-        setEmailChecked={setEmailChecked}
       />
     </React.Fragment>
   )
