@@ -49,6 +49,7 @@ const upsertLink = (editor: Editor, url: string, text: string) => {
     Transforms.insertNodes(editor, link)
   } else {
     Transforms.wrapNodes(editor, link, { split: true })
+    Editor.insertText(editor, text)
     Transforms.collapse(editor, { edge: "end" })
   }
 }
