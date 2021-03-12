@@ -2,6 +2,7 @@
 
 import { Editor } from "slate"
 import jsx from "../utils/jsx"
+import { types } from "../../constants/types"
 
 const input = ((
   <editor>
@@ -16,7 +17,11 @@ const input = ((
 const output = ((
   <editor>
     <p>
-      Insert link <link>dictycr</link>.
+      Insert link{" "}
+      <element type={types.link} url="https://dictycr.org">
+        dictycr
+      </element>
+      .
     </p>
   </editor>
 ) as any) as Editor
