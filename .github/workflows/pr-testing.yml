@@ -18,7 +18,7 @@ jobs:
       - name: eslint
         run: yarn lint
       - name: unit tests
-        run: yarn test -- --coverage
+        run: yarn test-coverage
         env:
           CI: true
       - name: upload test coverage to codecov
