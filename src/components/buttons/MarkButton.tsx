@@ -54,7 +54,10 @@ const MarkButton = ({ format, icon }: Props) => {
   }
 
   return (
-    <IconButton size="small" onClick={handleClick}>
+    <IconButton
+      size="small"
+      aria-label={`${format}-button`}
+      onClick={handleClick}>
       {icon}
     </IconButton>
   )
