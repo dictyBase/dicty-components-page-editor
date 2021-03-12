@@ -5,7 +5,8 @@ import IconButton from "@material-ui/core/IconButton"
 import LinkDialog from "../dialogs/LinkDialog"
 import { types } from "../../constants/types"
 
-// this is necessary to maintain editor selection when link dialog appears
+// this is necessary to maintain editor selection when link dialog appears;
+// the deselect method unsets the editor selection
 Transforms.deselect = () => {}
 
 // this config looks for a match of the link type
@@ -14,10 +15,7 @@ const nodeOptions = {
     !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === types.link,
 }
 
-/**
- * isLinkActive uses the nodes generator function to find a match for an active
- * link.
- */
+// use the nodes generator function to find a match for an active link
 const isLinkActive = (editor: Editor) => {
   const nodeGenerator = Editor.nodes(editor, nodeOptions)
   const node = nodeGenerator.next()
@@ -65,8 +63,10 @@ type Props = {
 const LinkButton = ({ icon }: Props) => {
   const editor = useSlate()
   const [linkModalOpen, setLinkModalOpen] = React.useState(false)
-  const [url, setURL] = React.useState("")
-  const [text, setText] = React.useState("")
+  const [link, setLink] = React.useState({
+    url: "",
+    text: "",
+  })
 
   const handleToolbarButtonClick = () => {
     const { selection } = editor
@@ -79,11 +79,15 @@ const LinkButton = ({ icon }: Props) => {
       if (linkNode) {
         prevURL = linkNode[0].url as string
       }
-      setURL(prevURL)
-      setText(selectedText)
+      setLink({
+        url: prevURL,
+        text: selectedText,
+      })
     } else {
-      setURL("")
-      setText("")
+      setLink({
+        url: "",
+        text: "",
+      })
     }
     setLinkModalOpen(true)
   }
@@ -93,7 +97,7 @@ const LinkButton = ({ icon }: Props) => {
     if (isLinkActive(editor)) {
       unwrapLink(editor)
     }
-    upsertLink(editor, url, text)
+    upsertLink(editor, link.url, link.text)
     setLinkModalOpen(false)
   }
 
@@ -109,10 +113,8 @@ const LinkButton = ({ icon }: Props) => {
         handleClick={handleAddButtonClick}
         linkModalOpen={linkModalOpen}
         setLinkModalOpen={setLinkModalOpen}
-        url={url}
-        setURL={setURL}
-        text={text}
-        setText={setText}
+        link={link}
+        setLink={setLink}
       />
     </React.Fragment>
   )

@@ -6,6 +6,13 @@ import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
 
+type Link = {
+  /** Text for link */
+  text: string
+  /** URL for link */
+  url: string
+}
+
 type Props = {
   /** Function to call when  */
   handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
@@ -13,24 +20,18 @@ type Props = {
   linkModalOpen: boolean
   /** Toggle link modal */
   setLinkModalOpen: (arg0: boolean) => void
-  /** URL for link */
-  url: string
-  /** Set link URL state */
-  setURL: (arg0: string) => void
-  /** Text for link */
-  text: string
-  /** Set text for link */
-  setText: (arg0: string) => void
+  /** Link value */
+  link: Link
+  /** Set link state */
+  setLink: (arg0: Link) => void
 }
 
 const LinkDialog = ({
   handleClick,
   linkModalOpen,
   setLinkModalOpen,
-  url,
-  setURL,
-  text,
-  setText,
+  link,
+  setLink,
 }: Props) => {
   return (
     <Dialog
@@ -45,8 +46,13 @@ const LinkDialog = ({
           id="url"
           label={"URL"}
           type="url"
-          defaultValue={url}
-          onChange={(e) => setURL(e.target.value)}
+          defaultValue={link.url}
+          onChange={(e) =>
+            setLink({
+              url: e.target.value,
+              text: link.text,
+            })
+          }
           fullWidth
         />
         <TextField
@@ -54,8 +60,13 @@ const LinkDialog = ({
           id="text"
           label="Text"
           type="text"
-          defaultValue={text ? text : ""}
-          onChange={(e) => setText(e.target.value)}
+          defaultValue={link.text ? link.text : ""}
+          onChange={(e) =>
+            setLink({
+              text: e.target.value,
+              url: link.url,
+            })
+          }
           fullWidth
         />
       </DialogContent>
