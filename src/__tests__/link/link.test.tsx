@@ -19,11 +19,13 @@ describe("adding links", () => {
 
     const button = screen.getByLabelText("link-button")
     userEvent.click(button)
+    // interact with link dialog
     const urlTextbox = screen.getAllByRole("textbox")[0]
     const textTextbox = screen.getAllByRole("textbox")[1]
     const addButton = screen.getByRole("button", { name: "Add Link" })
     userEvent.type(urlTextbox, "https://dictycr.org")
-    userEvent.type(textTextbox, "")
+    userEvent.clear(textTextbox)
+    userEvent.type(textTextbox, "dictycr")
     userEvent.click(addButton)
     await waitFor(() => {
       expect(editor.children).toEqual(output.children)

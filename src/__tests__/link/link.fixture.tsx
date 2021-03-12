@@ -16,7 +16,7 @@ const input = ((
 const output = ((
   <editor>
     <p>
-      Insert link <link>here</link>.
+      Insert link <link>dictycr</link>.
     </p>
   </editor>
 ) as any) as Editor
