@@ -19,6 +19,10 @@ declare global {
         [key: string]: any
         children?: React.ReactNode
       }
+      stext: {
+        [key: string]: any
+        children?: React.ReactNode
+      }
     }
   }
 }
@@ -33,6 +37,10 @@ const jsx = createHyperscript({
     alignCenter: { type: types.paragraph, align: alignments.center },
     alignRight: { type: types.paragraph, align: alignments.center },
     link: { type: types.link },
+  },
+  creators: {
+    // can't override react's text declaration
+    stext: (_, attrs, ...children) => jsx("text", attrs, ...children),
   },
 })
 
