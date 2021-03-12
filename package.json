@@ -66,5 +66,12 @@
       "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
       "git add"
     ]
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*",
+      "!**/*test*/**",
+      "!**/*fixture*/**"
+    ]
   }
 }
