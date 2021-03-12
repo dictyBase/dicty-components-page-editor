@@ -71,7 +71,8 @@
     "collectCoverageFrom": [
       "src/**/*",
       "!**/*test*/**",
-      "!**/*fixture*/**"
+      "!**/*fixture*/**",
+      "!src/components/icons/**"
     ]
   }
 }
