@@ -1,5 +1,5 @@
 import React from "react"
-import { Editor, Transforms, Range, Node, Element as SlateElement } from "slate"
+import { Editor, Transforms, Range, Node } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import LinkDialog from "../dialogs/LinkDialog"
@@ -12,8 +12,7 @@ Transforms.deselect = () => {}
 
 // this config looks for a match of the link type
 const nodeOptions = {
-  match: (n: Node) =>
-    !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === types.link,
+  match: (n: Node) => n.type === types.link,
 }
 
 // use the nodes generator function to find a match for an active link
@@ -37,6 +36,10 @@ const unwrapLink = (editor: Editor) => {
  * selection with a link node using the user's link and text.
  */
 const upsertLink = (editor: Editor, url: string, text: string) => {
+  // check if there is an existing link first then unwrap it
+  if (isLinkActive(editor)) {
+    unwrapLink(editor)
+  }
   const link = {
     type: types.link,
     url,
@@ -98,10 +101,6 @@ const LinkButton = ({ icon }: Props) => {
   })
 
   const handleAddButtonClick = () => {
-    // check if there is an existing link first then unwrap it
-    if (isLinkActive(editor)) {
-      unwrapLink(editor)
-    }
     upsertLink(editor, link.url, link.text)
     setLinkModalOpen(false)
   }
@@ -127,4 +126,5 @@ const LinkButton = ({ icon }: Props) => {
   )
 }
 
+export { upsertLink }
 export default LinkButton
