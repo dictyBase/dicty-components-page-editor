@@ -4,6 +4,7 @@ import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import LinkDialog from "../dialogs/LinkDialog"
 import { types } from "../../constants/types"
+import { Link } from "../../types/link"
 
 // this is necessary to maintain editor selection when link dialog appears;
 // the deselect method unsets the editor selection
@@ -52,6 +53,34 @@ const upsertLink = (editor: Editor, url: string, text: string) => {
   }
 }
 
+const handleToolbarButtonClick = (
+  editor: Editor,
+  setLink: (arg0: Link) => void,
+  setLinkModalOpen: (arg0: boolean) => void,
+) => {
+  const { selection } = editor
+  // if there is a current selection then pull the text and URL from it
+  // and update state accordingly
+  if (selection && !Range.isCollapsed(selection)) {
+    let prevURL = ""
+    const selectedText = Editor.string(editor, selection)
+    const linkNode = Editor.above(editor, nodeOptions)
+    if (linkNode) {
+      prevURL = linkNode[0].url as string
+    }
+    setLink({
+      url: prevURL,
+      text: selectedText,
+    })
+  } else {
+    setLink({
+      url: "",
+      text: "",
+    })
+  }
+  setLinkModalOpen(true)
+}
+
 type Props = {
   /** Icon to display in button */
   icon: JSX.Element
@@ -68,30 +97,6 @@ const LinkButton = ({ icon }: Props) => {
     text: "",
   })
 
-  const handleToolbarButtonClick = () => {
-    const { selection } = editor
-    // if there is a current selection then pull the text and URL from it
-    // and update state accordingly
-    if (selection && !Range.isCollapsed(selection)) {
-      let prevURL = ""
-      const selectedText = Editor.string(editor, selection)
-      const linkNode = Editor.above(editor, nodeOptions)
-      if (linkNode) {
-        prevURL = linkNode[0].url as string
-      }
-      setLink({
-        url: prevURL,
-        text: selectedText,
-      })
-    } else {
-      setLink({
-        url: "",
-        text: "",
-      })
-    }
-    setLinkModalOpen(true)
-  }
-
   const handleAddButtonClick = () => {
     // check if there is an existing link first then unwrap it
     if (isLinkActive(editor)) {
@@ -106,7 +111,9 @@ const LinkButton = ({ icon }: Props) => {
       <IconButton
         size="small"
         aria-label="link-button"
-        onClick={handleToolbarButtonClick}>
+        onClick={() =>
+          handleToolbarButtonClick(editor, setLink, setLinkModalOpen)
+        }>
         {icon}
       </IconButton>
       <LinkDialog
