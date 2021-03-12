@@ -16,6 +16,7 @@ declare global {
   namespace JSX {
     interface IntrinsicElements {
       [elementName: string]: {
+        [key: string]: any
         children?: React.ReactNode
       }
     }
@@ -31,7 +32,7 @@ const jsx = createHyperscript({
     alignLeft: { type: types.paragraph, align: alignments.center },
     alignCenter: { type: types.paragraph, align: alignments.center },
     alignRight: { type: types.paragraph, align: alignments.center },
-    link: { type: types.link, url: "https://dictycr.org" },
+    link: { type: types.link },
   },
 })
 
