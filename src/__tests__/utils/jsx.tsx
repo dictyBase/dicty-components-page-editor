@@ -21,7 +21,12 @@ declare global {
       // use this to avoid collision with React typings
       // see https://github.com/DefinitelyTyped/DefinitelyTyped/blob/0182cd9094aa081558a3c4bfc970bbdfb71d891d/types/react/index.d.ts#L3136
       stext: {
-        [key: string]: any
+        bold?: boolean
+        italic?: boolean
+        underline?: boolean
+        strikethrough?: boolean
+        subscript?: boolean
+        superscript?: boolean
         children?: React.ReactNode
       }
     }
