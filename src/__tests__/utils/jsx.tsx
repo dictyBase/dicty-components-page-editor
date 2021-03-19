@@ -3,10 +3,9 @@ import { alignments, types } from "../../constants/types"
 
 /**
  * This file is used to transform the JSX output based on our specifications.
- * The createHyperscript function allows us to define how we want the elements
- * to look.
+ * The createHyperscript function allows us to define custom elements and creators.
  *
- * To use these in our tests we need to import jsx and then add the "@jsx pragma"
+ * To use these in our tests we need to import jsx and then add the jsx pragma
  * at the top of the file. This is used to specify how the output of the React
  * Transformer should look (based on our definitions below).
  * See align.fixture.tsx for an example.
@@ -39,7 +38,7 @@ const jsx = createHyperscript({
     link: { type: types.link },
   },
   creators: {
-    // can't override react's text declaration
+    // can't override react's text declaration so we create our own
     stext: (_, attrs, ...children) => jsx("text", attrs, ...children),
   },
 })
