@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@convertkit/slate-lists": "0.2.5",
-    "@fortawesome/fontawesome-svg-core": "^1.2.32",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
     "fontsource-lato": "^3.1.5",
