@@ -1,7 +1,8 @@
 import React, { MouseEvent } from "react"
-import { Editor, Transforms, Element as SlateElement } from "slate"
+import { Transforms } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
+import isBlockActive from "../../utils/isBlockActive"
 
 /**
  * PROCESS:
@@ -18,34 +19,11 @@ import IconButton from "@material-ui/core/IconButton"
  */
 
 /**
- * isBlockActive determines if the current text selection contains an active block
- */
-const isBlockActive = (editor: ReactEditor, format: string) => {
-  // Editor.nodes returns a generator that iterates through all of the editor's
-  // nodes. We are looking for matches for the selected format.
-  // https://github.com/ianstormtaylor/slate/blob/master/packages/slate/src/interfaces/node.ts#L467
-  const nodeGenerator = Editor.nodes(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === format,
-  })
-  // run the generator to find the nearest match
-  const node = nodeGenerator.next()
-  // if it finds a match then return true to indicate the block is currently
-  // active
-  while (!node.done) {
-    return true
-  }
-  // if it doesn't find a match, then the generator has yielded its last value
-  // meaning that it did not find a match for this block type
-  return false
-}
-
-/**
  * toggleBlock will set the appropriate nodes for the given selection
  */
 const toggleBlock = (editor: ReactEditor, format: string) => {
   // first find if the selected block is currently active
-  const isActive = isBlockActive(editor, format)
+  const isActive = isBlockActive(editor, "type", format)
 
   // setNodes is used to set properties at the currently selected element.
   // If the block is active, then we want to toggle it back to the default

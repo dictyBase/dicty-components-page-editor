@@ -1,25 +1,11 @@
 import React, { MouseEvent } from "react"
-import { Editor, Transforms, Element as SlateElement } from "slate"
+import { Transforms } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
-
-const isAlignActive = (editor: ReactEditor, align: string) => {
-  const nodeGenerator = Editor.nodes(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) && SlateElement.isElement(n) && n.align === align,
-  })
-
-  // run the generator to find the nearest match
-  // then return true if this is the last value
-  const node = nodeGenerator.next()
-  while (!node.done) {
-    return true
-  }
-  return false
-}
+import isBlockActive from "../../utils/isBlockActive"
 
 const toggleAlign = (editor: ReactEditor, align: string) => {
-  const isActive = isAlignActive(editor, align)
+  const isActive = isBlockActive(editor, "align", align)
 
   Transforms.setNodes(editor, {
     align: isActive ? "left" : align,
