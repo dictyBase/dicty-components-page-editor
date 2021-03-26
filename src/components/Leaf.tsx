@@ -1,6 +1,13 @@
 import React from "react"
+import { makeStyles } from "@material-ui/core/styles"
 import { RenderLeafProps } from "slate-react"
 import "../utils/fonts"
+
+const useStyles = makeStyles(() => ({
+  text: {
+    fontFamily: "Roboto",
+  },
+}))
 
 /**
  * Leaf is used to render text based on a given style.
@@ -12,6 +19,8 @@ import "../utils/fonts"
  * <span {...attributes}><strong><em>{children}</em></strong></span>
  */
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+  const classes = useStyles()
+
   switch (true) {
     case leaf.hasOwnProperty("bold"):
       children = <strong>{children}</strong>
@@ -29,7 +38,11 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
       children = children
   }
 
-  return <span {...attributes}>{children}</span>
+  return (
+    <span className={classes.text} {...attributes}>
+      {children}
+    </span>
+  )
 }
 
 export default Leaf
