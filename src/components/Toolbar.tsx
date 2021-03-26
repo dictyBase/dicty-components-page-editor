@@ -24,6 +24,8 @@ import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
 import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
+// dropdowns
+import FontFamilyDropdown from "./dropdowns/FontFamilyDropdown"
 // types
 import { types, alignments } from "../constants/types"
 
@@ -59,6 +61,8 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
+        <Divider className={classes.divider} orientation="vertical" flexItem />
+        <FontFamilyDropdown />
       </Toolbar>
     </AppBar>
   )
