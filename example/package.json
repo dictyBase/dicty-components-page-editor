@@ -4,6 +4,13 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@fontsource/lato": "file:../node_modules/@fontsource/lato",
+    "@fontsource/merriweather": "file:../node_modules/@fontsource/merriweather",
+    "@fontsource/montserrat": "file:../node_modules/@fontsource/montserrat",
+    "@fontsource/roboto": "file:../node_modules/@fontsource/roboto",
+    "@fontsource/roboto-condensed": "file:../node_modules/@fontsource/roboto-condensed",
+    "@fontsource/roboto-mono": "file:../node_modules/@fontsource/roboto-mono",
+    "@fontsource/roboto-slab": "file:../node_modules/@fontsource/roboto-slab",
     "@material-ui/core": "file:../node_modules/@material-ui/core",
     "dicty-components-page-editor": "file:..",
     "react": "file:../node_modules/react",
