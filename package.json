@@ -79,7 +79,8 @@
       "src/**/*",
       "!**/*test*/**",
       "!**/*fixture*/**",
-      "!src/components/icons/**"
+      "!src/components/icons/**",
+      "!src/utils/**"
     ]
   }
 }
