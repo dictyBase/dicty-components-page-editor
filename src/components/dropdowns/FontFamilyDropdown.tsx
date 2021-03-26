@@ -23,25 +23,28 @@ const FontFamilyList = [
   "Roboto Slab",
 ]
 
+// get the current font family for a given selection
+const getCurrentMark = (editor: Editor) => {
+  const marks = Editor.marks(editor)
+  if (marks && marks.fontFamily) {
+    return marks.fontFamily
+  }
+  return "Roboto"
+}
+
 const FontFamilyDropdown = () => {
-  const [currentFont, setCurrentFont] = React.useState(3)
   const editor = useSlate()
   const classes = useStyles()
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    const fontIndex = event.target.value as number
-    setCurrentFont(fontIndex)
-    Editor.addMark(editor, "fontFamily", FontFamilyList[fontIndex])
+    Editor.addMark(editor, "fontFamily", event.target.value)
   }
 
   return (
     <FormControl className={classes.dropdown}>
-      <Select value={currentFont} onChange={handleChange}>
-        {FontFamilyList.map((font, index) => (
-          <MenuItem
-            key={`font-family-${index}`}
-            value={index}
-            style={{ fontFamily: font }}>
+      <Select value={getCurrentMark(editor)} onChange={handleChange}>
+        {FontFamilyList.map((font) => (
+          <MenuItem key={font} value={font} style={{ fontFamily: font }}>
             {font}
           </MenuItem>
         ))}
