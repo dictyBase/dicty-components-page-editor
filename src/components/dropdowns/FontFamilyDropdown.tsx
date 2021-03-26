@@ -1,4 +1,6 @@
 import React from "react"
+import { Editor } from "slate"
+import { useSlate } from "slate-react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
@@ -23,11 +25,13 @@ const FontFamilyList = [
 
 const FontFamilyDropdown = () => {
   const [currentFont, setCurrentFont] = React.useState(3)
+  const editor = useSlate()
   const classes = useStyles()
 
-  const handleChange = (event: any) => {
-    setCurrentFont(event.target.value)
-    // add logic for transforming nodes
+  const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    const fontIndex = event.target.value as number
+    setCurrentFont(fontIndex)
+    Editor.addMark(editor, "fontFamily", FontFamilyList[fontIndex])
   }
 
   return (

@@ -3,10 +3,14 @@ import { makeStyles } from "@material-ui/core/styles"
 import { RenderLeafProps } from "slate-react"
 import "../utils/fonts"
 
+type StyleProps = {
+  fontFamily: string | unknown
+}
+
 const useStyles = makeStyles(() => ({
-  text: {
-    fontFamily: "Roboto",
-  },
+  text: (props: StyleProps) => ({
+    fontFamily: props.fontFamily,
+  }),
 }))
 
 /**
@@ -19,7 +23,10 @@ const useStyles = makeStyles(() => ({
  * <span {...attributes}><strong><em>{children}</em></strong></span>
  */
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
-  const classes = useStyles()
+  const props = {
+    fontFamily: leaf.fontFamily ? leaf.fontFamily : "Roboto",
+  }
+  const classes = useStyles(props)
 
   switch (true) {
     case leaf.hasOwnProperty("bold"):
