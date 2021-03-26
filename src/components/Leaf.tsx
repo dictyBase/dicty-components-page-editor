@@ -1,5 +1,6 @@
 import React from "react"
 import { RenderLeafProps } from "slate-react"
+import "../utils/fonts"
 
 /**
  * Leaf is used to render text based on a given style.
