@@ -27,6 +27,7 @@ declare global {
         strikethrough?: boolean
         subscript?: boolean
         superscript?: boolean
+        fontFamily?: string
         children?: React.ReactNode
       }
     }
