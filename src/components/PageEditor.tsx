@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useState } from "react"
 import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
+import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
@@ -20,7 +21,10 @@ const initialValue = [
  */
 const PageEditor = () => {
   // create a slate editor object that won't change across renders
-  const editor = useMemo(() => withReact(withLinks(createEditor())), [])
+  const editor = useMemo(
+    () => withReact(withHistory(withLinks(createEditor()))),
+    [],
+  )
   // store the value of the editor
   const [value, setValue] = useState<Node[]>(initialValue)
   // render expected element based on type passed as props

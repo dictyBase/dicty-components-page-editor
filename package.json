@@ -34,6 +34,7 @@
     "@fontsource/roboto-mono": "^4.2.2",
     "@fontsource/roboto-slab": "^4.2.2",
     "slate": "^0.59.0",
+    "slate-history": "^0.59.0",
     "slate-react": "^0.59.0"
   },
   "peerDependencies": {
