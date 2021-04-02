@@ -28,6 +28,7 @@ declare global {
         subscript?: boolean
         superscript?: boolean
         fontFamily?: string
+        fontColor?: string
         children?: React.ReactNode
       }
     }
