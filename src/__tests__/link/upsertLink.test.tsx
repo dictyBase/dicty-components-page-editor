@@ -32,7 +32,10 @@ describe("upsertLink function", () => {
     ) as any) as Editor
 
     const editor = withLinks(input)
-    upsertLink(editor, dictyURL, "dictycr")
+    upsertLink(editor, {
+      url: dictyURL,
+      text: "dictycr",
+    })
     expect(input.children).toEqual(output.children)
   })
 
@@ -62,7 +65,10 @@ describe("upsertLink function", () => {
     ) as any) as Editor
 
     const editor = withLinks(input)
-    upsertLink(editor, zomboURL, "zombocom")
+    upsertLink(editor, {
+      url: zomboURL,
+      text: "zombocom",
+    })
     expect(input.children).toEqual(output.children)
   })
 })
