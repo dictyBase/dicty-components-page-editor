@@ -4,6 +4,7 @@ import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import isBlockActive from "../../utils/isBlockActive"
+import useStyles from "../../styles/buttons"
 
 const toggleAlign = (editor: ReactEditor, align: string) => {
   const isActive = isBlockActive(editor, "align", align)
@@ -26,6 +27,10 @@ type Props = {
  */
 const AlignButton = ({ icon, align }: Props) => {
   const editor = useSlate()
+  const props = {
+    active: isBlockActive(editor, "align", align),
+  }
+  const classes = useStyles(props)
 
   // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -36,6 +41,7 @@ const AlignButton = ({ icon, align }: Props) => {
   return (
     <Tooltip title={align}>
       <IconButton
+        className={classes.button}
         size="small"
         aria-label={`align-${align}`}
         onClick={handleClick}>

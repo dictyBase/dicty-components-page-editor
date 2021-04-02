@@ -6,6 +6,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import LinkDialog from "../dialogs/LinkDialog"
 import { types } from "../../constants/types"
 import { Link } from "../../types/link"
+import useStyles from "../../styles/buttons"
 
 // this is necessary to maintain editor selection when link dialog appears;
 // the deselect method unsets the editor selection
@@ -104,6 +105,10 @@ const LinkButton = ({ icon }: Props) => {
     url: "",
     text: "",
   })
+  const props = {
+    active: isLinkActive(editor),
+  }
+  const classes = useStyles(props)
 
   const handleAddLink = () => {
     upsertLink(editor, link)
@@ -117,6 +122,7 @@ const LinkButton = ({ icon }: Props) => {
     <React.Fragment>
       <Tooltip title="link">
         <IconButton
+          className={classes.button}
           size="small"
           aria-label="link-button"
           onClick={() =>

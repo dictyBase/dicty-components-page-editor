@@ -3,6 +3,7 @@ import { Editor } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
+import useStyles from "../../styles/buttons"
 
 /**
  * isMarkActive determines if the current text selection contains an
@@ -47,6 +48,10 @@ type Props = {
  */
 const MarkButton = ({ format, icon }: Props) => {
   const editor = useSlate()
+  const props = {
+    active: isMarkActive(editor, format),
+  }
+  const classes = useStyles(props)
 
   // when button is clicked, toggle the mark within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -57,6 +62,7 @@ const MarkButton = ({ format, icon }: Props) => {
   return (
     <Tooltip title={format}>
       <IconButton
+        className={classes.button}
         size="small"
         aria-label={`${format}-button`}
         onClick={handleClick}>

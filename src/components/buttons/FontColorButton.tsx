@@ -1,15 +1,9 @@
 import React, { MouseEvent } from "react"
-import { makeStyles, Theme } from "@material-ui/core/styles"
 import Menu from "@material-ui/core/Menu"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import FontColorPicker from "../dropdowns/FontColorPicker"
-
-const useStyles = makeStyles((theme: Theme) => ({
-  popper: {
-    padding: theme.spacing(2),
-  },
-}))
+import useStyles from "../../styles/buttons"
 
 type Props = {
   /** Icon to display in button */

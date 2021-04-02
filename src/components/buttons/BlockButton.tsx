@@ -4,6 +4,7 @@ import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import isBlockActive from "../../utils/isBlockActive"
+import useStyles from "../../styles/buttons"
 
 /**
  * PROCESS:
@@ -47,6 +48,10 @@ type Props = {
  */
 const BlockButton = ({ format, icon }: Props) => {
   const editor = useSlate()
+  const props = {
+    active: isBlockActive(editor, "type", format),
+  }
+  const classes = useStyles(props)
 
   // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -57,6 +62,7 @@ const BlockButton = ({ format, icon }: Props) => {
   return (
     <Tooltip title={format}>
       <IconButton
+        className={classes.button}
         size="small"
         aria-label={`${format}-button`}
         onClick={handleClick}>
