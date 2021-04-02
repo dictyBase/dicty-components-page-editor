@@ -2,6 +2,7 @@ import React, { MouseEvent } from "react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import Menu from "@material-ui/core/Menu"
 import IconButton from "@material-ui/core/IconButton"
+import Tooltip from "@material-ui/core/Tooltip"
 import FontColorPicker from "../dropdowns/FontColorPicker"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -35,13 +36,15 @@ const FontColorButton = ({ icon }: Props) => {
 
   return (
     <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="font-color-button"
-        aria-haspopup="true"
-        onClick={handleClick}>
-        {icon}
-      </IconButton>
+      <Tooltip title="font color">
+        <IconButton
+          size="small"
+          aria-label="font-color-button"
+          aria-haspopup="true"
+          onClick={handleClick}>
+          {icon}
+        </IconButton>
+      </Tooltip>
       <Menu
         id="font-color-menu"
         anchorEl={anchorEl}

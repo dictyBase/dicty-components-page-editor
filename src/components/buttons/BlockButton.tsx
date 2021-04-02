@@ -2,6 +2,7 @@ import React, { MouseEvent } from "react"
 import { Transforms } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
+import Tooltip from "@material-ui/core/Tooltip"
 import isBlockActive from "../../utils/isBlockActive"
 
 /**
@@ -54,12 +55,14 @@ const BlockButton = ({ format, icon }: Props) => {
   }
 
   return (
-    <IconButton
-      size="small"
-      aria-label={`${format}-button`}
-      onClick={handleClick}>
-      {icon}
-    </IconButton>
+    <Tooltip title={format}>
+      <IconButton
+        size="small"
+        aria-label={`${format}-button`}
+        onClick={handleClick}>
+        {icon}
+      </IconButton>
+    </Tooltip>
   )
 }
 

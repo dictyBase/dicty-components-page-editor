@@ -2,6 +2,7 @@ import React from "react"
 import { Editor, Transforms, Range, Node } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
+import Tooltip from "@material-ui/core/Tooltip"
 import LinkDialog from "../dialogs/LinkDialog"
 import { types } from "../../constants/types"
 import { Link } from "../../types/link"
@@ -114,14 +115,16 @@ const LinkButton = ({ icon }: Props) => {
 
   return (
     <React.Fragment>
-      <IconButton
-        size="small"
-        aria-label="link-button"
-        onClick={() =>
-          handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
-        }>
-        {icon}
-      </IconButton>
+      <Tooltip title="link">
+        <IconButton
+          size="small"
+          aria-label="link-button"
+          onClick={() =>
+            handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
+          }>
+          {icon}
+        </IconButton>
+      </Tooltip>
       <LinkDialog
         handleAddLink={handleAddLink}
         handleClose={handleClose}

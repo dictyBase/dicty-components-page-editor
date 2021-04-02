@@ -2,6 +2,7 @@ import React, { MouseEvent } from "react"
 import { Transforms } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
+import Tooltip from "@material-ui/core/Tooltip"
 import isBlockActive from "../../utils/isBlockActive"
 
 const toggleAlign = (editor: ReactEditor, align: string) => {
@@ -33,12 +34,14 @@ const AlignButton = ({ icon, align }: Props) => {
   }
 
   return (
-    <IconButton
-      size="small"
-      aria-label={`align-${align}`}
-      onClick={handleClick}>
-      {icon}
-    </IconButton>
+    <Tooltip title={align}>
+      <IconButton
+        size="small"
+        aria-label={`align-${align}`}
+        onClick={handleClick}>
+        {icon}
+      </IconButton>
+    </Tooltip>
   )
 }
 
