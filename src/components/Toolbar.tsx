@@ -7,6 +7,7 @@ import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
 import AlignButton from "./buttons/AlignButton"
 import LinkButton from "./buttons/LinkButton"
+import FontColorButton from "./buttons/FontColorButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -24,6 +25,8 @@ import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
 import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
+// font icons
+import FontColorIcon from "./icons/FontColorIcon"
 // dropdowns
 import FontFamilyDropdown from "./dropdowns/FontFamilyDropdown"
 // types
@@ -62,6 +65,7 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
+        <FontColorButton icon={<FontColorIcon />} />
         <FontFamilyDropdown />
       </Toolbar>
     </AppBar>

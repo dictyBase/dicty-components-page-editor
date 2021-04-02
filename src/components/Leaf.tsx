@@ -1,15 +1,17 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, useTheme } from "@material-ui/core/styles"
 import { RenderLeafProps } from "slate-react"
 import "../utils/fonts"
 
 type StyleProps = {
   fontFamily: string | unknown
+  fontColor: string | unknown
 }
 
 const useStyles = makeStyles(() => ({
   text: (props: StyleProps) => ({
     fontFamily: props.fontFamily,
+    color: props.fontColor,
   }),
 }))
 
@@ -23,8 +25,10 @@ const useStyles = makeStyles(() => ({
  * <span {...attributes}><strong><em>{children}</em></strong></span>
  */
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+  const theme = useTheme()
   const props = {
-    fontFamily: leaf.fontFamily ? leaf.fontFamily : "Roboto",
+    fontFamily: leaf.fontFamily ? leaf.fontFamily : theme.typography.fontFamily,
+    fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary,
   }
   const classes = useStyles(props)
 
