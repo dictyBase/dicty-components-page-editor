@@ -4,15 +4,7 @@ import IconButton from "@material-ui/core/IconButton"
 import { Editor } from "slate"
 import { useSlate } from "slate-react"
 import { HexColorPicker, HexColorInput } from "react-colorful"
-
-// get the current font color for a given selection
-const getCurrentMark = (editor: Editor) => {
-  const marks = Editor.marks(editor)
-  if (marks && marks.fontColor) {
-    return marks.fontColor
-  }
-  return "#aabbcc"
-}
+import getCurrentMark from "../../utils/getCurrentMark"
 
 // get list of preset colors to show beneath picker
 const getPresetColors = (theme: Theme) => {
@@ -54,17 +46,21 @@ const FontColorPicker = () => {
   const theme = useTheme()
   const classes = useStyles()
   const presetColors = getPresetColors(theme)
+  const mark = "fontColor"
 
   const handleChange = (value: string) => {
-    Editor.addMark(editor, "fontColor", value)
+    Editor.addMark(editor, mark, value)
   }
 
   return (
     <div>
-      <HexColorPicker color={getCurrentMark(editor)} onChange={handleChange} />
+      <HexColorPicker
+        color={getCurrentMark(editor, mark)}
+        onChange={handleChange}
+      />
       <HexColorInput
         className={classes.input}
-        color={getCurrentMark(editor)}
+        color={getCurrentMark(editor, mark)}
         onChange={handleChange}
       />
       <div className={classes.buttonContainer}>

@@ -5,6 +5,7 @@ import { makeStyles, Theme } from "@material-ui/core/styles"
 import MenuItem from "@material-ui/core/MenuItem"
 import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
+import getCurrentMark from "../../utils/getCurrentMark"
 
 const useStyles = makeStyles((theme: Theme) => ({
   dropdown: {
@@ -23,26 +24,20 @@ const FontFamilyList = [
   "Roboto Slab",
 ]
 
-// get the current font family for a given selection
-const getCurrentMark = (editor: Editor) => {
-  const marks = Editor.marks(editor)
-  if (marks && marks.fontFamily) {
-    return marks.fontFamily
-  }
-  return "Roboto"
-}
-
 const FontFamilyDropdown = () => {
   const editor = useSlate()
   const classes = useStyles()
+  const mark = "fontFamily"
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-    Editor.addMark(editor, "fontFamily", event.target.value)
+    Editor.addMark(editor, mark, event.target.value)
   }
 
   return (
     <FormControl className={classes.dropdown}>
-      <Select value={getCurrentMark(editor)} onChange={handleChange}>
+      <Select
+        value={getCurrentMark(editor, mark) || "Roboto"}
+        onChange={handleChange}>
         {FontFamilyList.map((font) => (
           <MenuItem key={font} value={font} style={{ fontFamily: font }}>
             {font}
