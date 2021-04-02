@@ -12,8 +12,8 @@ type Props = {
   handleAddLink: (event: React.MouseEvent<HTMLButtonElement>) => void
   /** Function called when user closes link dialog without clicking 'add link' 'button */
   handleClose: () => void
-  /** Determines if modal is open */
-  linkModalOpen: boolean
+  /** Determines if dialog is open */
+  linkDialogOpen: boolean
   /** Link value */
   link: Link
   /** Set link state */
@@ -23,13 +23,13 @@ type Props = {
 const LinkDialog = ({
   handleAddLink,
   handleClose,
-  linkModalOpen,
+  linkDialogOpen,
   link,
   setLink,
 }: Props) => {
   return (
     <Dialog
-      open={linkModalOpen}
+      open={linkDialogOpen}
       onClose={handleClose}
       aria-labelledby="link-dialog-title">
       <DialogTitle id="link-dialog-title">Link Details</DialogTitle>

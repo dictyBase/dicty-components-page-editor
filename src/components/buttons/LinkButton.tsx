@@ -57,10 +57,13 @@ const upsertLink = (editor: Editor, link: Link) => {
   }
 }
 
+// handleToolbarButtonClick updates the url/text state based on the user's current
+// selection. If there is text selected, it gets the text and its link if it exists,
+// otherwise it sets both as empty strings. It also opens the link dialog.
 const handleToolbarButtonClick = (
   editor: Editor,
   setLink: (arg0: Link) => void,
-  setLinkModalOpen: (arg0: boolean) => void,
+  setLinkDialogOpen: (arg0: boolean) => void,
 ) => {
   const { selection } = editor
   // if there is a current selection then pull the text and URL from it
@@ -82,7 +85,7 @@ const handleToolbarButtonClick = (
       text: "",
     })
   }
-  setLinkModalOpen(true)
+  setLinkDialogOpen(true)
 }
 
 type Props = {
@@ -95,7 +98,7 @@ type Props = {
  */
 const LinkButton = ({ icon }: Props) => {
   const editor = useSlate()
-  const [linkModalOpen, setLinkModalOpen] = React.useState(false)
+  const [linkDialogOpen, setLinkDialogOpen] = React.useState(false)
   const [link, setLink] = React.useState({
     url: "",
     text: "",
@@ -103,11 +106,11 @@ const LinkButton = ({ icon }: Props) => {
 
   const handleAddLink = () => {
     upsertLink(editor, link)
-    setLinkModalOpen(false)
+    setLinkDialogOpen(false)
   }
 
   // if the user has clicked away without adding the link then we don't need to do anything with their data
-  const handleClose = () => setLinkModalOpen(false)
+  const handleClose = () => setLinkDialogOpen(false)
 
   return (
     <React.Fragment>
@@ -115,14 +118,14 @@ const LinkButton = ({ icon }: Props) => {
         size="small"
         aria-label="link-button"
         onClick={() =>
-          handleToolbarButtonClick(editor, setLink, setLinkModalOpen)
+          handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
         }>
         {icon}
       </IconButton>
       <LinkDialog
         handleAddLink={handleAddLink}
         handleClose={handleClose}
-        linkModalOpen={linkModalOpen}
+        linkDialogOpen={linkDialogOpen}
         link={link}
         setLink={setLink}
       />
