@@ -32,21 +32,28 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   }
   const classes = useStyles(props)
 
-  switch (true) {
-    case leaf.hasOwnProperty("bold"):
-      children = <strong>{children}</strong>
-    case leaf.hasOwnProperty("italic"):
-      children = <em>{children}</em>
-    case leaf.hasOwnProperty("underline"):
-      children = <u>{children}</u>
-    case leaf.hasOwnProperty("strikethrough"):
-      children = <s>{children}</s>
-    case leaf.hasOwnProperty("subscript"):
-      children = <sub>{children}</sub>
-    case leaf.hasOwnProperty("superscript"):
-      children = <sup>{children}</sup>
-    default:
-      children = children
+  if (leaf.bold) {
+    children = <strong>{children}</strong>
+  }
+
+  if (leaf.italic) {
+    children = <em>{children}</em>
+  }
+
+  if (leaf.underline) {
+    children = <u>{children}</u>
+  }
+
+  if (leaf.strikethrough) {
+    children = <s>{children}</s>
+  }
+
+  if (leaf.subscript) {
+    children = <sub>{children}</sub>
+  }
+
+  if (leaf.superscript) {
+    children = <sup>{children}</sup>
   }
 
   return (
