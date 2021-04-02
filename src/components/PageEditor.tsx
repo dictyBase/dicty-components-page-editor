@@ -11,7 +11,11 @@ const initialValue = [
   {
     type: "paragraph",
     children: [
-      { fontFamily: "Roboto", text: "A line of text in a paragraph." },
+      {
+        fontFamily: "Roboto",
+        fontColor: "rgba(0, 0, 0, 0.87)",
+        text: "A line of text in a paragraph.",
+      },
     ],
   },
 ]
