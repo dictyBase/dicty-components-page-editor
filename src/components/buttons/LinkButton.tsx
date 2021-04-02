@@ -35,12 +35,13 @@ const unwrapLink = (editor: Editor) => {
  * it adds a new link with the provided text. Otherwise it will wrap the
  * selection with a link node using the user's link and text.
  */
-const upsertLink = (editor: Editor, url: string, text: string) => {
+const upsertLink = (editor: Editor, link: Link) => {
+  const { url, text } = link
   // check if there is an existing link first then unwrap it
   if (isLinkActive(editor)) {
     unwrapLink(editor)
   }
-  const link = {
+  const linkData = {
     type: types.link,
     url,
     children: [{ text: text }],
@@ -48,9 +49,9 @@ const upsertLink = (editor: Editor, url: string, text: string) => {
   const { selection } = editor
   const isCollapsed = selection && Range.isCollapsed(selection)
   if (isCollapsed) {
-    Transforms.insertNodes(editor, link)
+    Transforms.insertNodes(editor, linkData)
   } else {
-    Transforms.wrapNodes(editor, link, { split: true })
+    Transforms.wrapNodes(editor, linkData, { split: true })
     Editor.insertText(editor, text)
     Transforms.collapse(editor, { edge: "end" })
   }
@@ -100,10 +101,13 @@ const LinkButton = ({ icon }: Props) => {
     text: "",
   })
 
-  const handleAddButtonClick = () => {
-    upsertLink(editor, link.url, link.text)
+  const handleAddLink = () => {
+    upsertLink(editor, link)
     setLinkModalOpen(false)
   }
+
+  // if the user has clicked away without adding the link then we don't need to do anything with their data
+  const handleClose = () => setLinkModalOpen(false)
 
   return (
     <React.Fragment>
@@ -116,9 +120,9 @@ const LinkButton = ({ icon }: Props) => {
         {icon}
       </IconButton>
       <LinkDialog
-        handleClick={handleAddButtonClick}
+        handleAddLink={handleAddLink}
+        handleClose={handleClose}
         linkModalOpen={linkModalOpen}
-        setLinkModalOpen={setLinkModalOpen}
         link={link}
         setLink={setLink}
       />

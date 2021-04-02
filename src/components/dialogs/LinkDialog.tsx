@@ -8,12 +8,12 @@ import DialogTitle from "@material-ui/core/DialogTitle"
 import { Link } from "../../types/link"
 
 type Props = {
-  /** Function to call when  */
-  handleClick: (event: React.MouseEvent<HTMLButtonElement>) => void
+  /** Function to call when user clicks 'add link' button */
+  handleAddLink: (event: React.MouseEvent<HTMLButtonElement>) => void
+  /** Function called when user closes link dialog without clicking 'add link' 'button */
+  handleClose: () => void
   /** Determines if modal is open */
   linkModalOpen: boolean
-  /** Toggle link modal */
-  setLinkModalOpen: (arg0: boolean) => void
   /** Link value */
   link: Link
   /** Set link state */
@@ -21,16 +21,16 @@ type Props = {
 }
 
 const LinkDialog = ({
-  handleClick,
+  handleAddLink,
+  handleClose,
   linkModalOpen,
-  setLinkModalOpen,
   link,
   setLink,
 }: Props) => {
   return (
     <Dialog
       open={linkModalOpen}
-      onClose={() => setLinkModalOpen(false)}
+      onClose={handleClose}
       aria-labelledby="link-dialog-title">
       <DialogTitle id="link-dialog-title">Link Details</DialogTitle>
       <DialogContent>
@@ -65,7 +65,7 @@ const LinkDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClick} variant="contained" color="primary">
+        <Button onClick={handleAddLink} variant="contained" color="primary">
           Add Link
         </Button>
       </DialogActions>
