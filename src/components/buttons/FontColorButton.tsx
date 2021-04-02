@@ -1,8 +1,14 @@
 import React, { MouseEvent } from "react"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import Menu from "@material-ui/core/Menu"
-import MenuItem from "@material-ui/core/MenuItem"
 import IconButton from "@material-ui/core/IconButton"
 import FontColorPicker from "../dropdowns/FontColorPicker"
+
+const useStyles = makeStyles((theme: Theme) => ({
+  popper: {
+    padding: theme.spacing(2),
+  },
+}))
 
 type Props = {
   /** Icon to display in button */
@@ -14,6 +20,7 @@ type Props = {
  * a font color.
  */
 const FontColorButton = ({ icon }: Props) => {
+  const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -40,10 +47,11 @@ const FontColorButton = ({ icon }: Props) => {
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
+        MenuListProps={{ disablePadding: true }}
         onClose={handleClose}>
-        <MenuItem>
+        <div className={classes.popper}>
           <FontColorPicker />
-        </MenuItem>
+        </div>
       </Menu>
     </React.Fragment>
   )
