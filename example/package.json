@@ -4,11 +4,18 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "@fontsource/lato": "file:../node_modules/@fontsource/lato",
+    "@fontsource/merriweather": "file:../node_modules/@fontsource/merriweather",
+    "@fontsource/montserrat": "file:../node_modules/@fontsource/montserrat",
+    "@fontsource/roboto": "file:../node_modules/@fontsource/roboto",
+    "@fontsource/roboto-condensed": "file:../node_modules/@fontsource/roboto-condensed",
+    "@fontsource/roboto-mono": "file:../node_modules/@fontsource/roboto-mono",
+    "@fontsource/roboto-slab": "file:../node_modules/@fontsource/roboto-slab",
     "@material-ui/core": "file:../node_modules/@material-ui/core",
     "dicty-components-page-editor": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-scripts": "file:../node_modules/react-scripts"
+    "react-scripts": "^4.0.1"
   },
   "devDependencies": {
     "husky": "file:../node_modules/husky",
@@ -20,6 +27,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
+      "git add"
+    ]
+  },
   "browserslist": {
     "production": [
       ">0.2%",
@@ -30,17 +48,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "src/**/*.{js,jsx,json,css}": [
-      "prettier --no-semi --trailing-comma all --jsx-bracket-same-line true --write",
-      "git add"
     ]
   }
 }

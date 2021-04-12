@@ -1,5 +1,7 @@
-name: Unit tests (pull request)
-on: pull_request
+name: Testing (Pull Request)
+on:
+  pull_request:
+    types: [edited, labeled, opened, synchronize, reopened]
 jobs:
   test:
     name: Unit tests
@@ -16,7 +18,7 @@ jobs:
       - name: eslint
         run: yarn lint
       - name: unit tests
-        run: yarn test -- --coverage
+        run: yarn test-coverage
         env:
           CI: true
       - name: upload test coverage to codecov

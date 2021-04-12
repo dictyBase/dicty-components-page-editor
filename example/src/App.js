@@ -1,39 +1,15 @@
 import React from "react"
 import { PageEditor } from "dicty-components-page-editor"
-import Grid from "@material-ui/core/Grid"
+import { makeStyles } from "@material-ui/core/styles"
+import Container from "@material-ui/core/Container"
+import Box from "@material-ui/core/Box"
 
 const App = () => (
-  <>
-    <Grid
-      container
-      style={{
-        width: "75%",
-        margin: "0 auto",
-        border: "1px solid #ddd",
-        paddingBottom: "5px",
-      }}>
-      <Grid item>
-        <PageEditor
-          newPage
-          // pageContent={data}
-          onCancel={() => {}}
-          onSave={() => {}}
-          readOnly={false}
-        />
-      </Grid>
-    </Grid>
-    <Grid container justify="center" style={{ marginTop: "25px" }}>
-      <Grid item xs={2}>
-        <PageEditor
-          newPage
-          onCancel={() => {}}
-          onSave={() => {}}
-          readOnly={false}
-          inline
-        />
-      </Grid>
-    </Grid>
-  </>
+  <Container>
+    <Box height="250px" border="1px solid #ddd">
+      <PageEditor />
+    </Box>
+  </Container>
 )
 
 export default App

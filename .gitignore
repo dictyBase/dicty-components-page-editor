@@ -20,3 +20,11 @@ yarn-debug.log*
 yarn-error.log*
 
 example/build
+
+.eslintcache
+
+# test coverage
+coverage
+
+# remove these later
+dist
