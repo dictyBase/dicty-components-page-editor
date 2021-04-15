@@ -1,5 +1,5 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
+import { makeStyles, Theme } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Divider from "@material-ui/core/Divider"
@@ -25,20 +25,20 @@ import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
 import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
-// font icons
-import FontColorIcon from "./icons/FontColorIcon"
 // dropdowns
-import FontFamilyDropdown from "./dropdowns/FontFamilyDropdown"
-import FontSizeDropdown from "./dropdowns/FontSizeDropdown"
+import Dropdown from "./dropdowns/Dropdown"
+import FontColorIcon from "./icons/FontColorIcon"
+// utils
+import { FontFamilyList, FontSizeList } from "../utils/fontDropdowns"
 // types
 import { types, alignments } from "../constants/types"
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme: Theme) => ({
   divider: {
-    marginLeft: "4px",
-    marginRight: "4px",
+    marginLeft: theme.spacing(0.5),
+    marginRight: theme.spacing(0.5),
   },
-})
+}))
 
 /**
  * Toolbar is the display for the editor toolbar.
@@ -67,8 +67,17 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
-        <FontFamilyDropdown />
-        <FontSizeDropdown />
+        <Dropdown
+          mark="fontFamily"
+          defaultValue="Roboto"
+          values={FontFamilyList}
+        />
+        <Dropdown
+          mark="fontSize"
+          defaultValue="1rem"
+          values={FontSizeList}
+          minWidth="90px"
+        />
       </Toolbar>
     </AppBar>
   )

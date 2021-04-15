@@ -7,27 +7,38 @@ import FormControl from "@material-ui/core/FormControl"
 import Select from "@material-ui/core/Select"
 import getCurrentMark from "../../utils/getCurrentMark"
 
+type StyleProps = {
+  /** Minimum width of dropdown */
+  minWidth: string
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
-  dropdown: {
+  dropdown: (props: StyleProps) => ({
     margin: theme.spacing(1),
-    minWidth: 150,
-  },
+    minWidth: props.minWidth,
+  }),
 }))
 
-const FontFamilyList = [
-  "Lato",
-  "Merriweather",
-  "Montserrat",
-  "Roboto",
-  "Roboto Condensed",
-  "Roboto Mono",
-  "Roboto Slab",
-]
+type Props = {
+  /** List of values to display in dropdown */
+  values: string[]
+  /** Default value of dropdown */
+  defaultValue: string
+  /** Mark to add to Slate data */
+  mark: string
+  /** Minimum width of dropdown */
+  minWidth?: string
+}
 
-const FontFamilyDropdown = () => {
+const Dropdown = ({
+  values,
+  defaultValue,
+  mark,
+  minWidth = "150px",
+}: Props) => {
   const editor = useSlate()
-  const classes = useStyles()
-  const mark = "fontFamily"
+  const props = { minWidth }
+  const classes = useStyles(props)
 
   const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
     Editor.addMark(editor, mark, event.target.value)
@@ -36,11 +47,11 @@ const FontFamilyDropdown = () => {
   return (
     <FormControl className={classes.dropdown}>
       <Select
-        value={getCurrentMark(editor, mark) || "Roboto"}
+        value={getCurrentMark(editor, mark) || defaultValue}
         onChange={handleChange}>
-        {FontFamilyList.map((font) => (
-          <MenuItem key={font} value={font} style={{ fontFamily: font }}>
-            {font}
+        {values.map((val) => (
+          <MenuItem key={val} value={val} style={{ [mark]: val }}>
+            {val}
           </MenuItem>
         ))}
       </Select>
@@ -48,4 +59,4 @@ const FontFamilyDropdown = () => {
   )
 }
 
-export default FontFamilyDropdown
+export default Dropdown
