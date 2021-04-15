@@ -37,7 +37,7 @@ const PageEditor = () => {
   const renderElement = useCallback((props) => <Element {...props} />, [])
   // render expected leaf based on type (i.e. bold, italic, etc)
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
-  console.log(value)
+
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
