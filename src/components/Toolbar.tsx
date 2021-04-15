@@ -29,6 +29,7 @@ import AlignJustifyIcon from "./icons/AlignJustifyIcon"
 import FontColorIcon from "./icons/FontColorIcon"
 // dropdowns
 import FontFamilyDropdown from "./dropdowns/FontFamilyDropdown"
+import FontSizeDropdown from "./dropdowns/FontSizeDropdown"
 // types
 import { types, alignments } from "../constants/types"
 
@@ -67,6 +68,7 @@ const EditorToolbar = () => {
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
         <FontFamilyDropdown />
+        <FontSizeDropdown />
       </Toolbar>
     </AppBar>
   )
