@@ -1,5 +1,6 @@
 import React from "react"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
 import { RenderLeafProps } from "slate-react"
 import "../utils/fonts"
 
@@ -60,9 +61,9 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   }
 
   return (
-    <span className={classes.text} {...attributes}>
+    <Typography component="span" className={classes.text} {...attributes}>
       {children}
-    </span>
+    </Typography>
   )
 }
 
