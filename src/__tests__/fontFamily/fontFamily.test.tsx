@@ -2,8 +2,9 @@ import React from "react"
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
-import FontFamilyDropdown from "../../components/dropdowns/FontFamilyDropdown"
+import Dropdown from "../../components/dropdowns/Dropdown"
 import { input, output } from "./fontFamily.fixture"
+import { FontFamilyList } from "../../utils/fontDropdowns"
 
 describe("font family", () => {
   it("should add font family", () => {
@@ -13,7 +14,13 @@ describe("font family", () => {
       .spyOn(SlateReact, "useSlate")
       .mockReturnValue(editor as SlateReact.ReactEditor)
 
-    render(<FontFamilyDropdown />)
+    render(
+      <Dropdown
+        values={FontFamilyList}
+        defaultValue="Roboto"
+        mark="fontFamily"
+      />,
+    )
 
     const dropdown = screen.getByRole("button", {
       name: "Roboto",
