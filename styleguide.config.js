@@ -1,13 +1,32 @@
 const path = require("path")
 module.exports = {
   styleguideDir: "styleguide",
-  webpackConfig: require("react-scripts/config/webpack.config")("development"),
-  ignore: [
-    "**/*.test.{js,jsx,ts,tsx}",
-    "src/styles/*.js",
-    "src/components/editorStyles.js",
-    "src/components/schema/*.js",
-    "src/components/flow/types.js",
-    "src/components/utils/*.js",
-  ],
+  title: "Dicty Components Page Editor",
+  ignore: ["src/__tests__/**"],
+  propsParser: require("react-docgen-typescript").withCustomConfig(
+    "./tsconfig.json",
+  ).parse,
+  webpackConfig: {
+    module: {
+      rules: [
+        {
+          test: /\.tsx?$/,
+          exclude: /node_modules/,
+          loader: "ts-loader",
+          options: { configFile: "tsconfig.styleguidist.json" },
+        },
+        {
+          test: /\.css$/i,
+          use: ["style-loader", "css-loader"],
+        },
+        {
+          test: /\.(png|jpe?g|gif|svg|eot|ttf|woff|woff2)$/i,
+          loader: "url-loader",
+          options: {
+            limit: 8192,
+          },
+        },
+      ],
+    },
+  },
 }
