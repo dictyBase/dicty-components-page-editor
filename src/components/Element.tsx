@@ -3,7 +3,7 @@ import { RenderElementProps } from "slate-react"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
 import { types } from "../constants/types"
 
-interface ElementProps extends RenderElementProps {
+type ElementProps = {
   element: {
     /** Type of element to render */
     type: string
@@ -15,11 +15,12 @@ interface ElementProps extends RenderElementProps {
     children: any
   }
 }
+type Props = ElementProps & RenderElementProps
 
 /**
  * Element is used to render blocks based on a given type.
  */
-const Element = ({ attributes, children, element }: ElementProps) => {
+const Element = ({ attributes, children, element }: Props) => {
   const { type, align = "left", url } = element
 
   switch (type) {
