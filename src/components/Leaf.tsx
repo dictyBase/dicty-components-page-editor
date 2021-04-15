@@ -5,12 +5,14 @@ import "../utils/fonts"
 
 type StyleProps = {
   fontFamily: string | unknown
+  fontSize: string | unknown
   fontColor: string | unknown
 }
 
 const useStyles = makeStyles(() => ({
   text: (props: StyleProps) => ({
     fontFamily: props.fontFamily,
+    fontSize: props.fontSize,
     color: props.fontColor,
   }),
 }))
@@ -28,6 +30,7 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   const theme = useTheme()
   const props = {
     fontFamily: leaf.fontFamily ? leaf.fontFamily : theme.typography.fontFamily,
+    fontSize: leaf.fontSize ? leaf.fontSize : theme.typography.fontSize,
     fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary,
   }
   const classes = useStyles(props)
