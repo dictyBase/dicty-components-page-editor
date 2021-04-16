@@ -1,4 +1,5 @@
 import { Editor, Path, Node } from "slate"
+import { types } from "../constants/types"
 
 /**
  * getFontSize is a helper function so any text nodes inside a header
@@ -14,7 +15,11 @@ const getFontSize = (editor: Editor, fontSize: string) => {
   const parentPath = Path.parent(currentPath)
   const node = Node.get(editor, parentPath)
   // if the parent node is a header then its text children should inherit its size
-  if (node.type === "h1" || node.type === "h2" || node.type === "h3") {
+  if (
+    node.type === types.h1 ||
+    node.type === types.h2 ||
+    node.type === types.h3
+  ) {
     return "inherit"
   }
   return fontSize
