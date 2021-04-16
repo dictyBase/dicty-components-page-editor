@@ -10,12 +10,11 @@
 ![GitHub tag](https://img.shields.io/github/v/tag/dictyBase/dicty-components-page-editor)
 ![GitHub action](https://github.com/dictyBase/dicty-components-page-editor/workflows/Node%20CI%20Develop/badge.svg)  
 [![codecov](https://codecov.io/gh/dictyBase/dicty-components-page-editor/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/dicty-components-page-editor)
-[![This project is using Percy.io for visual regression testing.](https://percy.io/static/images/percy-badge.svg)](https://percy.io/dictyBase/dicty-components-page-editor)
 [![Maintainability](https://badgen.net/codeclimate/maintainability/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor)  
 ![Last commit](https://badgen.net/github/last-commit/dictyBase/dicty-components-page-editor/develop)  
 [![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=10024726&icde=0)
 
-> dictyBase page editor built using Slatejs
+> dictyBase page editor built using Slate.js
 
 ## Install
 
@@ -32,33 +31,11 @@ yarn add dictyBase/dicty-components-page-editor#1.0.0
 
 ## Usage
 
-```jsx
-import { PageEditor } from "dicty-components-page-editor"
-
-const Demo = () => {
-  const onCancel = () => {}
-  const onSave = () => {}
-
-  return (
-    <PageEditor
-      pageContent={data.content}
-      onCancel={onCancel}
-      onSave={onSave}
-      readOnly={false}
-      newPage
-    />
-  )
-}
-```
+coming soon...
 
 ### Props
 
-- `pageContent` (string) - fetched page content _(optional)_
-- `readOnly` (boolean) - determines if editor is in read-only mode
-- `newPage` (boolean) - identifier for creating a new page _(optional)_
-- `onSave` (function) - called when user clicks the save button
-- `onCancel` (function) - called when user clicks the cancel button
-- `inline` (boolean) - used to display a smaller toolbar for inline editing _(optional)_
+coming soon...
 
 ## Development
 
@@ -66,8 +43,7 @@ const Demo = () => {
 - Run `yarn install`
 - Create a new branch (i.e. `feature/foo-plugin`)
 - Complete any necessary work.
-- If creating a new plugin, there is a [guide](./docs/bold.md) that
-  walks you through the process using the bold plugin as a guide.
+- Read the individual [docs](./docs) for guides.
 - Commit all changes and open a pull request. If all checks pass, it is ready
   to merge to `develop`.
 
@@ -79,14 +55,6 @@ automatically.
 
 To open a demo and see your changes happen live, first run `yarn start` from the
 root directory. Then run `yarn start` from the `/example` directory.
-
-## Dependencies
-
-This editor relies on the these core libraries (hence the large bundle size):
-
-![Slate](https://img.shields.io/bundlephobia/min/slate/0.44.13?label=slate)
-![slate-react](https://img.shields.io/bundlephobia/min/slate-react/0.21.20?label=slate-react)
-![Immutable](https://img.shields.io/bundlephobia/min/immutable/3.8.2?label=immutable)
 
 ## Contributors ✨
 
