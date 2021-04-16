@@ -1,6 +1,7 @@
 import React from "react"
 import { RenderElementProps } from "slate-react"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
 import { types } from "../constants/types"
 
 type ElementProps = {
@@ -48,6 +49,8 @@ const Element = ({ attributes, children, element }: Props) => {
           {children}
         </a>
       )
+    case types.divider:
+      return <Divider {...attributes} />
     default:
       return (
         <Typography component="p" align={align} {...attributes}>
