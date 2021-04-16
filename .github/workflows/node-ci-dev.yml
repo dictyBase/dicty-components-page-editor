@@ -27,7 +27,7 @@ jobs:
       - name: install
         run: yarn install
       - name: unit tests
-        run: yarn test -- --coverage
+        run: yarn test-coverage
         env:
           CI: true
       - name: upload test coverage to codecov
