@@ -1,7 +1,8 @@
 import React from "react"
 import { makeStyles, useTheme } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
-import { RenderLeafProps } from "slate-react"
+import { useSlate, RenderLeafProps } from "slate-react"
+import getFontSize from "../utils/getFontSize"
 import "../utils/fonts"
 
 type StyleProps = {
@@ -28,10 +29,11 @@ const useStyles = makeStyles(() => ({
  * <span {...attributes}><strong><em>{children}</em></strong></span>
  */
 const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
+  const editor = useSlate()
   const theme = useTheme()
   const props = {
     fontFamily: leaf.fontFamily ? leaf.fontFamily : theme.typography.fontFamily,
-    fontSize: leaf.fontSize ? leaf.fontSize : theme.typography.fontSize,
+    fontSize: getFontSize(editor, leaf.fontSize as string),
     fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary,
   }
   const classes = useStyles(props)
