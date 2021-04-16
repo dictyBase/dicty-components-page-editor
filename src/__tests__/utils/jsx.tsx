@@ -46,6 +46,7 @@ const jsx = createHyperscript({
     alignCenter: { type: types.paragraph, align: alignments.center },
     alignRight: { type: types.paragraph, align: alignments.center },
     link: { type: types.link },
+    divider: { type: types.divider },
   },
   creators: {
     // can't override react's text declaration so we create our own
