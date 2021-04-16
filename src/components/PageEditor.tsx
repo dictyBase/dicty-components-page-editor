@@ -13,7 +13,7 @@ const initialValue = [
     children: [
       {
         fontFamily: "Roboto",
-        fontSize: "1rem",
+        fontSize: "inherit",
         fontColor: "rgba(0, 0, 0, 0.87)",
         text: "A line of text in a paragraph.",
       },
