@@ -50,7 +50,7 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     default:
       return (
-        <Typography component="p" variant="body1" align={align} {...attributes}>
+        <Typography component="p" align={align} {...attributes}>
           {children}
         </Typography>
       )
