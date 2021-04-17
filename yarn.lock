@@ -924,10 +924,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto-slab/-/roboto-slab-4.2.2.tgz#c157defbafbfa0ae45f00585a3ea49caf8bd338e"
   integrity sha512-g1MNNpUXk8QpoHQeVuYtPL5abvUoUv0qFXDNhf3/0ABgMQ3TZwm/e9dHFvWKoNp0HFrC1Y2W3tBtUbX25w0nIA==
 
-"@fontsource/roboto@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.2.2.tgz#39b87680b25915539e445cc6e0fac99e1a81f58b"
-  integrity sha512-VzYWCdqjrepaT7dezuaTZXKaW1L+f5FSp7DGxMqTrf81OTzh9xpKIpr8lgjPg2ZNwiT8rnU++mJ4hojsCnOoqw==
+"@fontsource/roboto@^4.2.3":
+  version "4.2.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.2.3.tgz#2d2c173c526073a2c8d22f1c4234eef7496183fb"
+  integrity sha512-lEnB089GcK3uU3d0MPjwYTUPZBhpKQ2HxvgC+0ib2ElJNISBoS3fHE2sKuZIcCeghWW0fX58OJrZiPgZ3essBg==
 
 "@iarna/cli@^1.2.0":
   version "1.2.0"
