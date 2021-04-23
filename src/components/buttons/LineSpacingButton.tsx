@@ -23,9 +23,8 @@ const LineSpacingButton = ({ icon }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleItemClick = (item: string) => {
-    const format = types.lineSpacing
     Transforms.setNodes(editor, {
-      type: format,
+      type: types.lineSpacing,
       lineSpacing: item,
     })
     setAnchorEl(null)
