@@ -8,6 +8,7 @@ import BlockButton from "./buttons/BlockButton"
 import AlignButton from "./buttons/AlignButton"
 import LinkButton from "./buttons/LinkButton"
 import FontColorButton from "./buttons/FontColorButton"
+import LineSpacingButton from "./buttons/LineSpacingButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -68,7 +69,7 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <BlockButton format={types.divider} icon={<DividerIcon />} />
-        <BlockButton format={types.lineSpacing} icon={<LineSpacingIcon />} />
+        <LineSpacingButton icon={<LineSpacingIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
         <Dropdown
