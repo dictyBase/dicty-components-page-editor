@@ -4,7 +4,7 @@ import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import Dropdown from "../../components/dropdowns/Dropdown"
 import { input, output } from "./fontSize.fixture"
-import { FontSizeList } from "../../utils/fontDropdowns"
+import { FontSizeList } from "../../utils/dropdownValues"
 
 describe("font size", () => {
   it("should add font size", () => {
