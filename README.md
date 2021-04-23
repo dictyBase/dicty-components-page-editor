@@ -12,7 +12,7 @@
 [![codecov](https://codecov.io/gh/dictyBase/dicty-components-page-editor/branch/develop/graph/badge.svg)](https://codecov.io/gh/dictyBase/dicty-components-page-editor)
 [![Maintainability](https://badgen.net/codeclimate/maintainability/dictyBase/dicty-components-page-editor)](https://codeclimate.com/github/dictyBase/dicty-components-page-editor)  
 ![Last commit](https://badgen.net/github/last-commit/dictyBase/dicty-components-page-editor/develop)  
-[![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://projectreporter.nih.gov/project_info_description.cfm?aid=10024726&icde=0)
+[![Funding](https://badgen.net/badge/Funding/Rex%20L%20Chisholm,dictyBase,DCR/yellow?list=|)](https://reporter.nih.gov/project-details/10024726)
 
 > dictyBase page editor built using Slate.js
 
