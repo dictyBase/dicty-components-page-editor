@@ -6,8 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import { types } from "../../constants/types"
-
-const values = ["1.0", "1.15", "1.5", "2.0", "2.5", "3.0"]
+import { LineSpacingList } from "../../utils/dropdownValues"
 
 type Props = {
   /** Icon to display in button */
@@ -51,7 +50,7 @@ const LineSpacingButton = ({ icon }: Props) => {
         open={Boolean(anchorEl)}
         MenuListProps={{ disablePadding: true }}
         onClose={() => setAnchorEl(null)}>
-        {values.map((item, index) => (
+        {LineSpacingList.map((item: string, index: number) => (
           <MenuItem key={index} onClick={() => handleItemClick(item)}>
             {item}
           </MenuItem>

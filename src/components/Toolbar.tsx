@@ -32,7 +32,7 @@ import AlignJustifyIcon from "./icons/AlignJustifyIcon"
 import Dropdown from "./dropdowns/Dropdown"
 import FontColorIcon from "./icons/FontColorIcon"
 // utils
-import { FontFamilyList, FontSizeList } from "../utils/fontDropdowns"
+import { FontFamilyList, FontSizeList } from "../utils/dropdownValues"
 // types
 import { types, alignments } from "../constants/types"
 
