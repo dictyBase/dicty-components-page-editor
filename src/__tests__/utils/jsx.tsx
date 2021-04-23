@@ -30,6 +30,7 @@ declare global {
         fontFamily?: string
         fontSize?: string
         fontColor?: string
+        lineSpacing?: string
         children?: React.ReactNode
       }
     }
@@ -47,6 +48,7 @@ const jsx = createHyperscript({
     alignRight: { type: types.paragraph, align: alignments.center },
     link: { type: types.link },
     divider: { type: types.divider },
+    lineSpacing: { type: types.lineSpacing, lineSpacing: "2.0" },
   },
   creators: {
     // can't override react's text declaration so we create our own
