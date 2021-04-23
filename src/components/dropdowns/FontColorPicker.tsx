@@ -39,6 +39,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginBottom: theme.spacing(1),
     borderRadius: "4px",
   },
+  popper: {
+    padding: theme.spacing(2),
+  },
 }))
 
 const FontColorPicker = () => {
@@ -53,7 +56,7 @@ const FontColorPicker = () => {
   }
 
   return (
-    <div>
+    <div className={classes.popper}>
       <HexColorPicker
         color={getCurrentMark(editor, mark)}
         onChange={handleChange}
