@@ -1,4 +1,5 @@
-import { Editor, Path, Node } from "slate"
+import { Editor } from "slate"
+import getParentNode from "./getParentNode"
 import { types } from "../constants/types"
 
 /**
@@ -6,19 +7,12 @@ import { types } from "../constants/types"
  * element node can inherit the header font size
  */
 const getFontSize = (editor: Editor, fontSize: string) => {
-  if (!editor.selection) {
-    return fontSize
-  }
-
-  // need to get the parent path in order to get the parent node above this selection
-  const currentPath = editor.selection.anchor.path
-  const parentPath = Path.parent(currentPath)
-  const node = Node.get(editor, parentPath)
+  const node = getParentNode(editor)
   // if the parent node is a header then its text children should inherit its size
   if (
-    node.type === types.h1 ||
-    node.type === types.h2 ||
-    node.type === types.h3
+    node?.type === types.h1 ||
+    node?.type === types.h2 ||
+    node?.type === types.h3
   ) {
     return "inherit"
   }

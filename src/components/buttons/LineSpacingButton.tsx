@@ -9,7 +9,7 @@ import Tooltip from "@material-ui/core/Tooltip"
 import CheckIcon from "../icons/CheckIcon"
 import { types } from "../../constants/types"
 import { LineSpacingList } from "../../utils/dropdownValues"
-import getLineSpacing from "../../utils/getLineSpacing"
+import getParentNode from "../../utils/getParentNode"
 
 const useStyles = makeStyles(() => ({
   menuItem: {
@@ -68,7 +68,8 @@ const LineSpacingButton = ({ icon }: Props) => {
         MenuListProps={{ disablePadding: true }}
         onClose={() => setAnchorEl(null)}>
         {LineSpacingList.map((item: string, index: number) => {
-          const currentLineSpacing = getLineSpacing(editor)
+          const parentNode = getParentNode(editor)
+          const currentLineSpacing = parentNode?.lineSpacing || "1.5"
           return (
             <MenuItem
               key={index}
