@@ -3,7 +3,6 @@ import Menu from "@material-ui/core/Menu"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import FontColorPicker from "../dropdowns/FontColorPicker"
-import useStyles from "../../styles/buttons"
 
 type Props = {
   /** Icon to display in button */
@@ -15,7 +14,6 @@ type Props = {
  * a font color.
  */
 const FontColorButton = ({ icon }: Props) => {
-  const classes = useStyles()
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
@@ -46,9 +44,7 @@ const FontColorButton = ({ icon }: Props) => {
         open={Boolean(anchorEl)}
         MenuListProps={{ disablePadding: true }}
         onClose={handleClose}>
-        <div className={classes.popper}>
-          <FontColorPicker />
-        </div>
+        <FontColorPicker />
       </Menu>
     </React.Fragment>
   )
