@@ -37,6 +37,9 @@ import { FontFamilyList, FontSizeList } from "../utils/dropdownValues"
 import { types, alignments } from "../constants/types"
 
 const useStyles = makeStyles((theme: Theme) => ({
+  container: {
+    marginBottom: theme.spacing(1),
+  },
   divider: {
     marginLeft: theme.spacing(0.5),
     marginRight: theme.spacing(0.5),
@@ -50,7 +53,7 @@ const EditorToolbar = () => {
   const classes = useStyles()
 
   return (
-    <AppBar color="default" position="static">
+    <AppBar color="default" position="static" className={classes.container}>
       <Toolbar disableGutters variant="dense">
         <MarkButton format={types.bold} icon={<BoldIcon />} />
         <MarkButton format={types.italic} icon={<ItalicIcon />} />

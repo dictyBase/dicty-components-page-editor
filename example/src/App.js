@@ -6,7 +6,7 @@ import Box from "@material-ui/core/Box"
 
 const App = () => (
   <Container>
-    <Box height="250px" border="1px solid #ddd">
+    <Box height="500px" border="1px solid #ddd">
       <PageEditor />
     </Box>
   </Container>
