@@ -1,8 +1,19 @@
 import React from "react"
 import { RenderElementProps } from "slate-react"
+import { makeStyles } from "@material-ui/core/styles"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 import { types } from "../constants/types"
+
+type StyleProps = {
+  lineSpacing: string | unknown
+}
+
+const useStyles = makeStyles(() => ({
+  lineSpacing: (props: StyleProps) => ({
+    lineHeight: props.lineSpacing,
+  }),
+}))
 
 type ElementProps = {
   element: {
@@ -22,7 +33,11 @@ type Props = ElementProps & RenderElementProps
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", url } = element
+  const { type, align = "left", lineSpacing, url } = element
+  const styleProps = {
+    lineSpacing: lineSpacing ? lineSpacing : "normal",
+  }
+  const classes = useStyles(styleProps)
 
   switch (type) {
     case types.h1:
@@ -51,6 +66,15 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.divider:
       return <Divider {...attributes} />
+    case types.lineSpacing:
+      return (
+        <Typography
+          component="div"
+          className={classes.lineSpacing}
+          {...attributes}>
+          {children}
+        </Typography>
+      )
     default:
       return (
         <Typography component="p" align={align} {...attributes}>
