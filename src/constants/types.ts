@@ -14,6 +14,7 @@ const types = {
   h2: "h2",
   h3: "h3",
   divider: "divider",
+  lineSpacing: "lineSpacing",
 }
 
 const alignments = {

@@ -21,6 +21,7 @@ import H2Icon from "./icons/H2Icon"
 import H3Icon from "./icons/H3Icon"
 import LinkIcon from "./icons/LinkIcon"
 import DividerIcon from "./icons/DividerIcon"
+import LineSpacingIcon from "./icons/LineSpacingIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -67,6 +68,7 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <BlockButton format={types.divider} icon={<DividerIcon />} />
+        <BlockButton format={types.lineSpacing} icon={<LineSpacingIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
         <Dropdown
