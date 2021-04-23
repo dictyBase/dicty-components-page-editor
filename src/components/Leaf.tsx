@@ -16,6 +16,7 @@ const useStyles = makeStyles(() => ({
     fontFamily: props.fontFamily,
     fontSize: props.fontSize,
     color: props.fontColor,
+    lineHeight: "inherit",
   }),
 }))
 
