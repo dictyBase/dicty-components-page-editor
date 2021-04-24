@@ -10016,10 +10016,10 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.8:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-colorful@^5.1.2:
-  version "5.1.2"
-  resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.1.2.tgz#5cb1506b8f9104b88d02d34984a36c2d1e477e9e"
-  integrity sha512-FRt9jz6xjiPqQ6bIAQ26kd0oJhHbGBwsA4BDz/F8FDCFuQJDiEl0wVUARNiqRyvQjwfKuhM42P/bMYI0l92hRw==
+react-colorful@^5.1.3:
+  version "5.1.3"
+  resolved "https://registry.yarnpkg.com/react-colorful/-/react-colorful-5.1.3.tgz#67aaff52185c3e5aff5c17a16a4e66b27c99bdeb"
+  integrity sha512-5Fp2lMyc5Ki50HdTa0OyBUJNXdyw2FFuzssGMRgZDmUSXeKpfmln1tH/+OwDB87dlfBiCj0QFXz8e2+Rxh1DUg==
 
 react-dev-utils@^11.0.0:
   version "11.0.4"
