@@ -44,7 +44,9 @@ const FontColorButton = ({ icon }: Props) => {
         open={Boolean(anchorEl)}
         MenuListProps={{ disablePadding: true }}
         onClose={handleClose}>
-        <FontColorPicker />
+        <div>
+          <FontColorPicker />
+        </div>
       </Menu>
     </React.Fragment>
   )
