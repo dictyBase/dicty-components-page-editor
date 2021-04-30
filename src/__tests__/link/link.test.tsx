@@ -20,8 +20,8 @@ describe("adding links", () => {
     const button = screen.getByLabelText("link-button")
     userEvent.click(button)
     // interact with link dialog
-    const urlTextbox = screen.getAllByRole("textbox")[0]
-    const textTextbox = screen.getAllByRole("textbox")[1]
+    const urlTextbox = screen.getByRole("textbox", { name: "URL" })
+    const textTextbox = screen.getByRole("textbox", { name: "Text" })
     const addButton = screen.getByRole("button", { name: "Add Link" })
     userEvent.type(urlTextbox, "https://dictycr.org")
     userEvent.clear(textTextbox)
