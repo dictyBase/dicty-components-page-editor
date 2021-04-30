@@ -38,7 +38,7 @@ const LinkDialog = ({
           autoFocus
           margin="dense"
           id="url"
-          label={"URL"}
+          label="URL"
           type="url"
           defaultValue={link.url}
           onChange={(e) =>
