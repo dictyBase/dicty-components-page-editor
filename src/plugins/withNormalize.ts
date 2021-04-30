@@ -8,7 +8,9 @@ const withNormalize = (editor: Editor) => {
     const [node, path] = element
     // make sure a paragraph follows every divider so cursor can always be
     // placed after a divider
-    if (Element.isElement(node) && node.type === "divider") {
+    const divider = Element.isElement(node) && node.type === "divider"
+    const image = Element.isElement(node) && node.type === "image"
+    if (divider || image) {
       Transforms.insertNodes(editor, {
         type: types.paragraph,
         children: [{ text: "" }],
