@@ -6,6 +6,7 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
+import withImages from "../plugins/withImages"
 import withNormalize from "../plugins/withNormalize"
 
 const initialValue = [
@@ -28,7 +29,10 @@ const initialValue = [
 const PageEditor = () => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
-    () => withReact(withHistory(withNormalize(withLinks(createEditor())))),
+    () =>
+      withReact(
+        withHistory(withNormalize(withImages(withLinks(createEditor())))),
+      ),
     [],
   )
   // store the value of the editor
