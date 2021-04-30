@@ -66,7 +66,7 @@ const ImageDialog = ({
         <TextField
           margin="dense"
           id="width"
-          label="Width"
+          label="Width (optional)"
           type="number"
           defaultValue={image.width ? image.width : ""}
           onChange={(e) =>
@@ -80,7 +80,7 @@ const ImageDialog = ({
         <TextField
           margin="dense"
           id="height"
-          label="Height"
+          label="Height (optional)"
           type="number"
           defaultValue={image.height ? image.height : ""}
           onChange={(e) =>
