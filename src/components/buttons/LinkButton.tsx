@@ -132,9 +132,9 @@ const LinkButton = ({ icon }: Props) => {
         </IconButton>
       </Tooltip>
       <LinkDialog
-        handleAddLink={handleAddLink}
+        handleAddClick={handleAddLink}
         handleClose={handleClose}
-        linkDialogOpen={linkDialogOpen}
+        dialogOpen={linkDialogOpen}
         link={link}
         setLink={setLink}
       />

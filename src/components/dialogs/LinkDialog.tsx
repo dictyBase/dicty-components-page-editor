@@ -5,31 +5,18 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
-import { Link } from "../../types/link"
-
-type Props = {
-  /** Function to call when user clicks 'add link' button */
-  handleAddLink: (event: React.MouseEvent<HTMLButtonElement>) => void
-  /** Function called when user closes link dialog without clicking 'add link' 'button */
-  handleClose: () => void
-  /** Determines if dialog is open */
-  linkDialogOpen: boolean
-  /** Link value */
-  link: Link
-  /** Set link state */
-  setLink: (arg0: Link) => void
-}
+import { LinkDialogProps } from "../../types/dialog"
 
 const LinkDialog = ({
-  handleAddLink,
+  handleAddClick,
   handleClose,
-  linkDialogOpen,
+  dialogOpen,
   link,
   setLink,
-}: Props) => {
+}: LinkDialogProps) => {
   return (
     <Dialog
-      open={linkDialogOpen}
+      open={dialogOpen}
       onClose={handleClose}
       aria-labelledby="link-dialog-title">
       <DialogTitle id="link-dialog-title">Link Details</DialogTitle>
@@ -65,7 +52,7 @@ const LinkDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddLink} variant="contained" color="primary">
+        <Button onClick={handleAddClick} variant="contained" color="primary">
           Add Link
         </Button>
       </DialogActions>
