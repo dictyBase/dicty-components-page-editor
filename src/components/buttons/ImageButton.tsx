@@ -68,9 +68,9 @@ const ImageButton = ({ icon }: Props) => {
         </IconButton>
       </Tooltip>
       <ImageDialog
-        handleAddImage={handleAddImage}
+        handleAddClick={handleAddImage}
         handleClose={handleClose}
-        imageDialogOpen={imageDialogOpen}
+        dialogOpen={imageDialogOpen}
         image={image}
         setImage={setImage}
       />

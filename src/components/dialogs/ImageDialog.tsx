@@ -5,31 +5,18 @@ import DialogContent from "@material-ui/core/DialogContent"
 import DialogActions from "@material-ui/core/DialogActions"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
-import { Image } from "../../types/image"
-
-type Props = {
-  /** Function to call when user clicks 'add image' button */
-  handleAddImage: (event: React.MouseEvent<HTMLButtonElement>) => void
-  /** Function called when user closes image dialog without clicking 'add image' 'button */
-  handleClose: () => void
-  /** Determines if dialog is open */
-  imageDialogOpen: boolean
-  /** Image value */
-  image: Image
-  /** Set image state */
-  setImage: (arg0: Image) => void
-}
+import { ImageDialogProps } from "../../types/dialog"
 
 const ImageDialog = ({
-  handleAddImage,
+  handleAddClick,
   handleClose,
-  imageDialogOpen,
+  dialogOpen,
   image,
   setImage,
-}: Props) => {
+}: ImageDialogProps) => {
   return (
     <Dialog
-      open={imageDialogOpen}
+      open={dialogOpen}
       onClose={handleClose}
       aria-labelledby="image-dialog-title">
       <DialogTitle id="image-dialog-title">Image Details</DialogTitle>
@@ -89,7 +76,7 @@ const ImageDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddImage} variant="contained" color="primary">
+        <Button onClick={handleAddClick} variant="contained" color="primary">
           Add Image
         </Button>
       </DialogActions>
