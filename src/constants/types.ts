@@ -15,6 +15,7 @@ const types = {
   h3: "h3",
   divider: "divider",
   lineSpacing: "lineSpacing",
+  image: "image",
 }
 
 const alignments = {
