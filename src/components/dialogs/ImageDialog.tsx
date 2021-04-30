@@ -40,7 +40,6 @@ const ImageDialog = ({
           id="url"
           label="URL"
           type="url"
-          defaultValue={image.url}
           onChange={(e) =>
             setImage({
               ...image,
@@ -54,7 +53,6 @@ const ImageDialog = ({
           id="description"
           label="Description"
           type="text"
-          defaultValue={image.description}
           onChange={(e) =>
             setImage({
               ...image,
@@ -68,7 +66,6 @@ const ImageDialog = ({
           id="width"
           label="Width (optional)"
           type="number"
-          defaultValue={image.width ? image.width : ""}
           onChange={(e) =>
             setImage({
               ...image,
@@ -82,7 +79,6 @@ const ImageDialog = ({
           id="height"
           label="Height (optional)"
           type="number"
-          defaultValue={image.height ? image.height : ""}
           onChange={(e) =>
             setImage({
               ...image,
