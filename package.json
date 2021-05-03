@@ -7,6 +7,7 @@
   "license": "BSD-2-Clause",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dictyBase/dicty-components-page-editor.git"
@@ -45,7 +46,12 @@
   },
   "devDependencies": {
     "@material-ui/core": "^4.11.4",
+    "@semantic-release/changelog": "^5.0.1",
+    "@semantic-release/commit-analyzer": "^8.0.1",
     "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.2.1",
+    "@semantic-release/npm": "^7.1.1",
+    "@semantic-release/release-notes-generator": "^9.0.2",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.6.3",
     "css-loader": "^5.2.4",
@@ -58,7 +64,7 @@
     "react-dom": "^16.14.0",
     "react-styleguidist": "^11.1.5",
     "react-test-renderer": "^16.14.0",
-    "semantic-release": "^17.3.1",
+    "semantic-release": "^17.4.2",
     "slate-hyperscript": "^0.59.0",
     "source-map-explorer": "^2.5.1",
     "style-loader": "^2.0.0",
