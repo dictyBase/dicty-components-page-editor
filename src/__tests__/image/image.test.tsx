@@ -9,7 +9,7 @@ import withNormalize from "../../plugins/withNormalize"
 import { input, output } from "./image.fixture"
 
 describe("adding images", () => {
-  it("should add new image", async () => {
+  it("should add new image with link", async () => {
     const editor = withNormalize(withImages(input))
 
     jest
@@ -42,6 +42,14 @@ describe("adding images", () => {
     userEvent.type(widthTextbox, "300")
     userEvent.clear(heightTextbox)
     userEvent.type(heightTextbox, "300")
+
+    // click checkbox to add link
+    userEvent.click(screen.getByRole("checkbox"))
+    const linkTextbox = screen.getByRole("textbox", {
+      name: "Link URL",
+    })
+    userEvent.type(linkTextbox, "https://eric.dictybase.dev")
+
     userEvent.click(addButton)
 
     await waitFor(() => {

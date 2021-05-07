@@ -21,6 +21,7 @@ const output = ((
       type={types.image}
       url="https://eric.dictybase.dev/static/media/logo.bb256880.png"
       description="dictyBase logo"
+      linkURL="https://eric.dictybase.dev"
       width={300}
       height={300}>
       <text />
