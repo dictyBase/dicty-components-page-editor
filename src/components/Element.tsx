@@ -1,29 +1,18 @@
 import React from "react"
-import { RenderElementProps, useSelected, useFocused } from "slate-react"
+import { RenderElementProps } from "slate-react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography, { TypographyProps } from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
+import Image from "./Image"
 import { types } from "../constants/types"
 
 type StyleProps = {
   lineSpacing: string | unknown
-  align: string | unknown
-  selected: boolean
-  focused: boolean
 }
 
 const useStyles = makeStyles(() => ({
   lineSpacing: (props: StyleProps) => ({
     lineHeight: props.lineSpacing,
-  }),
-  image: (props: StyleProps) => ({
-    maxWidth: "100%",
-    maxHeight: "100%",
-    boxShadow: props.selected && props.focused ? "0 0 0 3px #B4D5FF" : "none",
-  }),
-  imageContainer: (props: StyleProps) => ({
-    textAlign: props.align,
-    display: "block",
   }),
 }))
 
@@ -41,6 +30,8 @@ type ElementProps = {
     width?: string
     /** Height of element (image) */
     height?: string
+    /** URL link used for an image */
+    linkURL?: string
     /** Any children to render */
     children: any
   }
@@ -51,22 +42,9 @@ type Props = ElementProps & RenderElementProps
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const {
-    type,
-    align = "left",
-    lineSpacing,
-    url,
-    description,
-    width,
-    height,
-  } = element
-  const selected = useSelected()
-  const focused = useFocused()
+  const { type, align = "left", lineSpacing, url } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
-    align,
-    selected,
-    focused,
   }
   const classes = useStyles(styleProps)
 
@@ -108,18 +86,9 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.image:
       return (
-        <div className={classes.imageContainer} {...attributes}>
-          <div contentEditable={false}>
-            <img
-              src={url}
-              alt={description}
-              height={height || "100%"}
-              width={width || "100%"}
-              className={classes.image}
-            />
-          </div>
+        <Image element={element} attributes={attributes}>
           {children}
-        </div>
+        </Image>
       )
     default:
       return (
@@ -130,4 +99,5 @@ const Element = ({ attributes, children, element }: Props) => {
   }
 }
 
+export type { Props }
 export default Element
