@@ -16,7 +16,7 @@ Transforms.deselect = () => {}
  * addImage inserts a new image node.
  */
 const addImage = (editor: Editor, image: Image) => {
-  const { url, description, width, height } = image
+  const { url, description, width, height, linkURL } = image
   const imageData = {
     type: types.image,
     url,
@@ -25,7 +25,17 @@ const addImage = (editor: Editor, image: Image) => {
     height,
     children: [{ text: "" }],
   }
-  Transforms.insertNodes(editor, imageData)
+  if (linkURL !== "") {
+    const linkData = {
+      type: types.link,
+      url: linkURL,
+      children: [{ text: "" }],
+    }
+    Transforms.insertNodes(editor, imageData)
+    Transforms.wrapNodes(editor, linkData, { split: true })
+  } else {
+    Transforms.insertNodes(editor, imageData)
+  }
 }
 
 type Props = {
