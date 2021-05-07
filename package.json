@@ -24,7 +24,9 @@
     "prepare": "tsdx build",
     "semantic-release": "semantic-release",
     "styleguide": "styleguidist server",
-    "styleguide:build": "styleguidist build"
+    "styleguide:build": "styleguidist build",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
   },
   "dependencies": {
     "@fontsource/lato": "^4.2.2",
@@ -52,11 +54,13 @@
     "@semantic-release/github": "^7.2.1",
     "@semantic-release/npm": "^7.1.1",
     "@semantic-release/release-notes-generator": "^9.0.2",
+    "@testing-library/cypress": "^7.0.6",
     "@testing-library/dom": "^7.30.4",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.6.3",
     "css-loader": "^5.2.4",
+    "cypress": "^7.2.0",
     "file-loader": "^6.2.0",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
