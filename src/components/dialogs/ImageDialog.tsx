@@ -3,6 +3,8 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogActions from "@material-ui/core/DialogActions"
+import FormControlLabel from "@material-ui/core/FormControlLabel"
+import Checkbox from "@material-ui/core/Checkbox"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import { ImageDialogProps } from "../../types/dialog"
@@ -14,6 +16,12 @@ const ImageDialog = ({
   image,
   setImage,
 }: ImageDialogProps) => {
+  const [checked, setChecked] = React.useState(false)
+
+  const handleCheckboxChange = () => {
+    setChecked(!checked)
+  }
+
   return (
     <Dialog
       open={dialogOpen}
@@ -74,6 +82,32 @@ const ImageDialog = ({
           }
           fullWidth
         />
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={checked}
+              onChange={handleCheckboxChange}
+              color="primary"
+              name="checkedA"
+            />
+          }
+          label="Is this a link?"
+        />
+        {checked && (
+          <TextField
+            margin="dense"
+            id="link"
+            label="Link URL"
+            type="text"
+            onChange={(e) =>
+              setImage({
+                ...image,
+                linkURL: e.target.value,
+              })
+            }
+            fullWidth
+          />
+        )}
       </DialogContent>
       <DialogActions>
         <Button onClick={handleAddClick} variant="contained" color="primary">

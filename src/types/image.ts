@@ -7,6 +7,8 @@ type Image = {
   width?: number
   /** Height of image */
   height?: number
+  /** URL used if image is also a link */
+  linkURL?: string
 }
 
 export type { Image }
