@@ -1,7 +1,7 @@
 import { Editor, Path, Node } from "slate"
 
-// getLineSpacing is a helper function to get the parent node above the current selection.
-const getLineSpacing = (editor: Editor) => {
+// getParentNode is a helper function to get the parent node above the current selection.
+const getParentNode = (editor: Editor) => {
   if (!editor.selection) {
     return
   }
@@ -14,4 +14,4 @@ const getLineSpacing = (editor: Editor) => {
   return node
 }
 
-export default getLineSpacing
+export default getParentNode
