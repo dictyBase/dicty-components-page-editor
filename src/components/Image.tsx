@@ -1,7 +1,7 @@
 import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import { useSelected, useFocused } from "slate-react"
-import { Props } from "./Element"
+import { Props } from "../types/element"
 
 type StyleProps = {
   align: string | unknown
