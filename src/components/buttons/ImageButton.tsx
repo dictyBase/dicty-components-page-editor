@@ -23,19 +23,10 @@ const addImage = (editor: Editor, image: Image) => {
     description,
     width,
     height,
+    linkURL,
     children: [{ text: "" }],
   }
-  if (linkURL !== "") {
-    const linkData = {
-      type: types.link,
-      url: linkURL,
-      children: [{ text: "" }],
-    }
-    Transforms.insertNodes(editor, imageData)
-    Transforms.wrapNodes(editor, linkData, { split: true })
-  } else {
-    Transforms.insertNodes(editor, imageData)
-  }
+  Transforms.insertNodes(editor, imageData)
 }
 
 type Props = {
