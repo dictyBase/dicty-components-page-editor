@@ -11992,10 +11992,10 @@ slate-hyperscript@^0.59.0:
   dependencies:
     is-plain-object "^3.0.0"
 
-slate-react@^0.59.0:
-  version "0.59.0"
-  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.59.0.tgz#c8043dce7ea71279f314d9951c32e4f548b1ea0b"
-  integrity sha512-Fx5vfTi0s1fY5PaXzPH8uA9mW8aevVVYrGGvqX/k363tlPDnQSs/QTibIyFl1Y3MPJ+GdocoyOGjAaZMUIXfIg==
+slate-react@^0.62.1:
+  version "0.62.1"
+  resolved "https://registry.yarnpkg.com/slate-react/-/slate-react-0.62.1.tgz#5246fd5adbb680c9b06f08229b72079dec46b755"
+  integrity sha512-D7Gx0JeNpfY9USiFR4CfEuvG5z0dND1W9wSSVLmTCzziGecYgAHvAZJz2vjDBGSF8+Xkw2gRslFo/v6OtXsc9A==
   dependencies:
     "@types/is-hotkey" "^0.1.1"
     "@types/lodash" "^4.14.149"
@@ -12004,6 +12004,7 @@ slate-react@^0.59.0:
     is-plain-object "^3.0.0"
     lodash "^4.17.4"
     scroll-into-view-if-needed "^2.2.20"
+    tiny-invariant "1.0.6"
 
 slate@^0.59.0:
   version "0.59.0"
@@ -12856,6 +12857,11 @@ tiny-glob@^0.2.6:
   dependencies:
     globalyzer "0.1.0"
     globrex "^0.1.2"
+
+tiny-invariant@1.0.6:
+  version "1.0.6"
+  resolved "https://registry.yarnpkg.com/tiny-invariant/-/tiny-invariant-1.0.6.tgz#b3f9b38835e36a41c843a3b0907a5a7b3755de73"
+  integrity sha512-FOyLWWVjG+aC0UqG76V53yAWdXfH8bO6FNmyZOuUrzDzK8DI3/JRY25UD7+g49JWM1LXwymsKERB+DzI0dTEQA==
 
 tiny-relative-date@^1.3.0:
   version "1.3.0"

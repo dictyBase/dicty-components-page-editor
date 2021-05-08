@@ -37,7 +37,7 @@
     "react-colorful": "^5.1.4",
     "slate": "^0.59.0",
     "slate-history": "^0.59.0",
-    "slate-react": "^0.59.0"
+    "slate-react": "^0.62.1"
   },
   "peerDependencies": {
     "@material-ui/core": ">=4.0.0",
