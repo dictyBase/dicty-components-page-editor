@@ -926,10 +926,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto-mono/-/roboto-mono-4.3.0.tgz#b443c6cd8b44a37ad4582279771f70e4042d8438"
   integrity sha512-Driw0cYOvwUONOaWV6PxgUrqjcfsAvp2HxV94wmBZQAYhVQEPRBGbOa01fGX/ZjOsLok4xx94C/dH2pYh933YQ==
 
-"@fontsource/roboto-slab@^4.2.2":
-  version "4.2.2"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-slab/-/roboto-slab-4.2.2.tgz#c157defbafbfa0ae45f00585a3ea49caf8bd338e"
-  integrity sha512-g1MNNpUXk8QpoHQeVuYtPL5abvUoUv0qFXDNhf3/0ABgMQ3TZwm/e9dHFvWKoNp0HFrC1Y2W3tBtUbX25w0nIA==
+"@fontsource/roboto-slab@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-slab/-/roboto-slab-4.3.0.tgz#9e2ede370085d07b4a1a8b723ae0faa826f32f3a"
+  integrity sha512-SElIGfsOu3eA8s7hm/6SpX8Zc6wCahF2SO5a7sUO3SMtkZfPF6Y4YmHp4E0NzbwIxvsyBA+AeKQiW7NU2F7rNw==
 
 "@fontsource/roboto@^4.2.3":
   version "4.2.3"
