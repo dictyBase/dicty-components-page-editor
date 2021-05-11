@@ -27,7 +27,7 @@
     "styleguide:build": "styleguidist build"
   },
   "dependencies": {
-    "@fontsource/lato": "^4.2.2",
+    "@fontsource/lato": "^4.3.0",
     "@fontsource/merriweather": "^4.3.0",
     "@fontsource/montserrat": "^4.2.2",
     "@fontsource/roboto": "^4.3.0",
