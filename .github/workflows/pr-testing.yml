@@ -27,3 +27,18 @@ jobs:
           token: ${{ secrets.CODECOV_TOKEN }}
       - name: build
         run: yarn build
+  e2e:
+    name: E2E tests
+    runs-on: ubuntu-20.04
+    steps:
+      - name: set up node.js
+        uses: actions/setup-node@v2.1.5
+        with:
+          node-version: 14.15.0
+      - name: check out code
+        uses: actions/checkout@v2
+      - name: install
+        run: yarn install
+      - name: cypress tests
+        run: yarn cypress:ci
+        
