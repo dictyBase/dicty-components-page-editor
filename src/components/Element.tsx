@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
 import Image from "./Image"
+import Video from "./Video"
 import { Props } from "../types/element"
 import { types } from "../constants/types"
 
@@ -20,7 +21,7 @@ const useStyles = makeStyles(() => ({
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", lineSpacing, url, width, height } = element
+  const { type, align = "left", lineSpacing, url } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
   }
@@ -70,20 +71,9 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.video:
       return (
-        <div {...attributes}>
-          <div contentEditable={false}>
-            <iframe
-              title="video-embed"
-              id="videoplayer"
-              width={width}
-              height={height}
-              src={url}
-              frameBorder="0"
-              allowFullScreen
-            />
-          </div>
+        <Video element={element} attributes={attributes}>
           {children}
-        </div>
+        </Video>
       )
     default:
       return (
