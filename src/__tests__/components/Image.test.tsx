@@ -1,8 +1,8 @@
 import React from "react"
 import { render, screen } from "@testing-library/react"
 import "@testing-library/jest-dom"
-import Image from "../components/Image"
-import { types } from "../constants/types"
+import Image from "../../components/Image"
+import { types } from "../../constants/types"
 
 describe("Image component", () => {
   const element = {
