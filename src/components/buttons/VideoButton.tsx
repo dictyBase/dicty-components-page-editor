@@ -7,6 +7,7 @@ import VideoDialog from "../dialogs/VideoDialog"
 import { types } from "../../constants/types"
 import { Video } from "../../types/video"
 import useStyles from "../../styles/buttons"
+import getVideoID from "../../utils/getVideoID"
 
 // this is necessary to maintain editor selection when video dialog appears;
 // the deselect method unsets the editor selection
@@ -17,9 +18,17 @@ Transforms.deselect = () => {}
  */
 const addVideo = (editor: Editor, video: Video) => {
   const { url, width, height } = video
+  let transformedURL = url
+  const videoID = getVideoID(url)
+  if (url.match(/youtube\.com/)) {
+    transformedURL = `https://www.youtube.com/embed/${videoID}`
+  }
+  if (url.match(/vimeo\.com/)) {
+    transformedURL = `https://player.vimeo.com/video/${videoID}`
+  }
   const videoData = {
     type: types.video,
-    url,
+    url: transformedURL,
     width,
     height,
     children: [{ text: "" }],
