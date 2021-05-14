@@ -60,7 +60,7 @@
     "@testing-library/dom": "^7.30.4",
     "@testing-library/jest-dom": "^5.12.0",
     "@testing-library/react": "^11.2.6",
-    "@testing-library/user-event": "^12.6.3",
+    "@testing-library/user-event": "^13.1.9",
     "css-loader": "^5.2.4",
     "cypress": "^7.2.0",
     "file-loader": "^6.2.0",
