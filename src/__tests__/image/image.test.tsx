@@ -4,13 +4,13 @@ import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import ImageButton from "../../components/buttons/ImageButton"
 import ImageIcon from "../../components/icons/ImageIcon"
-import withImages from "../../plugins/withImages"
+import withMedia from "../../plugins/withMedia"
 import withNormalize from "../../plugins/withNormalize"
 import { input, output } from "./image.fixture"
 
 describe("adding images", () => {
   it("should add new image with link", async () => {
-    const editor = withNormalize(withImages(input))
+    const editor = withNormalize(withMedia(input))
 
     jest
       .spyOn(SlateReact, "useSlate")
