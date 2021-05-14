@@ -16,6 +16,7 @@ const types = {
   divider: "divider",
   lineSpacing: "lineSpacing",
   image: "image",
+  video: "video",
 }
 
 const alignments = {

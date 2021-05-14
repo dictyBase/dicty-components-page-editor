@@ -20,7 +20,7 @@ const useStyles = makeStyles(() => ({
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", lineSpacing, url } = element
+  const { type, align = "left", lineSpacing, url, width, height } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
   }
@@ -67,6 +67,23 @@ const Element = ({ attributes, children, element }: Props) => {
         <Image element={element} attributes={attributes}>
           {children}
         </Image>
+      )
+    case types.video:
+      return (
+        <div {...attributes}>
+          <div contentEditable={false}>
+            <iframe
+              title="video-embed"
+              id="videoplayer"
+              width={width}
+              height={height}
+              src={url}
+              frameBorder="0"
+              allowFullScreen
+            />
+          </div>
+          {children}
+        </div>
       )
     default:
       return (
