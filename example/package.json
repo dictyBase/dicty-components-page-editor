@@ -15,7 +15,7 @@
     "dicty-components-page-editor": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "^4.0.3"
   },
   "devDependencies": {
     "husky": "file:../node_modules/husky",
