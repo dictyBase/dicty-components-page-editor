@@ -6,7 +6,7 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
-import withImages from "../plugins/withImages"
+import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 
 const initialValue = [
@@ -31,7 +31,7 @@ const PageEditor = () => {
   const editor = useMemo(
     () =>
       withReact(
-        withHistory(withNormalize(withImages(withLinks(createEditor())))),
+        withHistory(withNormalize(withMedia(withLinks(createEditor())))),
       ),
     [],
   )
