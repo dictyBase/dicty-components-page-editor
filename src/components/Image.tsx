@@ -1,25 +1,7 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
 import { useSelected, useFocused } from "slate-react"
+import useStyles from "../styles/media"
 import { Props } from "../types/element"
-
-type StyleProps = {
-  align: string | unknown
-  selected: boolean
-  focused: boolean
-}
-
-const useStyles = makeStyles(() => ({
-  image: (props: StyleProps) => ({
-    maxWidth: "100%",
-    maxHeight: "100%",
-    boxShadow: props.selected && props.focused ? "0 0 0 3px #B4D5FF" : "none",
-  }),
-  imageContainer: (props: StyleProps) => ({
-    textAlign: props.align,
-    display: "block",
-  }),
-}))
 
 /**
  * Image handles the display of any images.
@@ -41,12 +23,12 @@ const Image = ({ attributes, element, children }: Props) => {
       alt={description}
       height={height || "100%"}
       width={width || "100%"}
-      className={classes.image}
+      className={classes.media}
     />
   )
 
   return (
-    <div className={classes.imageContainer} {...attributes}>
+    <div className={classes.container} {...attributes}>
       <div contentEditable={false}>
         {linkURL !== "" ? <a href={linkURL}>{img}</a> : { img }}
       </div>
