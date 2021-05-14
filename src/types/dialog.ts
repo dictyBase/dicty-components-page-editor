@@ -1,5 +1,6 @@
-import { Image } from "./image"
 import { Link } from "./link"
+import { Image } from "./image"
+import { Video } from "./video"
 
 type DialogProps = {
   /** Function to call when user clicks 'add' button */
@@ -10,13 +11,6 @@ type DialogProps = {
   dialogOpen: boolean
 }
 
-type ImageDialogProps = {
-  /** Image value */
-  image: Image
-  /** Set image state */
-  setImage: (arg0: Image) => void
-} & DialogProps
-
 type LinkDialogProps = {
   /** Link value */
   link: Link
@@ -24,4 +18,18 @@ type LinkDialogProps = {
   setLink: (arg0: Link) => void
 } & DialogProps
 
-export type { DialogProps, ImageDialogProps, LinkDialogProps }
+type ImageDialogProps = {
+  /** Image value */
+  image: Image
+  /** Set image state */
+  setImage: (arg0: Image) => void
+} & DialogProps
+
+type VideoDialogProps = {
+  /** Video value */
+  video: Video
+  /** Set video state */
+  setVideo: (arg0: Video) => void
+} & DialogProps
+
+export type { DialogProps, LinkDialogProps, ImageDialogProps, VideoDialogProps }

@@ -10,6 +10,7 @@ import LinkButton from "./buttons/LinkButton"
 import FontColorButton from "./buttons/FontColorButton"
 import LineSpacingButton from "./buttons/LineSpacingButton"
 import ImageButton from "./buttons/ImageButton"
+import VideoButton from "./buttons/VideoButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -25,6 +26,7 @@ import LinkIcon from "./icons/LinkIcon"
 import DividerIcon from "./icons/DividerIcon"
 import LineSpacingIcon from "./icons/LineSpacingIcon"
 import ImageIcon from "./icons/ImageIcon"
+import VideoIcon from "./icons/VideoIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -76,6 +78,7 @@ const EditorToolbar = () => {
         <BlockButton format={types.divider} icon={<DividerIcon />} />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />
+        <VideoButton icon={<VideoIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
         <Dropdown
