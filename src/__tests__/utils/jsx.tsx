@@ -50,6 +50,7 @@ const jsx = createHyperscript({
     divider: { type: types.divider },
     lineSpacing: { type: types.lineSpacing, lineSpacing: "2.0" },
     image: { types: types.image },
+    video: { types: types.video },
   },
   creators: {
     // can't override react's text declaration so we create our own
