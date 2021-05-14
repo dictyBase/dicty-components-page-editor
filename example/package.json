@@ -15,14 +15,14 @@
     "dicty-components-page-editor": "file:..",
     "react": "file:../node_modules/react",
     "react-dom": "file:../node_modules/react-dom",
-    "react-scripts": "^4.0.1"
+    "react-scripts": "file:../node_modules/react-scripts"
   },
   "devDependencies": {
     "husky": "file:../node_modules/husky",
     "lint-staged": "file:../node_modules/lint-staged"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "SKIP_PREFLIGHT_CHECK=true react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
