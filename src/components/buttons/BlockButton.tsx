@@ -1,9 +1,8 @@
 import React, { MouseEvent } from "react"
-import { Transforms } from "slate"
 import { useSlate, ReactEditor } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
-import isBlockActive from "../../utils/isBlockActive"
+import CustomEditor from "../../plugins/CustomEditor"
 import useStyles from "../../styles/buttons"
 import { types } from "../../constants/types"
 
@@ -21,39 +20,17 @@ import { types } from "../../constants/types"
  *    'paragraph'.
  */
 
-const lists = [types.orderedList, types.unorderedList]
+const lists = [types.orderedList, types.unorderedList, types.listItem]
 
 /**
  * toggleBlock will set the appropriate nodes for the given selection
  */
 const toggleBlock = (editor: ReactEditor, format: string) => {
-  // first find if the selected block is currently active
-  const isActive = isBlockActive(editor, "type", format)
   const isList = lists.includes(format)
-
-  Transforms.unwrapNodes(editor, {
-    match: (n) => lists.includes(n.type as string),
-    split: true,
-  })
-
-  let type = format
   if (isList) {
-    type = types.listItem
-  }
-  if (isActive) {
-    type = types.paragraph
-  }
-
-  // setNodes is used to set properties at the currently selected element.
-  // If the block is active, then we want to toggle it back to the default
-  // paragraph type. If the block is not active, we toggle the type to match it.
-  Transforms.setNodes(editor, {
-    type: type,
-  })
-
-  if (!isActive && isList) {
-    const block = { type: format, children: [] }
-    Transforms.wrapNodes(editor, block)
+    CustomEditor.toggleList(editor, format)
+  } else {
+    CustomEditor.toggleBlock(editor, format)
   }
 }
 
@@ -71,7 +48,7 @@ type Props = {
 const BlockButton = ({ format, icon }: Props) => {
   const editor = useSlate()
   const props = {
-    active: isBlockActive(editor, "type", format),
+    active: CustomEditor.isBlockActive(editor, "type", format),
   }
   const classes = useStyles(props)
 
