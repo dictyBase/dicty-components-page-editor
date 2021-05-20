@@ -27,6 +27,8 @@ import DividerIcon from "./icons/DividerIcon"
 import LineSpacingIcon from "./icons/LineSpacingIcon"
 import ImageIcon from "./icons/ImageIcon"
 import VideoIcon from "./icons/VideoIcon"
+import UnorderedListIcon from "./icons/UnorderedListIcon"
+import OrderedListIcon from "./icons/OrderedListIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -76,6 +78,11 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <BlockButton format={types.divider} icon={<DividerIcon />} />
+        <BlockButton
+          format={types.unorderedList}
+          icon={<UnorderedListIcon />}
+        />
+        <BlockButton format={types.orderedList} icon={<OrderedListIcon />} />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />
         <VideoButton icon={<VideoIcon />} />
