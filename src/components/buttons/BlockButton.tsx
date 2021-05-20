@@ -31,12 +31,17 @@ const toggleBlock = (editor: ReactEditor, format: string) => {
   const isActive = isBlockActive(editor, "type", format)
   const isList = lists.includes(format)
 
+  Transforms.unwrapNodes(editor, {
+    match: (n) => lists.includes(n.type as string),
+    split: true,
+  })
+
   let type = format
-  if (isActive) {
-    type = types.paragraph
-  }
   if (isList) {
     type = types.listItem
+  }
+  if (isActive) {
+    type = types.paragraph
   }
 
   // setNodes is used to set properties at the currently selected element.
