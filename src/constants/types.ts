@@ -20,6 +20,8 @@ const types = {
   orderedList: "orderedList",
   unorderedList: "unorderedList",
   listItem: "listItem",
+  indentDecrease: "indentDecrease",
+  indentIncrease: "indentIncrease",
 }
 
 const alignments = {
