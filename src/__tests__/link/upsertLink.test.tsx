@@ -2,7 +2,7 @@
 
 import { Editor } from "slate"
 import jsx from "../utils/jsx"
-import { upsertLink } from "../../components/buttons/LinkButton"
+import CustomEditor from "../../plugins/CustomEditor"
 import withLinks from "../../plugins/withLinks"
 import { types } from "../../constants/types"
 
@@ -11,15 +11,15 @@ const zomboURL = "https://www.zombo.com"
 
 describe("upsertLink function", () => {
   it("should add new link", () => {
-    const input = ((
+    const input = (
       <editor>
         <p>
           Insert link here: <cursor />.
         </p>
       </editor>
-    ) as any) as Editor
+    ) as any as Editor
 
-    const output = ((
+    const output = (
       <editor>
         <p>
           Insert link here:{" "}
@@ -29,10 +29,10 @@ describe("upsertLink function", () => {
           .
         </p>
       </editor>
-    ) as any) as Editor
+    ) as any as Editor
 
     const editor = withLinks(input)
-    upsertLink(editor, {
+    CustomEditor.upsertLink(editor, {
       url: dictyURL,
       text: "dictycr",
     })
@@ -40,7 +40,7 @@ describe("upsertLink function", () => {
   })
 
   it("should update existing link", () => {
-    const input = ((
+    const input = (
       <editor>
         <p>
           Update this <anchor />
@@ -50,9 +50,9 @@ describe("upsertLink function", () => {
           <focus />.
         </p>
       </editor>
-    ) as any) as Editor
+    ) as any as Editor
 
-    const output = ((
+    const output = (
       <editor>
         <p>
           Update this{" "}
@@ -62,10 +62,10 @@ describe("upsertLink function", () => {
           .
         </p>
       </editor>
-    ) as any) as Editor
+    ) as any as Editor
 
     const editor = withLinks(input)
-    upsertLink(editor, {
+    CustomEditor.upsertLink(editor, {
       url: zomboURL,
       text: "zombocom",
     })
