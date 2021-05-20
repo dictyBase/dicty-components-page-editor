@@ -43,6 +43,8 @@ const PageEditor = () => {
   // render expected leaf based on type (i.e. bold, italic, etc)
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
 
+  console.log(value)
+
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
@@ -50,6 +52,8 @@ const PageEditor = () => {
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         placeholder="Enter some text..."
+        spellCheck
+        autoFocus
       />
     </Slate>
   )
