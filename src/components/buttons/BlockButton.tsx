@@ -5,6 +5,7 @@ import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import isBlockActive from "../../utils/isBlockActive"
 import useStyles from "../../styles/buttons"
+import { types } from "../../constants/types"
 
 /**
  * PROCESS:
@@ -20,19 +21,35 @@ import useStyles from "../../styles/buttons"
  *    'paragraph'.
  */
 
+const lists = [types.orderedList, types.unorderedList]
+
 /**
  * toggleBlock will set the appropriate nodes for the given selection
  */
 const toggleBlock = (editor: ReactEditor, format: string) => {
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, "type", format)
+  const isList = lists.includes(format)
+
+  let type = format
+  if (isActive) {
+    type = types.paragraph
+  }
+  if (isList) {
+    type = types.listItem
+  }
 
   // setNodes is used to set properties at the currently selected element.
   // If the block is active, then we want to toggle it back to the default
   // paragraph type. If the block is not active, we toggle the type to match it.
   Transforms.setNodes(editor, {
-    type: isActive ? "paragraph" : format,
+    type: type,
   })
+
+  if (!isActive && isList) {
+    const block = { type: format, children: [] }
+    Transforms.wrapNodes(editor, block)
+  }
 }
 
 type Props = {
