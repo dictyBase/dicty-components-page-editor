@@ -61,6 +61,16 @@ const ImageHelpers = {
   },
 }
 
+const AlignHelpers = {
+  toggleAlign(editor: Editor, align: string) {
+    const isActive = CustomEditor.isBlockActive(editor, "align", align)
+
+    Transforms.setNodes(editor, {
+      align: isActive ? "left" : align,
+    })
+  },
+}
+
 const BlockHelpers = {
   /**
    * isBlockActive determines if the current text selection contains an active block
@@ -138,6 +148,7 @@ const CustomEditor = {
   ...BlockHelpers,
   ...LinkHelpers,
   ...ImageHelpers,
+  ...AlignHelpers,
 }
 
 export default CustomEditor
