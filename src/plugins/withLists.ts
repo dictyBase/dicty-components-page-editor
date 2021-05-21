@@ -1,4 +1,4 @@
-import { Editor, Transforms } from "slate"
+import { Editor, Point, Range, Transforms } from "slate"
 import CustomEditor from "./CustomEditor"
 import { types } from "../constants/types"
 
@@ -11,26 +11,37 @@ const listItemMatch = (editor: Editor) => {
   })
 }
 
+const isActiveList = (editor: Editor) => {
+  const isActiveOrderedList = CustomEditor.isBlockActive(
+    editor,
+    "type",
+    types.orderedList,
+  )
+  const isActiveUnorderedList = CustomEditor.isBlockActive(
+    editor,
+    "type",
+    types.unorderedList,
+  )
+
+  return isActiveOrderedList || isActiveUnorderedList
+}
+
+const liftNodes = (editor: Editor) => {
+  // verify there is an active list to lift the nodes
+  if (isActiveList(editor)) {
+    Transforms.liftNodes(editor, { match: (n) => n.type === types.listItem })
+  }
+}
+
 /**
  * withLists modifies the logic for inserting a line break inside lists.
  */
 const withLists = (editor: Editor) => {
-  const { insertBreak } = editor
+  const { insertBreak, deleteBackward } = editor
 
   editor.insertBreak = () => {
-    const isActiveOrderedList = CustomEditor.isBlockActive(
-      editor,
-      "type",
-      types.orderedList,
-    )
-    const isActiveUnorderedList = CustomEditor.isBlockActive(
-      editor,
-      "type",
-      types.unorderedList,
-    )
-
     // this plugin only applies custom logic to active lists
-    if (isActiveOrderedList || isActiveUnorderedList) {
+    if (isActiveList(editor)) {
       const match = listItemMatch(editor)
 
       if (match) {
@@ -55,6 +66,33 @@ const withLists = (editor: Editor) => {
       // if not a list, just insert break as normal
       insertBreak()
     }
+  }
+
+  editor.deleteBackward = (...args) => {
+    const { selection } = editor
+
+    // check that there is a current selection without highlight
+    if (selection && Range.isCollapsed(selection)) {
+      const match = listItemMatch(editor)
+
+      if (match) {
+        const [, path] = match
+        const text = Editor.string(editor, path)
+        const start = Editor.start(editor, path)
+
+        if (text === "") {
+          if (Point.equals(selection.anchor, start)) {
+            // 'lift' the list-item to the next parent
+            liftNodes(editor)
+            Transforms.insertNodes(editor, {
+              type: types.paragraph,
+              children: [{ text: "" }],
+            })
+          }
+        }
+      }
+    }
+    deleteBackward(...args)
   }
 
   return editor
