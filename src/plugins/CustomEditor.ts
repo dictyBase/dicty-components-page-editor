@@ -1,4 +1,5 @@
 import { Editor, Transforms, Range, Node, Element as SlateElement } from "slate"
+import { ReactEditor } from "slate-react"
 import { types } from "../constants/types"
 import { Link } from "../types/link"
 import { Image } from "../types/image"
@@ -96,6 +97,7 @@ const BlockHelpers = {
     // meaning that it did not find a match for this block type
     return false
   },
+
   /**
    * toggleBlock will set the appropriate nodes for the given selection
    */
@@ -110,6 +112,7 @@ const BlockHelpers = {
       type: isActive ? "paragraph" : format,
     })
   },
+
   /**
    * toggleList toggles the given selection as a list type.
    */
@@ -145,6 +148,7 @@ const BlockHelpers = {
 
 const CustomEditor = {
   ...Editor,
+  ...ReactEditor,
   ...BlockHelpers,
   ...LinkHelpers,
   ...ImageHelpers,
