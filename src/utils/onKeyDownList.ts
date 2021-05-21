@@ -47,7 +47,7 @@ const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
     }
 
     if (event.key === ListHotkeys.ENTER) {
-      event.preventDefault()
+      // event.preventDefault()
 
       /**
        * Scenario #1:
@@ -57,7 +57,8 @@ const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
        * User hits enter from empty list item to break out of list
        */
       if (!text) {
-        console.log("scenario #2 -- no text")
+        event.preventDefault()
+        editor.insertBreak()
       } else {
         console.log("scenario #1 -- got text - ", text)
       }

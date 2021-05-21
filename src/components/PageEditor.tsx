@@ -6,6 +6,7 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
+import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import onKeyDownList from "../utils/onKeyDownList"
@@ -32,7 +33,9 @@ const PageEditor = () => {
   const editor = useMemo(
     () =>
       withReact(
-        withHistory(withNormalize(withMedia(withLinks(createEditor())))),
+        withHistory(
+          withNormalize(withMedia(withLists(withLinks(createEditor())))),
+        ),
       ),
     [],
   )
