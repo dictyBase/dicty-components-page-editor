@@ -8,6 +8,7 @@ import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
+import onKeyDownList from "../utils/onKeyDownList"
 
 const initialValue = [
   {
@@ -43,6 +44,10 @@ const PageEditor = () => {
   // render expected leaf based on type (i.e. bold, italic, etc)
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
 
+  const handleKeyDown = useCallback((event: React.KeyboardEvent) => {
+    return onKeyDownList(event, editor)
+  }, [])
+
   console.log(value)
 
   return (
@@ -51,6 +56,7 @@ const PageEditor = () => {
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
+        onKeyDown={handleKeyDown}
         placeholder="Enter some text..."
         spellCheck
         autoFocus
