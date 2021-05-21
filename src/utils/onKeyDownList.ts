@@ -3,7 +3,6 @@ import { types } from "../constants/types"
 
 const ListHotkeys = {
   TAB: "Tab",
-  ENTER: "Enter",
   BACKSPACE: "Backspace",
 }
 
@@ -43,24 +42,6 @@ const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
         console.log("hit shift key, need to move indent up")
       } else {
         console.log("tab, need to move indent down")
-      }
-    }
-
-    if (event.key === ListHotkeys.ENTER) {
-      // event.preventDefault()
-
-      /**
-       * Scenario #1:
-       * User hits enter to go to next list item
-       *
-       * Scenario #2:
-       * User hits enter from empty list item to break out of list
-       */
-      if (!text) {
-        event.preventDefault()
-        editor.insertBreak()
-      } else {
-        console.log("scenario #1 -- got text - ", text)
       }
     }
 
