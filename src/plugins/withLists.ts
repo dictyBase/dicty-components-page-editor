@@ -98,4 +98,58 @@ const withLists = (editor: Editor) => {
   return editor
 }
 
+const indentItem = (editor: Editor) => {
+  const { selection } = editor
+
+  // check that there is a current selection without highlight
+  if (selection && Range.isCollapsed(selection)) {
+    const match = listItemMatch(editor)
+
+    if (match) {
+      // wrap the list item into another list to indent it within the DOM
+      const [listMatch] = Editor.nodes(editor, {
+        mode: "lowest",
+        match: (n) =>
+          n.type === types.orderedList || n.type === types.unorderedList,
+      })
+
+      if (listMatch) {
+        let depth = listMatch[1].length
+        // limit maximum indents to five
+        if (depth <= 5) {
+          Transforms.wrapNodes(editor, {
+            type: listMatch[0].type,
+            children: [],
+          })
+        }
+      }
+    }
+  }
+}
+
+const undentItem = (editor: Editor) => {
+  const { selection } = editor
+
+  // check that there is a current selection without highlight
+  if (selection && Range.isCollapsed(selection)) {
+    const match = listItemMatch(editor)
+
+    if (match) {
+      // 'lift' the list-item to the next parent
+      liftNodes(editor)
+      // check for the new parent
+      const isActive = isActiveList(editor)
+      // if it is no longer within an active list, turn into paragraph
+      if (!isActive) {
+        Transforms.setNodes(
+          editor,
+          { type: "paragraph" },
+          { match: (n) => n.type === types.listItem },
+        )
+      }
+    }
+  }
+}
+
+export { undentItem, indentItem }
 export default withLists

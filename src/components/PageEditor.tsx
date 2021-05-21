@@ -1,14 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react"
-import { createEditor, Node } from "slate"
+import { createEditor, Node, Editor } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
-import withLists from "../plugins/withLists"
+import withLists, { indentItem, undentItem } from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
+import { types } from "../constants/types"
 
 const initialValue = [
   {
@@ -46,6 +47,23 @@ const PageEditor = () => {
   // render expected leaf based on type (i.e. bold, italic, etc)
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    const listItemMatch = Editor.above(editor, {
+      match: (n) => n.type === types.listItem,
+    })
+    if (!listItemMatch) {
+      return
+    }
+    if (event.key === "Tab") {
+      event.preventDefault()
+      if (event.shiftKey) {
+        undentItem(editor)
+      } else {
+        indentItem(editor)
+      }
+    }
+  }
+
   console.log(value)
 
   return (
@@ -54,6 +72,7 @@ const PageEditor = () => {
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
+        onKeyDown={handleKeyDown}
         placeholder="Enter some text..."
         spellCheck
         autoFocus
