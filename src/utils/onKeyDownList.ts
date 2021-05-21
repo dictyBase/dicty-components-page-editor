@@ -7,12 +7,16 @@ const ListHotkeys = {
   BACKSPACE: "Backspace",
 }
 
+const listItemMatch = (editor: Editor) => {
+  return Editor.above(editor, {
+    match: (n) => n.type === types.listItem,
+  })
+}
+
 const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
   if (Object.values(ListHotkeys).includes(event.key)) {
     // look for list item match
-    const match = Editor.above(editor, {
-      match: (n) => n.type === types.listItem,
-    })
+    const match = listItemMatch(editor)
 
     if (!match) {
       return
@@ -24,26 +28,38 @@ const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
 
     if (event.key === ListHotkeys.TAB) {
       event.preventDefault()
+      /**
+       * Scenario #1:
+       * User hits shift+tab, wanting to move indent left.
+       * - this should only work if a nested list
+       * - if not nested and at path zero, do nothing
+       *
+       * Scenario #2:
+       * User hits tab, wanting to move indent right.
+       * - should continue moving right for each press until reaching the end
+       */
+
       if (event.shiftKey) {
-        console.log("hit shift key")
-        // move indent to left
+        console.log("hit shift key, need to move indent up")
       } else {
-        console.log("tab, no shift, got path ", path)
-        if (path[path.length - 1] !== 0) {
-          // move indent to right unless it is the very first line
-          console.log("path is not zero")
-        }
+        console.log("tab, need to move indent down")
       }
     }
 
     if (event.key === ListHotkeys.ENTER) {
       event.preventDefault()
+
+      /**
+       * Scenario #1:
+       * User hits enter to go to next list item
+       *
+       * Scenario #2:
+       * User hits enter from empty list item to break out of list
+       */
       if (!text) {
-        console.log("enter key, no text")
-        // move up
+        console.log("scenario #2 -- no text")
       } else {
-        console.log("enter key, text is", text)
-        // add new
+        console.log("scenario #1 -- got text - ", text)
       }
     }
 
@@ -51,8 +67,7 @@ const onKeyDownList = (event: React.KeyboardEvent, editor: Editor) => {
       // if in list without text, remove the indent
       if (!text) {
         event.preventDefault()
-        console.log("backspace key, no text")
-        // move up
+        // backspace key with no text = user wants out of list
       }
     }
   }
