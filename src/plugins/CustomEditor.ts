@@ -112,34 +112,28 @@ const BlockHelpers = {
       type: isActive ? "paragraph" : format,
     })
   },
+}
 
+const ListHelpers = {
   /**
    * toggleList toggles the given selection as a list type.
    */
   toggleList(editor: Editor, format: string) {
-    const lists = [types.orderedList, types.unorderedList]
     // first find if the selected block is currently active
     const isActive = CustomEditor.isBlockActive(editor, "type", format)
-    const isList = lists.includes(format)
 
     Transforms.unwrapNodes(editor, {
-      match: (n) => lists.includes(n.type as string),
+      match: (n) => n.type === format,
       split: true,
     })
 
-    let type = format
-    if (isList) {
-      type = types.listItem
-    }
-    if (isActive) {
-      type = types.paragraph
-    }
+    const type = isActive ? types.paragraph : types.listItem
 
     Transforms.setNodes(editor, {
       type: type,
     })
 
-    if (!isActive && isList) {
+    if (!isActive) {
       const block = { type: format, children: [] }
       Transforms.wrapNodes(editor, block)
     }
@@ -153,6 +147,7 @@ const CustomEditor = {
   ...LinkHelpers,
   ...ImageHelpers,
   ...AlignHelpers,
+  ...ListHelpers,
 }
 
 export default CustomEditor
