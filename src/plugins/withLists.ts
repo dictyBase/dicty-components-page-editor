@@ -1,6 +1,7 @@
 import { Editor, Point, Range, Transforms } from "slate"
 import CustomEditor from "./CustomEditor"
 import { types } from "../constants/types"
+import getParentNode from "../utils/getParentNode"
 
 const listTypes = [types.orderedList, types.unorderedList]
 
@@ -84,12 +85,7 @@ const withLists = (editor: Editor) => {
         if (text === "") {
           // verify the start of the selection and the anchor are equal
           if (Point.equals(selection.anchor, start)) {
-            // 'lift' the list-item to the next parent
-            liftNodes(editor)
-            Transforms.insertNodes(editor, {
-              type: types.paragraph,
-              children: [{ text: "" }],
-            })
+            undentItem(editor)
           }
         }
       }
@@ -105,21 +101,22 @@ const indentItem = (editor: Editor) => {
 
   // check that there is a current selection without highlight
   if (selection && Range.isCollapsed(selection)) {
-    const match = listItemMatch(editor)
-
+    const match = getParentNode(editor)
     if (match) {
-      // wrap the list item into another list to indent it within the DOM
-      const [listMatch] = Editor.nodes(editor, {
+      let listMatch = []
+      for (const [node, path] of Editor.nodes(editor, {
         mode: "lowest",
         match: (n) =>
           n.type === types.orderedList || n.type === types.unorderedList,
-      })
-
-      if (listMatch) {
-        let depth = listMatch[1].length
+      })) {
+        listMatch.push(node, path)
+      }
+      if (listMatch.length > 0) {
+        let depth = listMatch[1].length as number
         // limit maximum indents to five
         if (depth <= 5) {
           Transforms.wrapNodes(editor, {
+            // @ts-ignore
             type: listMatch[0].type,
             children: [],
           })

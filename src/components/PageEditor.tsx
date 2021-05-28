@@ -6,7 +6,7 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
-import withLists, { indentItem } from "../plugins/withLists"
+import withLists, { indentItem, undentItem } from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import { types } from "../constants/types"
@@ -57,14 +57,12 @@ const PageEditor = () => {
         return
       }
       if (event.shiftKey) {
-        editor.deleteBackward("line")
+        undentItem(editor)
       } else {
         indentItem(editor)
       }
     }
   }
-
-  console.log(value)
 
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
