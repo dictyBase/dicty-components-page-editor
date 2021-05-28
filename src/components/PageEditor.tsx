@@ -6,7 +6,7 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
-import withLists, { indentItem, undentItem } from "../plugins/withLists"
+import withLists, { indentItem } from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import { types } from "../constants/types"
@@ -51,13 +51,13 @@ const PageEditor = () => {
     const listItemMatch = Editor.above(editor, {
       match: (n) => n.type === types.listItem,
     })
-    if (!listItemMatch) {
-      return
-    }
     if (event.key === "Tab") {
       event.preventDefault()
+      if (!listItemMatch) {
+        return
+      }
       if (event.shiftKey) {
-        undentItem(editor)
+        editor.deleteBackward("line")
       } else {
         indentItem(editor)
       }
