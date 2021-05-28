@@ -53,6 +53,7 @@ const withLists = (editor: Editor) => {
         if (text === "") {
           Transforms.unwrapNodes(editor, {
             match: (n) => listTypes.includes(n.type as string),
+            // split is needed to unwrap this selection from the list type
             split: true,
           })
           Transforms.setNodes(editor, {
@@ -81,6 +82,7 @@ const withLists = (editor: Editor) => {
         const start = Editor.start(editor, path)
 
         if (text === "") {
+          // verify the start of the selection and the anchor are equal
           if (Point.equals(selection.anchor, start)) {
             // 'lift' the list-item to the next parent
             liftNodes(editor)
