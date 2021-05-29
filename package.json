@@ -31,7 +31,7 @@
     "cypress:ci": "run-p -r demo cypress:run"
   },
   "dependencies": {
-    "@fontsource/lato": "^4.3.0",
+    "@fontsource/lato": "^4.4.1",
     "@fontsource/merriweather": "^4.3.0",
     "@fontsource/montserrat": "^4.3.0",
     "@fontsource/roboto": "^4.3.0",

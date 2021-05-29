@@ -1296,10 +1296,10 @@
     minimatch "^3.0.4"
     strip-json-comments "^3.1.1"
 
-"@fontsource/lato@^4.3.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.3.0.tgz#78710130f8bfccae41b637cf62d3c68bd1193cc1"
-  integrity sha512-/qm5j4mEjaOSOl7OI8Q2tzt/QDzDMYNDhSvJPiFqY/ClxYGtqt1nBW5DRHiZOirI/IWl0tX3adoILOBMz/cRWA==
+"@fontsource/lato@^4.4.1":
+  version "4.4.1"
+  resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.4.1.tgz#c197d74dfa9de5fda4998e7b24d7dab9839cbf7e"
+  integrity sha512-/AQI1hnl/key/lGYtltS5b9LDh1EyqMen41/16Zh4fYzcRCTyW4msFMbr3/p9h2qDchLA/aF4eHE2JBS8xuViA==
 
 "@fontsource/merriweather@^4.3.0":
   version "4.3.0"
