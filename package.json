@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@fontsource/lato": "^4.3.0",
-    "@fontsource/merriweather": "^4.3.0",
+    "@fontsource/merriweather": "^4.4.1",
     "@fontsource/montserrat": "^4.3.0",
     "@fontsource/roboto": "^4.3.0",
     "@fontsource/roboto-condensed": "^4.3.0",
