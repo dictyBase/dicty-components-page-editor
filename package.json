@@ -37,7 +37,7 @@
     "@fontsource/roboto": "^4.3.0",
     "@fontsource/roboto-condensed": "^4.3.0",
     "@fontsource/roboto-mono": "^4.3.0",
-    "@fontsource/roboto-slab": "^4.3.0",
+    "@fontsource/roboto-slab": "^4.4.0",
     "react-colorful": "^5.2.0",
     "slate": "^0.59.0",
     "slate-history": "^0.59.0",
