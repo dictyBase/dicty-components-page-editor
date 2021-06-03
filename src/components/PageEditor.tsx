@@ -1,15 +1,15 @@
 import React, { useCallback, useMemo, useState } from "react"
-import { createEditor, Node, Editor } from "slate"
+import { createEditor, Node } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
-import withLists, { indentItem, undentItem } from "../plugins/withLists"
+import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
-import { types } from "../constants/types"
+import onKeyDown from "../utils/onKeyDown"
 
 const initialValue = [
   {
@@ -32,8 +32,8 @@ const PageEditor = () => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
     () =>
-      withReact(
-        withHistory(
+      withHistory(
+        withReact(
           withNormalize(withMedia(withLists(withLinks(createEditor())))),
         ),
       ),
@@ -48,20 +48,7 @@ const PageEditor = () => {
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
 
   const handleKeyDown = (event: React.KeyboardEvent) => {
-    const listItemMatch = Editor.above(editor, {
-      match: (n) => n.type === types.listItem,
-    })
-    if (event.key === "Tab") {
-      event.preventDefault()
-      if (!listItemMatch) {
-        return
-      }
-      if (event.shiftKey) {
-        undentItem(editor)
-      } else {
-        indentItem(editor)
-      }
-    }
+    onKeyDown(event, editor)
   }
 
   return (
