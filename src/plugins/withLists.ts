@@ -102,7 +102,9 @@ const indentItem = (editor: Editor) => {
   // check that there is a current selection without highlight
   if (selection && Range.isCollapsed(selection)) {
     const match = getParentNode(editor)
-    if (match) {
+    if (match?.type !== types.listItem) {
+      editor.insertText("    ")
+    } else {
       let listMatch = []
       for (const [node, path] of Editor.nodes(editor, {
         mode: "lowest",

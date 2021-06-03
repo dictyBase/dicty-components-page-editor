@@ -1,5 +1,6 @@
 import { Editor, Transforms, Range, Node, Element as SlateElement } from "slate"
 import { ReactEditor } from "slate-react"
+import { indentItem, undentItem } from "./withLists"
 import { types } from "../constants/types"
 import { Link } from "../types/link"
 import { Image } from "../types/image"
@@ -102,6 +103,13 @@ const BlockHelpers = {
    * toggleBlock will set the appropriate nodes for the given selection
    */
   toggleBlock(editor: Editor, format: string) {
+    if (format === types.indentDecrease) {
+      undentItem(editor)
+    }
+    if (format === types.indentIncrease) {
+      indentItem(editor)
+    }
+
     // first find if the selected block is currently active
     const isActive = CustomEditor.isBlockActive(editor, "type", format)
 
@@ -109,7 +117,7 @@ const BlockHelpers = {
     // If the block is active, then we want to toggle it back to the default
     // paragraph type. If the block is not active, we toggle the type to match it.
     Transforms.setNodes(editor, {
-      type: isActive ? "paragraph" : format,
+      type: isActive ? types.paragraph : format,
     })
   },
 }
