@@ -1,10 +1,9 @@
 import React from "react"
-import { Editor, Transforms, Range, Node } from "slate"
+import { Editor, Element as SlateElement, Transforms, Range, Node } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import LinkDialog from "../dialogs/LinkDialog"
-import CustomEditor from "../../plugins/CustomEditor"
 import { Link } from "../../types/link"
 import { types } from "../../constants/types"
 import useStyles from "../../styles/buttons"
@@ -12,6 +11,48 @@ import useStyles from "../../styles/buttons"
 // this is necessary to maintain editor selection when link dialog appears;
 // the deselect method unsets the editor selection
 Transforms.deselect = () => {}
+
+// look for a match of the link type
+const linkNodeOptions = {
+  match: (n: Node) =>
+    !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === types.link,
+}
+
+const isLinkActive = (editor: Editor) => {
+  const nodeGenerator = Editor.nodes(editor, linkNodeOptions)
+  const node = nodeGenerator.next()
+  while (!node.done) {
+    return true
+  }
+  return false
+}
+
+/**
+ * upsertLink updates or adds a new link. If there is no selection,
+ * it adds a new link with the provided text. Otherwise it will wrap the
+ * selection with a link node using the user's link and text.
+ */
+const upsertLink = (editor: Editor, link: Link) => {
+  const { url, text } = link
+  // check if there is an existing link first then unwrap it
+  if (isLinkActive(editor)) {
+    Transforms.unwrapNodes(editor, linkNodeOptions)
+  }
+  const linkData = {
+    type: types.link,
+    url,
+    children: [{ text: text }],
+  }
+  const { selection } = editor
+  const isCollapsed = selection && Range.isCollapsed(selection)
+  if (isCollapsed) {
+    Transforms.insertNodes(editor, linkData)
+  } else {
+    Transforms.wrapNodes(editor, linkData, { split: true })
+    Editor.insertText(editor, text)
+    Transforms.collapse(editor, { edge: "end" })
+  }
+}
 
 // handleToolbarButtonClick updates the url/text state based on the user's current
 // selection. If there is text selected, it gets the text and its link if it exists,
@@ -28,9 +69,12 @@ const handleToolbarButtonClick = (
     let prevURL = ""
     const selectedText = Editor.string(editor, selection)
     const linkNode = Editor.above(editor, {
-      match: (n: Node) => n.type === types.link,
+      match: (n: Node) =>
+        !Editor.isEditor(n) &&
+        SlateElement.isElement(n) &&
+        n.type === types.link,
     })
-    if (linkNode) {
+    if (linkNode && SlateElement.isElement(linkNode[0])) {
       prevURL = linkNode[0].url as string
     }
     setLink({
@@ -62,12 +106,12 @@ const LinkButton = ({ icon }: Props) => {
     text: "",
   })
   const props = {
-    active: CustomEditor.isLinkActive(editor),
+    active: isLinkActive(editor),
   }
   const classes = useStyles(props)
 
   const handleAddLink = () => {
-    CustomEditor.upsertLink(editor, link)
+    upsertLink(editor, link)
     setLinkDialogOpen(false)
   }
 
@@ -98,4 +142,5 @@ const LinkButton = ({ icon }: Props) => {
   )
 }
 
+export { upsertLink }
 export default LinkButton

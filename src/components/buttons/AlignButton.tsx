@@ -1,9 +1,18 @@
 import React, { MouseEvent } from "react"
+import { Editor, Transforms } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
-import CustomEditor from "../../plugins/CustomEditor"
 import useStyles from "../../styles/buttons"
+import { isBlockActive } from "../../utils/blocks"
+
+const toggleAlign = (editor: Editor, align: string) => {
+  const isActive = isBlockActive(editor, "align", align)
+
+  Transforms.setNodes(editor, {
+    align: isActive ? "left" : align,
+  })
+}
 
 type Props = {
   /** Icon to display in button */
@@ -19,14 +28,14 @@ type Props = {
 const AlignButton = ({ icon, align }: Props) => {
   const editor = useSlate()
   const props = {
-    active: CustomEditor.isBlockActive(editor, "align", align),
+    active: isBlockActive(editor, "align", align),
   }
   const classes = useStyles(props)
 
   // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    CustomEditor.toggleAlign(editor, align)
+    toggleAlign(editor, align)
   }
 
   return (

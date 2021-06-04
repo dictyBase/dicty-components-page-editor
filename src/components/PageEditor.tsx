@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useState } from "react"
-import { createEditor, Node } from "slate"
+import { createEditor, Descendant } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
@@ -40,7 +40,7 @@ const PageEditor = () => {
     [],
   )
   // store the value of the editor
-  const [value, setValue] = useState<Node[]>(initialValue)
+  const [value, setValue] = useState<Descendant[]>(initialValue)
   // render expected element based on type passed as props
   // memoize this function for subsequent renders
   const renderElement = useCallback((props) => <Element {...props} />, [])

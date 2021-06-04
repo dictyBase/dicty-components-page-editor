@@ -17,6 +17,8 @@ type ElementProps = {
     height?: string
     /** URL link used for an image */
     linkURL?: string
+    /** Line spacing of element (in pixels) */
+    lineSpacing?: string
     /** Any children to render */
     children: any
   }

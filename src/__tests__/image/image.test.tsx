@@ -2,6 +2,7 @@ import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
+import { CustomEditor } from "../../types/editor"
 import ImageButton from "../../components/buttons/ImageButton"
 import ImageIcon from "../../components/icons/ImageIcon"
 import withMedia from "../../plugins/withMedia"
@@ -12,9 +13,7 @@ describe("adding images", () => {
   it("should add new image with link", async () => {
     const editor = withNormalize(withMedia(input))
 
-    jest
-      .spyOn(SlateReact, "useSlate")
-      .mockReturnValue(editor as SlateReact.ReactEditor)
+    jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
     render(<ImageButton icon={<ImageIcon />} />)
 
