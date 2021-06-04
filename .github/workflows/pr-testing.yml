@@ -37,8 +37,10 @@ jobs:
           node-version: 14.17.0
       - name: check out code
         uses: actions/checkout@v2
-      - name: install
-        run: yarn install
+      - name: install and build library
+        run: yarn install && yarn build
+      - name: install example app
+        run: cd ./example && yarn install
       - name: cypress tests
-        run: yarn cypress:ci
+        run: cd .. && yarn cypress:ci
         
