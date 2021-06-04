@@ -69,6 +69,7 @@
     "prettier": "^2.2.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3",
     "react-test-renderer": "^17.0.2",
     "semantic-release": "^17.4.2",
     "slate-hyperscript": "0.62.0",
