@@ -1,10 +1,8 @@
 import { Editor, Element, Point, Range, Transforms } from "slate"
 import { types } from "../constants/types"
-import { isBlockActive } from "../utils/blocks"
 
 const listTypes = [types.orderedList, types.unorderedList]
 
-// listItemMatch checks if the ancestor above is a list item
 const listItemMatch = (editor: Editor) => {
   const [match] = Array.from(
     Editor.nodes(editor, {
@@ -17,20 +15,27 @@ const listItemMatch = (editor: Editor) => {
   return match
 }
 
-const isActiveList = (editor: Editor) => {
-  const isActiveOrderedList = isBlockActive(editor, "type", types.orderedList)
-  const isActiveUnorderedList = isBlockActive(
-    editor,
-    "type",
-    types.unorderedList,
+const listMatch = (editor: Editor) => {
+  const [match] = Array.from(
+    Editor.nodes(editor, {
+      mode: "lowest",
+      match: (n) =>
+        (!Editor.isEditor(n) &&
+          Element.isElement(n) &&
+          n.type === types.orderedList) ||
+        (!Editor.isEditor(n) &&
+          Element.isElement(n) &&
+          n.type === types.unorderedList),
+    }),
   )
 
-  return isActiveOrderedList || isActiveUnorderedList
+  return match
 }
 
 const liftNodes = (editor: Editor) => {
+  const match = listMatch(editor)
   // verify there is an active list to lift the nodes
-  if (isActiveList(editor)) {
+  if (match) {
     Transforms.liftNodes(editor, {
       match: (n) =>
         !Editor.isEditor(n) &&
@@ -41,8 +46,9 @@ const liftNodes = (editor: Editor) => {
 }
 
 const handleInsertBreak = (editor: Editor, insertBreak: () => void) => {
+  const { selection } = editor
   // this plugin only applies custom logic to active lists
-  if (isActiveList(editor)) {
+  if (selection && Range.isCollapsed(selection)) {
     const match = listItemMatch(editor)
 
     if (match) {
@@ -121,25 +127,14 @@ const indentItem = (editor: Editor) => {
     const match = listItemMatch(editor)
 
     if (match) {
-      const [listMatch] = Array.from(
-        Editor.nodes(editor, {
-          mode: "lowest",
-          match: (n) =>
-            (!Editor.isEditor(n) &&
-              Element.isElement(n) &&
-              n.type === types.orderedList) ||
-            (!Editor.isEditor(n) &&
-              Element.isElement(n) &&
-              n.type === types.unorderedList),
-        }),
-      )
+      const parentMatch = listMatch(editor)
 
-      if (listMatch) {
-        let depth = listMatch[1].length
+      if (parentMatch) {
+        let depth = parentMatch[1].length
         if (depth <= 5) {
-          if (Element.isElement(listMatch[0])) {
+          if (Element.isElement(parentMatch[0])) {
             Transforms.wrapNodes(editor, {
-              type: listMatch[0].type,
+              type: parentMatch[0].type,
               children: [],
             })
           }
@@ -162,9 +157,10 @@ const undentItem = (editor: Editor) => {
       // 'lift' the list-item to the next parent
       liftNodes(editor)
       // check for the new parent
-      const isActive = isActiveList(editor)
+      const parentMatch = listMatch(editor)
+
       // if it is no longer within an active list, turn into paragraph
-      if (!isActive) {
+      if (!parentMatch) {
         Transforms.setNodes(
           editor,
           { type: "paragraph" },
