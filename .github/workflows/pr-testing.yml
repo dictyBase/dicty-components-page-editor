@@ -40,7 +40,7 @@ jobs:
       - name: install and build library
         run: yarn install && yarn build
       - name: install example app
-        run: cd ./example && yarn install
+        run: cd ./example && npm install
       - name: cypress tests
-        run: cd .. && yarn cypress:ci
+        run: cd .. && ls && yarn cypress:ci
         
