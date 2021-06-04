@@ -42,5 +42,5 @@ jobs:
       - name: install example app
         run: cd ./example && npm install
       - name: cypress tests
-        run: cd .. && ls && yarn cypress:ci
+        run: yarn cypress:ci
         
