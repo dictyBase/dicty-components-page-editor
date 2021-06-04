@@ -11,12 +11,10 @@ import { types } from "../../constants/types"
  * PROCESS:
  *
  * 1. User clicks button
- * 2. We run generator function to find any matching nodes for that block type.
- * 3. If there are no matches (value == undefined) then the generator is done
- *    and we do not mark that block as active.
+ * 2. Use generator function to find any matching nodes for that block type.
+ * 3. If there are no matches then we do not mark that block as active.
  * 4. If the block is not active, then we set the nodes to match that format type.
- * 5. If the generator does find a match, we mark that block as active for the
- *    first matching node.
+ * 5. If there is a match, we mark that block as active for the first matching node.
  * 6. If the block is active, then we set the nodes back to the default type of
  *    'paragraph'.
  */

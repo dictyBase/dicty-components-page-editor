@@ -19,12 +19,8 @@ const linkNodeOptions = {
 }
 
 const isLinkActive = (editor: Editor) => {
-  const nodeGenerator = Editor.nodes(editor, linkNodeOptions)
-  const node = nodeGenerator.next()
-  while (!node.done) {
-    return true
-  }
-  return false
+  const [match] = Array.from(Editor.nodes(editor, linkNodeOptions))
+  return !!match
 }
 
 /**
