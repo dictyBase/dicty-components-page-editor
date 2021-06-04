@@ -1,16 +1,20 @@
-import { Editor, Element, Path, Point, Range, Transforms } from "slate"
+import { Editor, Element, Point, Range, Transforms } from "slate"
 import { types } from "../constants/types"
 import { isBlockActive } from "../utils/blocks"
-import getParentNode from "../utils/getParentNode"
 
 const listTypes = [types.orderedList, types.unorderedList]
 
 // listItemMatch checks if the ancestor above is a list item
 const listItemMatch = (editor: Editor) => {
-  return Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) && Element.isElement(n) && n.type === types.listItem,
-  })
+  const [match] = Array.from(
+    Editor.nodes(editor, {
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        Element.isElement(n) &&
+        n.type === types.listItem,
+    }),
+  )
+  return match
 }
 
 const isActiveList = (editor: Editor) => {
@@ -114,35 +118,35 @@ const indentItem = (editor: Editor) => {
 
   // check that there is a current selection without highlight
   if (selection && Range.isCollapsed(selection)) {
-    const match = getParentNode(editor)
-    if (Element.isElement(match) && match?.type !== types.listItem) {
-      editor.insertText("    ")
-    } else {
-      let listMatch = []
-      for (const [node, path] of Editor.nodes(editor, {
-        mode: "lowest",
-        match: (n) =>
-          (!Editor.isEditor(n) &&
-            Element.isElement(n) &&
-            n.type === types.orderedList) ||
-          (!Editor.isEditor(n) &&
-            Element.isElement(n) &&
-            n.type === types.unorderedList),
-      })) {
-        listMatch.push(node, path)
-      }
-      if (listMatch.length > 0) {
-        const path = listMatch[1] as Path
-        let depth = path.length as number
-        // limit maximum indents to five
+    const match = listItemMatch(editor)
+
+    if (match) {
+      const [listMatch] = Array.from(
+        Editor.nodes(editor, {
+          mode: "lowest",
+          match: (n) =>
+            (!Editor.isEditor(n) &&
+              Element.isElement(n) &&
+              n.type === types.orderedList) ||
+            (!Editor.isEditor(n) &&
+              Element.isElement(n) &&
+              n.type === types.unorderedList),
+        }),
+      )
+
+      if (listMatch) {
+        let depth = listMatch[1].length
         if (depth <= 5) {
-          Transforms.wrapNodes(editor, {
-            // @ts-ignore
-            type: listMatch[0].type,
-            children: [],
-          })
+          if (Element.isElement(listMatch[0])) {
+            Transforms.wrapNodes(editor, {
+              type: listMatch[0].type,
+              children: [],
+            })
+          }
         }
       }
+    } else {
+      editor.insertText("    ")
     }
   }
 }
