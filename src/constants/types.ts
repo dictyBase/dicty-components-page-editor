@@ -17,6 +17,11 @@ const types = {
   lineSpacing: "lineSpacing",
   image: "image",
   video: "video",
+  orderedList: "orderedList",
+  unorderedList: "unorderedList",
+  listItem: "listItem",
+  indentDecrease: "indentDecrease",
+  indentIncrease: "indentIncrease",
 }
 
 const alignments = {

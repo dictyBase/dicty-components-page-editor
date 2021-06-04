@@ -27,6 +27,10 @@ import DividerIcon from "./icons/DividerIcon"
 import LineSpacingIcon from "./icons/LineSpacingIcon"
 import ImageIcon from "./icons/ImageIcon"
 import VideoIcon from "./icons/VideoIcon"
+import UnorderedListIcon from "./icons/UnorderedListIcon"
+import OrderedListIcon from "./icons/OrderedListIcon"
+import IndentIncreaseIcon from "./icons/IndentIncreaseIcon"
+import IndentDecreaseIcon from "./icons/IndentDecreaseIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -76,6 +80,21 @@ const EditorToolbar = () => {
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
         <BlockButton format={types.divider} icon={<DividerIcon />} />
+        <Divider className={classes.divider} orientation="vertical" flexItem />
+        <BlockButton
+          format={types.unorderedList}
+          icon={<UnorderedListIcon />}
+        />
+        <BlockButton format={types.orderedList} icon={<OrderedListIcon />} />
+        <BlockButton
+          format={types.indentIncrease}
+          icon={<IndentIncreaseIcon />}
+        />
+        <BlockButton
+          format={types.indentDecrease}
+          icon={<IndentDecreaseIcon />}
+        />
+        <Divider className={classes.divider} orientation="vertical" flexItem />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />
         <VideoButton icon={<VideoIcon />} />

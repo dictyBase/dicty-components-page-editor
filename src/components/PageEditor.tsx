@@ -6,8 +6,10 @@ import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import withLinks from "../plugins/withLinks"
+import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
+import onKeyDown from "../utils/onKeyDown"
 
 const initialValue = [
   {
@@ -30,8 +32,10 @@ const PageEditor = () => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
     () =>
-      withReact(
-        withHistory(withNormalize(withMedia(withLinks(createEditor())))),
+      withHistory(
+        withReact(
+          withNormalize(withMedia(withLists(withLinks(createEditor())))),
+        ),
       ),
     [],
   )
@@ -43,13 +47,20 @@ const PageEditor = () => {
   // render expected leaf based on type (i.e. bold, italic, etc)
   const renderLeaf = useCallback((props) => <Leaf {...props} />, [])
 
+  const handleKeyDown = (event: React.KeyboardEvent) => {
+    onKeyDown(event, editor)
+  }
+
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
       <Editable
         renderElement={renderElement}
         renderLeaf={renderLeaf}
+        onKeyDown={handleKeyDown}
         placeholder="Enter some text..."
+        spellCheck
+        autoFocus
       />
     </Slate>
   )

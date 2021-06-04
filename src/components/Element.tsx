@@ -75,6 +75,12 @@ const Element = ({ attributes, children, element }: Props) => {
           {children}
         </Video>
       )
+    case types.unorderedList:
+      return <ul {...attributes}>{children}</ul>
+    case types.orderedList:
+      return <ol {...attributes}>{children}</ol>
+    case types.listItem:
+      return <li {...attributes}>{children}</li>
     default:
       return (
         <Typography component="p" align={align} {...attributes}>
