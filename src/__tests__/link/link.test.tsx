@@ -2,6 +2,7 @@ import React from "react"
 import { render, screen, waitFor } from "@testing-library/react"
 import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
+import { CustomEditor } from "../../types/editor"
 import LinkButton from "../../components/buttons/LinkButton"
 import LinkIcon from "../../components/icons/LinkIcon"
 import withLinks from "../../plugins/withLinks"
@@ -11,9 +12,7 @@ describe("adding links", () => {
   it("should add new link", async () => {
     const editor = withLinks(input)
 
-    jest
-      .spyOn(SlateReact, "useSlate")
-      .mockReturnValue(editor as SlateReact.ReactEditor)
+    jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
     render(<LinkButton icon={<LinkIcon />} />)
 

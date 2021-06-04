@@ -1,5 +1,5 @@
 import React, { MouseEvent } from "react"
-import { Transforms } from "slate"
+import { Element, Transforms } from "slate"
 import { useSlate } from "slate-react"
 import { makeStyles } from "@material-ui/core/styles"
 import Menu from "@material-ui/core/Menu"
@@ -69,7 +69,8 @@ const LineSpacingButton = ({ icon }: Props) => {
         onClose={() => setAnchorEl(null)}>
         {LineSpacingList.map((item: string, index: number) => {
           const parentNode = getParentNode(editor)
-          const currentLineSpacing = parentNode?.lineSpacing || "1.5"
+          const currentLineSpacing =
+            (Element.isElement(parentNode) && parentNode.lineSpacing) || "1.5"
           return (
             <MenuItem
               key={index}

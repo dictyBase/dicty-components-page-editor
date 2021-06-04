@@ -1,6 +1,6 @@
-import { Editor, Point, Range, Transforms } from "slate"
-import CustomEditor from "./CustomEditor"
+import { Editor, Element, Path, Point, Range, Transforms } from "slate"
 import { types } from "../constants/types"
+import { isBlockActive } from "../utils/blocks"
 import getParentNode from "../utils/getParentNode"
 
 const listTypes = [types.orderedList, types.unorderedList]
@@ -8,17 +8,14 @@ const listTypes = [types.orderedList, types.unorderedList]
 // listItemMatch checks if the ancestor above is a list item
 const listItemMatch = (editor: Editor) => {
   return Editor.above(editor, {
-    match: (n) => n.type === types.listItem,
+    match: (n) =>
+      !Editor.isEditor(n) && Element.isElement(n) && n.type === types.listItem,
   })
 }
 
 const isActiveList = (editor: Editor) => {
-  const isActiveOrderedList = CustomEditor.isBlockActive(
-    editor,
-    "type",
-    types.orderedList,
-  )
-  const isActiveUnorderedList = CustomEditor.isBlockActive(
+  const isActiveOrderedList = isBlockActive(editor, "type", types.orderedList)
+  const isActiveUnorderedList = isBlockActive(
     editor,
     "type",
     types.unorderedList,
@@ -30,7 +27,12 @@ const isActiveList = (editor: Editor) => {
 const liftNodes = (editor: Editor) => {
   // verify there is an active list to lift the nodes
   if (isActiveList(editor)) {
-    Transforms.liftNodes(editor, { match: (n) => n.type === types.listItem })
+    Transforms.liftNodes(editor, {
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        Element.isElement(n) &&
+        n.type === types.listItem,
+    })
   }
 }
 
@@ -47,7 +49,10 @@ const handleInsertBreak = (editor: Editor, insertBreak: () => void) => {
       // an empty paragraph instead
       if (text === "") {
         Transforms.unwrapNodes(editor, {
-          match: (n) => listTypes.includes(n.type as string),
+          match: (n) =>
+            !Editor.isEditor(n) &&
+            Element.isElement(n) &&
+            listTypes.includes(n.type as string),
           // split is needed to unwrap this selection from the list type
           split: true,
         })
@@ -110,19 +115,25 @@ const indentItem = (editor: Editor) => {
   // check that there is a current selection without highlight
   if (selection && Range.isCollapsed(selection)) {
     const match = getParentNode(editor)
-    if (match?.type !== types.listItem) {
+    if (Element.isElement(match) && match?.type !== types.listItem) {
       editor.insertText("    ")
     } else {
       let listMatch = []
       for (const [node, path] of Editor.nodes(editor, {
         mode: "lowest",
         match: (n) =>
-          n.type === types.orderedList || n.type === types.unorderedList,
+          (!Editor.isEditor(n) &&
+            Element.isElement(n) &&
+            n.type === types.orderedList) ||
+          (!Editor.isEditor(n) &&
+            Element.isElement(n) &&
+            n.type === types.unorderedList),
       })) {
         listMatch.push(node, path)
       }
       if (listMatch.length > 0) {
-        let depth = listMatch[1].length as number
+        const path = listMatch[1] as Path
+        let depth = path.length as number
         // limit maximum indents to five
         if (depth <= 5) {
           Transforms.wrapNodes(editor, {
@@ -153,7 +164,12 @@ const undentItem = (editor: Editor) => {
         Transforms.setNodes(
           editor,
           { type: "paragraph" },
-          { match: (n) => n.type === types.listItem },
+          {
+            match: (n) =>
+              !Editor.isEditor(n) &&
+              Element.isElement(n) &&
+              n.type === types.listItem,
+          },
         )
       }
     }

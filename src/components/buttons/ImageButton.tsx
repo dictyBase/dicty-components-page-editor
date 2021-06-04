@@ -1,16 +1,30 @@
 import React from "react"
-import { Transforms } from "slate"
+import { Editor, Transforms } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import ImageDialog from "../dialogs/ImageDialog"
-import CustomEditor from "../../plugins/CustomEditor"
 import { Image } from "../../types/image"
+import { types } from "../../constants/types"
 import useStyles from "../../styles/buttons"
 
 // this is necessary to maintain editor selection when image dialog appears;
 // the deselect method unsets the editor selection
 Transforms.deselect = () => {}
+
+const insertImage = (editor: Editor, image: Image) => {
+  const { url, description, width, height, linkURL } = image
+  const imageData = {
+    type: types.image,
+    url,
+    description,
+    width,
+    height,
+    linkURL,
+    children: [{ text: "" }],
+  }
+  Transforms.insertNodes(editor, imageData)
+}
 
 type Props = {
   /** Icon to display in button */
@@ -33,7 +47,7 @@ const ImageButton = ({ icon }: Props) => {
   const classes = useStyles(props)
 
   const handleAddImage = () => {
-    CustomEditor.insertImage(editor, image)
+    insertImage(editor, image)
     setImageDialogOpen(false)
   }
 

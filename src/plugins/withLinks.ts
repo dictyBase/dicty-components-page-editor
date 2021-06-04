@@ -11,7 +11,7 @@ const withLinks = (editor: Editor) => {
     if (element.type === types.link) {
       return true
     }
-    return isInline(editor)
+    return isInline(element)
   }
 
   return editor

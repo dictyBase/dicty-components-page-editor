@@ -1,15 +1,16 @@
 import React, { MouseEvent } from "react"
 import { Editor } from "slate"
-import { useSlate, ReactEditor } from "slate-react"
+import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
+import { CustomEditor } from "../../types/editor"
 import useStyles from "../../styles/buttons"
 
 /**
  * isMarkActive determines if the current text selection contains an
  * active mark
  */
-const isMarkActive = (editor: ReactEditor, format: string) => {
+const isMarkActive = (editor: CustomEditor, format: string) => {
   // get a list of marks from the selected text
   const marks = Editor.marks(editor)
 
@@ -24,7 +25,7 @@ const isMarkActive = (editor: ReactEditor, format: string) => {
 /**
  * toggleMark will either remove or add a mark to the given text selection
  */
-const toggleMark = (editor: ReactEditor, format: string) => {
+const toggleMark = (editor: CustomEditor, format: string) => {
   // first find if the selection's mark is currently active
   const isActive = isMarkActive(editor, format)
 

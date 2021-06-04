@@ -1,8 +1,9 @@
 import React, { MouseEvent } from "react"
-import { useSlate, ReactEditor } from "slate-react"
+import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
-import CustomEditor from "../../plugins/CustomEditor"
+import { toggleBlock, isBlockActive } from "../../utils/blocks"
+import { toggleList } from "../../utils/lists"
 import useStyles from "../../styles/buttons"
 import { types } from "../../constants/types"
 
@@ -22,18 +23,6 @@ import { types } from "../../constants/types"
 
 const lists = [types.orderedList, types.unorderedList, types.listItem]
 
-/**
- * toggleBlock will set the appropriate nodes for the given selection
- */
-const toggleBlock = (editor: ReactEditor, format: string) => {
-  const isList = lists.includes(format)
-  if (isList) {
-    CustomEditor.toggleList(editor, format)
-  } else {
-    CustomEditor.toggleBlock(editor, format)
-  }
-}
-
 type Props = {
   /** Type of block (i.e. "h1") */
   format: string
@@ -48,14 +37,19 @@ type Props = {
 const BlockButton = ({ format, icon }: Props) => {
   const editor = useSlate()
   const props = {
-    active: CustomEditor.isBlockActive(editor, "type", format),
+    active: isBlockActive(editor, "type", format),
   }
   const classes = useStyles(props)
 
   // when button is clicked, toggle the block within the editor
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    toggleBlock(editor, format)
+    const isList = lists.includes(format)
+    if (isList) {
+      toggleList(editor, format)
+    } else {
+      toggleBlock(editor, format)
+    }
   }
 
   return (

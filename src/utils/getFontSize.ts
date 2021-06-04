@@ -1,4 +1,4 @@
-import { Editor } from "slate"
+import { Editor, Element } from "slate"
 import getParentNode from "./getParentNode"
 import { types } from "../constants/types"
 
@@ -9,11 +9,13 @@ import { types } from "../constants/types"
 const getFontSize = (editor: Editor, fontSize: string) => {
   const node = getParentNode(editor)
   // if the parent node is a header then its text children should inherit its size
-  if (
-    node?.type === types.h1 ||
-    node?.type === types.h2 ||
-    node?.type === types.h3
-  ) {
+  if (Element.isElement(node) && node.type === types.h1) {
+    return "inherit"
+  }
+  if (Element.isElement(node) && node.type === types.h2) {
+    return "inherit"
+  }
+  if (Element.isElement(node) && node.type === types.h3) {
     return "inherit"
   }
   return fontSize

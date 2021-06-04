@@ -2,7 +2,7 @@
 
 import { Editor } from "slate"
 import jsx from "../utils/jsx"
-import CustomEditor from "../../plugins/CustomEditor"
+import { upsertLink } from "../../components/buttons/LinkButton"
 import withLinks from "../../plugins/withLinks"
 import { types } from "../../constants/types"
 
@@ -32,7 +32,7 @@ describe("upsertLink function", () => {
     ) as any as Editor
 
     const editor = withLinks(input)
-    CustomEditor.upsertLink(editor, {
+    upsertLink(editor, {
       url: dictyURL,
       text: "dictycr",
     })
@@ -65,7 +65,7 @@ describe("upsertLink function", () => {
     ) as any as Editor
 
     const editor = withLinks(input)
-    CustomEditor.upsertLink(editor, {
+    upsertLink(editor, {
       url: zomboURL,
       text: "zombocom",
     })
