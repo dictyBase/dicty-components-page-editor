@@ -25,9 +25,11 @@ const isBlockActive = (editor: Editor, property: string, value: string) => {
 const toggleBlock = (editor: Editor, format: string) => {
   if (format === types.indentDecrease) {
     undentItem(editor)
+    return
   }
   if (format === types.indentIncrease) {
     indentItem(editor)
+    return
   }
 
   // first find if the selected block is currently active
