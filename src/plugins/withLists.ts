@@ -42,6 +42,16 @@ const findMatchingListItem = (editor: Editor) => {
   return match
 }
 
+const setParagraphNode = (editor: Editor) => {
+  Transforms.setNodes(
+    editor,
+    { type: types.paragraph },
+    {
+      match: (n) => listItemMatch(n),
+    },
+  )
+}
+
 // helper function called when user escapes out of list
 const liftNodes = (editor: Editor) => {
   // check for new parent
@@ -73,13 +83,7 @@ const handleListItemMatch = (editor: Editor, match: NodeEntry<Node>) => {
     const listMatch = findMatchingList(editor)
     // if it is no longer within a ul/ol, turn into normal paragraph
     if (!listMatch) {
-      Transforms.setNodes(
-        editor,
-        { type: types.paragraph },
-        {
-          match: (n) => listItemMatch(n),
-        },
-      )
+      setParagraphNode(editor)
     }
     return
   }
@@ -144,13 +148,11 @@ const indentItem = (editor: Editor) => {
 
       if (listMatch) {
         let depth = listMatch[1].length
-        if (depth <= 5) {
-          if (Element.isElement(listMatch[0])) {
-            Transforms.wrapNodes(editor, {
-              type: listMatch[0].type,
-              children: [],
-            })
-          }
+        if (depth <= 5 && Element.isElement(listMatch[0])) {
+          Transforms.wrapNodes(editor, {
+            type: listMatch[0].type,
+            children: [],
+          })
         }
       }
     } else {
@@ -172,13 +174,7 @@ const undentItem = (editor: Editor) => {
 
       // if it is no longer within an active list, turn into paragraph
       if (!listMatch) {
-        Transforms.setNodes(
-          editor,
-          { type: types.paragraph },
-          {
-            match: (n) => listItemMatch(n),
-          },
-        )
+        setParagraphNode(editor)
       }
     }
   }
