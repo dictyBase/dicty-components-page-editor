@@ -16,7 +16,7 @@ describe("heading elements", () => {
 
     render(<BlockButton format={types.h1} icon={<H1Icon />} />)
 
-    const button = screen.getByLabelText("h1-button")
+    const button = screen.getByLabelText("h1")
     userEvent.click(button)
     expect(editor.children).toEqual(output.children)
   })

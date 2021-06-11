@@ -17,7 +17,7 @@ describe("adding videos", () => {
 
     render(<VideoButton icon={<VideoIcon />} />)
 
-    const button = screen.getByLabelText("video-button")
+    const button = screen.getByLabelText("video")
     userEvent.click(button)
     // interact with video dialog
     const urlTextbox = screen.getByRole("textbox", { name: "URL" })

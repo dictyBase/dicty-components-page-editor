@@ -16,7 +16,7 @@ describe("bold marks", () => {
 
     render(<MarkButton format={types.bold} icon={<BoldIcon />} />)
 
-    const button = screen.getByLabelText("bold-button")
+    const button = screen.getByLabelText("bold")
     userEvent.click(button)
     expect(editor.children).toEqual(output.children)
   })

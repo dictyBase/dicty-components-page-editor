@@ -69,7 +69,7 @@ const VideoButton = ({ icon }: Props) => {
         <IconButton
           className={classes.button}
           size="small"
-          aria-label="video-button"
+          aria-label="video"
           onClick={() => setVideoDialogOpen(true)}>
           {icon}
         </IconButton>

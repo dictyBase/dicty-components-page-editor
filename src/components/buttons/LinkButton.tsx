@@ -120,7 +120,7 @@ const LinkButton = ({ icon }: Props) => {
         <IconButton
           className={classes.button}
           size="small"
-          aria-label="link-button"
+          aria-label="link"
           onClick={() =>
             handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
           }>

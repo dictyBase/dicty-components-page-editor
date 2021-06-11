@@ -16,7 +16,7 @@ describe("line spacing", () => {
     render(<LineSpacingButton icon={<LineSpacingIcon />} />)
 
     const button = screen.getByRole("button", {
-      name: "line-spacing-button",
+      name: "line spacing",
     })
     userEvent.click(button)
     const item = screen.getByRole("menuitem", {

@@ -60,7 +60,7 @@ const ImageButton = ({ icon }: Props) => {
         <IconButton
           className={classes.button}
           size="small"
-          aria-label="image-button"
+          aria-label="image"
           onClick={() => setImageDialogOpen(true)}>
           {icon}
         </IconButton>
