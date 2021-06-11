@@ -1,12 +1,4 @@
-import {
-  Editor,
-  Element,
-  Node,
-  NodeEntry,
-  Point,
-  Range,
-  Transforms,
-} from "slate"
+import { Editor, Element, Node, Point, Range, Transforms } from "slate"
 import { types } from "../constants/types"
 
 // helper function to check for ul/ol match
@@ -65,30 +57,6 @@ const liftNodes = (editor: Editor) => {
   }
 }
 
-// helper function with logic to handle when there is a list item match
-const handleListItemMatch = (editor: Editor, match: NodeEntry<Node>) => {
-  const { selection } = editor
-  const [, path] = match
-  const start = Editor.start(editor, path)
-
-  if (selection === null) {
-    return
-  }
-
-  // if the selection is at the beginning of the list item
-  if (Point.equals(selection.anchor, start)) {
-    // lift the list item to the next parent
-    liftNodes(editor)
-    // check for the new parent
-    const listMatch = findMatchingList(editor)
-    // if it is no longer within a ul/ol, turn into normal paragraph
-    if (!listMatch) {
-      setParagraphNode(editor)
-    }
-    return
-  }
-}
-
 const handleLists = (editor: Editor, callback: () => void) => {
   const { selection } = editor
 
@@ -107,7 +75,21 @@ const handleLists = (editor: Editor, callback: () => void) => {
 
     // check that there was a match
     if (match) {
-      handleListItemMatch(editor, match)
+      const [, path] = match
+      const start = Editor.start(editor, path)
+
+      // if the selection is at the beginning of the list item
+      if (Point.equals(selection.anchor, start)) {
+        // lift the list item to the next parent
+        liftNodes(editor)
+        // check for the new parent
+        const listMatch = findMatchingList(editor)
+        // if it is no longer within a ul/ol, turn into normal paragraph
+        if (!listMatch) {
+          setParagraphNode(editor)
+        }
+        return
+      }
     }
   }
 
