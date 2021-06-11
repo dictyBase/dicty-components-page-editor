@@ -55,7 +55,7 @@ const BlockButton = ({ format, icon }: Props) => {
       <IconButton
         className={classes.button}
         size="small"
-        aria-label={`${format}-button`}
+        aria-label={format}
         onClick={handleClick}>
         {icon}
       </IconButton>

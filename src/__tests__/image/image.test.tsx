@@ -17,7 +17,7 @@ describe("adding images", () => {
 
     render(<ImageButton icon={<ImageIcon />} />)
 
-    const button = screen.getByLabelText("image-button")
+    const button = screen.getByLabelText("image")
     userEvent.click(button)
     // interact with image dialog
     const urlTextbox = screen.getByRole("textbox", { name: "URL" })

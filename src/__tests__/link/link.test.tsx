@@ -16,7 +16,7 @@ describe("adding links", () => {
 
     render(<LinkButton icon={<LinkIcon />} />)
 
-    const button = screen.getByLabelText("link-button")
+    const button = screen.getByLabelText("link")
     userEvent.click(button)
     // interact with link dialog
     const urlTextbox = screen.getByRole("textbox", { name: "URL" })

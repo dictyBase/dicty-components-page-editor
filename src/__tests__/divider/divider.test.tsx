@@ -16,7 +16,7 @@ describe("divider element", () => {
     jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
     render(<BlockButton format={types.divider} icon={<DividerIcon />} />)
-    const button = screen.getByLabelText("divider-button")
+    const button = screen.getByLabelText("divider")
     userEvent.click(button)
     expect(editor.children).toEqual(output.children)
   })

@@ -31,7 +31,7 @@ const FontColorButton = ({ icon }: Props) => {
       <Tooltip title="font color">
         <IconButton
           size="small"
-          aria-label="font-color-button"
+          aria-label="font color"
           aria-haspopup="true"
           onClick={handleClick}>
           {icon}

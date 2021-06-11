@@ -15,7 +15,7 @@ describe("font color", () => {
 
     render(<FontColorButton icon={<FontColorIcon />} />)
 
-    const button = screen.getByLabelText("font-color-button")
+    const button = screen.getByLabelText("font color")
     userEvent.click(button)
     const textbox = screen.getByRole("textbox")
     userEvent.clear(textbox)
