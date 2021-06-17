@@ -24,7 +24,7 @@ const types = {
   indentIncrease: "indentIncrease",
   table: "table",
   tableRow: "tableRow",
-  tableColumn: "tableColumn",
+  tableCell: "tableCell",
   tableDelete: "tableDelete",
   tableRowDelete: "tableRowDelete",
   tableColumnDelete: "tableColumnDelete",

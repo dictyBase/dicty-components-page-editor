@@ -1,5 +1,6 @@
 import { Editor, Transforms, Element as SlateElement } from "slate"
 import { indentItem, undentItem } from "../plugins/withLists"
+import { insertTable, insertTableRow } from "./tables"
 import { types } from "../constants/types"
 
 /**
@@ -29,6 +30,16 @@ const toggleBlock = (editor: Editor, format: string) => {
   }
   if (format === types.indentIncrease) {
     indentItem(editor)
+    return
+  }
+
+  if (format === types.table) {
+    insertTable(editor)
+    return
+  }
+
+  if (format === types.tableRow) {
+    insertTableRow(editor)
     return
   }
 

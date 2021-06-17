@@ -26,7 +26,7 @@ type CustomElement = {
   fontColor?: string
   url?: string
   lineSpacing?: string
-  children: CustomText[]
+  children: CustomText[] | CustomElement[]
   [key: string]: any
 }
 
