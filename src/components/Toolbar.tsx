@@ -103,7 +103,7 @@ const EditorToolbar = () => {
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <BlockButton format={types.table} icon={<TableIcon />} />
         <BlockButton
-          format={types.tableColumn}
+          format={types.tableCell}
           icon={<TableInsertColumnIcon />}
         />
         <BlockButton format={types.tableRow} icon={<TableInsertRowIcon />} />

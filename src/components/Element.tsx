@@ -15,6 +15,10 @@ const useStyles = makeStyles(() => ({
   lineSpacing: (props: StyleProps) => ({
     lineHeight: props.lineSpacing,
   }),
+  table: {
+    border: "5px solid red",
+    borderCollapse: "collapse",
+  },
 }))
 
 /**
@@ -81,6 +85,20 @@ const Element = ({ attributes, children, element }: Props) => {
       return <ol {...attributes}>{children}</ol>
     case types.listItem:
       return <li {...attributes}>{children}</li>
+    case types.table:
+      return (
+        <table className={classes.table}>
+          <tbody {...attributes}>{children}</tbody>
+        </table>
+      )
+    case types.tableRow:
+      return <tr {...attributes}>{children}</tr>
+    case types.tableCell:
+      return (
+        <td className={classes.table} {...attributes}>
+          {children}
+        </td>
+      )
     default:
       return (
         <Typography component="p" align={align} {...attributes}>

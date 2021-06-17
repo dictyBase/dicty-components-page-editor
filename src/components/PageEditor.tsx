@@ -9,6 +9,7 @@ import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
+import withTables from "../plugins/withTables"
 import onKeyDown from "../utils/onKeyDown"
 
 const initialValue = [
@@ -34,7 +35,9 @@ const PageEditor = () => {
     () =>
       withHistory(
         withReact(
-          withNormalize(withMedia(withLists(withLinks(createEditor())))),
+          withNormalize(
+            withMedia(withTables(withLists(withLinks(createEditor())))),
+          ),
         ),
       ),
     [],
@@ -50,7 +53,7 @@ const PageEditor = () => {
   const handleKeyDown = (event: React.KeyboardEvent) => {
     onKeyDown(event, editor)
   }
-
+  console.log(value)
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
