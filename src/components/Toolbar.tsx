@@ -31,6 +31,12 @@ import UnorderedListIcon from "./icons/UnorderedListIcon"
 import OrderedListIcon from "./icons/OrderedListIcon"
 import IndentIncreaseIcon from "./icons/IndentIncreaseIcon"
 import IndentDecreaseIcon from "./icons/IndentDecreaseIcon"
+import TableIcon from "./icons/TableIcon"
+import TableInsertColumnIcon from "./icons/TableInsertColumnIcon"
+import TableInsertRowIcon from "./icons/TableInsertRowIcon"
+import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
+import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
+import DeleteIcon from "./icons/DeleteIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -94,6 +100,22 @@ const EditorToolbar = () => {
           format={types.indentDecrease}
           icon={<IndentDecreaseIcon />}
         />
+        <Divider className={classes.divider} orientation="vertical" flexItem />
+        <BlockButton format={types.table} icon={<TableIcon />} />
+        <BlockButton
+          format={types.tableColumn}
+          icon={<TableInsertColumnIcon />}
+        />
+        <BlockButton format={types.tableRow} icon={<TableInsertRowIcon />} />
+        <BlockButton
+          format={types.tableColumnDelete}
+          icon={<TableDeleteColumnIcon />}
+        />
+        <BlockButton
+          format={types.tableRowDelete}
+          icon={<TableDeleteRowIcon />}
+        />
+        <BlockButton format={types.tableDelete} icon={<DeleteIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />

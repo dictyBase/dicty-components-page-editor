@@ -22,6 +22,12 @@ const types = {
   listItem: "listItem",
   indentDecrease: "indentDecrease",
   indentIncrease: "indentIncrease",
+  table: "table",
+  tableRow: "tableRow",
+  tableColumn: "tableColumn",
+  tableDelete: "tableDelete",
+  tableRowDelete: "tableRowDelete",
+  tableColumnDelete: "tableColumnDelete",
 }
 
 const alignments = {
