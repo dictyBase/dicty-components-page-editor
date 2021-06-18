@@ -147,22 +147,22 @@ const deleteTableRow = (editor: Editor) => {
     // if there's only one row in the table then safely remove the table
     if (row === 1) {
       deleteTable(editor)
-    } else {
-      // otherwise remove the nodes at the row path and then set table node's
-      // row attribute to one less
-      Transforms.removeNodes(editor, {
-        at: rowPath,
-      })
-      Transforms.setNodes(
-        editor,
-        {
-          row: row - 1,
-        },
-        {
-          at: tablePath,
-        },
-      )
+      return
     }
+    // otherwise remove the nodes at the row path and then set table node's
+    // row attribute to one less
+    Transforms.removeNodes(editor, {
+      at: rowPath,
+    })
+    Transforms.setNodes(
+      editor,
+      {
+        row: row - 1,
+      },
+      {
+        at: tablePath,
+      },
+    )
   }
 }
 
