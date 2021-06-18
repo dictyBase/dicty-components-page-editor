@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
     lineHeight: props.lineSpacing,
   }),
   table: {
-    border: "5px solid red",
+    border: "1px solid grey",
     borderCollapse: "collapse",
   },
 }))
