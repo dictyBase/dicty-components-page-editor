@@ -2,6 +2,26 @@ import { Editor, Element as SlateElement, Path, Transforms } from "slate"
 import { isBlockActive } from "./blocks"
 import { types } from "../constants/types"
 
+const getCurrentRow = (editor: Editor) => {
+  const currentRow = Editor.above(editor, {
+    match: (n) =>
+      !Editor.isEditor(n) &&
+      SlateElement.isElement(n) &&
+      n.type === types.tableRow,
+  })
+  return currentRow
+}
+
+const getCurrentCell = (editor: Editor) => {
+  const currentCell = Editor.above(editor, {
+    match: (n) =>
+      !Editor.isEditor(n) &&
+      SlateElement.isElement(n) &&
+      n.type === types.tableCell,
+  })
+  return currentCell
+}
+
 const getEmptyTableCell = () => ({
   type: types.tableCell,
   children: [
@@ -44,12 +64,7 @@ const insertTable = (editor: Editor) => {
 }
 
 const insertTableRow = (editor: Editor) => {
-  const currentRow = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableRow,
-  })
+  const currentRow = getCurrentRow(editor)
 
   if (currentRow) {
     const [, rowPath] = currentRow
@@ -70,12 +85,7 @@ const insertTableRow = (editor: Editor) => {
 }
 
 const insertTableColumn = (editor: Editor) => {
-  const currentCell = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableCell,
-  })
+  const currentCell = getCurrentCell(editor)
 
   if (currentCell) {
     const currentTable = Editor.above(editor, {
@@ -144,12 +154,7 @@ const deleteTable = (editor: Editor) => {
 }
 
 const deleteTableRow = (editor: Editor) => {
-  const currentRow = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableRow,
-  })
+  const currentRow = getCurrentRow(editor)
 
   if (currentRow) {
     const [, rowPath] = currentRow
@@ -184,12 +189,7 @@ const deleteTableRow = (editor: Editor) => {
 }
 
 const deleteTableColumn = (editor: Editor) => {
-  const currentCell = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableCell,
-  })
+  const currentCell = getCurrentCell(editor)
 
   if (currentCell) {
     const currentTable = Editor.above(editor, {
