@@ -8,6 +8,7 @@ import DividerIcon from "../../components/icons/DividerIcon"
 import { types } from "../../constants/types"
 import { input, output } from "./divider.fixture"
 import withNormalize from "../../plugins/withNormalize"
+import { toggleBlock } from "../../utils/blocks"
 
 describe("divider element", () => {
   it("should add divider element with empty paragraph after", () => {
@@ -15,7 +16,13 @@ describe("divider element", () => {
 
     jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
-    render(<BlockButton format={types.divider} icon={<DividerIcon />} />)
+    render(
+      <BlockButton
+        format={types.divider}
+        icon={<DividerIcon />}
+        clickFn={() => toggleBlock(editor, types.divider)}
+      />,
+    )
     const button = screen.getByLabelText("divider")
     userEvent.click(button)
     expect(editor.children).toEqual(output.children)
