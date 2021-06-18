@@ -9,7 +9,6 @@ import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
-import withTables from "../plugins/withTables"
 import onKeyDown from "../utils/onKeyDown"
 
 const initialValue = [
@@ -35,9 +34,7 @@ const PageEditor = () => {
     () =>
       withHistory(
         withReact(
-          withNormalize(
-            withMedia(withTables(withLists(withLinks(createEditor())))),
-          ),
+          withNormalize(withMedia(withLists(withLinks(createEditor())))),
         ),
       ),
     [],
