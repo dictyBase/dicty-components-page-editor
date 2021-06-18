@@ -35,8 +35,8 @@ import IndentDecreaseIcon from "./icons/IndentDecreaseIcon"
 import TableIcon from "./icons/TableIcon"
 import TableInsertColumnIcon from "./icons/TableInsertColumnIcon"
 import TableInsertRowIcon from "./icons/TableInsertRowIcon"
-// import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
-// import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
+import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
+import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
 import DeleteIcon from "./icons/DeleteIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
@@ -58,6 +58,8 @@ import {
   insertTableRow,
   insertTableColumn,
   deleteTable,
+  deleteTableRow,
+  deleteTableColumn,
 } from "../utils/tables"
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -150,7 +152,7 @@ const EditorToolbar = () => {
           icon={<TableInsertRowIcon />}
           clickFn={() => insertTableRow(editor)}
         />
-        {/* <BlockButton
+        <BlockButton
           format={types.tableColumnDelete}
           icon={<TableDeleteColumnIcon />}
           clickFn={() => deleteTableColumn(editor)}
@@ -159,7 +161,7 @@ const EditorToolbar = () => {
           format={types.tableRowDelete}
           icon={<TableDeleteRowIcon />}
           clickFn={() => deleteTableRow(editor)}
-        /> */}
+        />
         <BlockButton
           format={types.tableDelete}
           icon={<DeleteIcon />}
