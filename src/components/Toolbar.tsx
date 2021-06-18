@@ -1,4 +1,5 @@
 import React from "react"
+import { useSlate } from "slate-react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
@@ -34,8 +35,8 @@ import IndentDecreaseIcon from "./icons/IndentDecreaseIcon"
 import TableIcon from "./icons/TableIcon"
 import TableInsertColumnIcon from "./icons/TableInsertColumnIcon"
 import TableInsertRowIcon from "./icons/TableInsertRowIcon"
-import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
-import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
+// import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
+// import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
 import DeleteIcon from "./icons/DeleteIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
@@ -49,6 +50,15 @@ import FontColorIcon from "./icons/FontColorIcon"
 import { FontFamilyList, FontSizeList } from "../utils/dropdownValues"
 // types
 import { types, alignments } from "../constants/types"
+import { toggleBlock } from "../utils/blocks"
+import { toggleList } from "../utils/lists"
+import { indentItem, undentItem } from "../plugins/withLists"
+import {
+  insertTable,
+  insertTableRow,
+  insertTableColumn,
+  deleteTable,
+} from "../utils/tables"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -64,6 +74,7 @@ const useStyles = makeStyles((theme: Theme) => ({
  * Toolbar is the display for the editor toolbar.
  */
 const EditorToolbar = () => {
+  const editor = useSlate()
   const classes = useStyles()
 
   return (
@@ -76,46 +87,84 @@ const EditorToolbar = () => {
         <MarkButton format={types.subscript} icon={<SubscriptIcon />} />
         <MarkButton format={types.superscript} icon={<SuperscriptIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format={types.h1} icon={<H1Icon />} />
-        <BlockButton format={types.h2} icon={<H2Icon />} />
-        <BlockButton format={types.h3} icon={<H3Icon />} />
+        <BlockButton
+          format={types.h1}
+          icon={<H1Icon />}
+          clickFn={() => toggleBlock(editor, types.h1)}
+        />
+        <BlockButton
+          format={types.h2}
+          icon={<H2Icon />}
+          clickFn={() => toggleBlock(editor, types.h2)}
+        />
+        <BlockButton
+          format={types.h3}
+          icon={<H3Icon />}
+          clickFn={() => toggleBlock(editor, types.h3)}
+        />
         <LinkButton icon={<LinkIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
         <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
         <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
-        <BlockButton format={types.divider} icon={<DividerIcon />} />
+        <BlockButton
+          format={types.divider}
+          icon={<DividerIcon />}
+          clickFn={() => toggleBlock(editor, types.divider)}
+        />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <BlockButton
           format={types.unorderedList}
           icon={<UnorderedListIcon />}
+          clickFn={() => toggleList(editor, types.unorderedList)}
         />
-        <BlockButton format={types.orderedList} icon={<OrderedListIcon />} />
+        <BlockButton
+          format={types.orderedList}
+          icon={<OrderedListIcon />}
+          clickFn={() => toggleList(editor, types.orderedList)}
+        />
         <BlockButton
           format={types.indentIncrease}
           icon={<IndentIncreaseIcon />}
+          clickFn={() => indentItem(editor)}
         />
         <BlockButton
           format={types.indentDecrease}
           icon={<IndentDecreaseIcon />}
+          clickFn={() => undentItem(editor)}
         />
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format={types.table} icon={<TableIcon />} />
+        <BlockButton
+          format={types.table}
+          icon={<TableIcon />}
+          clickFn={() => insertTable(editor)}
+        />
         <BlockButton
           format={types.tableColumn}
           icon={<TableInsertColumnIcon />}
+          clickFn={() => insertTableColumn(editor)}
         />
-        <BlockButton format={types.tableRow} icon={<TableInsertRowIcon />} />
         <BlockButton
+          format={types.tableRow}
+          icon={<TableInsertRowIcon />}
+          clickFn={() => insertTableRow(editor)}
+        />
+        {/* <BlockButton
           format={types.tableColumnDelete}
           icon={<TableDeleteColumnIcon />}
+          clickFn={() => deleteTableColumn(editor)}
         />
         <BlockButton
           format={types.tableRowDelete}
           icon={<TableDeleteRowIcon />}
+          clickFn={() => deleteTableRow(editor)}
+        /> */}
+        <BlockButton
+          format={types.tableDelete}
+          icon={<DeleteIcon />}
+          clickFn={() => deleteTable(editor)}
         />
-        <BlockButton format={types.tableDelete} icon={<DeleteIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />

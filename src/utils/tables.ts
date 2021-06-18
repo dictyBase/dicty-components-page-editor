@@ -128,4 +128,19 @@ const insertTableColumn = (editor: Editor) => {
   }
 }
 
-export { insertTable, insertTableRow, insertTableColumn }
+const deleteTable = (editor: Editor) => {
+  const tableMatch = Editor.above(editor, {
+    match: (n) =>
+      !Editor.isEditor(n) &&
+      SlateElement.isElement(n) &&
+      n.type === types.table,
+  })
+
+  if (tableMatch) {
+    Transforms.removeNodes(editor, {
+      at: tableMatch[1],
+    })
+  }
+}
+
+export { insertTable, insertTableRow, insertTableColumn, deleteTable }

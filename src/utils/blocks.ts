@@ -1,6 +1,4 @@
 import { Editor, Transforms, Element as SlateElement } from "slate"
-import { indentItem, undentItem } from "../plugins/withLists"
-import { insertTable, insertTableColumn, insertTableRow } from "./tables"
 import { types } from "../constants/types"
 
 /**
@@ -24,30 +22,6 @@ const isBlockActive = (editor: Editor, property: string, value: string) => {
  * toggleBlock will set the appropriate nodes for the given selection
  */
 const toggleBlock = (editor: Editor, format: string) => {
-  if (format === types.indentDecrease) {
-    undentItem(editor)
-    return
-  }
-  if (format === types.indentIncrease) {
-    indentItem(editor)
-    return
-  }
-
-  if (format === types.table) {
-    insertTable(editor)
-    return
-  }
-
-  if (format === types.tableRow) {
-    insertTableRow(editor)
-    return
-  }
-
-  if (format === types.tableColumn) {
-    insertTableColumn(editor)
-    return
-  }
-
   // first find if the selected block is currently active
   const isActive = isBlockActive(editor, "type", format)
 
