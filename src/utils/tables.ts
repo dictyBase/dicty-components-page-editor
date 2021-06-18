@@ -2,24 +2,12 @@ import { Editor, Element as SlateElement, Path, Transforms } from "slate"
 import { isBlockActive } from "./blocks"
 import { types } from "../constants/types"
 
-const getCurrentRow = (editor: Editor) => {
-  const currentRow = Editor.above(editor, {
+const getNodeAbove = (editor: Editor, type: string) => {
+  const match = Editor.above(editor, {
     match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableRow,
+      !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === type,
   })
-  return currentRow
-}
-
-const getCurrentCell = (editor: Editor) => {
-  const currentCell = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableCell,
-  })
-  return currentCell
+  return match
 }
 
 const getEmptyTableCell = () => ({
@@ -64,7 +52,7 @@ const insertTable = (editor: Editor) => {
 }
 
 const insertTableRow = (editor: Editor) => {
-  const currentRow = getCurrentRow(editor)
+  const currentRow = getNodeAbove(editor, types.tableRow)
 
   if (currentRow) {
     const [, rowPath] = currentRow
@@ -85,15 +73,10 @@ const insertTableRow = (editor: Editor) => {
 }
 
 const insertTableColumn = (editor: Editor) => {
-  const currentCell = getCurrentCell(editor)
+  const currentCell = getNodeAbove(editor, types.tableCell)
 
   if (currentCell) {
-    const currentTable = Editor.above(editor, {
-      match: (n) =>
-        !Editor.isEditor(n) &&
-        SlateElement.isElement(n) &&
-        n.type === types.table,
-    })
+    const currentTable = getNodeAbove(editor, types.table)
     if (currentTable === undefined) {
       return
     }
@@ -139,12 +122,7 @@ const insertTableColumn = (editor: Editor) => {
 }
 
 const deleteTable = (editor: Editor) => {
-  const tableMatch = Editor.above(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      SlateElement.isElement(n) &&
-      n.type === types.tableWrap,
-  })
+  const tableMatch = getNodeAbove(editor, types.tableWrap)
 
   if (tableMatch) {
     Transforms.removeNodes(editor, {
@@ -154,7 +132,7 @@ const deleteTable = (editor: Editor) => {
 }
 
 const deleteTableRow = (editor: Editor) => {
-  const currentRow = getCurrentRow(editor)
+  const currentRow = getNodeAbove(editor, types.tableRow)
 
   if (currentRow) {
     const [, rowPath] = currentRow
@@ -189,15 +167,10 @@ const deleteTableRow = (editor: Editor) => {
 }
 
 const deleteTableColumn = (editor: Editor) => {
-  const currentCell = getCurrentCell(editor)
+  const currentCell = getNodeAbove(editor, types.tableCell)
 
   if (currentCell) {
-    const currentTable = Editor.above(editor, {
-      match: (n) =>
-        !Editor.isEditor(n) &&
-        SlateElement.isElement(n) &&
-        n.type === types.table,
-    })
+    const currentTable = getNodeAbove(editor, types.table)
 
     if (currentTable) {
       const [, cellPath] = currentCell
