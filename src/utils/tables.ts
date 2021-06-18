@@ -210,9 +210,7 @@ const deleteTableColumn = (editor: Editor) => {
       const col = Number(tableNode.col)
 
       if (col === 1) {
-        Transforms.removeNodes(editor, {
-          at: tablePath,
-        })
+        deleteTable(editor)
       } else {
         const pathToDelete = cellPath.slice()
         const replacePathPos = pathToDelete.length - 2
@@ -223,6 +221,15 @@ const deleteTableColumn = (editor: Editor) => {
             at: pathToDelete,
           })
         })
+        Transforms.setNodes(
+          editor,
+          {
+            col: col - 1,
+          },
+          {
+            at: tablePath,
+          },
+        )
       }
     }
   }
