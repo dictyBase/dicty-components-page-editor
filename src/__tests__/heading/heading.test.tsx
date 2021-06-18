@@ -7,6 +7,7 @@ import BlockButton from "../../components/buttons/BlockButton"
 import H1Icon from "../../components/icons/H1Icon"
 import { types } from "../../constants/types"
 import { input, output } from "./heading.fixture"
+import { toggleBlock } from "../../utils/blocks"
 
 describe("heading elements", () => {
   it("should add h1 element", () => {
@@ -14,7 +15,13 @@ describe("heading elements", () => {
 
     jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
-    render(<BlockButton format={types.h1} icon={<H1Icon />} />)
+    render(
+      <BlockButton
+        format={types.h1}
+        icon={<H1Icon />}
+        clickFn={() => toggleBlock(editor, types.h1)}
+      />,
+    )
 
     const button = screen.getByLabelText("h1")
     userEvent.click(button)
