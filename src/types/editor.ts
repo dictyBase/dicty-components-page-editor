@@ -20,13 +20,17 @@ type CustomText = BaseText & {
 
 type CustomElement = {
   type: string
+  children: CustomText[] | CustomElement[]
   align?: string
   fontFamily?: string
   fontSize?: string
   fontColor?: string
   url?: string
   lineSpacing?: string
-  children: CustomText[] | CustomElement[]
+  /** Number of rows in a table */
+  row?: number
+  /** Number of columns in a table */
+  col?: number
   [key: string]: any
 }
 
