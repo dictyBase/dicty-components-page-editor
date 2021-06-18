@@ -99,6 +99,12 @@ const Element = ({ attributes, children, element }: Props) => {
           {children}
         </td>
       )
+    case types.tableWrap:
+      return (
+        <Typography component="div" {...attributes}>
+          {children}
+        </Typography>
+      )
     default:
       return (
         <Typography component="p" align={align} {...attributes}>
