@@ -3,11 +3,11 @@ import { isBlockActive } from "./blocks"
 import { types } from "../constants/types"
 
 const getNodeAbove = (editor: Editor, type: string) => {
-  const match = Editor.above(editor, {
+  const ancestor = Editor.above(editor, {
     match: (n) =>
       !Editor.isEditor(n) && SlateElement.isElement(n) && n.type === type,
   })
-  return match
+  return ancestor
 }
 
 const getEmptyTableCell = () => ({
