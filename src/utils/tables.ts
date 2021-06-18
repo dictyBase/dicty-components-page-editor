@@ -169,42 +169,46 @@ const deleteTableRow = (editor: Editor) => {
 const deleteTableColumn = (editor: Editor) => {
   const currentCell = getNodeAbove(editor, types.tableCell)
 
-  if (currentCell) {
-    const currentTable = getNodeAbove(editor, types.table)
+  if (currentCell === undefined) {
+    return
+  }
 
-    if (currentTable) {
-      const [, cellPath] = currentCell
-      const [tableNode, tablePath] = currentTable
+  const currentTable = getNodeAbove(editor, types.table)
 
-      if (!SlateElement.isElement(tableNode)) {
-        return
-      }
+  if (currentTable) {
+    const [, cellPath] = currentCell
+    const [tableNode, tablePath] = currentTable
 
-      const col = Number(tableNode.col)
-
-      if (col === 1) {
-        deleteTable(editor)
-      } else {
-        const pathToDelete = cellPath.slice()
-        const replacePathPos = pathToDelete.length - 2
-        // @ts-ignore <-- use to ignore unneeded value
-        tableNode.children.forEach((_, index: number) => {
-          pathToDelete[replacePathPos] = index
-          Transforms.removeNodes(editor, {
-            at: pathToDelete,
-          })
-        })
-        Transforms.setNodes(
-          editor,
-          {
-            col: col - 1,
-          },
-          {
-            at: tablePath,
-          },
-        )
-      }
+    if (!SlateElement.isElement(tableNode)) {
+      return
     }
+
+    const col = Number(tableNode.col)
+
+    if (col === 1) {
+      deleteTable(editor)
+      return
+    }
+
+    const pathToDelete = cellPath.slice()
+    const replacePathPos = pathToDelete.length - 2
+    // @ts-ignore <-- use to ignore unneeded value
+    tableNode.children.forEach((_, index: number) => {
+      pathToDelete[replacePathPos] = index
+      Transforms.removeNodes(editor, {
+        at: pathToDelete,
+      })
+    })
+
+    Transforms.setNodes(
+      editor,
+      {
+        col: col - 1,
+      },
+      {
+        at: tablePath,
+      },
+    )
   }
 }
 
