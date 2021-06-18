@@ -57,7 +57,7 @@ const LineSpacingButton = ({ icon }: Props) => {
           size="small"
           aria-label="line spacing"
           aria-haspopup="true"
-          onClick={handleMenuOpen}>
+          onMouseDown={handleMenuOpen}>
           {icon}
         </IconButton>
       </Tooltip>

@@ -55,7 +55,7 @@ const MarkButton = ({ format, icon }: Props) => {
   const classes = useStyles(props)
 
   // when button is clicked, toggle the mark within the editor
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     toggleMark(editor, format)
   }
@@ -66,7 +66,7 @@ const MarkButton = ({ format, icon }: Props) => {
         className={classes.button}
         size="small"
         aria-label={`${format}`}
-        onClick={handleClick}>
+        onMouseDown={handleMouseDown}>
         {icon}
       </IconButton>
     </Tooltip>

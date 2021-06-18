@@ -121,7 +121,7 @@ const LinkButton = ({ icon }: Props) => {
           className={classes.button}
           size="small"
           aria-label="link"
-          onClick={() =>
+          onMouseDown={() =>
             handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
           }>
           {icon}

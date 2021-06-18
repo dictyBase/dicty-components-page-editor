@@ -61,7 +61,7 @@ const ImageButton = ({ icon }: Props) => {
           className={classes.button}
           size="small"
           aria-label="image"
-          onClick={() => setImageDialogOpen(true)}>
+          onMouseDown={() => setImageDialogOpen(true)}>
           {icon}
         </IconButton>
       </Tooltip>

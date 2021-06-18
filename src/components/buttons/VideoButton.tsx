@@ -70,7 +70,7 @@ const VideoButton = ({ icon }: Props) => {
           className={classes.button}
           size="small"
           aria-label="video"
-          onClick={() => setVideoDialogOpen(true)}>
+          onMouseDown={() => setVideoDialogOpen(true)}>
           {icon}
         </IconButton>
       </Tooltip>
