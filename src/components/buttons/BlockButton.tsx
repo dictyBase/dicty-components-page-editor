@@ -2,10 +2,8 @@ import React, { MouseEvent } from "react"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
-import { toggleBlock, isBlockActive } from "../../utils/blocks"
-import { toggleList } from "../../utils/lists"
+import { isBlockActive } from "../../utils/blocks"
 import useStyles from "../../styles/buttons"
-import { types } from "../../constants/types"
 
 /**
  * PROCESS:
@@ -19,20 +17,20 @@ import { types } from "../../constants/types"
  *    'paragraph'.
  */
 
-const lists = [types.orderedList, types.unorderedList, types.listItem]
-
 type Props = {
   /** Type of block (i.e. "h1") */
   format: string
   /** Icon to display in button */
   icon: JSX.Element
+  /** Function to call when button is clicked */
+  clickFn: () => void
 }
 
 /**
  * BlockButton displays a button with associated click logic for toggling a
  * block.
  */
-const BlockButton = ({ format, icon }: Props) => {
+const BlockButton = ({ format, icon, clickFn }: Props) => {
   const editor = useSlate()
   const props = {
     active: isBlockActive(editor, "type", format),
@@ -42,12 +40,7 @@ const BlockButton = ({ format, icon }: Props) => {
   // when button is clicked, toggle the block within the editor
   const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    const isList = lists.includes(format)
-    if (isList) {
-      toggleList(editor, format)
-    } else {
-      toggleBlock(editor, format)
-    }
+    clickFn()
   }
 
   return (
