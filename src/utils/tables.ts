@@ -133,7 +133,7 @@ const deleteTable = (editor: Editor) => {
     match: (n) =>
       !Editor.isEditor(n) &&
       SlateElement.isElement(n) &&
-      n.type === types.table,
+      n.type === types.tableWrap,
   })
 
   if (tableMatch) {
@@ -143,4 +143,96 @@ const deleteTable = (editor: Editor) => {
   }
 }
 
-export { insertTable, insertTableRow, insertTableColumn, deleteTable }
+const deleteTableRow = (editor: Editor) => {
+  const currentRow = Editor.above(editor, {
+    match: (n) =>
+      !Editor.isEditor(n) &&
+      SlateElement.isElement(n) &&
+      n.type === types.tableRow,
+  })
+
+  if (currentRow) {
+    const [, rowPath] = currentRow
+    const [tableNode, tablePath] = Editor.parent(editor, rowPath)
+
+    if (!SlateElement.isElement(tableNode)) {
+      return
+    }
+
+    const row = Number(tableNode.row)
+
+    // if there's only one row in the table then safely remove the table
+    if (row === 1) {
+      deleteTable(editor)
+    } else {
+      // otherwise remove the nodes at the row path and then set table node's
+      // row attribute to one less
+      Transforms.removeNodes(editor, {
+        at: rowPath,
+      })
+      Transforms.setNodes(
+        editor,
+        {
+          row: row - 1,
+        },
+        {
+          at: tablePath,
+        },
+      )
+    }
+  }
+}
+
+const deleteTableColumn = (editor: Editor) => {
+  const currentCell = Editor.above(editor, {
+    match: (n) =>
+      !Editor.isEditor(n) &&
+      SlateElement.isElement(n) &&
+      n.type === types.tableCell,
+  })
+
+  if (currentCell) {
+    const currentTable = Editor.above(editor, {
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        SlateElement.isElement(n) &&
+        n.type === types.table,
+    })
+
+    if (currentTable) {
+      const [, cellPath] = currentCell
+      const [tableNode, tablePath] = currentTable
+
+      if (!SlateElement.isElement(tableNode)) {
+        return
+      }
+
+      const col = Number(tableNode.col)
+
+      if (col === 1) {
+        Transforms.removeNodes(editor, {
+          at: tablePath,
+        })
+      } else {
+        const pathToDelete = cellPath.slice()
+        const replacePathPos = pathToDelete.length - 2
+        // @ts-ignore <-- use to ignore unneeded value
+        tableNode.children.forEach((_, index: number) => {
+          pathToDelete[replacePathPos] = index
+          Transforms.removeNodes(editor, {
+            at: pathToDelete,
+          })
+        })
+      }
+    }
+  }
+}
+
+export {
+  insertTable,
+  insertTableRow,
+  insertTableColumn,
+  deleteTable,
+  deleteTableRow,
+  deleteTableColumn,
+}
