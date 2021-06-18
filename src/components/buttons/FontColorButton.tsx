@@ -16,7 +16,7 @@ type Props = {
 const FontColorButton = ({ icon }: Props) => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
 
@@ -33,7 +33,7 @@ const FontColorButton = ({ icon }: Props) => {
           size="small"
           aria-label="font color"
           aria-haspopup="true"
-          onClick={handleClick}>
+          onMouseDown={handleMouseDown}>
           {icon}
         </IconButton>
       </Tooltip>

@@ -32,8 +32,7 @@ const AlignButton = ({ icon, align }: Props) => {
   }
   const classes = useStyles(props)
 
-  // when button is clicked, toggle the block within the editor
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     toggleAlign(editor, align)
   }
@@ -44,7 +43,7 @@ const AlignButton = ({ icon, align }: Props) => {
         className={classes.button}
         size="small"
         aria-label={`align-${align}`}
-        onClick={handleClick}>
+        onMouseDown={handleMouseDown}>
         {icon}
       </IconButton>
     </Tooltip>

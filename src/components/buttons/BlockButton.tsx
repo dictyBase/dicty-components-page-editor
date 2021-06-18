@@ -40,7 +40,7 @@ const BlockButton = ({ format, icon }: Props) => {
   const classes = useStyles(props)
 
   // when button is clicked, toggle the block within the editor
-  const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
+  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
     const isList = lists.includes(format)
     if (isList) {
@@ -56,7 +56,9 @@ const BlockButton = ({ format, icon }: Props) => {
         className={classes.button}
         size="small"
         aria-label={format}
-        onClick={handleClick}>
+        // use onMouseDown to avoid editor selection becoming null
+        // and losing cursor position
+        onMouseDown={handleMouseDown}>
         {icon}
       </IconButton>
     </Tooltip>
