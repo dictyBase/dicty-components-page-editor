@@ -40,27 +40,27 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   const classes = useStyles(props)
 
   if (leaf.bold) {
-    children = <strong>{children}</strong>
+    children = <strong data-testid="bold">{children}</strong>
   }
 
   if (leaf.italic) {
-    children = <em>{children}</em>
+    children = <em data-testid="italic">{children}</em>
   }
 
   if (leaf.underline) {
-    children = <u>{children}</u>
+    children = <u data-testid="underline">{children}</u>
   }
 
   if (leaf.strikethrough) {
-    children = <s>{children}</s>
+    children = <s data-testid="strikethrough">{children}</s>
   }
 
   if (leaf.subscript) {
-    children = <sub>{children}</sub>
+    children = <sub data-testid="subscript">{children}</sub>
   }
 
   if (leaf.superscript) {
-    children = <sup>{children}</sup>
+    children = <sup data-testid="superscript">{children}</sup>
   }
 
   return (
