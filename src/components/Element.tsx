@@ -2,6 +2,9 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
+import Accordion from "@material-ui/core/Accordion"
+import AccordionSummary from "@material-ui/core/AccordionSummary"
+import AccordionDetails from "@material-ui/core/AccordionDetails"
 import Image from "./Image"
 import Video from "./Video"
 import { Props } from "../types/element"
@@ -104,6 +107,20 @@ const Element = ({ attributes, children, element }: Props) => {
         <Typography component="div" {...attributes}>
           {children}
         </Typography>
+      )
+    case types.accordion:
+      return <Accordion {...attributes}>{children}</Accordion>
+    case types.accordionTitle:
+      return (
+        <AccordionSummary>
+          <Typography {...attributes}>{children}</Typography>
+        </AccordionSummary>
+      )
+    case types.accordionBody:
+      return (
+        <AccordionDetails>
+          <Typography {...attributes}>{children}</Typography>
+        </AccordionDetails>
       )
     default:
       return (

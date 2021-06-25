@@ -1,3 +1,4 @@
+import { Accordion } from "./accordion"
 import { Link } from "./link"
 import { Image } from "./image"
 import { Video } from "./video"
@@ -32,4 +33,15 @@ type VideoDialogProps = {
   setVideo: (arg0: Video) => void
 } & DialogProps
 
-export type { DialogProps, LinkDialogProps, ImageDialogProps, VideoDialogProps }
+type AccordionDialogProps = {
+  accordion: Accordion
+  setAccordion: (arg0: Accordion) => void
+} & DialogProps
+
+export type {
+  DialogProps,
+  LinkDialogProps,
+  ImageDialogProps,
+  VideoDialogProps,
+  AccordionDialogProps,
+}

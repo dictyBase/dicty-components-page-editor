@@ -13,6 +13,7 @@ import FontColorButton from "./buttons/FontColorButton"
 import LineSpacingButton from "./buttons/LineSpacingButton"
 import ImageButton from "./buttons/ImageButton"
 import VideoButton from "./buttons/VideoButton"
+import AccordionButton from "./buttons/AccordionButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -39,6 +40,7 @@ import TableInsertRowIcon from "./icons/TableInsertRowIcon"
 import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
 import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
 import DeleteIcon from "./icons/DeleteIcon"
+import AccordionIcon from "./icons/AccordionIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -162,6 +164,7 @@ const EditorToolbar = () => {
           clickFn={() => toggleBlock(editor, types.h3)}
         />
         <LinkButton icon={<LinkIcon />} />
+        <AccordionButton icon={<AccordionIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
