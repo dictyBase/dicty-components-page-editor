@@ -164,7 +164,6 @@ const EditorToolbar = () => {
           clickFn={() => toggleBlock(editor, types.h3)}
         />
         <LinkButton icon={<LinkIcon />} />
-        <AccordionButton icon={<AccordionIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
@@ -197,6 +196,7 @@ const EditorToolbar = () => {
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />
         <VideoButton icon={<VideoIcon />} />
+        <AccordionButton icon={<AccordionIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
         <Dropdown

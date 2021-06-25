@@ -7,6 +7,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary"
 import AccordionDetails from "@material-ui/core/AccordionDetails"
 import Image from "./Image"
 import Video from "./Video"
+import ExpandMoreIcon from "./icons/ExpandMoreIcon"
 import { Props } from "../types/element"
 import { types } from "../constants/types"
 
@@ -28,7 +29,7 @@ const useStyles = makeStyles(() => ({
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", lineSpacing, url } = element
+  const { type, align = "left", lineSpacing, url, accordionTitle } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
   }
@@ -112,7 +113,10 @@ const Element = ({ attributes, children, element }: Props) => {
       return <Accordion {...attributes}>{children}</Accordion>
     case types.accordionTitle:
       return (
-        <AccordionSummary>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${accordionTitle}-content`}
+          id={`${accordionTitle}-header`}>
           <Typography {...attributes}>{children}</Typography>
         </AccordionSummary>
       )

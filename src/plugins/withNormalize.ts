@@ -11,6 +11,7 @@ const withNormalize = (editor: Editor) => {
     const divider = Element.isElement(node) && node.type === types.divider
     const image = Element.isElement(node) && node.type === types.image
     const video = Element.isElement(node) && node.type === types.video
+
     if (divider || image || video) {
       Transforms.insertNodes(editor, {
         type: types.paragraph,

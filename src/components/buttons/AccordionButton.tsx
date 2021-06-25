@@ -16,6 +16,7 @@ const insertAccordion = (editor: Editor, accordion: Accordion) => {
   const { title, body } = accordion
   const accordionData = {
     type: types.accordion,
+    accordionTitle: types.accordionTitle,
     children: [
       {
         type: types.accordionTitle,
