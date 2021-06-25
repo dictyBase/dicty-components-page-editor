@@ -23,6 +23,9 @@ const useStyles = makeStyles(() => ({
     border: "1px solid grey",
     borderCollapse: "collapse",
   },
+  select: {
+    userSelect: "none",
+  },
 }))
 
 /**
@@ -122,13 +125,15 @@ const Element = ({ attributes, children, element }: Props) => {
         <AccordionSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls={`${accordionTitle}-content`}
-          id={`${accordionTitle}-header`}>
+          id={`${accordionTitle}-header`}
+          contentEditable={false}
+          className={classes.select}>
           <Typography {...attributes}>{children}</Typography>
         </AccordionSummary>
       )
     case types.accordionBody:
       return (
-        <AccordionDetails>
+        <AccordionDetails contentEditable={false} className={classes.select}>
           <Typography {...attributes}>{children}</Typography>
         </AccordionDetails>
       )

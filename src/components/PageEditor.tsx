@@ -5,6 +5,7 @@ import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
+import withAccordions from "../plugins/withAccordions"
 import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
@@ -34,7 +35,9 @@ const PageEditor = () => {
     () =>
       withHistory(
         withReact(
-          withNormalize(withMedia(withLists(withLinks(createEditor())))),
+          withNormalize(
+            withAccordions(withMedia(withLists(withLinks(createEditor())))),
+          ),
         ),
       ),
     [],
