@@ -19,7 +19,7 @@ const initialValue = [
         fontFamily: "Roboto",
         fontSize: "inherit",
         fontColor: "rgba(0, 0, 0, 0.87)",
-        text: "A line of text in a paragraph.",
+        text: "",
       },
     ],
   },
