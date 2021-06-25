@@ -22,6 +22,7 @@ const types = {
   listItem: "listItem",
   indentDecrease: "indentDecrease",
   indentIncrease: "indentIncrease",
+  accordionWrap: "accordionWrap",
   accordion: "accordion",
   accordionTitle: "accordionTitle",
   accordionBody: "accordionBody",

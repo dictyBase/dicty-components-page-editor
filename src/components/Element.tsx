@@ -109,6 +109,12 @@ const Element = ({ attributes, children, element }: Props) => {
           {children}
         </Typography>
       )
+    case types.accordionWrap:
+      return (
+        <Typography component="div" {...attributes}>
+          {children}
+        </Typography>
+      )
     case types.accordion:
       return <Accordion {...attributes}>{children}</Accordion>
     case types.accordionTitle:

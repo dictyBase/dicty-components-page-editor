@@ -15,16 +15,25 @@ Transforms.deselect = () => {}
 const insertAccordion = (editor: Editor, accordion: Accordion) => {
   const { title, body } = accordion
   const accordionData = {
-    type: types.accordion,
-    accordionTitle: types.accordionTitle,
+    type: types.accordionWrap,
     children: [
       {
-        type: types.accordionTitle,
-        children: [{ text: title }],
+        type: types.accordion,
+        accordionTitle: types.accordionTitle,
+        children: [
+          {
+            type: types.accordionTitle,
+            children: [{ text: title }],
+          },
+          {
+            type: types.accordionBody,
+            children: [{ text: body }],
+          },
+        ],
       },
       {
-        type: types.accordionBody,
-        children: [{ text: body }],
+        type: types.paragraph,
+        children: [{ text: " " }],
       },
     ],
   }
