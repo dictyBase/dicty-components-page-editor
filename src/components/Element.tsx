@@ -2,6 +2,10 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableRow from "@material-ui/core/TableRow"
+import TableCell from "@material-ui/core/TableCell"
 import Image from "./Image"
 import Video from "./Video"
 import { Props } from "../types/element"
@@ -18,7 +22,7 @@ const useStyles = makeStyles(() => ({
   table: {
     border: "1px solid grey",
     borderCollapse: "collapse",
-  },
+  }
 }))
 
 /**
@@ -87,17 +91,17 @@ const Element = ({ attributes, children, element }: Props) => {
       return <li {...attributes}>{children}</li>
     case types.table:
       return (
-        <table className={classes.table}>
-          <tbody {...attributes}>{children}</tbody>
-        </table>
+        <Table className={classes.table}>
+          <TableBody {...attributes}>{children}</TableBody>
+        </Table>
       )
     case types.tableRow:
-      return <tr {...attributes}>{children}</tr>
+      return <TableRow {...attributes}>{children}</TableRow>
     case types.tableCell:
       return (
-        <td className={classes.table} {...attributes}>
+        <TableCell colSpan={1} className={classes.table} {...attributes}>
           {children}
-        </td>
+        </TableCell>
       )
     case types.tableWrap:
       return (
