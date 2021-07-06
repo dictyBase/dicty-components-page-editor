@@ -75,11 +75,6 @@ const useStyles = makeStyles((theme: Theme) => ({
 
 const tableButtons = (editor: Editor) => [
   {
-    format: types.table,
-    icon: <TableIcon />,
-    callback: () => insertTable(editor),
-  },
-  {
     format: types.tableColumn,
     icon: <TableInsertColumnIcon />,
     callback: () => insertTableColumn(editor),
@@ -135,6 +130,12 @@ const listButtons = (editor: Editor) => [
 const EditorToolbar = () => {
   const editor = useSlate()
   const classes = useStyles()
+  const [tableButtonDisplay, setTableButtonDisplay] = React.useState(false)
+
+  const handleTableButtonClick = () => {
+    insertTable(editor)
+    setTableButtonDisplay(!tableButtonDisplay)
+  }
 
   return (
     <AppBar color="default" position="static" className={classes.container}>
@@ -182,7 +183,8 @@ const EditorToolbar = () => {
           />
         ))}
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        {tableButtons(editor).map((item) => (
+        <BlockButton format={types.table} icon={<TableIcon />} clickFn={handleTableButtonClick} />
+        {tableButtonDisplay && tableButtons(editor).map((item) => (
           <BlockButton
             format={item.format}
             icon={item.icon}
