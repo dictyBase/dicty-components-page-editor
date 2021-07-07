@@ -1,10 +1,11 @@
-import React, { MouseEvent } from "react"
+import React from "react"
 import { Editor, Element as SlateElement, Node, Transforms } from "slate"
 import { useSlate } from "slate-react"
 import Menu from "@material-ui/core/Menu"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import ColorPicker from "../dropdowns/ColorPicker"
+import useAnchorElement from "../../hooks/useAnchorElement"
 import getParentNode from "../../utils/getParentNode"
 import { types } from "../../constants/types"
 
@@ -26,17 +27,7 @@ type Props = {
  */
 const TableBorderButton = ({ icon }: Props) => {
   const editor = useSlate()
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
-
-  const handleMouseDown = (event: MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-
-  const handleClose = (_: {}, reason: "backdropClick" | "escapeKeyDown") => {
-    if (reason === "backdropClick" || reason === "escapeKeyDown") {
-      setAnchorEl(null)
-    }
-  }
+  const { anchorEl, handleClose, handleMouseDown } = useAnchorElement()
 
   const handleChange = (value: string) => {
     const selection = editor.selection
