@@ -1,10 +1,7 @@
 import React from "react"
 import { makeStyles, useTheme, Theme } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
-import { Editor } from "slate"
-import { useSlate } from "slate-react"
 import { HexColorPicker, HexColorInput } from "react-colorful"
-import getCurrentMark from "../../utils/getCurrentMark"
 
 // get list of preset colors to show beneath picker
 const getPresetColors = (theme: Theme) => {
@@ -44,26 +41,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }))
 
-const FontColorPicker = () => {
-  const editor = useSlate()
+type Props = {
+  /** Function to call when color is selected */
+  handleChange: (value: string) => void
+  /** Active color of current text selection */
+  activeColor: string
+}
+
+/**
+ * ColorPicker handles the display of the color picker.
+ */
+const ColorPicker = ({ handleChange, activeColor }: Props) => {
   const theme = useTheme()
   const classes = useStyles()
   const presetColors = getPresetColors(theme)
-  const mark = "fontColor"
-
-  const handleChange = (value: string) => {
-    Editor.addMark(editor, mark, value)
-  }
 
   return (
     <div className={classes.popper}>
-      <HexColorPicker
-        color={getCurrentMark(editor, mark)}
-        onChange={handleChange}
-      />
+      <HexColorPicker color={activeColor} onChange={handleChange} />
       <HexColorInput
         className={classes.input}
-        color={getCurrentMark(editor, mark)}
+        color={activeColor}
         onChange={handleChange}
       />
       <div className={classes.buttonContainer}>
@@ -80,4 +78,4 @@ const FontColorPicker = () => {
   )
 }
 
-export default FontColorPicker
+export default ColorPicker
