@@ -40,6 +40,7 @@ const alignments = {
 }
 
 const attributes = {
+  borderColor: "borderColor",
   fontColor: "fontColor",
 }
 

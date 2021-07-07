@@ -2,8 +2,8 @@ import React from "react"
 import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
 import Divider from "@material-ui/core/Divider"
-import Table from '@material-ui/core/Table'
-import TableBody from '@material-ui/core/TableBody'
+import Table from "@material-ui/core/Table"
+import TableBody from "@material-ui/core/TableBody"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
 import Image from "./Image"
@@ -13,25 +13,27 @@ import { types } from "../constants/types"
 
 type StyleProps = {
   lineSpacing: string | unknown
+  borderColor: string | unknown
 }
 
 const useStyles = makeStyles(() => ({
   lineSpacing: (props: StyleProps) => ({
     lineHeight: props.lineSpacing,
   }),
-  table: {
-    border: "1px solid grey",
+  table: (props: StyleProps) => ({
+    border: `1px solid ${props.borderColor}`,
     borderCollapse: "collapse",
-  }
+  }),
 }))
 
 /**
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", lineSpacing, url } = element
+  const { type, align = "left", lineSpacing, borderColor, url } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
+    borderColor: borderColor ? borderColor : "grey",
   }
   const classes = useStyles(styleProps)
 
@@ -99,7 +101,7 @@ const Element = ({ attributes, children, element }: Props) => {
       return <TableRow {...attributes}>{children}</TableRow>
     case types.tableCell:
       return (
-        <TableCell colSpan={1} className={classes.table} {...attributes}>
+        <TableCell className={classes.table} {...attributes}>
           {children}
         </TableCell>
       )

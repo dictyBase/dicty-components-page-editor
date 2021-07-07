@@ -10,6 +10,8 @@ import TableInsertRowIcon from "../icons/TableInsertRowIcon"
 import TableDeleteColumnIcon from "../icons/TableDeleteColumnIcon"
 import TableDeleteRowIcon from "../icons/TableDeleteRowIcon"
 import DeleteIcon from "../icons/DeleteIcon"
+// import BorderColorIcon from "../icons/BorderColorIcon"
+// import TableBorderButton from "./TableBorderButton"
 import { isBlockActive } from "../../utils/blocks"
 import useStyles from "../../styles/buttons"
 import { types } from "../../constants/types"
@@ -80,15 +82,19 @@ const TableButtons = () => {
           <TableIcon />
         </IconButton>
       </Tooltip>
-      {active &&
-        tableButtons(editor).map((item) => (
-          <BlockButton
-            format={item.format}
-            icon={item.icon}
-            clickFn={item.callback}
-            key={item.format}
-          />
-        ))}
+      {active && (
+        <React.Fragment>
+          {tableButtons(editor).map((item) => (
+            <BlockButton
+              format={item.format}
+              icon={item.icon}
+              clickFn={item.callback}
+              key={item.format}
+            />
+          ))}
+          {/* <TableBorderButton icon={<BorderColorIcon />} /> */}
+        </React.Fragment>
+      )}
     </React.Fragment>
   )
 }
