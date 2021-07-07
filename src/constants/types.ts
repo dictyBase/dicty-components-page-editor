@@ -39,4 +39,8 @@ const alignments = {
   justify: "justify",
 }
 
-export { types, alignments }
+const attributes = {
+  fontColor: "fontColor",
+}
+
+export { types, alignments, attributes }
