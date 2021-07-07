@@ -33,12 +33,6 @@ import UnorderedListIcon from "./icons/UnorderedListIcon"
 import OrderedListIcon from "./icons/OrderedListIcon"
 import IndentIncreaseIcon from "./icons/IndentIncreaseIcon"
 import IndentDecreaseIcon from "./icons/IndentDecreaseIcon"
-import TableIcon from "./icons/TableIcon"
-import TableInsertColumnIcon from "./icons/TableInsertColumnIcon"
-import TableInsertRowIcon from "./icons/TableInsertRowIcon"
-import TableDeleteColumnIcon from "./icons/TableDeleteColumnIcon"
-import TableDeleteRowIcon from "./icons/TableDeleteRowIcon"
-import DeleteIcon from "./icons/DeleteIcon"
 // align icons
 import AlignLeftIcon from "./icons/AlignLeftIcon"
 import AlignCenterIcon from "./icons/AlignCenterIcon"
@@ -54,14 +48,7 @@ import { types, alignments } from "../constants/types"
 import { toggleBlock } from "../utils/blocks"
 import { toggleList } from "../utils/lists"
 import { indentItem, undentItem } from "../plugins/withLists"
-import {
-  insertTable,
-  insertTableRow,
-  insertTableColumn,
-  deleteTable,
-  deleteTableRow,
-  deleteTableColumn,
-} from "../utils/tables"
+import TableButtons from "./buttons/TableButtons"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -72,34 +59,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(0.5),
   },
 }))
-
-const tableButtons = (editor: Editor) => [
-  {
-    format: types.tableColumn,
-    icon: <TableInsertColumnIcon />,
-    callback: () => insertTableColumn(editor),
-  },
-  {
-    format: types.tableRow,
-    icon: <TableInsertRowIcon />,
-    callback: () => insertTableRow(editor),
-  },
-  {
-    format: types.tableColumnDelete,
-    icon: <TableDeleteColumnIcon />,
-    callback: () => deleteTableColumn(editor),
-  },
-  {
-    format: types.tableRowDelete,
-    icon: <TableDeleteRowIcon />,
-    callback: () => deleteTableRow(editor),
-  },
-  {
-    format: types.tableDelete,
-    icon: <DeleteIcon />,
-    callback: () => deleteTable(editor),
-  },
-]
 
 const listButtons = (editor: Editor) => [
   {
@@ -130,12 +89,6 @@ const listButtons = (editor: Editor) => [
 const EditorToolbar = () => {
   const editor = useSlate()
   const classes = useStyles()
-  const [tableButtonDisplay, setTableButtonDisplay] = React.useState(false)
-
-  const handleTableButtonClick = () => {
-    insertTable(editor)
-    setTableButtonDisplay(!tableButtonDisplay)
-  }
 
   return (
     <AppBar color="default" position="static" className={classes.container}>
@@ -183,15 +136,7 @@ const EditorToolbar = () => {
           />
         ))}
         <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton format={types.table} icon={<TableIcon />} clickFn={handleTableButtonClick} />
-        {tableButtonDisplay && tableButtons(editor).map((item) => (
-          <BlockButton
-            format={item.format}
-            icon={item.icon}
-            clickFn={item.callback}
-            key={item.format}
-          />
-        ))}
+        <TableButtons />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <LineSpacingButton icon={<LineSpacingIcon />} />
         <ImageButton icon={<ImageIcon />} />
