@@ -13,6 +13,7 @@ import FontColorButton from "./buttons/FontColorButton"
 import LineSpacingButton from "./buttons/LineSpacingButton"
 import ImageButton from "./buttons/ImageButton"
 import VideoButton from "./buttons/VideoButton"
+import ScientificSymbolsButton from "./buttons/ScientificSymbolsButton"
 // mark icons
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
@@ -143,6 +144,7 @@ const EditorToolbar = () => {
         <VideoButton icon={<VideoIcon />} />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <FontColorButton icon={<FontColorIcon />} />
+        <ScientificSymbolsButton />
         <Dropdown
           mark="fontFamily"
           defaultValue="Roboto"
