@@ -5,6 +5,7 @@ import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
+import withHTML from "../plugins/withHTML"
 import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
@@ -32,9 +33,11 @@ const PageEditor = () => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
     () =>
-      withHistory(
-        withReact(
-          withNormalize(withMedia(withLists(withLinks(createEditor())))),
+      withHTML(
+        withHistory(
+          withReact(
+            withNormalize(withMedia(withLists(withLinks(createEditor())))),
+          ),
         ),
       ),
     [],
