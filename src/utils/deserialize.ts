@@ -61,7 +61,9 @@ const deserialize = (el: any) => {
 
   if (leafTags[nodeName]) {
     const attrs = leafTags[nodeName](el)
-    return children.map((child) => jsx("text", attrs, child))
+    return children
+      .filter((child) => typeof child === "string")
+      .map((child) => jsx("text", attrs, child))
   }
 
   return children
