@@ -16,6 +16,7 @@ const elementTags = {
   UL: () => ({ type: types.unorderedList }),
   P: () => ({ type: types.paragraph }),
   HR: () => ({ type: types.divider }),
+  BR: () => ({ type: types.paragraph }),
 } as DeserializeElement
 
 const leafTags = {
@@ -38,10 +39,6 @@ const deserialize = (el: any) => {
   // not a tag
   if (el.nodeType !== 1) {
     return null
-  }
-  // new line
-  if (el.nodeName === "BR") {
-    return "\n"
   }
 
   const { nodeName } = el
