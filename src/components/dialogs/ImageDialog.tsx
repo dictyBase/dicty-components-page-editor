@@ -7,6 +7,7 @@ import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Checkbox from "@material-ui/core/Checkbox"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
+import useStyles from "../../styles/dialog"
 import { ImageDialogProps } from "../../types/dialog"
 
 const ImageDialog = ({
@@ -16,6 +17,7 @@ const ImageDialog = ({
   image,
   setImage,
 }: ImageDialogProps) => {
+  const classes = useStyles()
   const [checked, setChecked] = React.useState(false)
 
   const handleCheckboxChange = () => {
@@ -110,7 +112,11 @@ const ImageDialog = ({
         )}
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddClick} variant="contained" color="primary">
+        <Button
+          className={classes.button}
+          onClick={handleAddClick}
+          variant="contained"
+          color="primary">
           Add Image
         </Button>
       </DialogActions>

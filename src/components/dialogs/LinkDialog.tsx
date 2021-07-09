@@ -5,6 +5,7 @@ import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
 import DialogTitle from "@material-ui/core/DialogTitle"
+import useStyles from "../../styles/dialog"
 import { LinkDialogProps } from "../../types/dialog"
 
 const LinkDialog = ({
@@ -14,6 +15,8 @@ const LinkDialog = ({
   link,
   setLink,
 }: LinkDialogProps) => {
+  const classes = useStyles()
+
   return (
     <Dialog
       open={dialogOpen}
@@ -52,7 +55,11 @@ const LinkDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddClick} variant="contained" color="primary">
+        <Button
+          className={classes.button}
+          onClick={handleAddClick}
+          variant="contained"
+          color="primary">
           Add Link
         </Button>
       </DialogActions>

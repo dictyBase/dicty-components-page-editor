@@ -5,6 +5,7 @@ import DialogContent from "@material-ui/core/DialogContent"
 import DialogActions from "@material-ui/core/DialogActions"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
+import useStyles from "../../styles/dialog"
 import { VideoDialogProps } from "../../types/dialog"
 
 const VideoDialog = ({
@@ -14,6 +15,8 @@ const VideoDialog = ({
   video,
   setVideo,
 }: VideoDialogProps) => {
+  const classes = useStyles()
+
   return (
     <Dialog
       open={dialogOpen}
@@ -63,7 +66,11 @@ const VideoDialog = ({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleAddClick} variant="contained" color="primary">
+        <Button
+          className={classes.button}
+          onClick={handleAddClick}
+          variant="contained"
+          color="primary">
           Add Video
         </Button>
       </DialogActions>
