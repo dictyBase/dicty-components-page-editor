@@ -2,7 +2,7 @@
 
 import { Editor } from "slate"
 import jsx from "../utils/jsx"
-import { upsertLink } from "../../components/buttons/LinkButton"
+import { upsertLink } from "../../hooks/useLinks"
 import withLinks from "../../plugins/withLinks"
 import { types } from "../../constants/types"
 
