@@ -1,35 +1,16 @@
 import React from "react"
-import { Editor, Element as SlateElement, Transforms, Range } from "slate"
+import { Transforms } from "slate"
 import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import LinkDialog from "../dialogs/LinkDialog"
-import useLinks, { isLinkActive, linkNodeOptions } from "../../hooks/useLinks"
+import useLinks from "../../hooks/useLinks"
+import { isLinkActive, getLinkSelection } from "../../utils/links"
 import useStyles from "../../styles/buttons"
 
 // this is necessary to maintain editor selection when link dialog appears;
 // the deselect method unsets the editor selection
 Transforms.deselect = () => {}
-
-// getLinkSelection gets the current text and URL for the user's current selection.
-const getLinkSelection = (editor: Editor) => {
-  const { selection } = editor
-  let prevURL,
-    selectedText = ""
-  // if there is a current selection then pull the text and URL from it
-  // and update state accordingly
-  if (selection && !Range.isCollapsed(selection)) {
-    selectedText = Editor.string(editor, selection)
-    const [linkNode] = Array.from(Editor.nodes(editor, linkNodeOptions))
-    if (linkNode && SlateElement.isElement(linkNode[0])) {
-      prevURL = linkNode[0].url as string
-    }
-  }
-  return {
-    url: prevURL as string,
-    text: selectedText,
-  }
-}
 
 type Props = {
   /** Icon to display in button */
