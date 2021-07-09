@@ -9,6 +9,7 @@ import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
 import AlignButton from "./buttons/AlignButton"
 import LinkButton from "./buttons/LinkButton"
+import AutolinkIDsButton from "./buttons/AutolinkIDsButton"
 import FontColorButton from "./buttons/FontColorButton"
 import LineSpacingButton from "./buttons/LineSpacingButton"
 import ImageButton from "./buttons/ImageButton"
@@ -117,6 +118,7 @@ const EditorToolbar = () => {
           clickFn={() => toggleBlock(editor, types.h3)}
         />
         <LinkButton icon={<LinkIcon />} />
+        <AutolinkIDsButton />
         <Divider className={classes.divider} orientation="vertical" flexItem />
         <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
         <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
