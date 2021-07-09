@@ -56,7 +56,7 @@ const getLinkSelection = (editor: Editor) => {
     }
   }
   return {
-    url: prevURL as string,
+    url: prevURL || "",
     text: selectedText,
   }
 }
