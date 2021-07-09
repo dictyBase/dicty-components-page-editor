@@ -50,19 +50,15 @@ const upsertLink = (editor: Editor, link: Link) => {
   }
 }
 
-// handleToolbarButtonClick updates the url/text state based on the user's current
-// selection. If there is text selected, it gets the text and its link if it exists,
-// otherwise it sets both as empty strings.
-const handleToolbarButtonClick = (
-  editor: Editor,
-  setLink: (arg0: Link) => void,
-) => {
+// getLinkSelection gets the current text and URL for the user's current selection.
+const getLinkSelection = (editor: Editor) => {
   const { selection } = editor
+  let prevURL,
+    selectedText = ""
   // if there is a current selection then pull the text and URL from it
   // and update state accordingly
   if (selection && !Range.isCollapsed(selection)) {
-    let prevURL = ""
-    const selectedText = Editor.string(editor, selection)
+    selectedText = Editor.string(editor, selection)
     const linkNode = Editor.above(editor, {
       match: (n: Node) =>
         !Editor.isEditor(n) &&
@@ -72,15 +68,10 @@ const handleToolbarButtonClick = (
     if (linkNode && SlateElement.isElement(linkNode[0])) {
       prevURL = linkNode[0].url as string
     }
-    setLink({
-      url: prevURL,
-      text: selectedText,
-    })
-  } else {
-    setLink({
-      url: "",
-      text: "",
-    })
+  }
+  return {
+    url: prevURL as string,
+    text: selectedText,
   }
 }
 
@@ -110,7 +101,8 @@ const LinkButton = ({ icon }: Props) => {
   }
 
   const handleMouseDown = () => {
-    handleToolbarButtonClick(editor, setLink)
+    const link = getLinkSelection(editor)
+    setLink(link)
     setLinkDialogOpen(true)
   }
 
