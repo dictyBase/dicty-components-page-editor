@@ -42,6 +42,7 @@
     "react-colorful": "^5.2.3",
     "slate": "0.63.0",
     "slate-history": "0.62.0",
+    "slate-hyperscript": "0.62.0",
     "slate-react": "0.65.2"
   },
   "peerDependencies": {
@@ -72,7 +73,6 @@
     "react-scripts": "^4.0.3",
     "react-test-renderer": "^17.0.2",
     "semantic-release": "^17.4.4",
-    "slate-hyperscript": "0.62.0",
     "tsdx": "^0.14.1",
     "tslib": "^2.3.0",
     "typescript": "^4.3.5"
