@@ -24,14 +24,16 @@ const upsertLink = (editor: Editor, link: Link) => {
   if (isLinkActive(editor)) {
     Transforms.unwrapNodes(editor, linkNodeOptions)
   }
-  console.log(link)
+
   const linkData = {
     type: types.link,
     url,
     children: [{ text: text }],
   }
+
   const { selection } = editor
   const isCollapsed = selection && Range.isCollapsed(selection)
+
   if (isCollapsed) {
     Transforms.insertNodes(editor, linkData)
   } else {
