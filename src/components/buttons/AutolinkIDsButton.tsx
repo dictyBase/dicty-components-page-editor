@@ -120,4 +120,5 @@ const AutolinkIDsButton = () => {
   )
 }
 
+export { ids, getURLPrefix, validateText }
 export default AutolinkIDsButton
