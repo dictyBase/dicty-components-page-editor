@@ -59,12 +59,7 @@ const getLinkSelection = (editor: Editor) => {
   // and update state accordingly
   if (selection && !Range.isCollapsed(selection)) {
     selectedText = Editor.string(editor, selection)
-    const linkNode = Editor.above(editor, {
-      match: (n: Node) =>
-        !Editor.isEditor(n) &&
-        SlateElement.isElement(n) &&
-        n.type === types.link,
-    })
+    const [linkNode] = Array.from(Editor.nodes(editor, linkNodeOptions))
     if (linkNode && SlateElement.isElement(linkNode[0])) {
       prevURL = linkNode[0].url as string
     }
