@@ -103,7 +103,7 @@ const AutolinkIDsButton = () => {
         </IconButton>
       </Tooltip>
       <Menu
-        id="line-spacing-menu"
+        id="autolinked-ids-menu"
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         MenuListProps={{ disablePadding: true }}
