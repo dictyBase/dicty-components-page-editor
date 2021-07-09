@@ -4,7 +4,7 @@ import { useSlate } from "slate-react"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import LinkDialog from "../dialogs/LinkDialog"
-import { Link } from "../../types/link"
+import useLinks from "../../hooks/useLinks"
 import { types } from "../../constants/types"
 import useStyles from "../../styles/buttons"
 
@@ -21,33 +21,6 @@ const linkNodeOptions = {
 const isLinkActive = (editor: Editor) => {
   const [match] = Array.from(Editor.nodes(editor, linkNodeOptions))
   return !!match
-}
-
-/**
- * upsertLink updates or adds a new link. If there is no selection,
- * it adds a new link with the provided text. Otherwise it will wrap the
- * selection with a link node using the user's link and text.
- */
-const upsertLink = (editor: Editor, link: Link) => {
-  const { url, text } = link
-  // check if there is an existing link first then unwrap it
-  if (isLinkActive(editor)) {
-    Transforms.unwrapNodes(editor, linkNodeOptions)
-  }
-  const linkData = {
-    type: types.link,
-    url,
-    children: [{ text: text }],
-  }
-  const { selection } = editor
-  const isCollapsed = selection && Range.isCollapsed(selection)
-  if (isCollapsed) {
-    Transforms.insertNodes(editor, linkData)
-  } else {
-    Transforms.wrapNodes(editor, linkData, { split: true })
-    Editor.insertText(editor, text)
-    Transforms.collapse(editor, { edge: "end" })
-  }
 }
 
 // getLinkSelection gets the current text and URL for the user's current selection.
@@ -80,20 +53,12 @@ type Props = {
  */
 const LinkButton = ({ icon }: Props) => {
   const editor = useSlate()
-  const [linkDialogOpen, setLinkDialogOpen] = React.useState(false)
-  const [link, setLink] = React.useState({
-    url: "",
-    text: "",
-  })
+  const { link, setLink, linkDialogOpen, setLinkDialogOpen, handleAddLink } =
+    useLinks()
   const props = {
     active: isLinkActive(editor),
   }
   const classes = useStyles(props)
-
-  const handleAddLink = () => {
-    upsertLink(editor, link)
-    setLinkDialogOpen(false)
-  }
 
   const handleMouseDown = () => {
     const link = getLinkSelection(editor)
@@ -126,5 +91,4 @@ const LinkButton = ({ icon }: Props) => {
   )
 }
 
-export { upsertLink }
 export default LinkButton
