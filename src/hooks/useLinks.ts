@@ -65,4 +65,5 @@ const useLinks = () => {
   }
 }
 
+export { linkNodeOptions, isLinkActive }
 export default useLinks
