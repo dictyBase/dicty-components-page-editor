@@ -1,0 +1,41 @@
+declare const types: {
+    bold: string;
+    italic: string;
+    underline: string;
+    strikethrough: string;
+    subscript: string;
+    superscript: string;
+    link: string;
+    paragraph: string;
+    h1: string;
+    h2: string;
+    h3: string;
+    divider: string;
+    lineSpacing: string;
+    image: string;
+    video: string;
+    orderedList: string;
+    unorderedList: string;
+    listItem: string;
+    indentDecrease: string;
+    indentIncrease: string;
+    tableWrap: string;
+    table: string;
+    tableRow: string;
+    tableColumn: string;
+    tableCell: string;
+    tableDelete: string;
+    tableRowDelete: string;
+    tableColumnDelete: string;
+};
+declare const alignments: {
+    left: string;
+    center: string;
+    right: string;
+    justify: string;
+};
+declare const attributes: {
+    borderColor: string;
+    fontColor: string;
+};
+export { types, alignments, attributes };
