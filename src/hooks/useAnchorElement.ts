@@ -1,5 +1,7 @@
 import React from "react"
 
+// useAnchorElement contains state logic and associated functions for components
+// requiring an anchor element (i.e. dropdown menus, popovers)
 const useAnchorElement = () => {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -15,6 +17,7 @@ const useAnchorElement = () => {
 
   return {
     anchorEl,
+    setAnchorEl,
     handleMouseDown,
     handleClose,
   }
