@@ -65,5 +65,5 @@ const useLinks = () => {
   }
 }
 
-export { linkNodeOptions, isLinkActive }
+export { linkNodeOptions, isLinkActive, upsertLink }
 export default useLinks
