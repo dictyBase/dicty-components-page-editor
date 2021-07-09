@@ -5,6 +5,7 @@ import { withHistory } from "slate-history"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
+import ActionButtons from "./ActionButtons"
 import withHTML from "../plugins/withHTML"
 import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
@@ -26,10 +27,26 @@ const initialValue = [
   },
 ]
 
+type Props = {
+  /** Page content taken from JSON */
+  pageContent?: string
+  /** Whether the editor is in read-only mode or not */
+  readOnly: boolean
+  /** Function called when user clicks save button */
+  handleSave: () => void
+  /** Function called when user clicks cancel button */
+  handleCancel: () => void
+}
+
 /**
  * PageEditor is the main editor component.
  */
-const PageEditor = () => {
+const PageEditor = ({
+  pageContent,
+  readOnly,
+  handleSave,
+  handleCancel,
+}: Props) => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
     () =>
@@ -42,8 +59,13 @@ const PageEditor = () => {
       ),
     [],
   )
+  let defaultValue = initialValue
+  if (pageContent) {
+    defaultValue = JSON.parse(pageContent)
+  }
+
   // store the value of the editor
-  const [value, setValue] = useState<Descendant[]>(initialValue)
+  const [value, setValue] = useState<Descendant[]>(defaultValue)
   // render expected element based on type passed as props
   // memoize this function for subsequent renders
   const renderElement = useCallback((props) => <Element {...props} />, [])
@@ -58,6 +80,7 @@ const PageEditor = () => {
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar />
       <Editable
+        readOnly={readOnly}
         renderElement={renderElement}
         renderLeaf={renderLeaf}
         onKeyDown={handleKeyDown}
@@ -65,6 +88,7 @@ const PageEditor = () => {
         spellCheck
         autoFocus
       />
+      <ActionButtons handleSave={handleSave} handleCancel={handleCancel} />
     </Slate>
   )
 }
