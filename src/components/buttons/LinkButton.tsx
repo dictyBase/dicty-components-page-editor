@@ -52,11 +52,10 @@ const upsertLink = (editor: Editor, link: Link) => {
 
 // handleToolbarButtonClick updates the url/text state based on the user's current
 // selection. If there is text selected, it gets the text and its link if it exists,
-// otherwise it sets both as empty strings. It also opens the link dialog.
+// otherwise it sets both as empty strings.
 const handleToolbarButtonClick = (
   editor: Editor,
   setLink: (arg0: Link) => void,
-  setLinkDialogOpen: (arg0: boolean) => void,
 ) => {
   const { selection } = editor
   // if there is a current selection then pull the text and URL from it
@@ -83,7 +82,6 @@ const handleToolbarButtonClick = (
       text: "",
     })
   }
-  setLinkDialogOpen(true)
 }
 
 type Props = {
@@ -111,6 +109,11 @@ const LinkButton = ({ icon }: Props) => {
     setLinkDialogOpen(false)
   }
 
+  const handleMouseDown = () => {
+    handleToolbarButtonClick(editor, setLink)
+    setLinkDialogOpen(true)
+  }
+
   // if the user has clicked away without adding the link then we don't need to do anything with their data
   const handleClose = () => setLinkDialogOpen(false)
 
@@ -121,9 +124,7 @@ const LinkButton = ({ icon }: Props) => {
           className={classes.button}
           size="small"
           aria-label="link"
-          onMouseDown={() =>
-            handleToolbarButtonClick(editor, setLink, setLinkDialogOpen)
-          }>
+          onMouseDown={handleMouseDown}>
           {icon}
         </IconButton>
       </Tooltip>
