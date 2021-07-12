@@ -2813,6 +2813,244 @@ var onKeyDown = function onKeyDown(event, editor) {
   }
 };
 
+// the two font arrays are taken from the old page editor and used to convert old data
+var FontFamilyList$1 = [{
+  name: "Lato"
+}, {
+  name: "Merriweather"
+}, {
+  name: "Montserrat"
+}, {
+  name: "Roboto"
+}, {
+  name: "Roboto Condensed"
+}, {
+  name: "Roboto Mono"
+}, {
+  name: "Roboto Slab"
+}];
+var FontSizeList$1 = [{
+  size: "12px"
+}, {
+  size: "14px"
+}, {
+  size: "16px"
+}, {
+  size: "18px"
+}, {
+  size: "20px"
+}, {
+  size: "22px"
+}, {
+  size: "26px"
+}, {
+  size: "30px"
+}];
+/**
+ * convertData receives a node object and converts its nested
+ * 'data' object into the new Slate format.
+ */
+
+var convertData = function convertData(node) {
+  var type = node.type;
+
+  switch (type) {
+    case "alignment":
+      return {
+        align: node.data["align"]
+      };
+
+    case "image":
+      return {
+        url: node.data["src"],
+        description: node.data["description"],
+        height: node.data["height"],
+        width: node.data["width"]
+      };
+
+    case "line-spacing":
+      return {
+        lineSpacing: node.data["size"]
+      };
+
+    case "link":
+      return {
+        url: node.data["href"]
+      };
+
+    case "video":
+      return {
+        url: node.data["url"],
+        height: node.data["height"],
+        width: node.data["width"]
+      };
+
+    default:
+      return {};
+  }
+};
+/**
+ * convertType converts an existing 'type' property into the 'type'
+ * used by the new version of the editor.
+ */
+
+
+var convertType = function convertType(type) {
+  var convertedType = "";
+
+  switch (type) {
+    case "line-spacing":
+      convertedType = "lineSpacing";
+      break;
+
+    case "ordered-list":
+      convertedType = "orderedList";
+      break;
+
+    case "unordered-list":
+      convertedType = "unorderedList";
+      break;
+
+    case "list-item":
+      convertedType = "listItem";
+      break;
+
+    case "table":
+      convertedType = "tableWrap";
+      break;
+
+    case "table-row":
+      convertedType = "tableRow";
+      break;
+
+    case "table-cell":
+      convertedType = "tableCell";
+      break;
+
+    default:
+      convertedType = type;
+  }
+
+  return convertedType;
+};
+
+var convertChildren = function convertChildren(node) {
+  // if there are nodes then convert the children
+  if (node.nodes) {
+    return node.nodes.reduce(function (acc, val) {
+      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
+
+      if (Array.isArray(nodes)) {
+        return [].concat(acc, nodes);
+      } // otherwise add the new value in its existing object form
+
+
+      return [].concat(acc, [nodes]);
+    }, []);
+  } // otherwise include mandatory object with text property
+
+
+  return [{
+    text: ""
+  }];
+};
+
+var convertNode = function convertNode(node) {
+  var type = node.type;
+
+  if (type) {
+    // remove any alignment wrappers from old structure;
+    // previously, changing the alignment would add a new <div> around the selection
+    if (type === "alignment") {
+      return _extends({}, convertChildren(node)[0], convertData(node));
+    }
+
+    return _extends({
+      type: convertType(type),
+      children: convertChildren(node)
+    }, convertData(node));
+  }
+
+  var text = node.text,
+      marks = node.marks,
+      leaves = node.leaves;
+  /**
+   * Leaves is an array containing leaf objects of this structure:
+   * {
+   *  object: "leaf",
+   *  text: "george costanza",
+   *  marks: [
+   *    {
+   *      object: "mark",
+   *      type: "italic",
+   *      data: {}
+   *    }
+   *  ]
+   * }
+   *
+   * Each leaf node needs to be converted recursively.
+   */
+
+  if (leaves) {
+    return [].concat(leaves.map(convertNode));
+  }
+  /**
+    Example node to check for:
+      {
+        object: "leaf",
+        text: "periodically",
+        marks: [
+          {
+            object: "mark",
+            type: "italic",
+            data: {},
+          },
+        ],
+      }
+    
+  */
+
+
+  if (marks && marks.length > 0) {
+    // return object with text and list of marks with appropriate values
+    return _extends({
+      text: text
+    }, marks.reduce(function (acc, mark) {
+      var _extends2;
+
+      if (mark.type === "font-color") {
+        return _extends({}, acc, {
+          fontColor: mark.data.color
+        });
+      }
+
+      if (mark.type === "font-family") {
+        return _extends({}, acc, {
+          fontFamily: FontFamilyList$1[mark.data.fontFamilyIndex]
+        });
+      }
+
+      if (mark.type === "font-size") {
+        return _extends({}, acc, {
+          fontSize: FontSizeList$1[mark.data.fontSizeIndex]
+        });
+      }
+
+      return _extends({}, acc, (_extends2 = {}, _extends2[mark.type] = true, _extends2));
+    }, {}));
+  } // if no leaves or marks then just return plain text
+
+
+  return {
+    text: text
+  };
+};
+
+var convertSlate047 = function convertSlate047(object) {
+  var nodes = object.document.nodes;
+  return nodes.map(convertNode);
+};
+
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -2839,6 +3077,10 @@ var PageEditor = function PageEditor(_ref) {
 
   if (pageContent) {
     defaultValue = JSON.parse(pageContent);
+
+    if (!Array.isArray(defaultValue)) {
+      defaultValue = convertSlate047(defaultValue);
+    }
   } // store the value of the editor
 
 

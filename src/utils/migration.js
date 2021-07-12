@@ -208,3 +208,5 @@ const convertSlate047 = (object) => {
 
   return nodes.map(convertNode)
 }
+
+export default convertSlate047
