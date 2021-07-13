@@ -105,6 +105,9 @@ const convertType = (type) => {
     case "table-cell":
       convertedType = types.tableCell
       break
+    case "align_center" | "align_left" | "align_right" | "align_justify":
+      convertedType = "div"
+      break
     default:
       convertedType = type
   }
@@ -134,29 +137,14 @@ const convertChildren = (node, align) => {
   return [{ text: "" }]
 }
 
-const alignmentTypes = [
-  "alignment",
-  "align_left",
-  "align_center",
-  "align_right",
-  "align_justify",
-]
-
 const convertNode = (node) => {
   const { type } = node
   if (type) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
-    if (alignmentTypes.includes(type)) {
-      if (type === "alignment") {
-        return {
-          children: convertChildren(node),
-          ...convertData(node),
-        }
-      }
+    if (type === "alignment") {
       return {
-        type: "div",
-        children: convertChildren(node, type),
+        ...convertChildren(node)[0],
         ...convertData(node),
       }
     }
