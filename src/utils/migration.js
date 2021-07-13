@@ -147,12 +147,20 @@ const convertChildren = (node) => {
   return [{ text: "" }]
 }
 
+const alignmentTypes = [
+  "alignment",
+  "align_left",
+  "align_center",
+  "align_right",
+  "align_justify",
+]
+
 const convertNode = (node) => {
   const { type } = node
   if (type) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
-    if (type === "alignment") {
+    if (alignmentTypes.includes(type)) {
       return {
         ...convertChildren(node)[0],
         ...convertData(node),

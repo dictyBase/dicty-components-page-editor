@@ -3001,13 +3001,15 @@ var convertChildren = function convertChildren(node) {
   }];
 };
 
+var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
+
 var convertNode = function convertNode(node) {
   var type = node.type;
 
   if (type) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
-    if (type === "alignment") {
+    if (alignmentTypes.includes(type)) {
       return _extends({}, convertChildren(node)[0], convertData(node));
     }
 
