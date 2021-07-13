@@ -3017,7 +3017,13 @@ var convertNode = function convertNode(node) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
-      return _extends({}, convertChildren(node)[0], convertData(node));
+      var element = _extends({}, convertChildren(node)[0], convertData(node));
+
+      if (type !== "alignment") {
+        element["type"] = "paragraph";
+      }
+
+      return element;
     }
 
     return _extends({
