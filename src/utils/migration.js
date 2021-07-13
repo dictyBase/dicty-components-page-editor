@@ -66,22 +66,22 @@ const convertData = (node) => {
 const convertType = (type) => {
   let convertedType = ""
   switch (type) {
-    case "heading_one":
+    case "heading_one" | "heading-one":
       convertedType = types.h1
       break
-    case "heading_two":
+    case "heading_two" | "heading-two":
       convertedType = types.h2
       break
-    case "heading_three":
+    case "heading_three" | "heading-three":
       convertedType = types.h3
       break
-    case "heading_four":
+    case "heading_four" | "heading-four":
       convertedType = types.h3
       break
-    case "heading_five":
+    case "heading_five" | "heading-five":
       convertedType = types.h3
       break
-    case "heading_six":
+    case "heading_six" | "heading-six":
       convertedType = types.h3
       break
     case "line-spacing":
