@@ -2866,26 +2866,6 @@ var convertData = function convertData(node) {
         align: node.data["align"]
       };
 
-    case "align_center":
-      return {
-        align: "center"
-      };
-
-    case "align_left":
-      return {
-        align: "left"
-      };
-
-    case "align_right":
-      return {
-        align: "right"
-      };
-
-    case "align_justify":
-      return {
-        align: "justify"
-      };
-
     case "image":
       return {
         url: node.data["src"],
@@ -2977,9 +2957,6 @@ var convertType = function convertType(type) {
       convertedType = "tableCell";
       break;
 
-    case "div":
-      convertedType = "paragraph";
-
     default:
       convertedType = type;
   }
@@ -3000,7 +2977,7 @@ var convertChildren = function convertChildren(node) {
 
       return [].concat(acc, [nodes]);
     }, []);
-  } // otherwise include mandatory object with text property
+  } // else include mandatory object with text property
 
 
   return [{
@@ -3020,7 +2997,7 @@ var convertNode = function convertNode(node) {
       var element = _extends({}, convertChildren(node)[0], convertData(node));
 
       if (type !== "alignment") {
-        element["type"] = "paragraph";
+        element["type"] = "div";
       }
 
       return element;
@@ -3087,13 +3064,13 @@ var convertNode = function convertNode(node) {
 
       if (mark.type === "font-family") {
         return _extends({}, acc, {
-          fontFamily: FontFamilyList$1[mark.data.fontFamilyIndex]
+          fontFamily: FontFamilyList$1[mark.data.fontFamilyIndex].name
         });
       }
 
       if (mark.type === "font-size") {
         return _extends({}, acc, {
-          fontSize: FontSizeList$1[mark.data.fontSizeIndex]
+          fontSize: FontSizeList$1[mark.data.fontSizeIndex].size
         });
       }
 
