@@ -161,10 +161,14 @@ const convertNode = (node) => {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
-      return {
+      const element = {
         ...convertChildren(node)[0],
         ...convertData(node),
       }
+      if (type !== "alignment") {
+        element["type"] = "paragraph"
+      }
+      return element
     }
 
     return {
