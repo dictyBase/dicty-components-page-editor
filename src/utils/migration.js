@@ -141,11 +141,6 @@ const convertChildren = (node, align) => {
   if (node.nodes) {
     return node.nodes.reduce((acc, val) => {
       const nodes = convertNode(val)
-      nodes["align"] = "left"
-      if (align !== undefined) {
-        nodes["align"] = align
-      }
-
       // if the converted current value is an array, only grab the object inside of it
       if (Array.isArray(nodes)) {
         return [...acc, ...nodes]
