@@ -68,26 +68,32 @@ const convertType = (type) => {
   switch (type) {
     case "heading_one":
     case "heading-one":
+    case "heading_1":
       convertedType = types.h1
       break
     case "heading_two":
     case "heading-two":
+    case "heading_2":
       convertedType = types.h2
       break
     case "heading_three":
     case "heading-three":
+    case "heading_3":
       convertedType = types.h3
       break
     case "heading_four":
     case "heading-four":
+    case "heading_4":
       convertedType = types.h3
       break
     case "heading_five":
     case "heading-five":
+    case "heading_5":
       convertedType = types.h3
       break
     case "heading_six":
     case "heading-six":
+    case "heading_6":
       convertedType = types.h3
       break
     case "line-spacing":
