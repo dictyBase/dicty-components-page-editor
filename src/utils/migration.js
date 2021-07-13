@@ -161,6 +161,12 @@ const convertNode = (node) => {
         children: convertChildren(node, type.slice(6)),
       }
     }
+
+    return {
+      type: convertType(type),
+      children: convertChildren(node),
+      ...convertData(node),
+    }
   }
 
   const { text, marks, leaves } = node
