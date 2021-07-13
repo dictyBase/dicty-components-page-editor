@@ -152,7 +152,7 @@ const convertNode = (node) => {
     if (alignmentTypes.includes(type)) {
       if (type === "alignment") {
         return {
-          ...convertChildren(node)[0],
+          children: convertChildren(node),
           ...convertData(node),
         }
       }
