@@ -2338,7 +2338,7 @@ var Element = function Element(_ref) {
       element = _ref.element;
   var type = element.type,
       _element$align = element.align,
-      align = _element$align === void 0 ? "left" : _element$align,
+      align = _element$align === void 0 ? "inherit" : _element$align,
       lineSpacing = element.lineSpacing,
       borderColor = element.borderColor,
       url = element.url;
