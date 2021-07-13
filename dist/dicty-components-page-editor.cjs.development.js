@@ -2964,11 +2964,17 @@ var convertType = function convertType(type) {
   return convertedType;
 };
 
-var convertChildren = function convertChildren(node) {
+var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
+      var nodes = convertNode(val);
+
+      if (align !== undefined) {
+        // strip the 'align_' prefix
+        nodes["align"] = align.slice(6);
+      } // if the converted current value is an array, only grab the object inside of it
+
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
@@ -2977,7 +2983,7 @@ var convertChildren = function convertChildren(node) {
 
       return [].concat(acc, [nodes]);
     }, []);
-  } // else include mandatory object with text property
+  } // otherwise include mandatory object with text property
 
 
   return [{
@@ -2994,12 +3000,16 @@ var convertNode = function convertNode(node) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
-      var element = _extends({
-        type: "div",
-        children: convertChildren(node)
-      }, convertData(node));
+      if (type === "alignment") {
+        return _extends({
+          children: convertChildren(node)
+        }, convertData(node));
+      }
 
-      return element;
+      return _extends({
+        type: "div",
+        children: convertChildren(node, type)
+      }, convertData(node));
     }
 
     return _extends({

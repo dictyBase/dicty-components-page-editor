@@ -111,11 +111,16 @@ const convertType = (type) => {
   return convertedType
 }
 
-const convertChildren = (node) => {
+const convertChildren = (node, align) => {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce((acc, val) => {
       const nodes = convertNode(val)
+
+      if (align !== undefined) {
+        // strip the 'align_' prefix
+        nodes["align"] = align.slice(6)
+      }
 
       // if the converted current value is an array, only grab the object inside of it
       if (Array.isArray(nodes)) {
@@ -143,12 +148,17 @@ const convertNode = (node) => {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
-      const element = {
+      if (type === "alignment") {
+        return {
+          children: convertChildren(node),
+          ...convertData(node),
+        }
+      }
+      return {
         type: "div",
-        children: convertChildren(node),
+        children: convertChildren(node, type),
         ...convertData(node),
       }
-      return element
     }
 
     return {
