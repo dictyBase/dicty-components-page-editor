@@ -2983,7 +2983,7 @@ var convertType = function convertType(type) {
   return convertedType;
 };
 
-var convertChildren = function convertChildren(node, align) {
+var convertChildren = function convertChildren(node) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
@@ -3003,8 +3003,6 @@ var convertChildren = function convertChildren(node, align) {
     text: ""
   }];
 };
-
-var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
 
 var marksReducer = function marksReducer(acc, mark) {
   var _extends2;
@@ -3034,17 +3032,8 @@ var convertDataByType = function convertDataByType(node) {
   var type = node.type; // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
 
-  if (alignmentTypes.includes(type)) {
-    if (type === "alignment") {
-      return _extends({
-        children: convertChildren(node)
-      }, convertData(node));
-    }
-
-    return {
-      type: "div",
-      children: convertChildren(node, type.slice(6))
-    };
+  if (type === "alignment") {
+    return _extends({}, convertChildren(node)[0], convertData(node));
   }
 
   return _extends({
