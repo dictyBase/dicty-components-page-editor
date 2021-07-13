@@ -2905,27 +2905,33 @@ var convertType = function convertType(type) {
   var convertedType = "";
 
   switch (type) {
-    case "heading_one" | "heading-one":
+    case "heading_one":
+    case "heading-one":
       convertedType = types.h1;
       break;
 
-    case "heading_two" | "heading-two":
+    case "heading_two":
+    case "heading-two":
       convertedType = types.h2;
       break;
 
-    case "heading_three" | "heading-three":
+    case "heading_three":
+    case "heading-three":
       convertedType = types.h3;
       break;
 
-    case "heading_four" | "heading-four":
+    case "heading_four":
+    case "heading-four":
       convertedType = types.h3;
       break;
 
-    case "heading_five" | "heading-five":
+    case "heading_five":
+    case "heading-five":
       convertedType = types.h3;
       break;
 
-    case "heading_six" | "heading-six":
+    case "heading_six":
+    case "heading-six":
       convertedType = types.h3;
       break;
 
@@ -2933,15 +2939,21 @@ var convertType = function convertType(type) {
       convertedType = types.lineSpacing;
       break;
 
-    case "ordered-list" | "ordered_list" | "ol_list":
+    case "ordered-list":
+    case "ordered_list":
+    case "ol_list":
       convertedType = types.orderedList;
       break;
 
-    case "unordered-list" | "unordered_list" | "ul_list":
+    case "unordered-list":
+    case "unordered_list":
+    case "ul_list":
       convertedType = types.unorderedList;
       break;
 
-    case "list-item" | "list_item" | "list-item-child":
+    case "list-item":
+    case "list_item":
+    case "list-item-child":
       convertedType = types.listItem;
       break;
 
@@ -2957,7 +2969,10 @@ var convertType = function convertType(type) {
       convertedType = types.tableCell;
       break;
 
-    case "align_center" | "align_left" | "align_right" | "align_justify":
+    case "align_center":
+    case "align_left":
+    case "align_right":
+    case "align_center":
       convertedType = "div";
       break;
 
