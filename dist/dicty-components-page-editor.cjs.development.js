@@ -2922,6 +2922,7 @@ var convertType = function convertType(type) {
     case "heading_3":
       convertedType = types.h3;
       break;
+    // h4-h6 not used in new editor
 
     case "heading_four":
     case "heading-four":
@@ -3018,29 +3019,58 @@ var convertChildren = function convertChildren(node, align) {
 
 var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
 
+var marksReducer = function marksReducer(acc, mark) {
+  var _extends2;
+
+  if (mark.type === "font-color") {
+    return _extends({}, acc, {
+      fontColor: mark.data.color
+    });
+  }
+
+  if (mark.type === "font-family") {
+    return _extends({}, acc, {
+      fontFamily: FontFamilyList$1[mark.data.fontFamilyIndex].name
+    });
+  }
+
+  if (mark.type === "font-size") {
+    return _extends({}, acc, {
+      fontSize: FontSizeList$1[mark.data.fontSizeIndex].size
+    });
+  }
+
+  return _extends({}, acc, (_extends2 = {}, _extends2[mark.type] = true, _extends2));
+};
+
+var convertDataByType = function convertDataByType(node) {
+  var type = node.type; // remove any alignment wrappers from old structure;
+  // previously, changing the alignment would add a new <div> around the selection
+
+  if (alignmentTypes.includes(type)) {
+    if (type === "alignment") {
+      return _extends({
+        children: convertChildren(node)
+      }, convertData(node));
+    }
+
+    return {
+      type: "div",
+      children: convertChildren(node, type.slice(6))
+    };
+  }
+
+  return _extends({
+    type: convertType(type),
+    children: convertChildren(node)
+  }, convertData(node));
+};
+
 var convertNode = function convertNode(node) {
   var type = node.type;
 
   if (type) {
-    // remove any alignment wrappers from old structure;
-    // previously, changing the alignment would add a new <div> around the selection
-    if (alignmentTypes.includes(type)) {
-      if (type === "alignment") {
-        return _extends({
-          children: convertChildren(node)
-        }, convertData(node));
-      }
-
-      return {
-        type: "div",
-        children: convertChildren(node, type.slice(6))
-      };
-    }
-
-    return _extends({
-      type: convertType(type),
-      children: convertChildren(node)
-    }, convertData(node));
+    convertDataByType(node);
   }
 
   var text = node.text,
@@ -3087,29 +3117,7 @@ var convertNode = function convertNode(node) {
     // return object with text and list of marks with appropriate values
     return _extends({
       text: text
-    }, marks.reduce(function (acc, mark) {
-      var _extends2;
-
-      if (mark.type === "font-color") {
-        return _extends({}, acc, {
-          fontColor: mark.data.color
-        });
-      }
-
-      if (mark.type === "font-family") {
-        return _extends({}, acc, {
-          fontFamily: FontFamilyList$1[mark.data.fontFamilyIndex].name
-        });
-      }
-
-      if (mark.type === "font-size") {
-        return _extends({}, acc, {
-          fontSize: FontSizeList$1[mark.data.fontSizeIndex].size
-        });
-      }
-
-      return _extends({}, acc, (_extends2 = {}, _extends2[mark.type] = true, _extends2));
-    }, {}));
+    }, marks.reduce(marksReducer, {}));
   } // if no leaves or marks then just return plain text
 
 
