@@ -50,7 +50,7 @@ const convertData = (node) => {
       }
     case "video":
       return {
-        url: node.data["url"],
+        url: node.data["src"],
         height: node.data["height"],
         width: node.data["width"],
       }
