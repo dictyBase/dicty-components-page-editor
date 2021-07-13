@@ -2895,88 +2895,16 @@ var convertData = function convertData(node) {
       return {};
   }
 };
-/**
- * convertType converts an existing 'type' property into the 'type'
- * used by the new version of the editor.
- */
-
-
-var convertType = function convertType(type) {
-  var convertedType = "";
-
-  switch (type) {
-    case "heading_one" | "heading-one":
-      convertedType = types.h1;
-      break;
-
-    case "heading_two" | "heading-two":
-      convertedType = types.h2;
-      break;
-
-    case "heading_three" | "heading-three":
-      convertedType = types.h3;
-      break;
-
-    case "heading_four" | "heading-four":
-      convertedType = types.h3;
-      break;
-
-    case "heading_five" | "heading-five":
-      convertedType = types.h3;
-      break;
-
-    case "heading_six" | "heading-six":
-      convertedType = types.h3;
-      break;
-
-    case "line-spacing":
-      convertedType = types.lineSpacing;
-      break;
-
-    case "ordered-list" | "ordered_list" | "ol_list":
-      convertedType = types.orderedList;
-      break;
-
-    case "unordered-list" | "unordered_list" | "ul_list":
-      convertedType = types.unorderedList;
-      break;
-
-    case "list-item" | "list_item" | "list-item-child":
-      convertedType = types.listItem;
-      break;
-
-    case "table":
-      convertedType = types.tableWrap;
-      break;
-
-    case "table-row":
-      convertedType = types.tableRow;
-      break;
-
-    case "table-cell":
-      convertedType = types.tableCell;
-      break;
-
-    case "align_center" | "align_left" | "align_right" | "align_justify":
-      convertedType = "div";
-      break;
-
-    default:
-      convertedType = type;
-  }
-
-  return convertedType;
-};
 
 var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
       var nodes = convertNode(val);
+      nodes["align"] = "left";
 
       if (align !== undefined) {
-        // strip the 'align_' prefix
-        nodes["align"] = align.slice(6);
+        nodes["align"] = align;
       } // if the converted current value is an array, only grab the object inside of it
 
 
@@ -2987,7 +2915,7 @@ var convertChildren = function convertChildren(node, align) {
 
       return [].concat(acc, [nodes]);
     }, []);
-  } // else include mandatory object with text property
+  } // otherwise include mandatory object with text property
 
 
   return [{
@@ -2995,20 +2923,24 @@ var convertChildren = function convertChildren(node, align) {
   }];
 };
 
+var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
+
 var convertNode = function convertNode(node) {
   var type = node.type;
 
   if (type) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
-    if (type === "alignment") {
-      return _extends({}, convertChildren(node)[0], convertData(node));
-    }
+    if (alignmentTypes.includes(type)) {
+      if (type === "alignment") {
+        return _extends({}, convertChildren(node)[0], convertData(node));
+      }
 
-    return _extends({
-      type: convertType(type),
-      children: convertChildren(node)
-    }, convertData(node));
+      return {
+        type: "div",
+        children: convertChildren(node, type.slice(6))
+      };
+    }
   }
 
   var text = node.text,
