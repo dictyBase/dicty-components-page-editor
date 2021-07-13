@@ -3057,7 +3057,7 @@ var convertNode = function convertNode(node) {
   var type = node.type;
 
   if (type) {
-    convertDataByType(node);
+    return convertDataByType(node);
   }
 
   var text = node.text,

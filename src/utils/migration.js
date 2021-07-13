@@ -214,7 +214,7 @@ const convertDataByType = (node) => {
 const convertNode = (node) => {
   const { type } = node
   if (type) {
-    convertDataByType(node)
+    return convertDataByType(node)
   }
 
   const { text, marks, leaves } = node
