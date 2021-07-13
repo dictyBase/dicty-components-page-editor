@@ -1,3 +1,5 @@
+import { types } from "../constants/types"
+
 // the two font arrays are taken from the old page editor and used to convert old data
 const FontFamilyList = [
   { name: "Lato" },
@@ -30,6 +32,22 @@ const convertData = (node) => {
     case "alignment":
       return {
         align: node.data["align"],
+      }
+    case "align_center":
+      return {
+        align: "center",
+      }
+    case "align_left":
+      return {
+        align: "left",
+      }
+    case "align_right":
+      return {
+        align: "right",
+      }
+    case "align_justify":
+      return {
+        align: "justify",
       }
     case "image":
       return {
@@ -64,16 +82,34 @@ const convertData = (node) => {
 const convertType = (type) => {
   let convertedType = ""
   switch (type) {
+    case "heading_one":
+      convertedType = "h1"
+      break
+    case "heading_two":
+      convertedType = "h2"
+      break
+    case "heading_three":
+      convertedType = "h3"
+      break
+    case "heading_four":
+      convertedType = "h4"
+      break
+    case "heading_five":
+      convertedType = "h5"
+      break
+    case "heading_six":
+      convertedType = "h6"
+      break
     case "line-spacing":
       convertedType = "lineSpacing"
       break
-    case "ordered-list":
+    case "ordered-list" | "ordered_list" | "ol_list":
       convertedType = "orderedList"
       break
-    case "unordered-list":
+    case "unordered-list" | "unordered_list" | "ul_list":
       convertedType = "unorderedList"
       break
-    case "list-item":
+    case "list-item" | "list_item" | "list-item-child":
       convertedType = "listItem"
       break
     case "table":
@@ -85,6 +121,8 @@ const convertType = (type) => {
     case "table-cell":
       convertedType = "tableCell"
       break
+    case "div":
+      convertedType = "paragraph"
     default:
       convertedType = type
   }
