@@ -136,11 +136,15 @@ const convertType = (type) => {
   return convertedType
 }
 
-const convertChildren = (node) => {
+const convertChildren = (node, align) => {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce((acc, val) => {
       const nodes = convertNode(val)
+      nodes["align"] = "inherit"
+      if (align !== undefined) {
+        nodes["align"] = align
+      }
       // if the converted current value is an array, only grab the object inside of it
       if (Array.isArray(nodes)) {
         return [...acc, ...nodes]
@@ -152,6 +156,14 @@ const convertChildren = (node) => {
   // otherwise include mandatory object with text property
   return [{ text: "" }]
 }
+
+const alignmentTypes = [
+  "alignment",
+  "align_left",
+  "align_center",
+  "align_right",
+  "align_justify",
+]
 
 const marksReducer = (acc, mark) => {
   if (mark.type === "font-color") {
@@ -183,9 +195,16 @@ const convertDataByType = (node) => {
   const { type } = node
   // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
-  if (type === "alignment") {
+  if (alignmentTypes.includes(type)) {
+    if (type === "alignment") {
+      return {
+        ...convertChildren(node)[0],
+        ...convertData(node),
+      }
+    }
     return {
-      ...convertChildren(node)[0],
+      type: "div",
+      children: convertChildren(node, type.slice(6)),
       ...convertData(node),
     }
   }
