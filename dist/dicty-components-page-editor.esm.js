@@ -2988,12 +2988,9 @@ var convertNode = function convertNode(node) {
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
       var element = _extends({
+        type: "div",
         children: convertChildren(node)
       }, convertData(node));
-
-      if (type !== "alignment") {
-        element["type"] = "div";
-      }
 
       return element;
     }
