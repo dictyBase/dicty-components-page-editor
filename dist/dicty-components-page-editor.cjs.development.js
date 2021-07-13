@@ -2906,55 +2906,55 @@ var convertType = function convertType(type) {
 
   switch (type) {
     case "heading_one":
-      convertedType = "h1";
+      convertedType = types.h1;
       break;
 
     case "heading_two":
-      convertedType = "h2";
+      convertedType = types.h2;
       break;
 
     case "heading_three":
-      convertedType = "h3";
+      convertedType = types.h3;
       break;
 
     case "heading_four":
-      convertedType = "h4";
+      convertedType = types.h3;
       break;
 
     case "heading_five":
-      convertedType = "h5";
+      convertedType = types.h3;
       break;
 
     case "heading_six":
-      convertedType = "h6";
+      convertedType = types.h3;
       break;
 
     case "line-spacing":
-      convertedType = "lineSpacing";
+      convertedType = types.lineSpacing;
       break;
 
     case "ordered-list" | "ordered_list" | "ol_list":
-      convertedType = "orderedList";
+      convertedType = types.orderedList;
       break;
 
     case "unordered-list" | "unordered_list" | "ul_list":
-      convertedType = "unorderedList";
+      convertedType = types.unorderedList;
       break;
 
     case "list-item" | "list_item" | "list-item-child":
-      convertedType = "listItem";
+      convertedType = types.listItem;
       break;
 
     case "table":
-      convertedType = "tableWrap";
+      convertedType = types.tableWrap;
       break;
 
     case "table-row":
-      convertedType = "tableRow";
+      convertedType = types.tableRow;
       break;
 
     case "table-cell":
-      convertedType = "tableCell";
+      convertedType = types.tableCell;
       break;
 
     default:
@@ -2994,7 +2994,9 @@ var convertNode = function convertNode(node) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
     if (alignmentTypes.includes(type)) {
-      var element = _extends({}, convertChildren(node)[0], convertData(node));
+      var element = _extends({
+        children: convertChildren(node)
+      }, convertData(node));
 
       if (type !== "alignment") {
         element["type"] = "div";
