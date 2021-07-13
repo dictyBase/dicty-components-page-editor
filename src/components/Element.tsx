@@ -30,7 +30,7 @@ const useStyles = makeStyles(() => ({
  * Element is used to render blocks based on a given type.
  */
 const Element = ({ attributes, children, element }: Props) => {
-  const { type, align = "left", lineSpacing, borderColor, url } = element
+  const { type, align = "inherit", lineSpacing, borderColor, url } = element
   const styleProps = {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
     borderColor: borderColor ? borderColor : "grey",
