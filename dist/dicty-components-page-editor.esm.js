@@ -2987,13 +2987,7 @@ var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val);
-      nodes["align"] = "left";
-
-      if (align !== undefined) {
-        nodes["align"] = align;
-      } // if the converted current value is an array, only grab the object inside of it
-
+      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
