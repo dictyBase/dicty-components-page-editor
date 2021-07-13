@@ -2429,7 +2429,7 @@ var Element = function Element(_ref) {
 
     default:
       return React__default.createElement(Typography, Object.assign({
-        component: "p",
+        component: "div",
         align: align
       }, attributes), children);
   }
