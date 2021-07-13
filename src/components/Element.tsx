@@ -113,7 +113,7 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     default:
       return (
-        <Typography component="p" align={align} {...attributes}>
+        <Typography component="div" align={align} {...attributes}>
           {children}
         </Typography>
       )
