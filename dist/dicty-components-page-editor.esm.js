@@ -2950,6 +2950,10 @@ var convertType = function convertType(type) {
       convertedType = types.tableCell;
       break;
 
+    case "align_center" | "align_left" | "align_right" | "align_justify":
+      convertedType = "div";
+      break;
+
     default:
       convertedType = type;
   }
@@ -2984,25 +2988,14 @@ var convertChildren = function convertChildren(node, align) {
   }];
 };
 
-var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
-
 var convertNode = function convertNode(node) {
   var type = node.type;
 
   if (type) {
     // remove any alignment wrappers from old structure;
     // previously, changing the alignment would add a new <div> around the selection
-    if (alignmentTypes.includes(type)) {
-      if (type === "alignment") {
-        return _extends({
-          children: convertChildren(node)
-        }, convertData(node));
-      }
-
-      return _extends({
-        type: "div",
-        children: convertChildren(node, type)
-      }, convertData(node));
+    if (type === "alignment") {
+      return _extends({}, convertChildren(node)[0], convertData(node));
     }
 
     return _extends({
