@@ -2603,6 +2603,7 @@ var Leaf = function Leaf(_ref) {
 
   return React.createElement(Typography, Object.assign({
     component: "span",
+    variant: "inherit",
     className: classes.text
   }, attributes), children);
 };

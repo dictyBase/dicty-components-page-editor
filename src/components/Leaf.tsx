@@ -64,7 +64,11 @@ const Leaf = ({ attributes, children, leaf }: RenderLeafProps) => {
   }
 
   return (
-    <Typography component="span" className={classes.text} {...attributes}>
+    <Typography
+      component="span"
+      variant="inherit"
+      className={classes.text}
+      {...attributes}>
       {children}
     </Typography>
   )
