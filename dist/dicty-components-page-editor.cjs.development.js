@@ -36,6 +36,7 @@ var Table = _interopDefault(require('@material-ui/core/Table'));
 var TableBody = _interopDefault(require('@material-ui/core/TableBody'));
 var TableRow = _interopDefault(require('@material-ui/core/TableRow'));
 var TableCell = _interopDefault(require('@material-ui/core/TableCell'));
+var Link = _interopDefault(require('@material-ui/core/Link'));
 require('@fontsource/lato');
 require('@fontsource/merriweather');
 require('@fontsource/montserrat');
@@ -2341,6 +2342,9 @@ var useStyles$9 = /*#__PURE__*/styles.makeStyles(function () {
         border: "1px solid " + props.borderColor,
         borderCollapse: "collapse"
       };
+    },
+    link: {
+      cursor: "pointer"
     }
   };
 });
@@ -2384,8 +2388,9 @@ var Element = function Element(_ref) {
       }, attributes), children);
 
     case types.link:
-      return React__default.createElement("a", Object.assign({
-        href: url
+      return React__default.createElement(Link, Object.assign({
+        href: url,
+        className: classes.link
       }, attributes), children);
 
     case types.divider:

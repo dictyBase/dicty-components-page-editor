@@ -29,6 +29,7 @@ import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
 import TableCell from '@material-ui/core/TableCell';
+import Link from '@material-ui/core/Link';
 import '@fontsource/lato';
 import '@fontsource/merriweather';
 import '@fontsource/montserrat';
@@ -2334,6 +2335,9 @@ var useStyles$9 = /*#__PURE__*/makeStyles(function () {
         border: "1px solid " + props.borderColor,
         borderCollapse: "collapse"
       };
+    },
+    link: {
+      cursor: "pointer"
     }
   };
 });
@@ -2377,8 +2381,9 @@ var Element = function Element(_ref) {
       }, attributes), children);
 
     case types.link:
-      return React.createElement("a", Object.assign({
-        href: url
+      return React.createElement(Link, Object.assign({
+        href: url,
+        className: classes.link
       }, attributes), children);
 
     case types.divider:

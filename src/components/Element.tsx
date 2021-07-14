@@ -6,6 +6,7 @@ import Table from "@material-ui/core/Table"
 import TableBody from "@material-ui/core/TableBody"
 import TableRow from "@material-ui/core/TableRow"
 import TableCell from "@material-ui/core/TableCell"
+import Link from "@material-ui/core/Link"
 import Image from "./Image"
 import Video from "./Video"
 import { Props } from "../types/element"
@@ -24,6 +25,9 @@ const useStyles = makeStyles(() => ({
     border: `1px solid ${props.borderColor}`,
     borderCollapse: "collapse",
   }),
+  link: {
+    cursor: "pointer",
+  },
 }))
 
 /**
@@ -58,9 +62,9 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.link:
       return (
-        <a href={url} {...attributes}>
+        <Link href={url} className={classes.link} {...attributes}>
           {children}
-        </a>
+        </Link>
       )
     case types.divider:
       return <Divider {...attributes} />
