@@ -263,6 +263,8 @@ const convertNode = (node) => {
   // if no leaves or marks then just return plain text
   return {
     text,
+    fontColor: "inherit",
+    fontSize: "inherit",
   }
 }
 
