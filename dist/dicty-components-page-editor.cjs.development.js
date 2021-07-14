@@ -2236,7 +2236,61 @@ var EditorToolbar = function EditorToolbar() {
   })))));
 };
 
-var useStyles$8 = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$8 = /*#__PURE__*/styles.makeStyles(function (theme) {
+  return {
+    container: {
+      marginBottom: theme.spacing(1)
+    },
+    toolbar: {
+      position: "sticky",
+      top: 0,
+      cursor: "default"
+    }
+  };
+});
+/**
+ * Toolbar is the display for the editor toolbar.
+ */
+
+var InlineToolbar = function InlineToolbar() {
+  var classes = useStyles$8();
+  return React__default.createElement(AppBar, {
+    color: "default",
+    position: "static",
+    className: classes.container
+  }, React__default.createElement(Toolbar, {
+    disableGutters: true,
+    variant: "dense",
+    className: classes.toolbar
+  }, React__default.createElement(Grid, {
+    container: true
+  }, React__default.createElement(Grid, {
+    item: true,
+    xs: 12
+  }, React__default.createElement(MarkButton, {
+    format: types.bold,
+    icon: React__default.createElement(BoldIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: types.italic,
+    icon: React__default.createElement(ItalicIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: types.underline,
+    icon: React__default.createElement(UnderlinedIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: types.strikethrough,
+    icon: React__default.createElement(StrikethroughIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: types.subscript,
+    icon: React__default.createElement(SubscriptIcon, null)
+  }), React__default.createElement(MarkButton, {
+    format: types.superscript,
+    icon: React__default.createElement(SuperscriptIcon, null)
+  }), React__default.createElement(LinkButton, {
+    icon: React__default.createElement(LinkIcon, null)
+  }), React__default.createElement(AutolinkIDsButton, null), React__default.createElement(ScientificSymbolsButton, null)))));
+};
+
+var useStyles$9 = /*#__PURE__*/styles.makeStyles(function () {
   return {
     container: function container(props) {
       return {
@@ -2275,7 +2329,7 @@ var Image = function Image(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$8(styleProps);
+  var classes = useStyles$9(styleProps);
   var img = React__default.createElement("img", {
     src: url,
     alt: description,
@@ -2313,7 +2367,7 @@ var Video = function Video(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$8(styleProps);
+  var classes = useStyles$9(styleProps);
   return React__default.createElement("div", Object.assign({
     className: classes.container
   }, attributes), React__default.createElement("div", {
@@ -2330,7 +2384,7 @@ var Video = function Video(_ref) {
   })), children);
 };
 
-var useStyles$9 = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$a = /*#__PURE__*/styles.makeStyles(function () {
   return {
     lineSpacing: function lineSpacing(props) {
       return {
@@ -2366,7 +2420,7 @@ var Element = function Element(_ref) {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
     borderColor: borderColor ? borderColor : "grey"
   };
-  var classes = useStyles$9(styleProps);
+  var classes = useStyles$a(styleProps);
 
   switch (type) {
     case types.h1:
@@ -2472,7 +2526,7 @@ var getFontSize = function getFontSize(editor, fontSize) {
   return fontSize;
 };
 
-var useStyles$a = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$b = /*#__PURE__*/styles.makeStyles(function () {
   return {
     text: function text(props) {
       return {
@@ -2505,7 +2559,7 @@ var Leaf = function Leaf(_ref) {
     fontSize: getFontSize(editor, leaf.fontSize),
     fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary
   };
-  var classes = useStyles$a(props);
+  var classes = useStyles$b(props);
 
   if (leaf.bold) {
     children = React__default.createElement("strong", {
@@ -2549,7 +2603,7 @@ var Leaf = function Leaf(_ref) {
   }, attributes), children);
 };
 
-var useStyles$b = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$c = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     button: {
       minWidth: "70px",
@@ -2567,7 +2621,7 @@ var ActionButton = function ActionButton(_ref) {
       text = _ref.text,
       _ref$color = _ref.color,
       color = _ref$color === void 0 ? "default" : _ref$color;
-  var classes = useStyles$b();
+  var classes = useStyles$c();
   return React__default.createElement(Button, {
     className: classes.button,
     size: "small",
@@ -3163,7 +3217,8 @@ var PageEditor = function PageEditor(_ref) {
       handleSave = _ref.handleSave,
       handleCancel = _ref.handleCancel,
       _ref$theme = _ref.theme,
-      theme = _ref$theme === void 0 ? defaultTheme : _ref$theme;
+      theme = _ref$theme === void 0 ? defaultTheme : _ref$theme,
+      inline = _ref.inline;
   // create a slate editor object that won't change across renders
   var editor = React.useMemo(function () {
     return withHTML(slateHistory.withHistory(slateReact.withReact(withNormalize(withMedia(withLists(withLinks(slate.createEditor())))))));
@@ -3197,7 +3252,7 @@ var PageEditor = function PageEditor(_ref) {
     onKeyDown(event, editor);
   };
 
-  console.log(value);
+  var toolbar = inline ? React__default.createElement(InlineToolbar, null) : React__default.createElement(EditorToolbar, null);
   return React__default.createElement(styles.ThemeProvider, {
     theme: theme
   }, React__default.createElement(slateReact.Slate, {
@@ -3206,7 +3261,7 @@ var PageEditor = function PageEditor(_ref) {
     onChange: function onChange(value) {
       return setValue(value);
     }
-  }, !readOnly && React__default.createElement(EditorToolbar, null), React__default.createElement(slateReact.Editable, {
+  }, !readOnly && toolbar, React__default.createElement(slateReact.Editable, {
     readOnly: readOnly,
     renderElement: renderElement,
     renderLeaf: renderLeaf,

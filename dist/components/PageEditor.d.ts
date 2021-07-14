@@ -11,9 +11,11 @@ declare type Props = {
     handleCancel: () => void;
     /** Material-UI theme */
     theme?: Theme;
+    /** Indicates if condensed (inline) toolbar should be shown */
+    inline?: boolean;
 };
 /**
  * PageEditor is the main editor component.
  */
-declare const PageEditor: ({ pageContent, readOnly, handleSave, handleCancel, theme, }: Props) => JSX.Element;
+declare const PageEditor: ({ pageContent, readOnly, handleSave, handleCancel, theme, inline, }: Props) => JSX.Element;
 export default PageEditor;
