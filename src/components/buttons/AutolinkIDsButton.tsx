@@ -1,5 +1,6 @@
 import React from "react"
 import { useSlate } from "slate-react"
+import { useTheme } from "@material-ui/core/styles"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
 import Menu from "@material-ui/core/Menu"
@@ -71,6 +72,7 @@ const validateText = (item: string, text: string) => {
  */
 const AutolinkIDsButton = () => {
   const editor = useSlate()
+  const theme = useTheme()
   const { anchorEl, setAnchorEl, handleMouseDown } = useAnchorElement()
 
   const handleItemClick = (item: string) => {
@@ -87,7 +89,7 @@ const AutolinkIDsButton = () => {
       link.url = `${prefix}${link.text}`
     }
 
-    upsertLink(editor, link)
+    upsertLink(editor, link, theme.palette.primary.main)
     setAnchorEl(null)
   }
 

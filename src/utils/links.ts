@@ -18,7 +18,7 @@ const isLinkActive = (editor: Editor) => {
  * it adds a new link with the provided text. Otherwise it will wrap the
  * selection with a link node using the user's link and text.
  */
-const upsertLink = (editor: Editor, link: Link) => {
+const upsertLink = (editor: Editor, link: Link, fontColor: string) => {
   const { url, text } = link
   // check if there is an existing link first then unwrap it
   if (isLinkActive(editor)) {
@@ -28,7 +28,7 @@ const upsertLink = (editor: Editor, link: Link) => {
   const linkData = {
     type: types.link,
     url,
-    children: [{ text: text }],
+    children: [{ text: text, fontColor: fontColor }],
   }
 
   const { selection } = editor

@@ -20,7 +20,7 @@ const initialValue = [
       {
         fontFamily: "Roboto",
         fontSize: "inherit",
-        fontColor: "rgba(0, 0, 0, 0.87)",
+        fontColor: "inherit",
         text: "",
       },
     ],

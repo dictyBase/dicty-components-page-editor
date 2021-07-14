@@ -334,7 +334,7 @@ var isLinkActive = function isLinkActive(editor) {
  */
 
 
-var upsertLink = function upsertLink(editor, link) {
+var upsertLink = function upsertLink(editor, link, fontColor) {
   var url = link.url,
       text = link.text; // check if there is an existing link first then unwrap it
 
@@ -346,7 +346,8 @@ var upsertLink = function upsertLink(editor, link) {
     type: types.link,
     url: url,
     children: [{
-      text: text
+      text: text,
+      fontColor: fontColor
     }]
   };
   var selection = editor.selection;
@@ -391,6 +392,7 @@ var getLinkSelection = function getLinkSelection(editor) {
 
 var useLinks = function useLinks() {
   var editor = slateReact.useSlate();
+  var theme = styles.useTheme();
 
   var _React$useState = React__default.useState(false),
       linkDialogOpen = _React$useState[0],
@@ -404,7 +406,7 @@ var useLinks = function useLinks() {
       setLink = _React$useState2[1];
 
   var handleAddLink = function handleAddLink() {
-    upsertLink(editor, link);
+    upsertLink(editor, link, theme.palette.primary.main);
     setLinkDialogOpen(false);
   };
 
@@ -571,6 +573,7 @@ var validateText = function validateText(item, text) {
 
 var AutolinkIDsButton = function AutolinkIDsButton() {
   var editor = slateReact.useSlate();
+  var theme = styles.useTheme();
 
   var _useAnchorElement = useAnchorElement(),
       anchorEl = _useAnchorElement.anchorEl,
@@ -592,7 +595,7 @@ var AutolinkIDsButton = function AutolinkIDsButton() {
       link.url = "" + prefix + link.text;
     }
 
-    upsertLink(editor, link);
+    upsertLink(editor, link, theme.palette.primary.main);
     setAnchorEl(null);
   };
 
