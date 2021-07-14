@@ -31,7 +31,7 @@ declare global {
         }
     }
 }
-declare const jsx: <S extends "cursor" | "text" | "element" | "anchor" | "editor" | "focus" | "fragment" | "selection">(tagName: S, attributes?: Object | undefined, ...children: any[]) => ReturnType<({
+declare const jsx: <S extends "text" | "element" | "anchor" | "cursor" | "editor" | "focus" | "fragment" | "selection">(tagName: S, attributes?: Object | undefined, ...children: any[]) => ReturnType<({
     anchor: typeof import("slate-hyperscript/dist/creators").createAnchor;
     cursor: typeof import("slate-hyperscript/dist/creators").createCursor;
     editor: typeof import("slate-hyperscript/dist/creators").createEditor;
