@@ -62,11 +62,7 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.link:
       return (
-        <Link
-          href={url}
-          color="primary"
-          className={classes.link}
-          {...attributes}>
+        <Link href={url} className={classes.link} {...attributes}>
           {children}
         </Link>
       )
@@ -116,6 +112,12 @@ const Element = ({ attributes, children, element }: Props) => {
     case types.tableWrap:
       return (
         <Typography component="div" {...attributes}>
+          {children}
+        </Typography>
+      )
+    case types.paragraph:
+      return (
+        <Typography component="p" align={align} {...attributes}>
           {children}
         </Typography>
       )
