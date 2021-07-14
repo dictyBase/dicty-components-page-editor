@@ -12,7 +12,7 @@ var slateHistory = require('slate-history');
 var styles = require('@material-ui/core/styles');
 var AppBar = _interopDefault(require('@material-ui/core/AppBar'));
 var Toolbar = _interopDefault(require('@material-ui/core/Toolbar'));
-var Divider = _interopDefault(require('@material-ui/core/Divider'));
+var Grid = _interopDefault(require('@material-ui/core/Grid'));
 var IconButton = _interopDefault(require('@material-ui/core/IconButton'));
 var Tooltip = _interopDefault(require('@material-ui/core/Tooltip'));
 var TextField = _interopDefault(require('@material-ui/core/TextField'));
@@ -31,6 +31,7 @@ var Popper = _interopDefault(require('@material-ui/core/Popper'));
 var FormControl = _interopDefault(require('@material-ui/core/FormControl'));
 var Select = _interopDefault(require('@material-ui/core/Select'));
 var Typography = _interopDefault(require('@material-ui/core/Typography'));
+var Divider = _interopDefault(require('@material-ui/core/Divider'));
 var Table = _interopDefault(require('@material-ui/core/Table'));
 var TableBody = _interopDefault(require('@material-ui/core/TableBody'));
 var TableRow = _interopDefault(require('@material-ui/core/TableRow'));
@@ -1480,7 +1481,10 @@ var useStyles$5 = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     dropdown: function dropdown(props) {
       return {
-        margin: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        marginTop: "0px",
+        marginBottom: "0px",
         minWidth: props.minWidth
       };
     }
@@ -2065,7 +2069,25 @@ var TableButtons = function TableButtons() {
   })));
 };
 
-var useStyles$6 = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$6 = /*#__PURE__*/styles.makeStyles({
+  separator: {
+    borderLeftColor: "#c1c1c1",
+    borderLeftStyle: "solid",
+    borderLeftWidth: "1px",
+    display: "inline-block",
+    height: "20px",
+    verticalAlign: "middle"
+  }
+});
+
+var Separator = function Separator() {
+  var classes = useStyles$6();
+  return React__default.createElement("div", {
+    className: classes.separator
+  });
+};
+
+var useStyles$7 = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     container: {
       marginBottom: theme.spacing(1)
@@ -2111,7 +2133,7 @@ var listButtons = function listButtons(editor) {
 
 var EditorToolbar = function EditorToolbar() {
   var editor = slateReact.useSlate();
-  var classes = useStyles$6();
+  var classes = useStyles$7();
   return React__default.createElement(AppBar, {
     color: "default",
     position: "static",
@@ -2119,6 +2141,11 @@ var EditorToolbar = function EditorToolbar() {
   }, React__default.createElement(Toolbar, {
     disableGutters: true,
     variant: "dense"
+  }, React__default.createElement(Grid, {
+    container: true
+  }, React__default.createElement(Grid, {
+    item: true,
+    xs: 12
   }, React__default.createElement(MarkButton, {
     format: types.bold,
     icon: React__default.createElement(BoldIcon, null)
@@ -2137,11 +2164,7 @@ var EditorToolbar = function EditorToolbar() {
   }), React__default.createElement(MarkButton, {
     format: types.superscript,
     icon: React__default.createElement(SuperscriptIcon, null)
-  }), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React__default.createElement(BlockButton, {
+  }), React__default.createElement(Separator, null), React__default.createElement(BlockButton, {
     format: types.h1,
     icon: React__default.createElement(H1Icon, null),
     clickFn: function clickFn() {
@@ -2161,11 +2184,7 @@ var EditorToolbar = function EditorToolbar() {
     }
   }), React__default.createElement(LinkButton, {
     icon: React__default.createElement(LinkIcon, null)
-  }), React__default.createElement(AutolinkIDsButton, null), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React__default.createElement(AlignButton, {
+  }), React__default.createElement(AutolinkIDsButton, null), React__default.createElement(Separator, null), React__default.createElement(AlignButton, {
     align: alignments.left,
     icon: React__default.createElement(AlignLeftIcon, null)
   }), React__default.createElement(AlignButton, {
@@ -2183,36 +2202,20 @@ var EditorToolbar = function EditorToolbar() {
     clickFn: function clickFn() {
       return toggleBlock(editor, types.divider);
     }
-  }), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), listButtons(editor).map(function (item) {
+  }), React__default.createElement(Separator, null), listButtons(editor).map(function (item) {
     return React__default.createElement(BlockButton, {
       format: item.format,
       icon: item.icon,
       clickFn: item.callback,
       key: item.format
     });
-  }), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React__default.createElement(TableButtons, null), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React__default.createElement(LineSpacingButton, {
+  }), React__default.createElement(Separator, null), React__default.createElement(TableButtons, null), React__default.createElement(Separator, null), React__default.createElement(LineSpacingButton, {
     icon: React__default.createElement(LineSpacingIcon, null)
   }), React__default.createElement(ImageButton, {
     icon: React__default.createElement(ImageIcon, null)
   }), React__default.createElement(VideoButton, {
     icon: React__default.createElement(VideoIcon, null)
-  }), React__default.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React__default.createElement(FontColorButton, {
+  }), React__default.createElement(Separator, null), React__default.createElement(FontColorButton, {
     icon: React__default.createElement(FontColorIcon, null)
   }), React__default.createElement(ScientificSymbolsButton, null), React__default.createElement(Dropdown, {
     mark: "fontFamily",
@@ -2223,10 +2226,10 @@ var EditorToolbar = function EditorToolbar() {
     defaultValue: "1rem",
     values: FontSizeList,
     minWidth: "90px"
-  })));
+  })))));
 };
 
-var useStyles$7 = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$8 = /*#__PURE__*/styles.makeStyles(function () {
   return {
     container: function container(props) {
       return {
@@ -2265,7 +2268,7 @@ var Image = function Image(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$7(styleProps);
+  var classes = useStyles$8(styleProps);
   var img = React__default.createElement("img", {
     src: url,
     alt: description,
@@ -2303,7 +2306,7 @@ var Video = function Video(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$7(styleProps);
+  var classes = useStyles$8(styleProps);
   return React__default.createElement("div", Object.assign({
     className: classes.container
   }, attributes), React__default.createElement("div", {
@@ -2320,7 +2323,7 @@ var Video = function Video(_ref) {
   })), children);
 };
 
-var useStyles$8 = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$9 = /*#__PURE__*/styles.makeStyles(function () {
   return {
     lineSpacing: function lineSpacing(props) {
       return {
@@ -2353,7 +2356,7 @@ var Element = function Element(_ref) {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
     borderColor: borderColor ? borderColor : "grey"
   };
-  var classes = useStyles$8(styleProps);
+  var classes = useStyles$9(styleProps);
 
   switch (type) {
     case types.h1:
@@ -2458,7 +2461,7 @@ var getFontSize = function getFontSize(editor, fontSize) {
   return fontSize;
 };
 
-var useStyles$9 = /*#__PURE__*/styles.makeStyles(function () {
+var useStyles$a = /*#__PURE__*/styles.makeStyles(function () {
   return {
     text: function text(props) {
       return {
@@ -2491,7 +2494,7 @@ var Leaf = function Leaf(_ref) {
     fontSize: getFontSize(editor, leaf.fontSize),
     fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary
   };
-  var classes = useStyles$9(props);
+  var classes = useStyles$a(props);
 
   if (leaf.bold) {
     children = React__default.createElement("strong", {
@@ -2535,7 +2538,7 @@ var Leaf = function Leaf(_ref) {
   }, attributes), children);
 };
 
-var useStyles$a = /*#__PURE__*/styles.makeStyles(function (theme) {
+var useStyles$b = /*#__PURE__*/styles.makeStyles(function (theme) {
   return {
     button: {
       minWidth: "70px",
@@ -2553,7 +2556,7 @@ var ActionButton = function ActionButton(_ref) {
       text = _ref.text,
       _ref$color = _ref.color,
       color = _ref$color === void 0 ? "default" : _ref$color;
-  var classes = useStyles$a();
+  var classes = useStyles$b();
   return React__default.createElement(Button, {
     className: classes.button,
     size: "small",
@@ -2994,7 +2997,13 @@ var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
+      var nodes = convertNode(val);
+      nodes["align"] = "inherit";
+
+      if (align !== undefined) {
+        nodes["align"] = align;
+      } // if the converted current value is an array, only grab the object inside of it
+
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
@@ -3043,15 +3052,13 @@ var convertDataByType = function convertDataByType(node) {
 
   if (alignmentTypes.includes(type)) {
     if (type === "alignment") {
-      return _extends({
-        children: convertChildren(node)
-      }, convertData(node));
+      return _extends({}, convertChildren(node)[0], convertData(node));
     }
 
-    return {
+    return _extends({
       type: "div",
       children: convertChildren(node, type.slice(6))
-    };
+    }, convertData(node));
   }
 
   return _extends({

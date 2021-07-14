@@ -4,7 +4,7 @@ import { useSlate } from "slate-react"
 import { makeStyles, Theme } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
-import Divider from "@material-ui/core/Divider"
+import Grid from "@material-ui/core/Grid"
 import MarkButton from "./buttons/MarkButton"
 import BlockButton from "./buttons/BlockButton"
 import AlignButton from "./buttons/AlignButton"
@@ -51,6 +51,7 @@ import { toggleBlock } from "../utils/blocks"
 import { toggleList } from "../utils/lists"
 import { indentItem, undentItem } from "../plugins/withLists"
 import TableButtons from "./buttons/TableButtons"
+import Separator from "./Separator"
 
 const useStyles = makeStyles((theme: Theme) => ({
   container: {
@@ -95,69 +96,79 @@ const EditorToolbar = () => {
   return (
     <AppBar color="default" position="static" className={classes.container}>
       <Toolbar disableGutters variant="dense">
-        <MarkButton format={types.bold} icon={<BoldIcon />} />
-        <MarkButton format={types.italic} icon={<ItalicIcon />} />
-        <MarkButton format={types.underline} icon={<UnderlinedIcon />} />
-        <MarkButton format={types.strikethrough} icon={<StrikethroughIcon />} />
-        <MarkButton format={types.subscript} icon={<SubscriptIcon />} />
-        <MarkButton format={types.superscript} icon={<SuperscriptIcon />} />
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        <BlockButton
-          format={types.h1}
-          icon={<H1Icon />}
-          clickFn={() => toggleBlock(editor, types.h1)}
-        />
-        <BlockButton
-          format={types.h2}
-          icon={<H2Icon />}
-          clickFn={() => toggleBlock(editor, types.h2)}
-        />
-        <BlockButton
-          format={types.h3}
-          icon={<H3Icon />}
-          clickFn={() => toggleBlock(editor, types.h3)}
-        />
-        <LinkButton icon={<LinkIcon />} />
-        <AutolinkIDsButton />
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
-        <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
-        <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
-        <AlignButton align={alignments.justify} icon={<AlignJustifyIcon />} />
-        <BlockButton
-          format={types.divider}
-          icon={<DividerIcon />}
-          clickFn={() => toggleBlock(editor, types.divider)}
-        />
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        {listButtons(editor).map((item) => (
-          <BlockButton
-            format={item.format}
-            icon={item.icon}
-            clickFn={item.callback}
-            key={item.format}
-          />
-        ))}
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        <TableButtons />
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        <LineSpacingButton icon={<LineSpacingIcon />} />
-        <ImageButton icon={<ImageIcon />} />
-        <VideoButton icon={<VideoIcon />} />
-        <Divider className={classes.divider} orientation="vertical" flexItem />
-        <FontColorButton icon={<FontColorIcon />} />
-        <ScientificSymbolsButton />
-        <Dropdown
-          mark="fontFamily"
-          defaultValue="Roboto"
-          values={FontFamilyList}
-        />
-        <Dropdown
-          mark="fontSize"
-          defaultValue="1rem"
-          values={FontSizeList}
-          minWidth="90px"
-        />
+        <Grid container>
+          <Grid item xs={12}>
+            <MarkButton format={types.bold} icon={<BoldIcon />} />
+            <MarkButton format={types.italic} icon={<ItalicIcon />} />
+            <MarkButton format={types.underline} icon={<UnderlinedIcon />} />
+            <MarkButton
+              format={types.strikethrough}
+              icon={<StrikethroughIcon />}
+            />
+            <MarkButton format={types.subscript} icon={<SubscriptIcon />} />
+            <MarkButton format={types.superscript} icon={<SuperscriptIcon />} />
+            <Separator />
+            <BlockButton
+              format={types.h1}
+              icon={<H1Icon />}
+              clickFn={() => toggleBlock(editor, types.h1)}
+            />
+            <BlockButton
+              format={types.h2}
+              icon={<H2Icon />}
+              clickFn={() => toggleBlock(editor, types.h2)}
+            />
+            <BlockButton
+              format={types.h3}
+              icon={<H3Icon />}
+              clickFn={() => toggleBlock(editor, types.h3)}
+            />
+            <LinkButton icon={<LinkIcon />} />
+            <AutolinkIDsButton />
+            <Separator />
+            <AlignButton align={alignments.left} icon={<AlignLeftIcon />} />
+            <AlignButton align={alignments.center} icon={<AlignCenterIcon />} />
+            <AlignButton align={alignments.right} icon={<AlignRightIcon />} />
+            <AlignButton
+              align={alignments.justify}
+              icon={<AlignJustifyIcon />}
+            />
+            <BlockButton
+              format={types.divider}
+              icon={<DividerIcon />}
+              clickFn={() => toggleBlock(editor, types.divider)}
+            />
+            <Separator />
+            {listButtons(editor).map((item) => (
+              <BlockButton
+                format={item.format}
+                icon={item.icon}
+                clickFn={item.callback}
+                key={item.format}
+              />
+            ))}
+            <Separator />
+            <TableButtons />
+            <Separator />
+            <LineSpacingButton icon={<LineSpacingIcon />} />
+            <ImageButton icon={<ImageIcon />} />
+            <VideoButton icon={<VideoIcon />} />
+            <Separator />
+            <FontColorButton icon={<FontColorIcon />} />
+            <ScientificSymbolsButton />
+            <Dropdown
+              mark="fontFamily"
+              defaultValue="Roboto"
+              values={FontFamilyList}
+            />
+            <Dropdown
+              mark="fontSize"
+              defaultValue="1rem"
+              values={FontSizeList}
+              minWidth="90px"
+            />
+          </Grid>
+        </Grid>
       </Toolbar>
     </AppBar>
   )
