@@ -57,6 +57,11 @@ const useStyles = makeStyles((theme: Theme) => ({
   container: {
     marginBottom: theme.spacing(1),
   },
+  toolbar: {
+    position: "sticky",
+    top: 0,
+    cursor: "default",
+  },
   divider: {
     marginLeft: theme.spacing(0.5),
     marginRight: theme.spacing(0.5),
@@ -95,7 +100,7 @@ const EditorToolbar = () => {
 
   return (
     <AppBar color="default" position="static" className={classes.container}>
-      <Toolbar disableGutters variant="dense">
+      <Toolbar disableGutters variant="dense" className={classes.toolbar}>
         <Grid container>
           <Grid item xs={12}>
             <MarkButton format={types.bold} icon={<BoldIcon />} />
