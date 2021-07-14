@@ -9,7 +9,7 @@ declare const isLinkActive: (editor: Editor) => boolean;
  * it adds a new link with the provided text. Otherwise it will wrap the
  * selection with a link node using the user's link and text.
  */
-declare const upsertLink: (editor: Editor, link: Link) => void;
+declare const upsertLink: (editor: Editor, link: Link, fontColor: string) => void;
 declare const getLinkSelection: (editor: Editor) => {
     url: string;
     text: string;
