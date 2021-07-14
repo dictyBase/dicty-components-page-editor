@@ -3005,13 +3005,7 @@ var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val);
-      nodes["align"] = "inherit";
-
-      if (align !== undefined) {
-        nodes["align"] = align;
-      } // if the converted current value is an array, only grab the object inside of it
-
+      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
@@ -3059,14 +3053,12 @@ var convertDataByType = function convertDataByType(node) {
   // previously, changing the alignment would add a new <div> around the selection
 
   if (alignmentTypes.includes(type)) {
-    if (type === "alignment") {
-      return _extends({}, convertChildren(node)[0], convertData(node));
-    }
-
-    return _extends({
+    var element = _extends({
       type: "div",
-      children: convertChildren(node, type.slice(6))
+      children: convertChildren(node)
     }, convertData(node));
+
+    return element;
   }
 
   return _extends({
