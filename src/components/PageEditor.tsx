@@ -2,6 +2,7 @@ import React, { useCallback, useMemo, useState } from "react"
 import { createEditor, Descendant } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
+import { createTheme, Theme, ThemeProvider } from "@material-ui/core/styles"
 import Toolbar from "./Toolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
@@ -13,6 +14,8 @@ import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import onKeyDown from "../utils/onKeyDown"
 import convertSlate047 from "../utils/migration"
+
+const defaultTheme = createTheme({})
 
 const initialValue = [
   {
@@ -37,6 +40,8 @@ type Props = {
   handleSave: () => void
   /** Function called when user clicks cancel button */
   handleCancel: () => void
+  /** Material-UI theme */
+  theme?: Theme
 }
 
 /**
@@ -47,6 +52,7 @@ const PageEditor = ({
   readOnly,
   handleSave,
   handleCancel,
+  theme = defaultTheme,
 }: Props) => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
@@ -81,19 +87,24 @@ const PageEditor = ({
   }
   console.log(value)
   return (
-    <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
-      <Toolbar />
-      <Editable
-        readOnly={readOnly}
-        renderElement={renderElement}
-        renderLeaf={renderLeaf}
-        onKeyDown={handleKeyDown}
-        placeholder="Enter some text..."
-        spellCheck
-        autoFocus
-      />
-      <ActionButtons handleSave={handleSave} handleCancel={handleCancel} />
-    </Slate>
+    <ThemeProvider theme={theme}>
+      <Slate
+        editor={editor}
+        value={value}
+        onChange={(value) => setValue(value)}>
+        <Toolbar />
+        <Editable
+          readOnly={readOnly}
+          renderElement={renderElement}
+          renderLeaf={renderLeaf}
+          onKeyDown={handleKeyDown}
+          placeholder="Enter some text..."
+          spellCheck
+          autoFocus
+        />
+        <ActionButtons handleSave={handleSave} handleCancel={handleCancel} />
+      </Slate>
+    </ThemeProvider>
   )
 }
 

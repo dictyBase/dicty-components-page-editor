@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Editor, Transforms, Element as Element$1, Range, Path, Node, Point, createEditor } from 'slate';
 import { useSlate, useSelected, useFocused, withReact, Slate, Editable } from 'slate-react';
 import { withHistory } from 'slate-history';
-import { makeStyles, useTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, ThemeProvider, createTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
@@ -3136,6 +3136,7 @@ var convertSlate047 = function convertSlate047(object) {
   return nodes.map(convertNode);
 };
 
+var defaultTheme = /*#__PURE__*/createTheme({});
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -3153,7 +3154,9 @@ var PageEditor = function PageEditor(_ref) {
   var pageContent = _ref.pageContent,
       readOnly = _ref.readOnly,
       handleSave = _ref.handleSave,
-      handleCancel = _ref.handleCancel;
+      handleCancel = _ref.handleCancel,
+      _ref$theme = _ref.theme,
+      theme = _ref$theme === void 0 ? defaultTheme : _ref$theme;
   // create a slate editor object that won't change across renders
   var editor = useMemo(function () {
     return withHTML(withHistory(withReact(withNormalize(withMedia(withLists(withLinks(createEditor())))))));
@@ -3188,7 +3191,9 @@ var PageEditor = function PageEditor(_ref) {
   };
 
   console.log(value);
-  return React.createElement(Slate, {
+  return React.createElement(ThemeProvider, {
+    theme: theme
+  }, React.createElement(Slate, {
     editor: editor,
     value: value,
     onChange: function onChange(value) {
@@ -3205,7 +3210,7 @@ var PageEditor = function PageEditor(_ref) {
   }), React.createElement(ActionButtons, {
     handleSave: handleSave,
     handleCancel: handleCancel
-  }));
+  })));
 };
 
 export { PageEditor };

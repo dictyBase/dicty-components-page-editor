@@ -3143,6 +3143,7 @@ var convertSlate047 = function convertSlate047(object) {
   return nodes.map(convertNode);
 };
 
+var defaultTheme = /*#__PURE__*/styles.createTheme({});
 var initialValue = [{
   type: "paragraph",
   children: [{
@@ -3160,7 +3161,9 @@ var PageEditor = function PageEditor(_ref) {
   var pageContent = _ref.pageContent,
       readOnly = _ref.readOnly,
       handleSave = _ref.handleSave,
-      handleCancel = _ref.handleCancel;
+      handleCancel = _ref.handleCancel,
+      _ref$theme = _ref.theme,
+      theme = _ref$theme === void 0 ? defaultTheme : _ref$theme;
   // create a slate editor object that won't change across renders
   var editor = React.useMemo(function () {
     return withHTML(slateHistory.withHistory(slateReact.withReact(withNormalize(withMedia(withLists(withLinks(slate.createEditor())))))));
@@ -3195,7 +3198,9 @@ var PageEditor = function PageEditor(_ref) {
   };
 
   console.log(value);
-  return React__default.createElement(slateReact.Slate, {
+  return React__default.createElement(styles.ThemeProvider, {
+    theme: theme
+  }, React__default.createElement(slateReact.Slate, {
     editor: editor,
     value: value,
     onChange: function onChange(value) {
@@ -3212,7 +3217,7 @@ var PageEditor = function PageEditor(_ref) {
   }), React__default.createElement(ActionButtons, {
     handleSave: handleSave,
     handleCancel: handleCancel
-  }));
+  })));
 };
 
 exports.PageEditor = PageEditor;
