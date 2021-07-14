@@ -3206,7 +3206,7 @@ var PageEditor = function PageEditor(_ref) {
     onChange: function onChange(value) {
       return setValue(value);
     }
-  }, React__default.createElement(EditorToolbar, null), React__default.createElement(slateReact.Editable, {
+  }, !readOnly && React__default.createElement(EditorToolbar, null), React__default.createElement(slateReact.Editable, {
     readOnly: readOnly,
     renderElement: renderElement,
     renderLeaf: renderLeaf,
@@ -3214,7 +3214,7 @@ var PageEditor = function PageEditor(_ref) {
     placeholder: "Enter some text...",
     spellCheck: true,
     autoFocus: true
-  }), React__default.createElement(ActionButtons, {
+  }), !readOnly && React__default.createElement(ActionButtons, {
     handleSave: handleSave,
     handleCancel: handleCancel
   })));

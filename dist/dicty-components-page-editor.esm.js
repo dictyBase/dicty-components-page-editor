@@ -3199,7 +3199,7 @@ var PageEditor = function PageEditor(_ref) {
     onChange: function onChange(value) {
       return setValue(value);
     }
-  }, React.createElement(EditorToolbar, null), React.createElement(Editable, {
+  }, !readOnly && React.createElement(EditorToolbar, null), React.createElement(Editable, {
     readOnly: readOnly,
     renderElement: renderElement,
     renderLeaf: renderLeaf,
@@ -3207,7 +3207,7 @@ var PageEditor = function PageEditor(_ref) {
     placeholder: "Enter some text...",
     spellCheck: true,
     autoFocus: true
-  }), React.createElement(ActionButtons, {
+  }), !readOnly && React.createElement(ActionButtons, {
     handleSave: handleSave,
     handleCancel: handleCancel
   })));

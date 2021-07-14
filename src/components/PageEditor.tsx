@@ -92,7 +92,7 @@ const PageEditor = ({
         editor={editor}
         value={value}
         onChange={(value) => setValue(value)}>
-        <Toolbar />
+        {!readOnly && <Toolbar />}
         <Editable
           readOnly={readOnly}
           renderElement={renderElement}
@@ -102,7 +102,9 @@ const PageEditor = ({
           spellCheck
           autoFocus
         />
-        <ActionButtons handleSave={handleSave} handleCancel={handleCancel} />
+        {!readOnly && (
+          <ActionButtons handleSave={handleSave} handleCancel={handleCancel} />
+        )}
       </Slate>
     </ThemeProvider>
   )
