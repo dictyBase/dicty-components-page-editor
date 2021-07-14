@@ -5,7 +5,7 @@ import { withHistory } from 'slate-history';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import Divider from '@material-ui/core/Divider';
+import Grid from '@material-ui/core/Grid';
 import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import TextField from '@material-ui/core/TextField';
@@ -24,6 +24,7 @@ import Popper from '@material-ui/core/Popper';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableRow from '@material-ui/core/TableRow';
@@ -1473,7 +1474,10 @@ var useStyles$5 = /*#__PURE__*/makeStyles(function (theme) {
   return {
     dropdown: function dropdown(props) {
       return {
-        margin: theme.spacing(1),
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        marginTop: "0px",
+        marginBottom: "0px",
         minWidth: props.minWidth
       };
     }
@@ -2058,7 +2062,25 @@ var TableButtons = function TableButtons() {
   })));
 };
 
-var useStyles$6 = /*#__PURE__*/makeStyles(function (theme) {
+var useStyles$6 = /*#__PURE__*/makeStyles({
+  separator: {
+    borderLeftColor: "#c1c1c1",
+    borderLeftStyle: "solid",
+    borderLeftWidth: "1px",
+    display: "inline-block",
+    height: "20px",
+    verticalAlign: "middle"
+  }
+});
+
+var Separator = function Separator() {
+  var classes = useStyles$6();
+  return React.createElement("div", {
+    className: classes.separator
+  });
+};
+
+var useStyles$7 = /*#__PURE__*/makeStyles(function (theme) {
   return {
     container: {
       marginBottom: theme.spacing(1)
@@ -2104,7 +2126,7 @@ var listButtons = function listButtons(editor) {
 
 var EditorToolbar = function EditorToolbar() {
   var editor = useSlate();
-  var classes = useStyles$6();
+  var classes = useStyles$7();
   return React.createElement(AppBar, {
     color: "default",
     position: "static",
@@ -2112,6 +2134,11 @@ var EditorToolbar = function EditorToolbar() {
   }, React.createElement(Toolbar, {
     disableGutters: true,
     variant: "dense"
+  }, React.createElement(Grid, {
+    container: true
+  }, React.createElement(Grid, {
+    item: true,
+    xs: 12
   }, React.createElement(MarkButton, {
     format: types.bold,
     icon: React.createElement(BoldIcon, null)
@@ -2130,11 +2157,7 @@ var EditorToolbar = function EditorToolbar() {
   }), React.createElement(MarkButton, {
     format: types.superscript,
     icon: React.createElement(SuperscriptIcon, null)
-  }), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React.createElement(BlockButton, {
+  }), React.createElement(Separator, null), React.createElement(BlockButton, {
     format: types.h1,
     icon: React.createElement(H1Icon, null),
     clickFn: function clickFn() {
@@ -2154,11 +2177,7 @@ var EditorToolbar = function EditorToolbar() {
     }
   }), React.createElement(LinkButton, {
     icon: React.createElement(LinkIcon, null)
-  }), React.createElement(AutolinkIDsButton, null), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React.createElement(AlignButton, {
+  }), React.createElement(AutolinkIDsButton, null), React.createElement(Separator, null), React.createElement(AlignButton, {
     align: alignments.left,
     icon: React.createElement(AlignLeftIcon, null)
   }), React.createElement(AlignButton, {
@@ -2176,36 +2195,20 @@ var EditorToolbar = function EditorToolbar() {
     clickFn: function clickFn() {
       return toggleBlock(editor, types.divider);
     }
-  }), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), listButtons(editor).map(function (item) {
+  }), React.createElement(Separator, null), listButtons(editor).map(function (item) {
     return React.createElement(BlockButton, {
       format: item.format,
       icon: item.icon,
       clickFn: item.callback,
       key: item.format
     });
-  }), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React.createElement(TableButtons, null), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React.createElement(LineSpacingButton, {
+  }), React.createElement(Separator, null), React.createElement(TableButtons, null), React.createElement(Separator, null), React.createElement(LineSpacingButton, {
     icon: React.createElement(LineSpacingIcon, null)
   }), React.createElement(ImageButton, {
     icon: React.createElement(ImageIcon, null)
   }), React.createElement(VideoButton, {
     icon: React.createElement(VideoIcon, null)
-  }), React.createElement(Divider, {
-    className: classes.divider,
-    orientation: "vertical",
-    flexItem: true
-  }), React.createElement(FontColorButton, {
+  }), React.createElement(Separator, null), React.createElement(FontColorButton, {
     icon: React.createElement(FontColorIcon, null)
   }), React.createElement(ScientificSymbolsButton, null), React.createElement(Dropdown, {
     mark: "fontFamily",
@@ -2216,10 +2219,10 @@ var EditorToolbar = function EditorToolbar() {
     defaultValue: "1rem",
     values: FontSizeList,
     minWidth: "90px"
-  })));
+  })))));
 };
 
-var useStyles$7 = /*#__PURE__*/makeStyles(function () {
+var useStyles$8 = /*#__PURE__*/makeStyles(function () {
   return {
     container: function container(props) {
       return {
@@ -2258,7 +2261,7 @@ var Image = function Image(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$7(styleProps);
+  var classes = useStyles$8(styleProps);
   var img = React.createElement("img", {
     src: url,
     alt: description,
@@ -2296,7 +2299,7 @@ var Video = function Video(_ref) {
     selected: selected,
     focused: focused
   };
-  var classes = useStyles$7(styleProps);
+  var classes = useStyles$8(styleProps);
   return React.createElement("div", Object.assign({
     className: classes.container
   }, attributes), React.createElement("div", {
@@ -2313,7 +2316,7 @@ var Video = function Video(_ref) {
   })), children);
 };
 
-var useStyles$8 = /*#__PURE__*/makeStyles(function () {
+var useStyles$9 = /*#__PURE__*/makeStyles(function () {
   return {
     lineSpacing: function lineSpacing(props) {
       return {
@@ -2346,7 +2349,7 @@ var Element = function Element(_ref) {
     lineSpacing: lineSpacing ? lineSpacing : "normal",
     borderColor: borderColor ? borderColor : "grey"
   };
-  var classes = useStyles$8(styleProps);
+  var classes = useStyles$9(styleProps);
 
   switch (type) {
     case types.h1:
@@ -2451,7 +2454,7 @@ var getFontSize = function getFontSize(editor, fontSize) {
   return fontSize;
 };
 
-var useStyles$9 = /*#__PURE__*/makeStyles(function () {
+var useStyles$a = /*#__PURE__*/makeStyles(function () {
   return {
     text: function text(props) {
       return {
@@ -2484,7 +2487,7 @@ var Leaf = function Leaf(_ref) {
     fontSize: getFontSize(editor, leaf.fontSize),
     fontColor: leaf.fontColor ? leaf.fontColor : theme.palette.text.primary
   };
-  var classes = useStyles$9(props);
+  var classes = useStyles$a(props);
 
   if (leaf.bold) {
     children = React.createElement("strong", {
@@ -2528,7 +2531,7 @@ var Leaf = function Leaf(_ref) {
   }, attributes), children);
 };
 
-var useStyles$a = /*#__PURE__*/makeStyles(function (theme) {
+var useStyles$b = /*#__PURE__*/makeStyles(function (theme) {
   return {
     button: {
       minWidth: "70px",
@@ -2546,7 +2549,7 @@ var ActionButton = function ActionButton(_ref) {
       text = _ref.text,
       _ref$color = _ref.color,
       color = _ref$color === void 0 ? "default" : _ref$color;
-  var classes = useStyles$a();
+  var classes = useStyles$b();
   return React.createElement(Button, {
     className: classes.button,
     size: "small",
@@ -2987,7 +2990,13 @@ var convertChildren = function convertChildren(node, align) {
   // if there are nodes then convert the children
   if (node.nodes) {
     return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
+      var nodes = convertNode(val);
+      nodes["align"] = "inherit";
+
+      if (align !== undefined) {
+        nodes["align"] = align;
+      } // if the converted current value is an array, only grab the object inside of it
+
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
@@ -3036,15 +3045,13 @@ var convertDataByType = function convertDataByType(node) {
 
   if (alignmentTypes.includes(type)) {
     if (type === "alignment") {
-      return _extends({
-        children: convertChildren(node)
-      }, convertData(node));
+      return _extends({}, convertChildren(node)[0], convertData(node));
     }
 
-    return {
+    return _extends({
       type: "div",
       children: convertChildren(node, type.slice(6))
-    };
+    }, convertData(node));
   }
 
   return _extends({

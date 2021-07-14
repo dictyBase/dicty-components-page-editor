@@ -18,6 +18,7 @@ declare type CustomText = BaseText & {
 declare type CustomElement = {
     type: string;
     children: CustomText[] | CustomElement[];
+    align?: string;
     fontFamily?: string;
     fontSize?: string;
     fontColor?: string;

@@ -14,7 +14,10 @@ type StyleProps = {
 
 const useStyles = makeStyles((theme: Theme) => ({
   dropdown: (props: StyleProps) => ({
-    margin: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    marginTop: "0px",
+    marginBottom: "0px",
     minWidth: props.minWidth,
   }),
 }))
