@@ -3188,14 +3188,18 @@ var convertNode = function convertNode(node) {
     return _extends({
       text: text
     }, allMarks, {
-      fontColor: allMarks.fontColor || "inherit"
+      fontColor: allMarks.fontColor || "inherit",
+      fontSize: allMarks.fontSize || "inherit",
+      fontFamily: allMarks.fontSize || "inherit"
     });
   } // if no leaves or marks then just return plain text
 
 
   return {
     text: text,
-    fontColor: "inherit"
+    fontColor: "inherit",
+    fontSize: "inherit",
+    fontFamily: "inherit"
   };
 };
 
@@ -3209,7 +3213,7 @@ var defaultTheme = /*#__PURE__*/styles.createMuiTheme({});
 var initialValue = [{
   type: "paragraph",
   children: [{
-    fontFamily: "Roboto",
+    fontFamily: "inherit",
     fontSize: "inherit",
     fontColor: "inherit",
     text: ""

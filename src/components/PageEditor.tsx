@@ -22,7 +22,7 @@ const initialValue = [
     type: "paragraph",
     children: [
       {
-        fontFamily: "Roboto",
+        fontFamily: "inherit",
         fontSize: "inherit",
         fontColor: "inherit",
         text: "",

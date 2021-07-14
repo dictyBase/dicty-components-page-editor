@@ -257,6 +257,8 @@ const convertNode = (node) => {
       text,
       ...allMarks,
       fontColor: allMarks.fontColor || "inherit",
+      fontSize: allMarks.fontSize || "inherit",
+      fontFamily: allMarks.fontSize || "inherit",
     }
   }
 
@@ -264,6 +266,8 @@ const convertNode = (node) => {
   return {
     text,
     fontColor: "inherit",
+    fontSize: "inherit",
+    fontFamily: "inherit",
   }
 }
 
