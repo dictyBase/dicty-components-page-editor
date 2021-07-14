@@ -2436,7 +2436,6 @@ var Element = function Element(_ref) {
     case types.link:
       return React.createElement(Link, Object.assign({
         href: url,
-        color: "primary",
         className: classes.link
       }, attributes), children);
 
@@ -2486,6 +2485,12 @@ var Element = function Element(_ref) {
     case types.tableWrap:
       return React.createElement(Typography, Object.assign({
         component: "div"
+      }, attributes), children);
+
+    case types.paragraph:
+      return React.createElement(Typography, Object.assign({
+        component: "p",
+        align: align
       }, attributes), children);
 
     default:
@@ -3140,7 +3145,7 @@ var initialValue = [{
   children: [{
     fontFamily: "Roboto",
     fontSize: "inherit",
-    fontColor: "rgba(0, 0, 0, 0.87)",
+    fontColor: "inherit",
     text: ""
   }]
 }];
