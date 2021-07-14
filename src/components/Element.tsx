@@ -72,6 +72,7 @@ const Element = ({ attributes, children, element }: Props) => {
       return (
         <Typography
           component="div"
+          variant="inherit"
           className={classes.lineSpacing}
           {...attributes}>
           {children}
@@ -117,13 +118,21 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.paragraph:
       return (
-        <Typography component="p" align={align} {...attributes}>
+        <Typography
+          component="p"
+          variant="inherit"
+          align={align}
+          {...attributes}>
           {children}
         </Typography>
       )
     default:
       return (
-        <Typography component="div" align={align} {...attributes}>
+        <Typography
+          component="div"
+          variant="inherit"
+          align={align}
+          {...attributes}>
           {children}
         </Typography>
       )
