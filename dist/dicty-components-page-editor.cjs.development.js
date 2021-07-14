@@ -44,7 +44,6 @@ require('@fontsource/roboto');
 require('@fontsource/roboto-condensed');
 require('@fontsource/roboto-mono');
 require('@fontsource/roboto-slab');
-var Box = _interopDefault(require('@material-ui/core/Box'));
 var slateHyperscript = require('slate-hyperscript');
 
 var useStyles = /*#__PURE__*/styles.makeStyles(function () {
@@ -2249,7 +2248,7 @@ var useStyles$8 = /*#__PURE__*/styles.makeStyles(function (theme) {
   };
 });
 /**
- * Toolbar is the display for the editor toolbar.
+ * InlineToolbar is a condensed toolbar used for inline editing.
  */
 
 var InlineToolbar = function InlineToolbar() {
@@ -2601,55 +2600,6 @@ var Leaf = function Leaf(_ref) {
     component: "span",
     className: classes.text
   }, attributes), children);
-};
-
-var useStyles$c = /*#__PURE__*/styles.makeStyles(function (theme) {
-  return {
-    button: {
-      minWidth: "70px",
-      textTransform: "none",
-      marginRight: theme.spacing(1)
-    }
-  };
-});
-/**
- * ActionButton is a small button used for actions like saving and cancelling.
- */
-
-var ActionButton = function ActionButton(_ref) {
-  var handleClick = _ref.handleClick,
-      text = _ref.text,
-      _ref$color = _ref.color,
-      color = _ref$color === void 0 ? "default" : _ref$color;
-  var classes = useStyles$c();
-  return React__default.createElement(Button, {
-    className: classes.button,
-    size: "small",
-    variant: "contained",
-    color: color,
-    onClick: handleClick
-  }, text);
-};
-
-/**
- * ActionButtons contains the cancel and save buttons used at the bottom of the editor.
- */
-
-var ActionButtons = function ActionButtons(_ref) {
-  var handleCancel = _ref.handleCancel,
-      handleSave = _ref.handleSave;
-  return React__default.createElement(Box, {
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "flex-end"
-  }, React__default.createElement(ActionButton, {
-    handleClick: handleCancel,
-    text: "Cancel"
-  }), React__default.createElement(ActionButton, {
-    handleClick: handleSave,
-    text: "Save",
-    color: "primary"
-  }));
 };
 
 var elementTags = {
@@ -3214,8 +3164,6 @@ var initialValue = [{
 var PageEditor = function PageEditor(_ref) {
   var pageContent = _ref.pageContent,
       readOnly = _ref.readOnly,
-      handleSave = _ref.handleSave,
-      handleCancel = _ref.handleCancel,
       _ref$theme = _ref.theme,
       theme = _ref$theme === void 0 ? defaultTheme : _ref$theme,
       inline = _ref.inline;
@@ -3269,9 +3217,6 @@ var PageEditor = function PageEditor(_ref) {
     placeholder: "Enter some text...",
     spellCheck: true,
     autoFocus: true
-  }), !readOnly && React__default.createElement(ActionButtons, {
-    handleSave: handleSave,
-    handleCancel: handleCancel
   })));
 };
 
