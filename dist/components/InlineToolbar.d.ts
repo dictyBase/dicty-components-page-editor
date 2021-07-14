@@ -1,6 +1,6 @@
 /// <reference types="react" />
 /**
- * Toolbar is the display for the editor toolbar.
+ * InlineToolbar is a condensed toolbar used for inline editing.
  */
 declare const InlineToolbar: () => JSX.Element;
 export default InlineToolbar;

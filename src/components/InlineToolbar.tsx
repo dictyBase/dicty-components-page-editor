@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }))
 
 /**
- * Toolbar is the display for the editor toolbar.
+ * InlineToolbar is a condensed toolbar used for inline editing.
  */
 const InlineToolbar = () => {
   const classes = useStyles()
