@@ -251,10 +251,12 @@ const convertNode = (node) => {
     
   */
   if (marks && marks.length > 0) {
+    const allMarks = marks.reduce(marksReducer, {})
     // return object with text and list of marks with appropriate values
     return {
       text,
-      ...marks.reduce(marksReducer, {}),
+      ...allMarks,
+      fontColor: allMarks.fontColor || "inherit",
     }
   }
 
