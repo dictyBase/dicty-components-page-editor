@@ -2494,14 +2494,12 @@ var Element = function Element(_ref) {
     case types.paragraph:
       return React.createElement(Typography, Object.assign({
         component: "p",
-        variant: "inherit",
         align: align
       }, attributes), children);
 
     default:
       return React.createElement(Typography, Object.assign({
         component: "div",
-        variant: "inherit",
         align: align
       }, attributes), children);
   }

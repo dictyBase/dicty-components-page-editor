@@ -117,21 +117,13 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.paragraph:
       return (
-        <Typography
-          component="p"
-          variant="inherit"
-          align={align}
-          {...attributes}>
+        <Typography component="p" align={align} {...attributes}>
           {children}
         </Typography>
       )
     default:
       return (
-        <Typography
-          component="div"
-          variant="inherit"
-          align={align}
-          {...attributes}>
+        <Typography component="div" align={align} {...attributes}>
           {children}
         </Typography>
       )
