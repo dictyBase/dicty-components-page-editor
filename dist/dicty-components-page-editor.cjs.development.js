@@ -3259,6 +3259,7 @@ var PageEditor = function PageEditor(_ref) {
   };
 
   var toolbar = inline ? React__default.createElement(InlineToolbar, null) : React__default.createElement(EditorToolbar, null);
+  console.log(value);
   return React__default.createElement(styles.ThemeProvider, {
     theme: theme
   }, React__default.createElement(slateReact.Slate, {
