@@ -2,7 +2,7 @@ import React, { useMemo, useState, useCallback } from 'react';
 import { Editor, Transforms, Element as Element$1, Range, Path, Node, Point, createEditor } from 'slate';
 import { useSlate, useSelected, useFocused, withReact, Slate, Editable } from 'slate-react';
 import { withHistory } from 'slate-history';
-import { makeStyles, useTheme, ThemeProvider, createTheme } from '@material-ui/core/styles';
+import { makeStyles, useTheme, createMuiTheme, ThemeProvider } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Grid from '@material-ui/core/Grid';
@@ -3140,7 +3140,8 @@ var convertSlate047 = function convertSlate047(object) {
   return nodes.map(convertNode);
 };
 
-var defaultTheme = /*#__PURE__*/createTheme({});
+var defaultTheme = /*#__PURE__*/createMuiTheme({});
+
 var initialValue = [{
   type: "paragraph",
   children: [{

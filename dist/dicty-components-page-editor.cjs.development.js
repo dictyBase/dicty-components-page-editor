@@ -3147,7 +3147,8 @@ var convertSlate047 = function convertSlate047(object) {
   return nodes.map(convertNode);
 };
 
-var defaultTheme = /*#__PURE__*/styles.createTheme({});
+var defaultTheme = /*#__PURE__*/styles.createMuiTheme({});
+
 var initialValue = [{
   type: "paragraph",
   children: [{

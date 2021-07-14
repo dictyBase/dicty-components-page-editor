@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from "react"
 import { createEditor, Descendant } from "slate"
 import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
-import { createTheme, Theme, ThemeProvider } from "@material-ui/core/styles"
+import { Theme, ThemeProvider } from "@material-ui/core/styles"
 import Toolbar from "./Toolbar"
 import InlineToolbar from "./InlineToolbar"
 import Element from "./Element"
@@ -14,8 +14,7 @@ import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import onKeyDown from "../utils/onKeyDown"
 import convertSlate047 from "../utils/migration"
-
-const defaultTheme = createTheme({})
+import defaultTheme from "../styles/theme"
 
 const initialValue = [
   {
