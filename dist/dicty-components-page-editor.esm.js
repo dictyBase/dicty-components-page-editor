@@ -3124,10 +3124,13 @@ var convertNode = function convertNode(node) {
 
 
   if (marks && marks.length > 0) {
-    // return object with text and list of marks with appropriate values
+    var allMarks = marks.reduce(marksReducer, {}); // return object with text and list of marks with appropriate values
+
     return _extends({
       text: text
-    }, marks.reduce(marksReducer, {}));
+    }, allMarks, {
+      fontColor: allMarks.fontColor || "inherit"
+    });
   } // if no leaves or marks then just return plain text
 
 
