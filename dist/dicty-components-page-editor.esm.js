@@ -2085,6 +2085,11 @@ var useStyles$7 = /*#__PURE__*/makeStyles(function (theme) {
     container: {
       marginBottom: theme.spacing(1)
     },
+    toolbar: {
+      position: "sticky",
+      top: 0,
+      cursor: "default"
+    },
     divider: {
       marginLeft: theme.spacing(0.5),
       marginRight: theme.spacing(0.5)
@@ -2133,7 +2138,8 @@ var EditorToolbar = function EditorToolbar() {
     className: classes.container
   }, React.createElement(Toolbar, {
     disableGutters: true,
-    variant: "dense"
+    variant: "dense",
+    className: classes.toolbar
   }, React.createElement(Grid, {
     container: true
   }, React.createElement(Grid, {
