@@ -7,6 +7,7 @@ import Toolbar from "./Toolbar"
 import InlineToolbar from "./InlineToolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
+import ActionButtons from "./ActionButtons"
 import withHTML from "../plugins/withHTML"
 import withLinks from "../plugins/withLinks"
 import withLists from "../plugins/withLists"
@@ -39,6 +40,10 @@ type Props = {
   theme?: Theme
   /** Indicates if condensed (inline) toolbar should be shown */
   inline?: boolean
+  /** Function called when user clicks save button */
+  handleSave: (value: Descendant[]) => void
+  /** Function called when user clicks cancel button */
+  handleCancel: () => void
 }
 
 /**
@@ -49,6 +54,8 @@ const PageEditor = ({
   readOnly,
   theme = defaultTheme,
   inline,
+  handleSave,
+  handleCancel,
 }: Props) => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
@@ -83,7 +90,7 @@ const PageEditor = ({
   }
 
   let toolbar = inline ? <InlineToolbar /> : <Toolbar />
-  console.log(value)
+
   return (
     <ThemeProvider theme={theme}>
       <Slate
@@ -100,6 +107,12 @@ const PageEditor = ({
           spellCheck
           autoFocus
         />
+        {!readOnly && (
+          <ActionButtons
+            handleSave={() => handleSave(value)}
+            handleCancel={handleCancel}
+          />
+        )}
       </Slate>
     </ThemeProvider>
   )

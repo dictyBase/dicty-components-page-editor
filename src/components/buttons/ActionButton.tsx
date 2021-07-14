@@ -28,7 +28,7 @@ const ActionButton = ({ handleClick, text, color = "default" }: Props) => {
   return (
     <Button
       className={classes.button}
-      size="small"
+      size="medium"
       variant="contained"
       color={color}
       onClick={handleClick}>
