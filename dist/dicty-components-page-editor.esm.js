@@ -37,6 +37,7 @@ import '@fontsource/roboto';
 import '@fontsource/roboto-condensed';
 import '@fontsource/roboto-mono';
 import '@fontsource/roboto-slab';
+import Box from '@material-ui/core/Box';
 import { jsx } from 'slate-hyperscript';
 
 var useStyles = /*#__PURE__*/makeStyles(function () {
@@ -2604,6 +2605,55 @@ var Leaf = function Leaf(_ref) {
   }, attributes), children);
 };
 
+var useStyles$c = /*#__PURE__*/makeStyles(function (theme) {
+  return {
+    button: {
+      minWidth: "70px",
+      textTransform: "none",
+      marginRight: theme.spacing(1)
+    }
+  };
+});
+/**
+ * ActionButton is a small button used for actions like saving and cancelling.
+ */
+
+var ActionButton = function ActionButton(_ref) {
+  var handleClick = _ref.handleClick,
+      text = _ref.text,
+      _ref$color = _ref.color,
+      color = _ref$color === void 0 ? "default" : _ref$color;
+  var classes = useStyles$c();
+  return React.createElement(Button, {
+    className: classes.button,
+    size: "medium",
+    variant: "contained",
+    color: color,
+    onClick: handleClick
+  }, text);
+};
+
+/**
+ * ActionButtons contains the cancel and save buttons used at the bottom of the editor.
+ */
+
+var ActionButtons = function ActionButtons(_ref) {
+  var handleCancel = _ref.handleCancel,
+      handleSave = _ref.handleSave;
+  return React.createElement(Box, {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "flex-end"
+  }, React.createElement(ActionButton, {
+    handleClick: handleCancel,
+    text: "Cancel"
+  }), React.createElement(ActionButton, {
+    handleClick: handleSave,
+    text: "Save",
+    color: "primary"
+  }));
+};
+
 var elementTags = {
   A: function A(el) {
     return {
@@ -3165,7 +3215,9 @@ var PageEditor = function PageEditor(_ref) {
       readOnly = _ref.readOnly,
       _ref$theme = _ref.theme,
       theme = _ref$theme === void 0 ? defaultTheme : _ref$theme,
-      inline = _ref.inline;
+      inline = _ref.inline,
+      _handleSave = _ref.handleSave,
+      handleCancel = _ref.handleCancel;
   // create a slate editor object that won't change across renders
   var editor = useMemo(function () {
     return withHTML(withHistory(withReact(withNormalize(withMedia(withLists(withLinks(createEditor())))))));
@@ -3200,7 +3252,6 @@ var PageEditor = function PageEditor(_ref) {
   };
 
   var toolbar = inline ? React.createElement(InlineToolbar, null) : React.createElement(EditorToolbar, null);
-  console.log(value);
   return React.createElement(ThemeProvider, {
     theme: theme
   }, React.createElement(Slate, {
@@ -3217,6 +3268,11 @@ var PageEditor = function PageEditor(_ref) {
     placeholder: "Enter some text...",
     spellCheck: true,
     autoFocus: true
+  }), !readOnly && React.createElement(ActionButtons, {
+    handleSave: function handleSave() {
+      return _handleSave(value);
+    },
+    handleCancel: handleCancel
   })));
 };
 
