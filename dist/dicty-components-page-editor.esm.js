@@ -3135,7 +3135,9 @@ var convertNode = function convertNode(node) {
 
 
   return {
-    text: text
+    text: text,
+    fontColor: "inherit",
+    fontSize: "inherit"
   };
 };
 
