@@ -2443,6 +2443,7 @@ var Element = function Element(_ref) {
     case types.link:
       return React__default.createElement(Link, Object.assign({
         href: url,
+        color: "primary",
         className: classes.link
       }, attributes), children);
 

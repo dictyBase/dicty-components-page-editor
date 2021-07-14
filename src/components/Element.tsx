@@ -62,7 +62,11 @@ const Element = ({ attributes, children, element }: Props) => {
       )
     case types.link:
       return (
-        <Link href={url} className={classes.link} {...attributes}>
+        <Link
+          href={url}
+          color="primary"
+          className={classes.link}
+          {...attributes}>
           {children}
         </Link>
       )
