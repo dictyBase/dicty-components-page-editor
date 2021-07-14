@@ -8,6 +8,7 @@ import { types } from "../../constants/types"
 
 const dictyURL = "https://dictycr.org"
 const zomboURL = "https://www.zombo.com"
+const fontColor = "#fff"
 
 describe("upsertLink function", () => {
   it("should add new link", () => {
@@ -24,7 +25,7 @@ describe("upsertLink function", () => {
         <p>
           Insert link here:{" "}
           <element type={types.link} url={dictyURL}>
-            dictycr
+            <stext fontColor={fontColor}>dictycr</stext>
           </element>
           .
         </p>
@@ -38,7 +39,7 @@ describe("upsertLink function", () => {
         url: dictyURL,
         text: "dictycr",
       },
-      "#fff",
+      fontColor,
     )
     expect(input.children).toEqual(output.children)
   })
@@ -61,7 +62,7 @@ describe("upsertLink function", () => {
         <p>
           Update this{" "}
           <element type={types.link} url={zomboURL}>
-            zombocom
+            <stext>zombocom</stext>
           </element>
           .
         </p>
@@ -75,8 +76,9 @@ describe("upsertLink function", () => {
         url: zomboURL,
         text: "zombocom",
       },
-      "#fff",
+      fontColor,
     )
+
     expect(input.children).toEqual(output.children)
   })
 })
