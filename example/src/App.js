@@ -2,6 +2,16 @@ import React from "react"
 import { PageEditor } from "dicty-components-page-editor"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
+import { makeStyles, Theme } from "@material-ui/core/styles"
+import Button from "@material-ui/core/Button"
+
+const useStyles = makeStyles((theme: Theme) => ({
+  button: {
+    minWidth: "70px",
+    textTransform: "none",
+    marginRight: theme.spacing(1),
+  },
+}))
 
 const initialValue = [
   {
@@ -18,6 +28,8 @@ const initialValue = [
 ]
 
 const App = () => {
+  const classes = useStyles()
+
   const handleSave = () => {
     console.log("clicked save button")
   }
@@ -28,13 +40,29 @@ const App = () => {
 
   return (
     <Container>
-      <Box height="500px" border="1px solid #ddd">
+      <Box border="1px solid #ddd">
         <PageEditor
-          handleSave={handleSave}
-          handleCancel={handleCancel}
           pageContent={JSON.stringify(initialValue)}
           readOnly={false}
         />
+        <Box mt={5} mb={1} display="flex" justifyContent="flex-end">
+          <Button
+            className={classes.button}
+            size="large"
+            variant="contained"
+            color="default"
+            onClick={handleCancel}>
+            Cancel
+          </Button>
+          <Button
+            className={classes.button}
+            size="large"
+            variant="contained"
+            color="primary"
+            onClick={handleSave}>
+            Save
+          </Button>
+        </Box>
       </Box>
     </Container>
   )
