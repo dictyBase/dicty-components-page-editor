@@ -4,6 +4,7 @@ import { Slate, Editable, withReact } from "slate-react"
 import { withHistory } from "slate-history"
 import { createTheme, Theme, ThemeProvider } from "@material-ui/core/styles"
 import Toolbar from "./Toolbar"
+import InlineToolbar from "./InlineToolbar"
 import Element from "./Element"
 import Leaf from "./Leaf"
 import ActionButtons from "./ActionButtons"
@@ -42,6 +43,8 @@ type Props = {
   handleCancel: () => void
   /** Material-UI theme */
   theme?: Theme
+  /** Indicates if condensed (inline) toolbar should be shown */
+  inline?: boolean
 }
 
 /**
@@ -53,6 +56,7 @@ const PageEditor = ({
   handleSave,
   handleCancel,
   theme = defaultTheme,
+  inline,
 }: Props) => {
   // create a slate editor object that won't change across renders
   const editor = useMemo(
@@ -85,14 +89,16 @@ const PageEditor = ({
   const handleKeyDown = (event: React.KeyboardEvent) => {
     onKeyDown(event, editor)
   }
-  console.log(value)
+
+  let toolbar = inline ? <InlineToolbar /> : <Toolbar />
+
   return (
     <ThemeProvider theme={theme}>
       <Slate
         editor={editor}
         value={value}
         onChange={(value) => setValue(value)}>
-        {!readOnly && <Toolbar />}
+        {!readOnly && toolbar}
         <Editable
           readOnly={readOnly}
           renderElement={renderElement}
