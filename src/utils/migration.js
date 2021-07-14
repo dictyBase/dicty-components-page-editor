@@ -264,7 +264,6 @@ const convertNode = (node) => {
   return {
     text,
     fontColor: "inherit",
-    fontSize: "inherit",
   }
 }
 
