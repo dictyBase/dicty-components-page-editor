@@ -3205,18 +3205,21 @@ var convertSlate047 = function convertSlate047(object) {
 
 var defaultTheme = /*#__PURE__*/createMuiTheme({});
 
-var initialValue = [{
-  type: "paragraph",
-  children: [{
-    fontFamily: "inherit",
-    fontSize: "inherit",
-    fontColor: "inherit",
-    text: ""
-  }]
-}];
+var getInitialValue = function getInitialValue(text) {
+  return [{
+    type: "paragraph",
+    children: [{
+      fontFamily: "inherit",
+      fontSize: "inherit",
+      fontColor: "inherit",
+      text: text
+    }]
+  }];
+};
 /**
  * PageEditor is the main editor component.
  */
+
 
 var PageEditor = function PageEditor(_ref) {
   var pageContent = _ref.pageContent,
@@ -3230,14 +3233,19 @@ var PageEditor = function PageEditor(_ref) {
   var editor = useMemo(function () {
     return withHTML(withHistory(withReact(withNormalize(withMedia(withLists(withLinks(createEditor())))))));
   }, []);
-  var defaultValue = initialValue;
+  var defaultValue = getInitialValue("");
 
-  if (pageContent) {
-    defaultValue = JSON.parse(pageContent);
+  try {
+    if (pageContent) {
+      defaultValue = JSON.parse(pageContent);
 
-    if (!Array.isArray(defaultValue)) {
-      defaultValue = convertSlate047(defaultValue);
+      if (!Array.isArray(defaultValue)) {
+        defaultValue = convertSlate047(defaultValue);
+      }
     }
+  } catch (e) {
+    defaultValue = getInitialValue("There was a problem loading this data. Please contact dictyBase if the problem persists.");
+    console.error(e);
   } // store the value of the editor
 
 
