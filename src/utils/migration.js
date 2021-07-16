@@ -195,16 +195,18 @@ const convertChildren = (node) => {
 
 const convertDataByType = (node) => {
   const { type } = node
+  const dataObj = convertData(node)
+  const emptyObj = Object.keys(dataObj).length === 0
   // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
   if (alignmentTypes.includes(type)) {
     if (type !== "alignment") {
-      return [...convertChildren(node), convertData(node)].flat(2)
+      return [...convertChildren(node), emptyObj ? [] : dataObj].flat(2)
     }
     const element = {
       type: "div",
       children: convertChildren(node),
-      ...convertData(node),
+      ...dataObj,
     }
     return element
   }
@@ -212,14 +214,14 @@ const convertDataByType = (node) => {
   if (type === "div") {
     return {
       ...convertChildren(node),
-      ...convertData(node),
+      ...dataObj,
     }
   }
 
   return {
     type: convertType(type),
     children: convertChildren(node),
-    ...convertData(node),
+    ...dataObj,
   }
 }
 
@@ -287,21 +289,14 @@ const convertNode = (node) => {
   }
 }
 
-// remove empty objects from array
-const removeEmptyObjects = (arr) => {
-  return arr.filter((item) => {
-    return Object.keys(item).length > 0
-  })
-}
-
 const convertSlate047 = (object) => {
   const { nodes } = object.document
   let newNodes = []
   const convertedNodes = nodes.map(convertNode)
   if (Array.isArray(convertedNodes[0])) {
-    newNodes = removeEmptyObjects(convertedNodes[0])
+    newNodes = convertedNodes[0]
   } else {
-    newNodes = removeEmptyObjects(convertedNodes)
+    newNodes = convertedNodes
   }
   return newNodes.flat()
 }

@@ -3120,30 +3120,32 @@ var convertChildren = function convertChildren(node) {
 };
 
 var convertDataByType = function convertDataByType(node) {
-  var type = node.type; // remove any alignment wrappers from old structure;
+  var type = node.type;
+  var dataObj = convertData(node);
+  var emptyObj = Object.keys(dataObj).length === 0; // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
 
   if (alignmentTypes.includes(type)) {
     if (type !== "alignment") {
-      return [].concat(convertChildren(node), [convertData(node)]).flat(2);
+      return [].concat(convertChildren(node), [emptyObj ? [] : dataObj]).flat(2);
     }
 
     var element = _extends({
       type: "div",
       children: convertChildren(node)
-    }, convertData(node));
+    }, dataObj);
 
     return element;
   }
 
   if (type === "div") {
-    return _extends({}, convertChildren(node), convertData(node));
+    return _extends({}, convertChildren(node), dataObj);
   }
 
   return _extends({
     type: convertType(type),
     children: convertChildren(node)
-  }, convertData(node));
+  }, dataObj);
 };
 
 var convertNode = function convertNode(node) {
@@ -3212,13 +3214,6 @@ var convertNode = function convertNode(node) {
     fontSize: "inherit",
     fontFamily: "inherit"
   };
-}; // remove empty objects from array
-
-
-var removeEmptyObjects = function removeEmptyObjects(arr) {
-  return arr.filter(function (item) {
-    return Object.keys(item).length > 0;
-  });
 };
 
 var convertSlate047 = function convertSlate047(object) {
@@ -3227,9 +3222,9 @@ var convertSlate047 = function convertSlate047(object) {
   var convertedNodes = nodes.map(convertNode);
 
   if (Array.isArray(convertedNodes[0])) {
-    newNodes = removeEmptyObjects(convertedNodes[0]);
+    newNodes = convertedNodes[0];
   } else {
-    newNodes = removeEmptyObjects(convertedNodes);
+    newNodes = convertedNodes;
   }
 
   return newNodes.flat();
