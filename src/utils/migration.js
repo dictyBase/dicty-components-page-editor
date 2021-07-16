@@ -147,6 +147,7 @@ const alignmentTypes = [
   "align_justify",
 ]
 
+// marksReducer converts list of marks to a single object
 const marksReducer = (acc, mark) => {
   if (mark.type === "font-color") {
     return {
@@ -173,6 +174,7 @@ const marksReducer = (acc, mark) => {
   }
 }
 
+// convertChildren converts an old Slate nodes array into the new children format
 const convertChildren = (node) => {
   // if there are nodes then convert the children
   if (node.nodes) {
@@ -182,6 +184,7 @@ const convertChildren = (node) => {
       if (Array.isArray(nodes)) {
         return [...acc, ...nodes]
       }
+      // if div type then just add its children
       if (nodes.type === "div") {
         return [...acc, ...nodes.children]
       }
@@ -193,6 +196,7 @@ const convertChildren = (node) => {
   return [{ text: "" }]
 }
 
+// convertDataByType converts the old node structure into the new format
 const convertDataByType = (node) => {
   const { type } = node
   const dataObj = convertData(node)
@@ -201,6 +205,8 @@ const convertDataByType = (node) => {
   // previously, changing the alignment would add a new <div> around the selection
   if (alignmentTypes.includes(type)) {
     if (type !== "alignment") {
+      // if the data object is empty, return an empty array and flatten it;
+      // this is done to remove any empty {} from the final array
       return [...convertChildren(node), emptyObj ? [] : dataObj].flat(2)
     }
     const element = {
@@ -211,6 +217,7 @@ const convertDataByType = (node) => {
     return element
   }
 
+  // if a div type, don't include the type in the new object (unnecessary)
   if (type === "div") {
     return {
       ...convertChildren(node),
@@ -225,6 +232,8 @@ const convertDataByType = (node) => {
   }
 }
 
+// convertNode handles the entire conversion process by first checking for a `type` property,
+// then checking for leaves and finally for marks
 const convertNode = (node) => {
   const { type } = node
   if (type) {
@@ -289,6 +298,8 @@ const convertNode = (node) => {
   }
 }
 
+// flattenArr is used to prevent any objects like
+// "0": {} to be in the array
 const flattenArr = (arr) => {
   let newarr = []
   arr.forEach((item) => {
@@ -303,15 +314,19 @@ const flattenArr = (arr) => {
   return newarr
 }
 
+// convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
 const convertSlate047 = (object) => {
   const { nodes } = object.document
   let newNodes = []
+  // run first conversion
   const convertedNodes = nodes.map(convertNode)
+  // if it comes back as a nested array, grab the first element
   if (Array.isArray(convertedNodes[0])) {
     newNodes = convertedNodes[0]
   } else {
     newNodes = convertedNodes
   }
+  // return flattened array
   newNodes = flattenArr(newNodes)
   return newNodes.flat()
 }
