@@ -300,8 +300,9 @@ const convertSlate047 = (object) => {
   const convertedNodes = nodes.map(convertNode)
   if (Array.isArray(convertedNodes[0])) {
     newNodes = removeEmptyObjects(convertedNodes[0])
+  } else {
+    newNodes = removeEmptyObjects(convertedNodes)
   }
-  newNodes = removeEmptyObjects(convertedNodes)
   return newNodes.flat()
 }
 

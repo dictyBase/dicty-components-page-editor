@@ -3235,9 +3235,10 @@ var convertSlate047 = function convertSlate047(object) {
 
   if (Array.isArray(convertedNodes[0])) {
     newNodes = removeEmptyObjects(convertedNodes[0]);
+  } else {
+    newNodes = removeEmptyObjects(convertedNodes);
   }
 
-  newNodes = removeEmptyObjects(convertedNodes);
   return newNodes.flat();
 };
 
