@@ -3075,7 +3075,7 @@ var convertType = function convertType(type) {
   return convertedType;
 };
 
-var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
+var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"]; // marksReducer converts list of marks to a single object
 
 var marksReducer = function marksReducer(acc, mark) {
   var _extends2;
@@ -3099,7 +3099,8 @@ var marksReducer = function marksReducer(acc, mark) {
   }
 
   return _extends({}, acc, (_extends2 = {}, _extends2[mark.type] = true, _extends2));
-};
+}; // convertChildren converts an old Slate nodes array into the new children format
+
 
 var convertChildren = function convertChildren(node) {
   // if there are nodes then convert the children
@@ -3109,7 +3110,8 @@ var convertChildren = function convertChildren(node) {
 
       if (Array.isArray(nodes)) {
         return [].concat(acc, nodes);
-      }
+      } // if div type then just add its children
+
 
       if (nodes.type === "div") {
         return [].concat(acc, nodes.children);
@@ -3124,7 +3126,8 @@ var convertChildren = function convertChildren(node) {
   return [{
     text: ""
   }];
-};
+}; // convertDataByType converts the old node structure into the new format
+
 
 var convertDataByType = function convertDataByType(node) {
   var type = node.type;
@@ -3134,6 +3137,8 @@ var convertDataByType = function convertDataByType(node) {
 
   if (alignmentTypes.includes(type)) {
     if (type !== "alignment") {
+      // if the data object is empty, return an empty array and flatten it;
+      // this is done to remove any empty {} from the final array
       return [].concat(convertChildren(node), [emptyObj ? [] : dataObj]).flat(2);
     }
 
@@ -3143,7 +3148,8 @@ var convertDataByType = function convertDataByType(node) {
     }, dataObj);
 
     return element;
-  }
+  } // if a div type, don't include the type in the new object (unnecessary)
+
 
   if (type === "div") {
     return _extends({}, convertChildren(node), dataObj);
@@ -3153,7 +3159,9 @@ var convertDataByType = function convertDataByType(node) {
     type: convertType(type),
     children: convertChildren(node)
   }, dataObj);
-};
+}; // convertNode handles the entire conversion process by first checking for a `type` property,
+// then checking for leaves and finally for marks
+
 
 var convertNode = function convertNode(node) {
   var type = node.type;
@@ -3221,7 +3229,9 @@ var convertNode = function convertNode(node) {
     fontSize: "inherit",
     fontFamily: "inherit"
   };
-};
+}; // flattenArr is used to prevent any objects like
+// "0": {} to be in the array
+
 
 var flattenArr = function flattenArr(arr) {
   var newarr = [];
@@ -3235,18 +3245,21 @@ var flattenArr = function flattenArr(arr) {
     }
   });
   return newarr;
-};
+}; // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
+
 
 var convertSlate047 = function convertSlate047(object) {
   var nodes = object.document.nodes;
-  var newNodes = [];
-  var convertedNodes = nodes.map(convertNode);
+  var newNodes = []; // run first conversion
+
+  var convertedNodes = nodes.map(convertNode); // if it comes back as a nested array, grab the first element
 
   if (Array.isArray(convertedNodes[0])) {
     newNodes = convertedNodes[0];
   } else {
     newNodes = convertedNodes;
-  }
+  } // return flattened array
+
 
   newNodes = flattenArr(newNodes);
   return newNodes.flat();
