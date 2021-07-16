@@ -124,6 +124,9 @@ const convertType = (type) => {
     case "table-cell":
       convertedType = types.tableCell
       break
+    case "body1":
+      convertedType = "paragraph"
+      break
     case "align_center":
     case "align_left":
     case "align_right":
