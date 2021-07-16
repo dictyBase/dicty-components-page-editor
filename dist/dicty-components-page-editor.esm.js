@@ -493,8 +493,8 @@ var ids = {
   pubmed: "PubMed",
   go: "GO",
   gene: "Gene",
-  strain: "Strain",
-  plasmid: "Plasmid"
+  strain: "Strain ID",
+  plasmid: "Plasmid ID"
 };
 var idList = [ids.pubmed, ids.go, ids.gene, ids.strain, ids.plasmid];
 
@@ -600,7 +600,7 @@ var AutolinkIDsButton = function AutolinkIDsButton() {
     "aria-label": "autolinked IDs",
     "aria-haspopup": "true",
     onMouseDown: handleMouseDown
-  }, "ID")), React.createElement(Menu, {
+  }, "DB")), React.createElement(Menu, {
     id: "autolinked-ids-menu",
     anchorEl: anchorEl,
     open: Boolean(anchorEl),

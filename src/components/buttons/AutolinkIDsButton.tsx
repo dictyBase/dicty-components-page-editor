@@ -12,8 +12,8 @@ const ids = {
   pubmed: "PubMed",
   go: "GO",
   gene: "Gene",
-  strain: "Strain",
-  plasmid: "Plasmid",
+  strain: "Strain ID",
+  plasmid: "Plasmid ID",
 }
 
 const idList = [ids.pubmed, ids.go, ids.gene, ids.strain, ids.plasmid]
@@ -101,7 +101,7 @@ const AutolinkIDsButton = () => {
           aria-label="autolinked IDs"
           aria-haspopup="true"
           onMouseDown={handleMouseDown}>
-          ID
+          DB
         </IconButton>
       </Tooltip>
       <Menu
