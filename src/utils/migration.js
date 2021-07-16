@@ -136,23 +136,6 @@ const convertType = (type) => {
   return convertedType
 }
 
-const convertChildren = (node, align) => {
-  // if there are nodes then convert the children
-  if (node.nodes) {
-    return node.nodes.reduce((acc, val) => {
-      const nodes = convertNode(val)
-      // if the converted current value is an array, only grab the object inside of it
-      if (Array.isArray(nodes)) {
-        return [...acc, ...nodes]
-      }
-      // otherwise add the new value in its existing object form
-      return [...acc, nodes]
-    }, [])
-  }
-  // otherwise include mandatory object with text property
-  return [{ text: "" }]
-}
-
 const alignmentTypes = [
   "alignment",
   "align_left",
@@ -187,17 +170,47 @@ const marksReducer = (acc, mark) => {
   }
 }
 
+const convertChildren = (node) => {
+  // if there are nodes then convert the children
+  if (node.nodes) {
+    return node.nodes.reduce((acc, val) => {
+      const nodes = convertNode(val)
+      // if the converted current value is an array, only grab the object inside of it
+      if (Array.isArray(nodes)) {
+        return [...acc, ...nodes]
+      }
+      if (nodes.type === "div") {
+        return [...acc, ...nodes.children]
+      }
+      // otherwise add the new value in its existing object form
+      return [...acc, nodes]
+    }, [])
+  }
+  // otherwise include mandatory object with text property
+  return [{ text: "" }]
+}
+
 const convertDataByType = (node) => {
   const { type } = node
   // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
   if (alignmentTypes.includes(type)) {
+    if (type !== "alignment") {
+      return [...convertChildren(node), convertData(node)].flat(2)
+    }
     const element = {
       type: "div",
       children: convertChildren(node),
       ...convertData(node),
     }
     return element
+  }
+
+  if (type === "div") {
+    return {
+      ...convertChildren(node),
+      ...convertData(node),
+    }
   }
 
   return {
@@ -271,10 +284,22 @@ const convertNode = (node) => {
   }
 }
 
+// remove empty objects from array
+const removeEmptyObjects = (arr) => {
+  return arr.filter((item) => {
+    return Object.keys(item).length > 0
+  })
+}
+
 const convertSlate047 = (object) => {
   const { nodes } = object.document
-
-  return nodes.map(convertNode)
+  let newNodes = []
+  const convertedNodes = nodes.map(convertNode)
+  if (Array.isArray(convertedNodes[0])) {
+    newNodes = removeEmptyObjects(convertedNodes[0])
+  }
+  newNodes = removeEmptyObjects(convertedNodes)
+  return newNodes.flat()
 }
 
 export default convertSlate047

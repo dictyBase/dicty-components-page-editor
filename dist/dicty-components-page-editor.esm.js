@@ -3064,27 +3064,6 @@ var convertType = function convertType(type) {
   return convertedType;
 };
 
-var convertChildren = function convertChildren(node, align) {
-  // if there are nodes then convert the children
-  if (node.nodes) {
-    return node.nodes.reduce(function (acc, val) {
-      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
-
-      if (Array.isArray(nodes)) {
-        return [].concat(acc, nodes);
-      } // otherwise add the new value in its existing object form
-
-
-      return [].concat(acc, [nodes]);
-    }, []);
-  } // otherwise include mandatory object with text property
-
-
-  return [{
-    text: ""
-  }];
-};
-
 var alignmentTypes = ["alignment", "align_left", "align_center", "align_right", "align_justify"];
 
 var marksReducer = function marksReducer(acc, mark) {
@@ -3111,17 +3090,50 @@ var marksReducer = function marksReducer(acc, mark) {
   return _extends({}, acc, (_extends2 = {}, _extends2[mark.type] = true, _extends2));
 };
 
+var convertChildren = function convertChildren(node) {
+  // if there are nodes then convert the children
+  if (node.nodes) {
+    return node.nodes.reduce(function (acc, val) {
+      var nodes = convertNode(val); // if the converted current value is an array, only grab the object inside of it
+
+      if (Array.isArray(nodes)) {
+        return [].concat(acc, nodes);
+      }
+
+      if (nodes.type === "div") {
+        return [].concat(acc, nodes.children);
+      } // otherwise add the new value in its existing object form
+
+
+      return [].concat(acc, [nodes]);
+    }, []);
+  } // otherwise include mandatory object with text property
+
+
+  return [{
+    text: ""
+  }];
+};
+
 var convertDataByType = function convertDataByType(node) {
   var type = node.type; // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
 
   if (alignmentTypes.includes(type)) {
+    if (type !== "alignment") {
+      return [].concat(convertChildren(node), [convertData(node)]).flat(2);
+    }
+
     var element = _extends({
       type: "div",
       children: convertChildren(node)
     }, convertData(node));
 
     return element;
+  }
+
+  if (type === "div") {
+    return _extends({}, convertChildren(node), convertData(node));
   }
 
   return _extends({
@@ -3196,11 +3208,26 @@ var convertNode = function convertNode(node) {
     fontSize: "inherit",
     fontFamily: "inherit"
   };
+}; // remove empty objects from array
+
+
+var removeEmptyObjects = function removeEmptyObjects(arr) {
+  return arr.filter(function (item) {
+    return Object.keys(item).length > 0;
+  });
 };
 
 var convertSlate047 = function convertSlate047(object) {
   var nodes = object.document.nodes;
-  return nodes.map(convertNode);
+  var newNodes = [];
+  var convertedNodes = nodes.map(convertNode);
+
+  if (Array.isArray(convertedNodes[0])) {
+    newNodes = removeEmptyObjects(convertedNodes[0]);
+  }
+
+  newNodes = removeEmptyObjects(convertedNodes);
+  return newNodes.flat();
 };
 
 var defaultTheme = /*#__PURE__*/createMuiTheme({});
