@@ -3223,6 +3223,20 @@ var convertNode = function convertNode(node) {
   };
 };
 
+var flattenArr = function flattenArr(arr) {
+  var newarr = [];
+  arr.forEach(function (item) {
+    // check if the object is missing both mandatory fields
+    if (!item.children && !item.text) {
+      var values = Object.values(item);
+      newarr.push(values);
+    } else {
+      newarr.push(item);
+    }
+  });
+  return newarr;
+};
+
 var convertSlate047 = function convertSlate047(object) {
   var nodes = object.document.nodes;
   var newNodes = [];
@@ -3234,6 +3248,7 @@ var convertSlate047 = function convertSlate047(object) {
     newNodes = convertedNodes;
   }
 
+  newNodes = flattenArr(newNodes);
   return newNodes.flat();
 };
 

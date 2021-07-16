@@ -289,6 +289,20 @@ const convertNode = (node) => {
   }
 }
 
+const flattenArr = (arr) => {
+  let newarr = []
+  arr.forEach((item) => {
+    // check if the object is missing both mandatory fields
+    if (!item.children && !item.text) {
+      const values = Object.values(item)
+      newarr.push(values)
+    } else {
+      newarr.push(item)
+    }
+  })
+  return newarr
+}
+
 const convertSlate047 = (object) => {
   const { nodes } = object.document
   let newNodes = []
@@ -298,6 +312,7 @@ const convertSlate047 = (object) => {
   } else {
     newNodes = convertedNodes
   }
+  newNodes = flattenArr(newNodes)
   return newNodes.flat()
 }
 
