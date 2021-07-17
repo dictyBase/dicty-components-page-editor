@@ -3234,43 +3234,54 @@ var flattenArr = function flattenArr(arr) {
     }
   });
   return newarr;
-}; // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
+};
 
+var errorValue = [{
+  type: "paragraph",
+  children: [{
+    fontFamily: "inherit",
+    fontSize: "inherit",
+    fontColor: "inherit",
+    text: "There was a problem loading this data. Please contact dictyBase if the problem persists."
+  }]
+}]; // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
 
 var convertSlate047 = function convertSlate047(object) {
-  var nodes = object.document.nodes;
-  var newNodes = []; // run first conversion
+  try {
+    var nodes = object.document.nodes;
+    var newNodes = []; // run first conversion
 
-  var convertedNodes = nodes.map(convertNode); // if it comes back as a nested array, grab the first element
+    var convertedNodes = nodes.map(convertNode); // if it comes back as a nested array, grab the first element
 
-  if (Array.isArray(convertedNodes[0])) {
-    newNodes = convertedNodes[0];
-  } else {
-    newNodes = convertedNodes;
-  } // return flattened array
+    if (Array.isArray(convertedNodes[0])) {
+      newNodes = convertedNodes[0];
+    } else {
+      newNodes = convertedNodes;
+    } // return flattened array
 
 
-  newNodes = flattenArr(newNodes);
-  return newNodes.flat();
+    newNodes = flattenArr(newNodes);
+    return newNodes.flat();
+  } catch (e) {
+    console.error(e);
+    return errorValue;
+  }
 };
 
 var defaultTheme = /*#__PURE__*/styles.createMuiTheme({});
 
-var getInitialValue = function getInitialValue(text) {
-  return [{
-    type: "paragraph",
-    children: [{
-      fontFamily: "inherit",
-      fontSize: "inherit",
-      fontColor: "inherit",
-      text: text
-    }]
-  }];
-};
+var initialValue = [{
+  type: "paragraph",
+  children: [{
+    fontFamily: "inherit",
+    fontSize: "inherit",
+    fontColor: "inherit",
+    text: ""
+  }]
+}];
 /**
  * PageEditor is the main editor component.
  */
-
 
 var PageEditor = function PageEditor(_ref) {
   var pageContent = _ref.pageContent,
@@ -3284,19 +3295,14 @@ var PageEditor = function PageEditor(_ref) {
   var editor = React.useMemo(function () {
     return withHTML(slateHistory.withHistory(slateReact.withReact(withNormalize(withMedia(withLists(withLinks(slate.createEditor())))))));
   }, []);
-  var defaultValue = getInitialValue("");
+  var defaultValue = initialValue;
 
-  try {
-    if (pageContent) {
-      defaultValue = JSON.parse(pageContent);
+  if (pageContent) {
+    defaultValue = JSON.parse(pageContent);
 
-      if (!Array.isArray(defaultValue)) {
-        defaultValue = convertSlate047(defaultValue);
-      }
+    if (!Array.isArray(defaultValue)) {
+      defaultValue = convertSlate047(defaultValue);
     }
-  } catch (e) {
-    defaultValue = getInitialValue("There was a problem loading this data. Please contact dictyBase if the problem persists.");
-    console.error(e);
   } // store the value of the editor
 
 
