@@ -26,7 +26,7 @@ const FontSizeList = [
  * convertData receives a node object and converts its nested
  * 'data' object into the new Slate format.
  */
-const convertData = (node) => {
+const convertData = (node: any) => {
   const { type } = node
   switch (type) {
     case "alignment":
@@ -63,7 +63,7 @@ const convertData = (node) => {
  * convertType converts an existing 'type' property into the 'type'
  * used by the new version of the editor.
  */
-const convertType = (type) => {
+const convertType = (type: string) => {
   let convertedType = ""
   switch (type) {
     case "heading_one":
@@ -148,7 +148,7 @@ const alignmentTypes = [
 ]
 
 // marksReducer converts list of marks to a single object
-const marksReducer = (acc, mark) => {
+const marksReducer = (acc: any, mark: any) => {
   if (mark.type === "font-color") {
     return {
       ...acc,
@@ -175,10 +175,10 @@ const marksReducer = (acc, mark) => {
 }
 
 // convertChildren converts an old Slate nodes array into the new children format
-const convertChildren = (node) => {
+const convertChildren = (node: any) => {
   // if there are nodes then convert the children
   if (node.nodes) {
-    return node.nodes.reduce((acc, val) => {
+    return node.nodes.reduce((acc: any, val: any) => {
       const nodes = convertNode(val)
       // if the converted current value is an array, only grab the object inside of it
       if (Array.isArray(nodes)) {
@@ -197,7 +197,7 @@ const convertChildren = (node) => {
 }
 
 // convertDataByType converts the old node structure into the new format
-const convertDataByType = (node) => {
+const convertDataByType = (node: any) => {
   const { type } = node
   const dataObj = convertData(node)
   const emptyObj = Object.keys(dataObj).length === 0
@@ -234,7 +234,7 @@ const convertDataByType = (node) => {
 
 // convertNode handles the entire conversion process by first checking for a `type` property,
 // then checking for leaves and finally for marks
-const convertNode = (node) => {
+const convertNode = (node: any) => {
   const { type } = node
   if (type) {
     return convertDataByType(node)
@@ -300,8 +300,8 @@ const convertNode = (node) => {
 
 // flattenArr is used to prevent any objects like
 // "0": {} to be in the array
-const flattenArr = (arr) => {
-  let newarr = []
+const flattenArr = (arr: any[]) => {
+  let newarr = [] as any[]
   arr.forEach((item) => {
     // check if the object is missing both mandatory fields
     if (!item.children && !item.text) {
@@ -315,7 +315,7 @@ const flattenArr = (arr) => {
 }
 
 // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
-const convertSlate047 = (object) => {
+const convertSlate047 = (object: any) => {
   const { nodes } = object.document
   let newNodes = []
   // run first conversion
