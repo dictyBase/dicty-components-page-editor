@@ -3196,22 +3196,7 @@ var convertNode = function convertNode(node) {
 
   if (leaves) {
     return [].concat(leaves.map(convertNode));
-  }
-  /**
-    Example node to check for:
-      {
-        object: "leaf",
-        text: "periodically",
-        marks: [
-          {
-            object: "mark",
-            type: "italic",
-            data: {},
-          },
-        ],
-      }
-    
-  */
+  } // see above comment for example of marks structure
 
 
   if (marks && marks.length > 0) {

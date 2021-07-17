@@ -22,6 +22,14 @@ const FontSizeList = [
   { size: "30px" },
 ]
 
+type OldMark = {
+  object: "mark"
+  type: string
+  data: {
+    [key: string]: any
+  }
+}
+
 /**
  * convertData receives a node object and converts its nested
  * 'data' object into the new Slate format.
@@ -148,7 +156,7 @@ const alignmentTypes = [
 ]
 
 // marksReducer converts list of marks to a single object
-const marksReducer = (acc: any, mark: any) => {
+const marksReducer = (acc: OldMark, mark: OldMark) => {
   if (mark.type === "font-color") {
     return {
       ...acc,
@@ -267,21 +275,7 @@ const convertNode = (node: any) => {
     return [...leaves.map(convertNode)]
   }
 
-  /**
-    Example node to check for:
-      {
-        object: "leaf",
-        text: "periodically",
-        marks: [
-          {
-            object: "mark",
-            type: "italic",
-            data: {},
-          },
-        ],
-      }
-    
-  */
+  // see above comment for example of marks structure
   if (marks && marks.length > 0) {
     const allMarks = marks.reduce(marksReducer, {})
     // return object with text and list of marks with appropriate values
