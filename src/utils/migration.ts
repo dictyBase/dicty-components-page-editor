@@ -192,29 +192,34 @@ const convertChildren = (node: any) => {
       return [...acc, nodes]
     }, [])
   }
-  // otherwise include mandatory object with text property
+  // else include mandatory object with text property
   return [{ text: "" }]
+}
+
+const convertAlignmentData = (node: any) => {
+  const dataObj = convertData(node)
+  const emptyObj = Object.keys(dataObj).length === 0
+  if (node.type !== "alignment") {
+    // if the data object is empty, return an empty array and flatten it;
+    // this is done to remove any empty {} from the final array
+    return [...convertChildren(node), emptyObj ? [] : dataObj].flat(2)
+  }
+  return {
+    type: "div",
+    children: convertChildren(node),
+    ...dataObj,
+  }
 }
 
 // convertDataByType converts the old node structure into the new format
 const convertDataByType = (node: any) => {
   const { type } = node
   const dataObj = convertData(node)
-  const emptyObj = Object.keys(dataObj).length === 0
+
   // remove any alignment wrappers from old structure;
   // previously, changing the alignment would add a new <div> around the selection
   if (alignmentTypes.includes(type)) {
-    if (type !== "alignment") {
-      // if the data object is empty, return an empty array and flatten it;
-      // this is done to remove any empty {} from the final array
-      return [...convertChildren(node), emptyObj ? [] : dataObj].flat(2)
-    }
-    const element = {
-      type: "div",
-      children: convertChildren(node),
-      ...dataObj,
-    }
-    return element
+    return convertAlignmentData(node)
   }
 
   // if a div type, don't include the type in the new object (unnecessary)
