@@ -1,2 +1,2 @@
+declare const convertSlate047: (object: any) => any[];
 export default convertSlate047;
-declare function convertSlate047(object: any): any[];
