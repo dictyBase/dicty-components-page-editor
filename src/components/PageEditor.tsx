@@ -17,21 +17,19 @@ import onKeyDown from "../utils/onKeyDown"
 import convertSlate047 from "../utils/migration"
 import defaultTheme from "../styles/theme"
 
-const getInitialValue = (text: string) => {
-  return [
-    {
-      type: "paragraph",
-      children: [
-        {
-          fontFamily: "inherit",
-          fontSize: "inherit",
-          fontColor: "inherit",
-          text,
-        },
-      ],
-    },
-  ]
-}
+const initialValue = [
+  {
+    type: "paragraph",
+    children: [
+      {
+        fontFamily: "inherit",
+        fontSize: "inherit",
+        fontColor: "inherit",
+        text: "",
+      },
+    ],
+  },
+]
 
 type Props = {
   /** Page content taken from JSON */
@@ -72,19 +70,12 @@ const PageEditor = ({
     [],
   )
 
-  let defaultValue = getInitialValue("")
-  try {
-    if (pageContent) {
-      defaultValue = JSON.parse(pageContent)
-      if (!Array.isArray(defaultValue)) {
-        defaultValue = convertSlate047(defaultValue)
-      }
+  let defaultValue = initialValue
+  if (pageContent) {
+    defaultValue = JSON.parse(pageContent)
+    if (!Array.isArray(defaultValue)) {
+      defaultValue = convertSlate047(defaultValue)
     }
-  } catch (e) {
-    defaultValue = getInitialValue(
-      "There was a problem loading this data. Please contact dictyBase if the problem persists.",
-    )
-    console.error(e)
   }
 
   // store the value of the editor

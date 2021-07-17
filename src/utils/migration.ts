@@ -313,21 +313,40 @@ const flattenArr = (arr: any[]) => {
   return newarr
 }
 
+const errorValue = [
+  {
+    type: "paragraph",
+    children: [
+      {
+        fontFamily: "inherit",
+        fontSize: "inherit",
+        fontColor: "inherit",
+        text: "There was a problem loading this data. Please contact dictyBase if the problem persists.",
+      },
+    ],
+  },
+]
+
 // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
 const convertSlate047 = (object: any) => {
-  const { nodes } = object.document
-  let newNodes = []
-  // run first conversion
-  const convertedNodes = nodes.map(convertNode)
-  // if it comes back as a nested array, grab the first element
-  if (Array.isArray(convertedNodes[0])) {
-    newNodes = convertedNodes[0]
-  } else {
-    newNodes = convertedNodes
+  try {
+    const { nodes } = object.document
+    let newNodes = []
+    // run first conversion
+    const convertedNodes = nodes.map(convertNode)
+    // if it comes back as a nested array, grab the first element
+    if (Array.isArray(convertedNodes[0])) {
+      newNodes = convertedNodes[0]
+    } else {
+      newNodes = convertedNodes
+    }
+    // return flattened array
+    newNodes = flattenArr(newNodes)
+    return newNodes.flat()
+  } catch (e) {
+    console.error(e)
+    return errorValue
   }
-  // return flattened array
-  newNodes = flattenArr(newNodes)
-  return newNodes.flat()
 }
 
 export default convertSlate047
