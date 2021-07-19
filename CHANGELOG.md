@@ -1,3 +1,15 @@
+# [2.0.0](https://github.com/dictyBase/dicty-components-page-editor/compare/1.4.1...2.0.0) (2021-07-19)
+
+
+### Features
+
+* remove extra console.log ([5aae061](https://github.com/dictyBase/dicty-components-page-editor/commit/5aae06105a9ea5e4aada62a7922141d0f9363cfe))
+
+
+### BREAKING CHANGES
+
+* This is the correct major release for the new Slate editor using the 0.5x data format.
+
 ## [1.4.1](https://github.com/dictyBase/dicty-components-page-editor/compare/1.4.0...1.4.1) (2021-07-19)
 
 
