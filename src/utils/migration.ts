@@ -299,54 +299,35 @@ const convertNode = (node: any) => {
 
 // flattenArr is used to prevent any objects like
 // "0": {} to be in the array
-const flattenArr = (arr: any[]) => {
-  let newarr = [] as any[]
-  arr.forEach((item) => {
-    // check if the object is missing both mandatory fields
-    if (!item.children && !item.text) {
-      const values = Object.values(item)
-      newarr.push(values)
+const flattenArr = (array: any[]) =>
+  array.reduce((acc, val) => {
+    if (val.type === undefined) {
+      // if there is a text property then it is a text node and can be added
+      if (val.text !== undefined) {
+        acc.push(val)
+      } else {
+        const vals = Object.values(val)
+        acc.push(...flattenArr(vals))
+      }
     } else {
-      newarr.push(item)
+      acc.push({ ...val, children: flattenArr(val.children) })
     }
-  })
-  return newarr
-}
-
-const errorValue = [
-  {
-    type: "paragraph",
-    children: [
-      {
-        fontFamily: "inherit",
-        fontSize: "inherit",
-        fontColor: "inherit",
-        text: "There was a problem loading this data. Please contact dictyBase if the problem persists.",
-      },
-    ],
-  },
-]
+    return acc
+  }, [])
 
 // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
 const convertSlate047 = (object: any) => {
-  try {
-    const { nodes } = object.document
-    let newNodes = []
-    // run first conversion
-    const convertedNodes = nodes.map(convertNode)
-    // if it comes back as a nested array, grab the first element
-    if (Array.isArray(convertedNodes[0])) {
-      newNodes = convertedNodes[0]
-    } else {
-      newNodes = convertedNodes
-    }
-    // return flattened array
-    newNodes = flattenArr(newNodes)
-    return newNodes.flat()
-  } catch (e) {
-    console.error(e)
-    return errorValue
+  const { nodes } = object.document
+  let newNodes = []
+  // run first conversion
+  const convertedNodes = nodes.map(convertNode)
+  // if it comes back as a nested array, grab the first element
+  if (Array.isArray(convertedNodes[0])) {
+    newNodes = convertedNodes[0]
+  } else {
+    newNodes = convertedNodes
   }
+  return flattenArr(newNodes)
 }
 
 export default convertSlate047

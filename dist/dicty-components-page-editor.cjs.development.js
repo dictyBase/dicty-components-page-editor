@@ -3222,50 +3222,40 @@ var convertNode = function convertNode(node) {
 // "0": {} to be in the array
 
 
-var flattenArr = function flattenArr(arr) {
-  var newarr = [];
-  arr.forEach(function (item) {
-    // check if the object is missing both mandatory fields
-    if (!item.children && !item.text) {
-      var values = Object.values(item);
-      newarr.push(values);
+var flattenArr = function flattenArr(array) {
+  return array.reduce(function (acc, val) {
+    if (val.type === undefined) {
+      // if there is a text property then it is a text node and can be added
+      if (val.text !== undefined) {
+        acc.push(val);
+      } else {
+        var vals = Object.values(val);
+        acc.push.apply(acc, flattenArr(vals));
+      }
     } else {
-      newarr.push(item);
+      acc.push(_extends({}, val, {
+        children: flattenArr(val.children)
+      }));
     }
-  });
-  return newarr;
-};
 
-var errorValue = [{
-  type: "paragraph",
-  children: [{
-    fontFamily: "inherit",
-    fontSize: "inherit",
-    fontColor: "inherit",
-    text: "There was a problem loading this data. Please contact dictyBase if the problem persists."
-  }]
-}]; // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
+    return acc;
+  }, []);
+}; // convertSlate047 is used to convert a Slate 0.47 document to a Slate 0.5x document
+
 
 var convertSlate047 = function convertSlate047(object) {
-  try {
-    var nodes = object.document.nodes;
-    var newNodes = []; // run first conversion
+  var nodes = object.document.nodes;
+  var newNodes = []; // run first conversion
 
-    var convertedNodes = nodes.map(convertNode); // if it comes back as a nested array, grab the first element
+  var convertedNodes = nodes.map(convertNode); // if it comes back as a nested array, grab the first element
 
-    if (Array.isArray(convertedNodes[0])) {
-      newNodes = convertedNodes[0];
-    } else {
-      newNodes = convertedNodes;
-    } // return flattened array
-
-
-    newNodes = flattenArr(newNodes);
-    return newNodes.flat();
-  } catch (e) {
-    console.error(e);
-    return errorValue;
+  if (Array.isArray(convertedNodes[0])) {
+    newNodes = convertedNodes[0];
+  } else {
+    newNodes = convertedNodes;
   }
+
+  return flattenArr(newNodes);
 };
 
 var defaultTheme = /*#__PURE__*/styles.createMuiTheme({});
