@@ -1,3 +1,15 @@
+## [1.4.1](https://github.com/dictyBase/dicty-components-page-editor/compare/1.4.0...1.4.1) (2021-07-19)
+
+
+### Documentation
+
+* add note about versions with new data format ([90cf89b](https://github.com/dictyBase/dicty-components-page-editor/commit/90cf89bf266e4de976e257445366ad47876a8bc8))
+
+
+### BREAKING CHANGES
+
+* major release needed for new Slate data format
+
 # [1.4.0](https://github.com/dictyBase/dicty-components-page-editor/compare/1.3.1...1.4.0) (2021-07-19)
 
 
