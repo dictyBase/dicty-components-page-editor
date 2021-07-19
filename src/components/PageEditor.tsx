@@ -91,7 +91,7 @@ const PageEditor = ({
   }
 
   let toolbar = inline ? <InlineToolbar /> : <Toolbar />
-  console.log(value)
+
   return (
     <ThemeProvider theme={theme}>
       <Slate
