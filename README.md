@@ -31,11 +31,18 @@ yarn add dictyBase/dicty-components-page-editor#1.0.0
 
 ## Usage
 
-coming soon...
+Check the `example` folder for a demo app showing how to use the page editor library.
+
+The demo app can also be started by running `yarn demo`.
 
 ### Props
 
-coming soon...
+- `pageContent` (string) - fetched page content _(optional)_
+- `readOnly` (boolean) - determines if editor is in read-only mode
+- `handleSave` (function) - called when user clicks the save button
+- `handleCancel` (function) - called when user clicks the cancel button
+- `inline` (boolean) - used to display a smaller toolbar for inline editing _(optional)_
+- `theme` (Material-UI theme) - any custom MUI theme _(optional)_
 
 ## Development
 
