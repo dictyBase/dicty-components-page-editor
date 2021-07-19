@@ -26,8 +26,10 @@ To install a specific version, add a tag to the end. You can see the latest rele
 the right side of this repository page.
 
 ```bash
-yarn add dictyBase/dicty-components-page-editor#1.0.0
+yarn add dictyBase/dicty-components-page-editor#2.0.0
 ```
+
+Note that any version from `1.4.0` on up uses the new Slate 0.5x data format.
 
 ## Usage
 
