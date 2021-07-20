@@ -14,7 +14,6 @@ import withLists from "../plugins/withLists"
 import withMedia from "../plugins/withMedia"
 import withNormalize from "../plugins/withNormalize"
 import onKeyDown from "../utils/onKeyDown"
-import convertSlate047 from "../utils/migration"
 import defaultTheme from "../styles/theme"
 
 const initialValue = [
@@ -73,9 +72,6 @@ const PageEditor = ({
   let defaultValue = initialValue
   if (pageContent) {
     defaultValue = JSON.parse(pageContent)
-    if (!Array.isArray(defaultValue)) {
-      defaultValue = convertSlate047(defaultValue)
-    }
   }
 
   // store the value of the editor
