@@ -29,7 +29,8 @@ the right side of this repository page.
 yarn add dictyBase/dicty-components-page-editor#2.0.0
 ```
 
-Note that any version from `1.4.0` on up uses the new Slate 0.5x data format.
+Note that any version from `1.4.0` on up uses the new Slate 0.5x data format. Versions `3.0.0` and up do not have
+a data migration script bundled with the library.
 
 ## Usage
 
