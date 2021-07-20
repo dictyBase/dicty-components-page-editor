@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/dictyBase/dicty-components-page-editor/compare/2.0.0...3.0.0) (2021-07-20)
+
+
+### Features
+
+* remove data migration script ([43aed3d](https://github.com/dictyBase/dicty-components-page-editor/commit/43aed3db61f87dea9ce52ca1d705cfa01c97d411))
+
+
+### BREAKING CHANGES
+
+* Slate 0.47 data is no longer converted on the fly.
+
 # [2.0.0](https://github.com/dictyBase/dicty-components-page-editor/compare/1.4.1...2.0.0) (2021-07-19)
 
 
