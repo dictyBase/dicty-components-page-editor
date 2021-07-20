@@ -1,6 +1,6 @@
 {
   "name": "dicty-components-page-editor",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "dictyBase page editor built using Slatejs",
   "author": "wildlifehexagon",
   "module": "dist/dicty-components-page-editor.esm.js",
