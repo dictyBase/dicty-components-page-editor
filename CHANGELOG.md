@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/dictyBase/dicty-components-page-editor/compare/3.1.1...3.1.2) (2021-07-21)
+
+
+### Bug Fixes
+
+* use sticky appbar ([d232979](https://github.com/dictyBase/dicty-components-page-editor/commit/d232979eda01d7ecf81de1399d2e3944594a7523))
+
 ## [3.1.1](https://github.com/dictyBase/dicty-components-page-editor/compare/3.1.0...3.1.1) (2021-07-21)
 
 
