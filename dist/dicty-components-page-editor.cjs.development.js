@@ -2096,8 +2096,6 @@ var useStyles$7 = /*#__PURE__*/styles.makeStyles(function (theme) {
       marginBottom: theme.spacing(1)
     },
     toolbar: {
-      position: "sticky",
-      top: 0,
       cursor: "default"
     },
     divider: {
@@ -2144,7 +2142,7 @@ var EditorToolbar = function EditorToolbar() {
   var classes = useStyles$7();
   return React__default.createElement(AppBar, {
     color: "default",
-    position: "static",
+    position: "sticky",
     className: classes.container
   }, React__default.createElement(Toolbar, {
     disableGutters: true,
