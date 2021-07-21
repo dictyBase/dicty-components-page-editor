@@ -2280,7 +2280,7 @@ var InlineToolbar = function InlineToolbar() {
     icon: React.createElement(SuperscriptIcon, null)
   }), React.createElement(LinkButton, {
     icon: React.createElement(LinkIcon, null)
-  }), React.createElement(AutolinkIDsButton, null), React.createElement(ScientificSymbolsButton, null)))));
+  }), React.createElement(AutolinkIDsButton, null), React.createElement(ScientificSymbolsButton, null), React.createElement(FontColorButton, null)))));
 };
 
 var useStyles$9 = /*#__PURE__*/makeStyles(function () {
