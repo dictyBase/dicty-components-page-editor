@@ -4,21 +4,17 @@ import { useSlate } from "slate-react"
 import Menu from "@material-ui/core/Menu"
 import IconButton from "@material-ui/core/IconButton"
 import Tooltip from "@material-ui/core/Tooltip"
+import FontColorIcon from "../icons/FontColorIcon"
 import ColorPicker from "../dropdowns/ColorPicker"
 import useAnchorElement from "../../hooks/useAnchorElement"
 import getCurrentMark from "../../utils/getCurrentMark"
 import { attributes } from "../../constants/types"
 
-type Props = {
-  /** Icon to display in button */
-  icon: JSX.Element
-}
-
 /**
  * FontColorButton displays a button with associated click logic for selecting
  * a font color.
  */
-const FontColorButton = ({ icon }: Props) => {
+const FontColorButton = () => {
   const editor = useSlate()
   const { anchorEl, handleClose, handleMouseDown } = useAnchorElement()
 
@@ -35,7 +31,7 @@ const FontColorButton = ({ icon }: Props) => {
           aria-label="font color"
           aria-haspopup="true"
           onMouseDown={handleMouseDown}>
-          {icon}
+          <FontColorIcon />
         </IconButton>
       </Tooltip>
       <Menu

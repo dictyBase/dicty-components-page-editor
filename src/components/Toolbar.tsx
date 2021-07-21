@@ -42,7 +42,6 @@ import AlignRightIcon from "./icons/AlignRightIcon"
 import AlignJustifyIcon from "./icons/AlignJustifyIcon"
 // dropdowns
 import Dropdown from "./dropdowns/Dropdown"
-import FontColorIcon from "./icons/FontColorIcon"
 // utils
 import { FontFamilyList, FontSizeList } from "../utils/dropdownValues"
 // types
@@ -159,7 +158,7 @@ const EditorToolbar = () => {
             <ImageButton icon={<ImageIcon />} />
             <VideoButton icon={<VideoIcon />} />
             <Separator />
-            <FontColorButton icon={<FontColorIcon />} />
+            <FontColorButton />
             <ScientificSymbolsButton />
             <Dropdown
               mark="fontFamily"

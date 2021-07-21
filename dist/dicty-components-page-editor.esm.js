@@ -16,8 +16,8 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
-import { HexColorPicker, HexColorInput } from 'react-colorful';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import { HexColorPicker, HexColorInput } from 'react-colorful';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import Popper from '@material-ui/core/Popper';
@@ -620,6 +620,12 @@ var AutolinkIDsButton = function AutolinkIDsButton() {
   })));
 };
 
+var FontColorIcon = function FontColorIcon() {
+  return React.createElement(SvgIcon, null, React.createElement("path", {
+    d: "M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"
+  }));
+};
+
 var getPresetColors = function getPresetColors(theme) {
   var palette = theme.palette;
   return [palette.primary.main, palette.secondary.main, palette.error.main, palette.warning.main, palette.info.main, palette.success.main];
@@ -712,8 +718,7 @@ var getCurrentMark = function getCurrentMark(editor, mark) {
  * a font color.
  */
 
-var FontColorButton = function FontColorButton(_ref) {
-  var icon = _ref.icon;
+var FontColorButton = function FontColorButton() {
   var editor = useSlate();
 
   var _useAnchorElement = useAnchorElement(),
@@ -733,7 +738,7 @@ var FontColorButton = function FontColorButton(_ref) {
     "aria-label": "font color",
     "aria-haspopup": "true",
     onMouseDown: handleMouseDown
-  }, icon)), React.createElement(Menu, {
+  }, React.createElement(FontColorIcon, null))), React.createElement(Menu, {
     id: "font-color-menu",
     anchorEl: anchorEl,
     keepMounted: true,
@@ -1520,12 +1525,6 @@ var Dropdown = function Dropdown(_ref) {
   })));
 };
 
-var FontColorIcon = function FontColorIcon() {
-  return React.createElement(SvgIcon, null, React.createElement("path", {
-    d: "M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"
-  }));
-};
-
 /**
  * toggleList toggles the given selection as a list type.
  */
@@ -2218,9 +2217,7 @@ var EditorToolbar = function EditorToolbar() {
     icon: React.createElement(ImageIcon, null)
   }), React.createElement(VideoButton, {
     icon: React.createElement(VideoIcon, null)
-  }), React.createElement(Separator, null), React.createElement(FontColorButton, {
-    icon: React.createElement(FontColorIcon, null)
-  }), React.createElement(ScientificSymbolsButton, null), React.createElement(Dropdown, {
+  }), React.createElement(Separator, null), React.createElement(FontColorButton, null), React.createElement(ScientificSymbolsButton, null), React.createElement(Dropdown, {
     mark: "fontFamily",
     defaultValue: "Roboto",
     values: FontFamilyList
