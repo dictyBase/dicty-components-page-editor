@@ -1,3 +1,10 @@
+## [3.1.1](https://github.com/dictyBase/dicty-components-page-editor/compare/3.1.0...3.1.1) (2021-07-21)
+
+
+### Bug Fixes
+
+* add new node after table wrap, fixes [#852](https://github.com/dictyBase/dicty-components-page-editor/issues/852) ([6d92430](https://github.com/dictyBase/dicty-components-page-editor/commit/6d92430b0a2419c393192081319aade6861615a2))
+
 # [3.1.0](https://github.com/dictyBase/dicty-components-page-editor/compare/3.0.0...3.1.0) (2021-07-21)
 
 
