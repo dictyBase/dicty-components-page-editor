@@ -23,8 +23,8 @@ var DialogContent = _interopDefault(require('@material-ui/core/DialogContent'));
 var DialogTitle = _interopDefault(require('@material-ui/core/DialogTitle'));
 var Menu = _interopDefault(require('@material-ui/core/Menu'));
 var MenuItem = _interopDefault(require('@material-ui/core/MenuItem'));
-var reactColorful = require('react-colorful');
 var SvgIcon = _interopDefault(require('@material-ui/core/SvgIcon'));
+var reactColorful = require('react-colorful');
 var FormControlLabel = _interopDefault(require('@material-ui/core/FormControlLabel'));
 var Checkbox = _interopDefault(require('@material-ui/core/Checkbox'));
 var Popper = _interopDefault(require('@material-ui/core/Popper'));
@@ -627,6 +627,12 @@ var AutolinkIDsButton = function AutolinkIDsButton() {
   })));
 };
 
+var FontColorIcon = function FontColorIcon() {
+  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
+    d: "M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"
+  }));
+};
+
 var getPresetColors = function getPresetColors(theme) {
   var palette = theme.palette;
   return [palette.primary.main, palette.secondary.main, palette.error.main, palette.warning.main, palette.info.main, palette.success.main];
@@ -719,8 +725,7 @@ var getCurrentMark = function getCurrentMark(editor, mark) {
  * a font color.
  */
 
-var FontColorButton = function FontColorButton(_ref) {
-  var icon = _ref.icon;
+var FontColorButton = function FontColorButton() {
   var editor = slateReact.useSlate();
 
   var _useAnchorElement = useAnchorElement(),
@@ -740,7 +745,7 @@ var FontColorButton = function FontColorButton(_ref) {
     "aria-label": "font color",
     "aria-haspopup": "true",
     onMouseDown: handleMouseDown
-  }, icon)), React__default.createElement(Menu, {
+  }, React__default.createElement(FontColorIcon, null))), React__default.createElement(Menu, {
     id: "font-color-menu",
     anchorEl: anchorEl,
     keepMounted: true,
@@ -1527,12 +1532,6 @@ var Dropdown = function Dropdown(_ref) {
   })));
 };
 
-var FontColorIcon = function FontColorIcon() {
-  return React__default.createElement(SvgIcon, null, React__default.createElement("path", {
-    d: "M2,20h20v4H2V20z M5.49,17h2.42l1.27-3.58h5.65L16.09,17h2.42L13.25,3h-2.5L5.49,17z M9.91,11.39l2.03-5.79h0.12l2.03,5.79 H9.91z"
-  }));
-};
-
 /**
  * toggleList toggles the given selection as a list type.
  */
@@ -2225,9 +2224,7 @@ var EditorToolbar = function EditorToolbar() {
     icon: React__default.createElement(ImageIcon, null)
   }), React__default.createElement(VideoButton, {
     icon: React__default.createElement(VideoIcon, null)
-  }), React__default.createElement(Separator, null), React__default.createElement(FontColorButton, {
-    icon: React__default.createElement(FontColorIcon, null)
-  }), React__default.createElement(ScientificSymbolsButton, null), React__default.createElement(Dropdown, {
+  }), React__default.createElement(Separator, null), React__default.createElement(FontColorButton, null), React__default.createElement(ScientificSymbolsButton, null), React__default.createElement(Dropdown, {
     mark: "fontFamily",
     defaultValue: "Roboto",
     values: FontFamilyList
