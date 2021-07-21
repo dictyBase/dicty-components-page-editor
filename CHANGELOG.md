@@ -1,3 +1,15 @@
+# [3.1.0](https://github.com/dictyBase/dicty-components-page-editor/compare/3.0.0...3.1.0) (2021-07-21)
+
+
+### Bug Fixes
+
+* replace default 100% image width/height, fixes [#870](https://github.com/dictyBase/dicty-components-page-editor/issues/870) ([e012f43](https://github.com/dictyBase/dicty-components-page-editor/commit/e012f434e628b4e73bb1e3e0ae961ac0176feb42))
+
+
+### Features
+
+* add font color button to inline toolbar ([fb16ac7](https://github.com/dictyBase/dicty-components-page-editor/commit/fb16ac72eb80b8da348464bd19fc870c22043e75))
+
 # [3.0.0](https://github.com/dictyBase/dicty-components-page-editor/compare/2.0.0...3.0.0) (2021-07-20)
 
 
