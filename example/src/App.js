@@ -2,6 +2,7 @@ import React from "react"
 import { PageEditor } from "dicty-components-page-editor"
 import Container from "@material-ui/core/Container"
 import Box from "@material-ui/core/Box"
+import { Typography } from "@material-ui/core"
 
 const initialValue = [
   {
@@ -33,6 +34,16 @@ const App = () => {
         <PageEditor
           pageContent={JSON.stringify(initialValue)}
           readOnly={false}
+        />
+      </Box>
+      <Box mt={6}>
+        <Typography variant="h4" gutterBottom>
+          Inline Toolbar Example
+        </Typography>
+        <PageEditor
+          pageContent={JSON.stringify(initialValue)}
+          readOnly={false}
+          inline
         />
       </Box>
     </Container>
