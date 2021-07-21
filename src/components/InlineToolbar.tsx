@@ -7,6 +7,7 @@ import MarkButton from "./buttons/MarkButton"
 import LinkButton from "./buttons/LinkButton"
 import AutolinkIDsButton from "./buttons/AutolinkIDsButton"
 import ScientificSymbolsButton from "./buttons/ScientificSymbolsButton"
+import FontColorButton from "./buttons/FontColorButton"
 import BoldIcon from "./icons/BoldIcon"
 import ItalicIcon from "./icons/ItalicIcon"
 import StrikethroughIcon from "./icons/StrikethroughIcon"
@@ -50,6 +51,7 @@ const InlineToolbar = () => {
             <LinkButton icon={<LinkIcon />} />
             <AutolinkIDsButton />
             <ScientificSymbolsButton />
+            <FontColorButton />
           </Grid>
         </Grid>
       </Toolbar>
