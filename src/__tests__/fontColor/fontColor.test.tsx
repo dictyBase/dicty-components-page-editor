@@ -4,7 +4,6 @@ import userEvent from "@testing-library/user-event"
 import * as SlateReact from "slate-react"
 import { CustomEditor } from "../../types/editor"
 import FontColorButton from "../../components/buttons/FontColorButton"
-import FontColorIcon from "../../components/icons/FontColorIcon"
 import { input, output } from "./fontColor.fixture"
 
 describe("font color", () => {
@@ -13,7 +12,7 @@ describe("font color", () => {
 
     jest.spyOn(SlateReact, "useSlate").mockReturnValue(editor as CustomEditor)
 
-    render(<FontColorButton icon={<FontColorIcon />} />)
+    render(<FontColorButton />)
 
     const button = screen.getByLabelText("font color")
     userEvent.click(button)
