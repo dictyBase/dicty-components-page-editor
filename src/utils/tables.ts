@@ -27,23 +27,25 @@ const getEmptyTableRow = (count: number) => ({
     .map(() => getEmptyTableCell()),
 })
 
-const getEmptyTable = (row: number, col: number) => ({
-  type: types.tableWrap,
-  children: [
-    {
-      type: types.table,
-      row,
-      col,
-      children: Array(row)
-        .fill(" ")
-        .map(() => getEmptyTableRow(col)),
-    },
-    {
-      type: types.paragraph,
-      children: [{ text: "" }],
-    },
-  ],
-})
+const getEmptyTable = (row: number, col: number) => [
+  {
+    type: types.tableWrap,
+    children: [
+      {
+        type: types.table,
+        row,
+        col,
+        children: Array(row)
+          .fill(" ")
+          .map(() => getEmptyTableRow(col)),
+      },
+    ],
+  },
+  {
+    type: types.paragraph,
+    children: [{ text: "" }],
+  },
+]
 
 const insertTable = (editor: Editor) => {
   if (!isBlockActive(editor, "type", types.table)) {

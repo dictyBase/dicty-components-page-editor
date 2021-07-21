@@ -1804,7 +1804,7 @@ var getEmptyTableRow = function getEmptyTableRow(count) {
 };
 
 var getEmptyTable = function getEmptyTable(row, col) {
-  return {
+  return [{
     type: types.tableWrap,
     children: [{
       type: types.table,
@@ -1813,13 +1813,13 @@ var getEmptyTable = function getEmptyTable(row, col) {
       children: Array(row).fill(" ").map(function () {
         return getEmptyTableRow(col);
       })
-    }, {
-      type: types.paragraph,
-      children: [{
-        text: ""
-      }]
     }]
-  };
+  }, {
+    type: types.paragraph,
+    children: [{
+      text: ""
+    }]
+  }];
 };
 
 var insertTable = function insertTable(editor) {
