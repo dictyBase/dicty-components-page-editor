@@ -2333,8 +2333,8 @@ var Image = function Image(_ref) {
   var img = React__default.createElement("img", {
     src: url,
     alt: description,
-    height: height || "100%",
-    width: width || "100%",
+    height: height || "auto",
+    width: width || "auto",
     className: classes.media
   });
   return React__default.createElement("div", Object.assign({

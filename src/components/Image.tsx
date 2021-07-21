@@ -21,8 +21,8 @@ const Image = ({ attributes, element, children }: Props) => {
     <img
       src={url}
       alt={description}
-      height={height || "100%"}
-      width={width || "100%"}
+      height={height || "auto"}
+      width={width || "auto"}
       className={classes.media}
     />
   )
