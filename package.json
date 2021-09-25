@@ -43,7 +43,7 @@
     "slate": "0.66.1",
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.62.0",
-    "slate-react": "0.66.1"
+    "slate-react": "0.66.2"
   },
   "peerDependencies": {
     "@material-ui/core": ">=4.0.0",
