@@ -1291,10 +1291,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/lato/-/lato-4.5.0.tgz#c248b083be330daafade76995fed9088d5b76c04"
   integrity sha512-Y1qluoF+5b2U6MWcEz70+euZwl4TEV+9v7nZCmuRgNHb5McYc3VmbNmYNEiLsnb1HHwlAHA70P/LktP9EJ61ag==
 
-"@fontsource/merriweather@^4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/merriweather/-/merriweather-4.5.1.tgz#f082e0e1ea92b39f16191ce05834123cdbfce741"
-  integrity sha512-6tkVHWgoq9wOZXLBOdyK5l/iWDi5Wsq4CL6yJNTUyTr/652j4UjlhIt2WLJAW94Mx3ObHNCA6Mv+CeoKKVmlig==
+"@fontsource/merriweather@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@fontsource/merriweather/-/merriweather-4.5.2.tgz#be7add7e819ce11c6d78a427783d083090a60cd1"
+  integrity sha512-JPFCvxPOvsguG2oE5eN8yNqXv1zNYQPuhZ5fQdetOcCdrH7dUM48mOIq4A+K+epM5SMRlLkP9ziEh4nnS35LtQ==
 
 "@fontsource/montserrat@^4.5.1":
   version "4.5.1"
