@@ -1306,10 +1306,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-4.5.0.tgz#5caaf7fcfaeee942b0a7886f78834a4c5f7372bd"
   integrity sha512-P5On1DdWxWvBHC0kfinxGWOHveAS3wEHKpgfBidl6mzJI/nJyzcPxf5p5k0oT6uY0WzUCPPfsfgCmKMMULAXGg==
 
-"@fontsource/roboto-mono@^4.4.2":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-mono/-/roboto-mono-4.5.0.tgz#27e44fbb1d86a9ef14501493a37eef1d73e60d02"
-  integrity sha512-/6Gm6fJjBHZiFNyvzIKGJkVuyifoc1aoTel+pkzdhxNh7yNhFyokCoChdbbqZEpGKpqs5uld74G5TJthUVFyjw==
+"@fontsource/roboto-mono@^4.5.2":
+  version "4.5.2"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-mono/-/roboto-mono-4.5.2.tgz#3462d720b7ba0530358dd748545523a711c7428a"
+  integrity sha512-MoWKypBXIyZMnvExDTmaRWJSBNLQvKNaWAk2rAwXCNP5AtIa7mzawx9Yfl1LxCY/kVjhMZHPPKtt75CNQQHzQA==
 
 "@fontsource/roboto-slab@^4.5.1":
   version "4.5.1"
