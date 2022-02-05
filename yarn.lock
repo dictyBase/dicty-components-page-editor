@@ -1316,10 +1316,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/roboto-slab/-/roboto-slab-4.5.1.tgz#6568022e2f4d356ad64dc865bfa4dd4e3702bcfa"
   integrity sha512-SE7R7QZNtzGfJbh8xdA8JDsTOQKJyY5EcndDssOw5tmnoxac/N2TSQSGv8GXMexhV90pQe+OoHTBVDVycdTlLg==
 
-"@fontsource/roboto@^4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.1.tgz#63f7b783f755d8f6727eb60198627e7e1be3ac20"
-  integrity sha512-3mhfL+eNPG/woMNqwD/OHaW5qMpeGEBsDwzmhFmjB1yUV+M+M9P0NhP/AyHvnGz3DrqkvZ7CPzNMa+UkVLeELg==
+"@fontsource/roboto@^4.5.3":
+  version "4.5.3"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.3.tgz#c729ac22c35ae1c224cde10042ce7ab356bc4dda"
+  integrity sha512-NUvBTj332dFRdiVkLlavXbDGoD2zyyeGYmMyrXOnctg/3e4pq95+rJgNfUP+k4v8UBk2L1aomGw9dDjbRdAmTg==
 
 "@hapi/address@2.x.x":
   version "2.1.4"
