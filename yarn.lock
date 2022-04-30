@@ -1301,10 +1301,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-4.5.1.tgz#64a33ffdb77bbc63484c0321710bed272cc5b16f"
   integrity sha512-xdMkzsnFlzDt5Vj9+AWuUp4Vd9F3hYN2I0GTZZYscWN/bQ20wVOGtdWLO8Okfv7SZ9t/z39/EayAAt+f/8tAvw==
 
-"@fontsource/roboto-condensed@^4.4.2":
-  version "4.5.0"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-4.5.0.tgz#5caaf7fcfaeee942b0a7886f78834a4c5f7372bd"
-  integrity sha512-P5On1DdWxWvBHC0kfinxGWOHveAS3wEHKpgfBidl6mzJI/nJyzcPxf5p5k0oT6uY0WzUCPPfsfgCmKMMULAXGg==
+"@fontsource/roboto-condensed@^4.5.8":
+  version "4.5.8"
+  resolved "https://registry.yarnpkg.com/@fontsource/roboto-condensed/-/roboto-condensed-4.5.8.tgz#9dff693f5287070f74c199a324e9f1b044cd807b"
+  integrity sha512-HCuf1rVSOsXnl/KgHNRLCr8XS/Dunzn10BjhliJiEZ5qPynXCWH4RRBFupIODHamhj2Uyp/iZkSQp574luKp6A==
 
 "@fontsource/roboto-mono@^4.4.2":
   version "4.5.0"
