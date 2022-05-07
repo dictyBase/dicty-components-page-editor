@@ -1296,10 +1296,10 @@
   resolved "https://registry.yarnpkg.com/@fontsource/merriweather/-/merriweather-4.5.1.tgz#f082e0e1ea92b39f16191ce05834123cdbfce741"
   integrity sha512-6tkVHWgoq9wOZXLBOdyK5l/iWDi5Wsq4CL6yJNTUyTr/652j4UjlhIt2WLJAW94Mx3ObHNCA6Mv+CeoKKVmlig==
 
-"@fontsource/montserrat@^4.5.1":
-  version "4.5.1"
-  resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-4.5.1.tgz#64a33ffdb77bbc63484c0321710bed272cc5b16f"
-  integrity sha512-xdMkzsnFlzDt5Vj9+AWuUp4Vd9F3hYN2I0GTZZYscWN/bQ20wVOGtdWLO8Okfv7SZ9t/z39/EayAAt+f/8tAvw==
+"@fontsource/montserrat@^4.5.10":
+  version "4.5.10"
+  resolved "https://registry.yarnpkg.com/@fontsource/montserrat/-/montserrat-4.5.10.tgz#0dc94425c575c785c2ac92d244c543bfbb005080"
+  integrity sha512-JXe9wURwLFtPfrD3yYnfvue/Uv2L1iSEor4w6M5CcGO4iWSoaFgk7BPLUwksGD7ChKpGKpaNNLUt67VlCu2A1g==
 
 "@fontsource/roboto-condensed@^4.4.2":
   version "4.5.0"
