@@ -39,7 +39,7 @@
     "@fontsource/roboto-condensed": "^4.4.2",
     "@fontsource/roboto-mono": "^4.4.2",
     "@fontsource/roboto-slab": "^4.5.1",
-    "react-colorful": "^5.5.0",
+    "react-colorful": "^5.6.1",
     "slate": "0.66.2",
     "slate-history": "0.66.0",
     "slate-hyperscript": "0.66.0",
