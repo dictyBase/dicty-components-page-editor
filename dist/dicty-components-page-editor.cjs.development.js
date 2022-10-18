@@ -2896,7 +2896,7 @@ var onKeyDown = function onKeyDown(event, editor) {
   }
 };
 
-var defaultTheme = /*#__PURE__*/styles.createMuiTheme({});
+var defaultTheme = /*#__PURE__*/styles.createTheme({});
 
 var initialValue = [{
   type: "paragraph",
